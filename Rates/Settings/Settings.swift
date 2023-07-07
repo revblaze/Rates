@@ -43,12 +43,14 @@ struct Settings {
   static func saveValue(_ value: String, forKey: Keys) {
     defaults.set(value, forKey: forKey.rawValue)
   }
-  
+  /// Returns the default value for any given UserDefaults key
+  static func getDefaultValue(_ forKey: Keys) -> String {
+    return forKey.defaultValue
+  }
   /// Reverts to the default value of the given UserDefaults key
   static func setDefaultValue(_ forKey: Keys) {
     defaults.set(forKey.defaultValue, forKey: forKey.rawValue)
   }
-  
   /// Restore all values to their default state
   static func restoreAllDefaults() {
     for key in Keys.allCases {
