@@ -31,14 +31,14 @@ class ViewController: NSViewController {
         
         // Clean up CSV file
         let parseCsv = ParseCSV()
-        try await parseCsv.clean(at: fileURL)
+        try parseCsv.clean(at: fileURL)
         print("Lines deleted successfully.")
         
         // Remove duplicate columns
-        await parseCsv.removeDuplicateColumns(fileURL: fileURL)
+        parseCsv.removeDuplicateColumns(fileURL: fileURL)
         
         // Convert to SQLite db
-        if let sqliteFileURL = await parseCsv.convertCSVtoSQLite(fileURL: fileURL) {
+        if let sqliteFileURL = parseCsv.convertCSVtoSQLite(fileURL: fileURL) {
           print("SQLite file URL: \(sqliteFileURL)")
           // Update UI or perform any other necessary operations
         } else {
