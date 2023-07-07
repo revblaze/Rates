@@ -11,6 +11,7 @@ let defaults = UserDefaults.standard
 
 // MARK: Keys
 enum Keys: String, CaseIterable {
+  case lastExchangeDate
   case exchangeRatesUrl
   case customExchangeRatesUrl
   case appHasLaunchedBefore
@@ -18,6 +19,7 @@ enum Keys: String, CaseIterable {
   /// The default value for a given UserDefaults key
   var defaultValue: Any {
     switch self {
+    case .lastExchangeDate: return "2010"
     case .exchangeRatesUrl: return "https://www.bis.org/statistics/full_xru_d_csv_row.zip"
     case .customExchangeRatesUrl: return ""
     case .appHasLaunchedBefore: return false
