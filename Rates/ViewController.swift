@@ -22,30 +22,32 @@ class ViewController: NSViewController {
   }
   
   func beginDataDownloadSession() {
-    
-    Task {
-      // Create an instance of DownloadManagerSession
-      let session = DownloadManagerSession()
-      
+    Task.detached {
       do {
-        // Call the getExchangeRateData function using await
-        let result = try await session.getExchangeRateData()
-        // Handle the result
-        print("Downloaded file URL: \(result)")
+        // Create an instance of DownloadManagerSession and get the downloaded file URL
+        let session = DownloadManagerSession()
+        let fileURL = try await session.getExchangeRateData()
+        print("Downloaded file URL: \(fileURL)")
         
-        do {
-          let parseCsv = ParseCSV()
-          let fileURL = result
-          try parseCsv.clean(at: fileURL)
-          print("Lines deleted successfully.")
-        } catch {
-          print("Error editing CSV file: \(error)")
+        // Clean up CSV file
+        let parseCsv = ParseCSV()
+        try parseCsv.clean(at: fileURL)
+        print("Lines deleted successfully.")
+        
+        // Remove duplicate columns
+        parseCsv.removeDuplicateColumns(fileURL: fileURL)
+        
+        // Convert to SQLite db
+        if let sqliteFileURL = parseCsv.convertCSVtoSQLite(fileURL: fileURL) {
+          print("SQLite file URL: \(sqliteFileURL)")
+          // Update UI or perform any other necessary operations
+        } else {
+          print("Conversion failed.")
+          // Update UI or perform any other necessary operations
         }
-        
-        
       } catch {
-        // Handle errors
-        print("Download failed: \(error)")
+        print("Error: \(error)")
+        // Update UI or perform any other necessary operations
       }
     }
   }
