@@ -16,13 +16,21 @@ class DownloadManagerSession {
       throw DownloadError.invalidURL
     }
     
+    do {
+      return try await downloadExchangeRateData(downloadManager: downloadManager, url: url)
+    } catch {
+      print("Download failed: \(error.localizedDescription)")
+      removeAllFilesInDocumentDirectory()
+      return try await downloadExchangeRateData(downloadManager: downloadManager, url: url)
+    }
+  }
+  
+  private func downloadExchangeRateData(downloadManager: DownloadManager, url: URL) async throws -> URL {
     return try await withCheckedThrowingContinuation { continuation in
       downloadManager.downloadFile(from: url) { (localURL, error) in
         if let error = error {
-          print("Download failed: \(error.localizedDescription)")
           continuation.resume(throwing: error)
         } else if let localURL = localURL {
-          // Access the downloaded file at localURL
           print("File downloaded successfully. Local URL: \(localURL)")
           
           let fileExtension = localURL.pathExtension.lowercased()
@@ -77,6 +85,23 @@ class DownloadManagerSession {
     }
     
     return nil
+  }
+  
+  func removeAllFilesInDocumentDirectory() {
+    let fileManager = FileManager.default
+    let documentDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    
+    do {
+      let fileURLs = try fileManager.contentsOfDirectory(at: documentDirectoryURL, includingPropertiesForKeys: nil, options: [])
+      
+      for fileURL in fileURLs {
+        try fileManager.removeItem(at: fileURL)
+      }
+      
+      print("All files in the document directory removed successfully.")
+    } catch {
+      print("Failed to remove files in the document directory: \(error.localizedDescription)")
+    }
   }
   
   enum DownloadError: Error {
