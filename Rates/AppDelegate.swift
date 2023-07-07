@@ -15,6 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     // Insert code here to initialize your application
+    let downloadManager = DownloadManager()
+    downloadManager.removeAllFilesInDocumentDirectory()
   }
   
   func applicationWillTerminate(_ aNotification: Notification) {
