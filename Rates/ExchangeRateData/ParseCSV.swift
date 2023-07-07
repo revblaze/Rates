@@ -73,4 +73,62 @@ class ParseCSV {
     try updatedContents.write(to: fileURL, atomically: true, encoding: .utf8)
   }
   
+  func removeDuplicateColumns(fileURL: URL) {
+    do {
+      // Read the content of the CSV file
+      let fileContent = try String(contentsOf: fileURL, encoding: .utf8)
+      
+      // Split the file content into lines
+      var lines = fileContent.components(separatedBy: .newlines)
+      
+      // Extract the header row
+      guard let headerRow = lines.first else {
+        print("Empty file")
+        return
+      }
+      
+      // Split the header row into columns
+      var headers = headerRow.components(separatedBy: ",")
+      
+      // Track the duplicate header names
+      var duplicateColumns = Set<String>()
+      
+      // Iterate through the header columns
+      var columnIndicesToRemove = [Int]()
+      for (index, header) in headers.enumerated() {
+        if duplicateColumns.contains(header) {
+          // Mark the duplicate header column index for removal
+          columnIndicesToRemove.append(index)
+        } else {
+          duplicateColumns.insert(header)
+        }
+      }
+      
+      // Remove the duplicate header columns and corresponding data
+      columnIndicesToRemove.reversed().forEach { indexToRemove in
+        headers.remove(at: indexToRemove)
+        lines = lines.map { line in
+          var columns = line.components(separatedBy: ",")
+          
+          if indexToRemove < columns.count {
+            columns.remove(at: indexToRemove)
+          }
+          
+          return columns.joined(separator: ",")
+        }
+      }
+      
+      // Generate the new CSV content without duplicate columns
+      let newContent = headers.joined(separator: ",") + "\n" + lines.joined(separator: "\n")
+      
+      // Write the updated content back to the file
+      try newContent.write(to: fileURL, atomically: true, encoding: .utf8)
+      
+      print("Duplicate columns and corresponding data removed successfully.")
+      
+    } catch {
+      print("Error reading the file: \(error.localizedDescription)")
+    }
+  }
+  
 }
