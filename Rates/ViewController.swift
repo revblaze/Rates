@@ -9,8 +9,6 @@ import Cocoa
 
 class ViewController: NSViewController {
   
-  var downloadedFileUrl: URL?
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -20,12 +18,25 @@ class ViewController: NSViewController {
   override func viewDidAppear() {
     
     beginDataDownloadSession()
+    
   }
   
   func beginDataDownloadSession() {
-    let session = DownloadManagerSession()
     
-    //if let session.getExchangeRateData(fromUrlString: Settings.defaultExchangeRatesUrlString)
+    Task {
+      // Create an instance of DownloadManagerSession
+      let session = DownloadManagerSession()
+      
+      do {
+        // Call the getExchangeRateData function using await
+        let result = try await session.getExchangeRateData()
+        // Handle the result
+        print("Downloaded file URL: \(result)")
+      } catch {
+        // Handle errors
+        print("Download failed: \(error)")
+      }
+    }
   }
   
   
