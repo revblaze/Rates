@@ -7,11 +7,11 @@
 
 import Foundation
 import SwiftCSV
-import SQLite
+import SQLite3
 
 class ParseCSV {
   
-  func clean(at fileURL: URL) throws {
+  func clean(at fileURL: URL, cutOffDate: String = "2016-01-01") throws {
     // Read the file contents
     let fileContents = try String(contentsOf: fileURL)
     
@@ -40,16 +40,30 @@ class ParseCSV {
       var currencyLine = lines[currencyIndex]
       let components = currencyLine.components(separatedBy: ",")
       let modifiedArray = components.map { element -> String in
-          let modifiedElement = element.replacingOccurrences(of: ":.*?\"", with: "\"", options: .regularExpression)
-          return modifiedElement
+        let modifiedElement = element.replacingOccurrences(of: ":.*?\"", with: "\"", options: .regularExpression)
+        return modifiedElement
       }
       
       let combinedString = modifiedArray.joined(separator: ",")
       
       currencyLine = combinedString
-
+      
       // Replace the original line with the updated line
       lines[currencyIndex] = currencyLine
+    }
+    
+    // Reverse lines from the second line to the last line
+    if lines.count > 1 {
+      let startIndex = 1
+      let endIndex = lines.count - 1
+      let reversedLines = Array(lines[startIndex...endIndex].reversed())
+      lines.replaceSubrange(startIndex...endIndex, with: reversedLines)
+    }
+    
+    // Find the index of the first row containing the cutOffDate substring
+    if let rowIndex = lines.firstIndex(where: { $0.contains(cutOffDate) }) {
+      // Remove rows below rowIndex (including rowIndex)
+      lines.removeSubrange((rowIndex + 1)...)
     }
     
     // Reconstruct the updated contents
