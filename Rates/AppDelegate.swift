@@ -20,6 +20,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationWillTerminate(_ aNotification: Notification) {
     // Insert code here to tear down your application
     Settings.onAppClose()
+    
+    let downloadManager = DownloadManager()
+    downloadManager.removeAllFilesInDocumentDirectory()
   }
   
   func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
