@@ -15,6 +15,34 @@ class ViewController: NSViewController {
     // Do any additional setup after loading the view.
   }
   
+  override func viewDidAppear() {
+    
+    beginDataDownloadSession()
+    
+  }
+  
+  func beginDataDownloadSession() {
+    
+    Task {
+      // Create an instance of DownloadManagerSession
+      let session = DownloadManagerSession()
+      
+      do {
+        // Call the getExchangeRateData function using await
+        let result = try await session.getExchangeRateData()
+        // Handle the result
+        print("Downloaded file URL: \(result)")
+      } catch {
+        // Handle errors
+        print("Download failed: \(error)")
+      }
+    }
+  }
+  
+  
+  
+  
+  
   override var representedObject: Any? {
     didSet {
       // Update the view, if already loaded.

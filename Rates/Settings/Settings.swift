@@ -13,12 +13,14 @@ let defaults = UserDefaults.standard
 enum Keys: String, CaseIterable {
   case exchangeRatesUrl
   case customExchangeRatesUrl
+  case appHasLaunchedBefore
   
   /// The default value for a given UserDefaults key
-  var defaultValue: String {
+  var defaultValue: Any {
     switch self {
     case .exchangeRatesUrl: return "https://www.bis.org/statistics/full_xru_d_csv_row.zip"
     case .customExchangeRatesUrl: return ""
+    case .appHasLaunchedBefore: return false
     }
   }
 }
@@ -26,36 +28,50 @@ enum Keys: String, CaseIterable {
 // MARK: Settings
 struct Settings {
   
-  static let exchangeRatesUrl = getValue(.exchangeRatesUrl)
-  static let defaultExchangeRatesUrl = Keys.exchangeRatesUrl.defaultValue
-  static var customExchangeRatesUrl = Keys.customExchangeRatesUrl.defaultValue
+  //static let exchangeRatesUrl = URL(string: exchangeRatesUrlString)
+  static var exchangeRatesUrlString: String? = getValue(.exchangeRatesUrl)
+  static var defaultExchangeRatesUrlString: String = Keys.exchangeRatesUrl.defaultValue as! String
+  static var customExchangeRatesUrlString: String = Keys.customExchangeRatesUrl.defaultValue as! String
   
   /// Gets called when the app is about to terminate
   static func onAppClose() {
-    if exchangeRatesUrl.isBlank { setDefaultValue(.exchangeRatesUrl) }
+    if (exchangeRatesUrlString?.isBlank) != nil { setDefaultValue(.exchangeRatesUrl) }
+  }
+  /// Returns the value for a given UserDefaults key
+  static func getValue(_ forKey: Keys) -> Any {
+    return defaults.value(forKey: forKey.rawValue) as Any
+  }
+  /// Saves a value to a given UserDefaults key
+  static func saveValue(_ value: Any, forKey: Keys) {
+    defaults.set(value, forKey: forKey.rawValue)
+  }
+  /// Returns the default value for any given UserDefaults key
+  static func getDefaultValue(_ forKey: Keys) -> Any {
+    return forKey.defaultValue
+  }
+  /// Reverts to the default value of the given UserDefaults key
+  static func setDefaultValue(_ forKey: Keys) {
+    defaults.set(forKey.defaultValue, forKey: forKey.rawValue)
+  }
+  /// Restore all values to their default state
+  static func restoreAllDefaults() {
+    for key in Keys.allCases {
+      setDefaultValue(key)
+    }
   }
   
+  // MARK: Strings
   /// Returns the value for a given UserDefaults key
   static func getValue(_ forKey: Keys) -> String {
-    return forKey.rawValue
+    return defaults.string(forKey: forKey.rawValue) ?? forKey.defaultValue as! String
   }
   /// Saves a value to a given UserDefaults key
   static func saveValue(_ value: String, forKey: Keys) {
     defaults.set(value, forKey: forKey.rawValue)
   }
-  
-  /// Reverts to the default value of the given UserDefaults key
-  static func setDefaultValue(_ forKey: Keys) {
-    defaults.set(forKey.defaultValue, forKey: forKey.rawValue)
-  }
-  
-  /// Restore all values to their default state
-  static func restoreAllDefaults() {
-    for key in Keys.allCases {
-      if key.rawValue != key.defaultValue {
-        setDefaultValue(key)
-      }
-    }
-  }
+//  /// Returns the default value for any given UserDefaults key
+//  static func getDefaultValue(_ forKey: Keys) -> String? {
+//    return forKey.defaultValue
+//  }
   
 }
