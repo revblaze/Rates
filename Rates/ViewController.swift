@@ -32,6 +32,17 @@ class ViewController: NSViewController {
         let result = try await session.getExchangeRateData()
         // Handle the result
         print("Downloaded file URL: \(result)")
+        
+        do {
+          let parseCsv = ParseCSV()
+          let fileURL = result
+          try parseCsv.clean(at: fileURL)
+          print("Lines deleted successfully.")
+        } catch {
+          print("Error editing CSV file: \(error)")
+        }
+        
+        
       } catch {
         // Handle errors
         print("Download failed: \(error)")
