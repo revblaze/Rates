@@ -38,8 +38,8 @@ class ViewController: NSViewController {
         parseCsv.removeDuplicateColumns(fileURL: fileURL)
         
         // Convert to SQLite db
-        if let sqliteFileURL = parseCsv.convertCSVtoSQLite(fileURL: fileURL) {
-          print("SQLite file URL: \(sqliteFileURL)")
+        let convertCsv = ConvertCSV()
+        if let sqliteFileURL = convertCsv.toSQLite(fileURL: fileURL) {
           // Update UI or perform any other necessary operations
         } else {
           print("Conversion failed.")
