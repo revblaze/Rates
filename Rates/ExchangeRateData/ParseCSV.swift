@@ -83,7 +83,7 @@ class ParseCSV {
       
       // Extract the header row
       guard let headerRow = lines.first else {
-        print("Empty file")
+        Debug.log("Empty file")
         return
       }
       
@@ -124,10 +124,10 @@ class ParseCSV {
       // Write the updated content back to the file
       try newContent.write(to: fileURL, atomically: true, encoding: .utf8)
       
-      print("Duplicate columns and corresponding data removed successfully.")
+      Debug.log("Duplicate columns and corresponding data removed successfully.")
       
     } catch {
-      print("Error reading the file: \(error.localizedDescription)")
+      Debug.log("Error reading the file: \(error.localizedDescription)")
     }
   }
   
