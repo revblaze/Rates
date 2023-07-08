@@ -12,14 +12,14 @@ class DownloadManagerSession {
     let downloadManager = DownloadManager()
     
     guard let url = URL(string: fromUrlString) else {
-      print("Invalid URL string")
+      Debug.log("Invalid URL string")
       throw DownloadError.invalidURL
     }
     
     do {
       return try await downloadExchangeRateData(downloadManager: downloadManager, url: url)
     } catch {
-      print("Download failed: \(error.localizedDescription)")
+      Debug.log("Download failed: \(error.localizedDescription)")
       removeAllFilesInDocumentDirectory()
       return try await downloadExchangeRateData(downloadManager: downloadManager, url: url)
     }
@@ -31,7 +31,7 @@ class DownloadManagerSession {
         if let error = error {
           continuation.resume(throwing: error)
         } else if let localURL = localURL {
-          print("File downloaded successfully. Local URL: \(localURL)")
+          Debug.log("File downloaded successfully. Local URL: \(localURL)")
           
           let fileExtension = localURL.pathExtension.lowercased()
           
@@ -47,16 +47,16 @@ class DownloadManagerSession {
                 continuation.resume(returning: csvURL)
               } else {
                 let error = DownloadError.invalidFileFormat
-                print("No CSV file found in the unzipped folder")
+                Debug.log("No CSV file found in the unzipped folder")
                 continuation.resume(throwing: error)
               }
             } catch {
-              print("Unzipping failed: \(error.localizedDescription)")
+              Debug.log("Unzipping failed: \(error.localizedDescription)")
               continuation.resume(throwing: error)
             }
           } else {
             let error = DownloadError.invalidFileFormat
-            print("Invalid file format: \(fileExtension)")
+            Debug.log("Invalid file format: \(fileExtension)")
             continuation.resume(throwing: error)
           }
         }
@@ -81,7 +81,7 @@ class DownloadManagerSession {
         }
       }
     } catch {
-      print("Error while searching for CSV file: \(error.localizedDescription)")
+      Debug.log("Error while searching for CSV file: \(error.localizedDescription)")
     }
     
     return nil
@@ -98,9 +98,9 @@ class DownloadManagerSession {
         try fileManager.removeItem(at: fileURL)
       }
       
-      print("All files in the document directory removed successfully.")
+      Debug.log("All files in the document directory removed successfully.")
     } catch {
-      print("Failed to remove files in the document directory: \(error.localizedDescription)")
+      Debug.log("Failed to remove files in the document directory: \(error.localizedDescription)")
     }
   }
   

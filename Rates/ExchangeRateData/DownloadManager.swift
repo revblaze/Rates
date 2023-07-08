@@ -48,9 +48,9 @@ class DownloadManager {
         try fileManager.removeItem(at: fileURL)
       }
       
-      print("All files in the document directory removed successfully.")
+      Debug.log("All files in the document directory removed successfully.")
     } catch {
-      print("Failed to remove files in the document directory: \(error.localizedDescription)")
+      Debug.log("Failed to remove files in the document directory: \(error.localizedDescription)")
     }
   }
   
@@ -68,7 +68,7 @@ class DownloadManager {
           
           try fileManager.unzipItem(at: URL(fileURLWithPath: zipPath), to: destinationURL)
           
-          print("File unzipped successfully.")
+          Debug.log("File unzipped successfully.")
       } catch {
           throw error
       }

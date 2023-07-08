@@ -15,6 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     // Insert code here to initialize your application
+    
+    // TODO: Conditional (>5 days ago OR every update day; then reset timer)
     let downloadManager = DownloadManager()
     downloadManager.removeAllFilesInDocumentDirectory()
   }
@@ -23,8 +25,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Insert code here to tear down your application
     Settings.onAppClose()
     
-    let downloadManager = DownloadManager()
-    downloadManager.removeAllFilesInDocumentDirectory()
   }
   
   func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
