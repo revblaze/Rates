@@ -27,12 +27,12 @@ class ViewController: NSViewController {
         // Create an instance of DownloadManagerSession and get the downloaded file URL
         let session = DownloadManagerSession()
         let fileURL = try await session.getExchangeRateData()
-        print("Downloaded file URL: \(fileURL)")
+        Debug.log("Downloaded file URL: \(fileURL)")
         
         // Clean up CSV file
         let parseCsv = ParseCSV()
         try parseCsv.clean(at: fileURL)
-        print("Lines deleted successfully.")
+        Debug.log("Lines deleted successfully.")
         
         // Remove duplicate columns
         parseCsv.removeDuplicateColumns(fileURL: fileURL)
@@ -40,13 +40,14 @@ class ViewController: NSViewController {
         // Convert to SQLite db
         let convertCsv = ConvertCSV()
         if let sqliteFileURL = convertCsv.toSQLite(fileURL: fileURL) {
+          Debug.log("SQLite file URL: \(sqliteFileURL)")
           // Update UI or perform any other necessary operations
         } else {
-          print("Conversion failed.")
+          Debug.log("Conversion failed.")
           // Update UI or perform any other necessary operations
         }
       } catch {
-        print("Error: \(error)")
+        Debug.log("Error: \(error)")
         // Update UI or perform any other necessary operations
       }
     }
