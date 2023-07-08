@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftCSV
-import SQLite3
 
 class ParseCSV {
   
