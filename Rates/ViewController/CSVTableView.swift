@@ -7,126 +7,93 @@
 
 import Cocoa
 
-class CSVTableView: NSView, NSTableViewDataSource, NSTableViewDelegate {
+class CSVTableView: NSView {
   
   private var tableView: NSTableView!
-  private var data: [[String]] = [] // Array to store CSV data
+  private var tableData: [[String]] = []
   
   override init(frame frameRect: NSRect) {
     super.init(frame: frameRect)
-    
     setupTableView()
   }
   
-  required init?(coder: NSCoder) {
-    super.init(coder: coder)
-    
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
     setupTableView()
   }
   
   private func setupTableView() {
     tableView = NSTableView(frame: bounds)
-    tableView.dataSource = self
+    tableView.autoresizingMask = [.width, .height]
+    
+    let scrollView = NSScrollView(frame: bounds)
+    scrollView.autoresizingMask = [.width, .height]
+    scrollView.documentView = tableView
+    addSubview(scrollView)
+    
     tableView.delegate = self
-    
-    addSubview(tableView)
-    
-    // Add table columns based on the number of columns in the CSV
-    if let columnCount = data.first?.count {
-      for columnIndex in 0..<columnCount {
-        let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("ColumnIdentifier\(columnIndex)"))
-        column.width = bounds.width / CGFloat(columnCount)
-        tableView.addTableColumn(column)
-      }
-    }
-    
-    tableView.columnAutoresizingStyle = .uniformColumnAutoresizingStyle
-  }
-  
-  func numberOfRows(in tableView: NSTableView) -> Int {
-    return data.count
-  }
-  
-  func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-    guard let columnIndex = tableView.tableColumns.firstIndex(of: tableColumn!) else {
-      return nil
-    }
-    
-    let rowData = data[row]
-    
-    if columnIndex < rowData.count {
-      return rowData[columnIndex]
-    }
-    
-    return nil
+    tableView.dataSource = self
   }
   
   func updateCSVData(with url: URL) {
-    do {
-      let csvData = try String(contentsOf: url, encoding: .utf8)
-      data = csvData.csvRows() // Parse CSV data into array of rows
+    if let csvString = try? String(contentsOf: url, encoding: .utf8) {
+      let rows = csvString.components(separatedBy: .newlines)
+      tableData = rows
+        .filter { !$0.isEmpty }
+        .map { $0.components(separatedBy: ",") }
       
-      // Remove existing table columns
-      tableView.tableColumns.forEach { column in
-        tableView.removeTableColumn(column)
-      }
-      
-      // Add new table columns based on the number of columns in the updated CSV data
-      if let columnCount = data.first?.count {
-        for columnIndex in 0..<columnCount {
-          let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("ColumnIdentifier\(columnIndex)"))
-          column.width = bounds.width / CGFloat(columnCount)
-          tableView.addTableColumn(column)
-        }
-      }
-      
+      updateTableColumns()
       tableView.reloadData()
-    } catch {
-      print("Error reading CSV file: \(error.localizedDescription)")
     }
   }
   
-  override func layout() {
-    super.layout()
-    tableView.frame = bounds
-    resizeTableColumnsToFitData()
-  }
-  
-  private func resizeTableColumnsToFitData() {
-    tableView.tableColumns.forEach { column in
-      let columnIndex = tableView.tableColumns.firstIndex(of: column)!
-      
-      var maxWidth: CGFloat = 0
-      for rowIndex in 0..<data.count {
-        let rowData = data[rowIndex]
-        if columnIndex < rowData.count {
-          let cellValue = rowData[columnIndex]
-          let cellSize = cellValue.size(withAttributes: [NSAttributedString.Key.font: NSFont.systemFont(ofSize: NSFont.systemFontSize)])
-          maxWidth = max(maxWidth, cellSize.width)
-        }
+  private func updateTableColumns() {
+    tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
+    
+    if let headerRow = tableData.first {
+      for (index, header) in headerRow.enumerated() {
+        let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
+        column.title = header
+        tableView.addTableColumn(column)
       }
-      
-      let padding: CGFloat = 10
-      column.width = maxWidth + padding
     }
   }
   
-  func tableViewColumnDidResize(_ notification: Notification) {
-    resizeTableColumnsToFitData()
-  }
 }
 
-extension String {
-  // Extension to parse CSV rows into a 2D array
-  func csvRows() -> [[String]] {
-    var rows: [[String]] = []
-    let lines = self.components(separatedBy: .newlines)
+extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
+  
+  func numberOfRows(in tableView: NSTableView) -> Int {
+    return tableData.count - 1 // Exclude the header row
+  }
+  
+  func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "csvCell")
+    var cellView = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTextFieldCellView
     
-    for line in lines {
-      let fields = line.components(separatedBy: ",")
-      rows.append(fields)
+    if cellView == nil {
+      cellView = NSTextFieldCellView(frame: NSRect.zero)
+      cellView?.identifier = cellIdentifier
+      cellView?.isBezeled = false
+      cellView?.isEditable = false
+      cellView?.drawsBackground = false
     }
     
-    return rows
+    let rowData = tableData[row + 1] // Skip the header row
+    let columnIndex = tableView.column(withIdentifier: tableColumn!.identifier)
+    if columnIndex < rowData.count {
+      cellView?.stringValue = rowData[columnIndex]
+    } else {
+      cellView?.stringValue = ""
+    }
+    
+    return cellView
+  }
+  
+}
+
+class NSTextFieldCellView: NSTextField {
+  override var intrinsicContentSize: NSSize {
+    return NSSize(width: CGFloat.greatestFiniteMagnitude, height: super.intrinsicContentSize.height)
   }
 }
