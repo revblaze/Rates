@@ -16,24 +16,40 @@ class ViewController: NSViewController {
   }
   
   override func viewDidAppear() {
-    
     beginLaunchSession()
-    
   }
   
   func beginLaunchSession() {
     
-    // if it has been >7 since last download or is Thursday; then, reset flag
-    Task.detached {
+    if dataNeedsUpdating() {
+      // TODO: IF NO INTERNET CONNECTION:
+      // Display 'outdated' warning
       
-      let exchangeRateData = ExchangeRateData()
-      if let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString) {
-        Debug.log("Db file obtained: \(dbFileUrl)")
-      } else {
-        Debug.log("Error occured while awaiting getDb()")
+      // TODO: Start download/loading animation
+      Task.detached {
+        let exchangeRateData = ExchangeRateData()
+        if let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString) {
+          Debug.log("Db file obtained: \(dbFileUrl)")
+          // TODO: Update UI?
+          
+        } else {
+          Debug.log("Error occured while awaiting getDb()")
+          // TODO: Present error
+        }
       }
+      // TODO: Stop animations
     }
     
+  }
+  
+  func dataNeedsUpdating() -> Bool {
+    if DailyCheck.shouldPerformAction() {
+      Debug.log("[DailyCheck] New Day: download new exchange rate data")
+      return true
+    } else {
+      Debug.log("[DailyCheck] Same Day: no action required")
+      return false
+    }
   }
   
   

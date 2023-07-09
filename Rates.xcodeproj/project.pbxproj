@@ -25,6 +25,8 @@
 		C2636F9D2A5861350091BE7D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F9C2A5861350091BE7D /* Settings.swift */; };
 		C2636FA02A587DA70091BE7D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F9F2A587DA70091BE7D /* StringExtensions.swift */; };
 		C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636FA72A5882480091BE7D /* KeysExtensions.swift */; };
+		C273B9262A5B2FB600212717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9252A5B2FB600212717 /* Constants.swift */; };
+		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		C2636F9C2A5861350091BE7D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C2636F9F2A587DA70091BE7D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C2636FA72A5882480091BE7D /* KeysExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysExtensions.swift; sourceTree = "<group>"; };
+		C273B9252A5B2FB600212717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,7 @@
 				C2546AE92A589A5000C83FEC /* DownloadManagerSession.swift */,
 				C2546AF52A58A93F00C83FEC /* ParseCSV.swift */,
 				C2546AF82A59B89800C83FEC /* ConvertCSV.swift */,
+				C273B9272A5B32B900212717 /* DailyCheck.swift */,
 			);
 			path = ExchangeRateData;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			children = (
 				C2636F9C2A5861350091BE7D /* Settings.swift */,
 				C2546ADE2A58877B00C83FEC /* AppDefaults.swift */,
+				C273B9252A5B2FB600212717 /* Constants.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -221,8 +227,10 @@
 				C2546AFC2A59B93300C83FEC /* Debug.swift in Sources */,
 				C2546AEA2A589A5000C83FEC /* DownloadManagerSession.swift in Sources */,
 				C2636F8F2A585D4E0091BE7D /* ViewController.swift in Sources */,
+				C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */,
 				C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */,
 				C2546AF22A58A76A00C83FEC /* URLExtensions.swift in Sources */,
+				C273B9262A5B2FB600212717 /* Constants.swift in Sources */,
 				C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */,
 				C2546AE82A58975E00C83FEC /* DownloadManager.swift in Sources */,
 			);

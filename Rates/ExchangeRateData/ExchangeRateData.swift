@@ -13,6 +13,9 @@ class ExchangeRateData {
     return await withTaskGroup(of: URL?.self) { group in
       group.addTask {
         do {
+          let downloadManager = DownloadManager()
+          downloadManager.removeAllFilesInDocumentDirectory()
+          
           let session = DownloadManagerSession()
           let fileURL = try await session.getExchangeRateData(fromUrlString: fromUrl)
           Debug.log("Downloaded file URL: \(fileURL)")
