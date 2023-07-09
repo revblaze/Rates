@@ -17,40 +17,20 @@ class ViewController: NSViewController {
   
   override func viewDidAppear() {
     
-    beginDataDownloadSession()
-    
+
+    Task.detached {
+      await self.beginLaunchSession()
+    }
   }
   
-  func beginDataDownloadSession() {
-    Task.detached {
-      do {
-        // Create an instance of DownloadManagerSession and get the downloaded file URL
-        let session = DownloadManagerSession()
-        let fileURL = try await session.getExchangeRateData()
-        Debug.log("Downloaded file URL: \(fileURL)")
-        
-        // Clean up CSV file
-        let parseCsv = ParseCSV()
-        try parseCsv.clean(at: fileURL)
-        Debug.log("Lines deleted successfully.")
-        
-        // Remove duplicate columns
-        parseCsv.removeDuplicateColumns(fileURL: fileURL)
-        
-        // Convert to SQLite db
-        let convertCsv = ConvertCSV()
-        if let sqliteFileURL = convertCsv.toSQLite(fileURL: fileURL) {
-          Debug.log("SQLite file URL: \(sqliteFileURL)")
-          // Update UI or perform any other necessary operations
-        } else {
-          Debug.log("Conversion failed.")
-          // Update UI or perform any other necessary operations
-        }
-      } catch {
-        Debug.log("Error: \(error)")
-        // Update UI or perform any other necessary operations
-      }
-    }
+  func beginLaunchSession() async {
+    
+    // if it has been >7 since last download or is Thursday; then, reset flag
+    let exchangeRateData = ExchangeRateData()
+    let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString)
+    
+    print("Db file obtained: \(dbFileUrl)")
+    
   }
   
   

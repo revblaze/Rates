@@ -15,6 +15,7 @@ enum Keys: String, CaseIterable {
   case exchangeRatesUrl
   case customExchangeRatesUrl
   case appHasLaunchedBefore
+  case dataLastUpdated
   
   /// The default value for a given UserDefaults key
   var defaultValue: Any {
@@ -23,6 +24,7 @@ enum Keys: String, CaseIterable {
     case .exchangeRatesUrl: return "https://www.bis.org/statistics/full_xru_d_csv_row.zip"
     case .customExchangeRatesUrl: return ""
     case .appHasLaunchedBefore: return false
+    case .dataLastUpdated: return "2020"
     }
   }
 }
