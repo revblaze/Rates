@@ -16,9 +16,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     // Insert code here to initialize your application
     
-    // TODO: Conditional (>5 days ago OR every update day; then reset timer)
-    let downloadManager = DownloadManager()
-    downloadManager.removeAllFilesInDocumentDirectory()
   }
   
   func applicationWillTerminate(_ aNotification: Notification) {
