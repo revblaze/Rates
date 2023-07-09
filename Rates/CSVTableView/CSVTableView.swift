@@ -59,6 +59,26 @@ class CSVTableView: NSView {
     }
   }
   
+  func filterAppStoreConnectSales() {
+    filterAppStoreConnectSalesColumns(tableView: tableView)
+  }
+  
+  func filterAppStoreConnectSalesColumns(tableView: NSTableView, withColumns: [String] = AppStoreConnectSalesColumnHeaders.simplified) {
+    let filterStrings = withColumns
+    
+    let columnsToKeep = tableView.tableColumns.filter { column in
+      filterStrings.contains(column.title)
+    }
+    
+    for column in tableView.tableColumns {
+      if columnsToKeep.contains(column) {
+        column.isHidden = false
+      } else {
+        column.isHidden = true
+      }
+    }
+  }
+  
 }
 
 extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {

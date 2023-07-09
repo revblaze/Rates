@@ -697,24 +697,23 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="4lg-qe-kez"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="ZNq-Tc-vUD"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="LGC-fq-k0P"/>
-                                <toolbarItem implicitItemIdentifier="390E9090-C554-4023-A0A5-D4E8965ACF74" label="Settings" paletteLabel="Settings" tag="-1" image="gear" catalog="system" bordered="YES" id="CvE-Zg-jBd">
-                                    <size key="minSize" width="29" height="25"/>
-                                    <size key="maxSize" width="29" height="25"/>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="FCB2DF73-1766-4271-83F8-4D8AF703410B" label="Add File" paletteLabel="Add File" tag="-1" image="doc.badge.plus" catalog="system" bordered="YES" id="0Ad-i3-c1T">
-                                    <size key="minSize" width="26" height="25"/>
-                                    <size key="maxSize" width="26" height="25"/>
+                                <toolbarItem implicitItemIdentifier="390E9090-C554-4023-A0A5-D4E8965ACF74" label="Settings" paletteLabel="Settings" tag="-1" image="gear" catalog="system" bordered="YES" sizingBehavior="auto" id="CvE-Zg-jBd"/>
+                                <toolbarItem implicitItemIdentifier="FCB2DF73-1766-4271-83F8-4D8AF703410B" label="Add File" paletteLabel="Add File" tag="-1" image="doc.badge.plus" catalog="system" bordered="YES" sizingBehavior="auto" id="0Ad-i3-c1T">
                                     <connections>
                                         <action selector="openFileAction:" target="B8D-0N-5wS" id="7Ej-G4-N9v"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="6727FC64-D617-44ED-A1EB-5F0BBDEC23BE" label="Convert" paletteLabel="Convert" tag="-1" image="arrow.triangle.2.circlepath" catalog="system" bordered="YES" id="uEg-WK-vIe">
-                                    <size key="minSize" width="30" height="25"/>
-                                    <size key="maxSize" width="30" height="25"/>
+                                <toolbarItem implicitItemIdentifier="6727FC64-D617-44ED-A1EB-5F0BBDEC23BE" label="Convert" paletteLabel="Convert" tag="-1" image="arrow.triangle.2.circlepath" catalog="system" bordered="YES" sizingBehavior="auto" id="uEg-WK-vIe"/>
+                                <toolbarItem implicitItemIdentifier="2A25FDAE-932F-48D1-BF80-C13A1444100F" label="Filter" paletteLabel="Filter" tag="-1" image="line.3.horizontal.decrease.circle" catalog="system" bordered="YES" sizingBehavior="auto" id="zxs-eo-89M">
+                                    <connections>
+                                        <action selector="filterAppStoreConnectSales:" target="B8D-0N-5wS" id="hWU-eO-YhG"/>
+                                    </connections>
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="LGC-fq-k0P"/>
+                                <toolbarItem reference="zxs-eo-89M"/>
+                                <toolbarItem reference="ZNq-Tc-vUD"/>
                                 <toolbarItem reference="CvE-Zg-jBd"/>
                                 <toolbarItem reference="0Ad-i3-c1T"/>
                                 <toolbarItem reference="uEg-WK-vIe"/>
@@ -750,5 +749,6 @@
         <image name="arrow.triangle.2.circlepath" catalog="system" width="18" height="15"/>
         <image name="doc.badge.plus" catalog="system" width="15" height="17"/>
         <image name="gear" catalog="system" width="17" height="17"/>
+        <image name="line.3.horizontal.decrease.circle" catalog="system" width="15" height="15"/>
     </resources>
 </document>

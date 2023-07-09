@@ -11,7 +11,11 @@ protocol FileSelectionDelegate: AnyObject {
   func fileSelected(_ viewController: ViewController, fileURL: URL)
 }
 
-class ViewController: NSViewController {
+protocol FilterDelegate: class {
+    func filterAppStoreConnectSales()
+}
+
+class ViewController: NSViewController, FilterDelegate {
   
   weak var delegate: FileSelectionDelegate?
   
@@ -41,6 +45,13 @@ class ViewController: NSViewController {
   func updateCSVTableViewWithCSV(at url: URL) {
     csvTableView.updateCSVData(with: url)
   }
+  
+  func filterAppStoreConnectSales() {
+    print("Made it to filterAppStoreConnectSales")
+    csvTableView.filterAppStoreConnectSales()
+  }
+  
+  
   
   // Function to open file selection
   func openFileSelection() {
