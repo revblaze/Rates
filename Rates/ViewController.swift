@@ -16,40 +16,39 @@ class ViewController: NSViewController {
   }
   
   override func viewDidAppear() {
+    beginLaunchSession()
+  }
+  
+  func beginLaunchSession() {
     
-    beginDataDownloadSession()
+    if dataNeedsUpdating() {
+      // TODO: IF NO INTERNET CONNECTION:
+      // Display 'outdated' warning
+      
+      // TODO: Start download/loading animation
+      Task.detached {
+        let exchangeRateData = ExchangeRateData()
+        if let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString) {
+          Debug.log("Db file obtained: \(dbFileUrl)")
+          // TODO: Update UI?
+          
+        } else {
+          Debug.log("Error occured while awaiting getDb()")
+          // TODO: Present error
+        }
+      }
+      // TODO: Stop animations
+    }
     
   }
   
-  func beginDataDownloadSession() {
-    Task.detached {
-      do {
-        // Create an instance of DownloadManagerSession and get the downloaded file URL
-        let session = DownloadManagerSession()
-        let fileURL = try await session.getExchangeRateData()
-        Debug.log("Downloaded file URL: \(fileURL)")
-        
-        // Clean up CSV file
-        let parseCsv = ParseCSV()
-        try parseCsv.clean(at: fileURL)
-        Debug.log("Lines deleted successfully.")
-        
-        // Remove duplicate columns
-        parseCsv.removeDuplicateColumns(fileURL: fileURL)
-        
-        // Convert to SQLite db
-        let convertCsv = ConvertCSV()
-        if let sqliteFileURL = convertCsv.toSQLite(fileURL: fileURL) {
-          Debug.log("SQLite file URL: \(sqliteFileURL)")
-          // Update UI or perform any other necessary operations
-        } else {
-          Debug.log("Conversion failed.")
-          // Update UI or perform any other necessary operations
-        }
-      } catch {
-        Debug.log("Error: \(error)")
-        // Update UI or perform any other necessary operations
-      }
+  func dataNeedsUpdating() -> Bool {
+    if DailyCheck.shouldPerformAction() {
+      Debug.log("[DailyCheck] New Day: download new exchange rate data")
+      return true
+    } else {
+      Debug.log("[DailyCheck] Same Day: no action required")
+      return false
     }
   }
   
