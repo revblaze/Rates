@@ -17,19 +17,22 @@ class ViewController: NSViewController {
   
   override func viewDidAppear() {
     
-
-    Task.detached {
-      await self.beginLaunchSession()
-    }
+    beginLaunchSession()
+    
   }
   
-  func beginLaunchSession() async {
+  func beginLaunchSession() {
     
     // if it has been >7 since last download or is Thursday; then, reset flag
-    let exchangeRateData = ExchangeRateData()
-    let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString)
-    
-    print("Db file obtained: \(dbFileUrl)")
+    Task.detached {
+      
+      let exchangeRateData = ExchangeRateData()
+      if let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString) {
+        Debug.log("Db file obtained: \(dbFileUrl)")
+      } else {
+        Debug.log("Error occured while awaiting getDb()")
+      }
+    }
     
   }
   
