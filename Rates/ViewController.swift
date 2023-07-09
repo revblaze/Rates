@@ -16,18 +16,30 @@ class ViewController: NSViewController {
   weak var delegate: FileSelectionDelegate?
   
   private var csvTableView: CSVTableView!
+  private var scrollView: NSScrollView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     // Do any additional setup after loading the view.
-    csvTableView = CSVTableView(frame: view.bounds)
+    scrollView = NSScrollView(frame: view.bounds)
+    scrollView.autoresizingMask = [.width, .height]
+    scrollView.hasVerticalScroller = true
+    
+    csvTableView = CSVTableView(frame: scrollView.bounds)
     csvTableView.autoresizingMask = [.width, .height]
-    view.addSubview(csvTableView)
+    
+    scrollView.documentView = csvTableView
+    
+    view.addSubview(scrollView)
   }
   
   override func viewDidAppear() {
     beginLaunchSession()
+  }
+  
+  func updateCSVTableViewWithCSV(at url: URL) {
+    csvTableView.updateCSVData(with: url)
   }
   
   // Function to open file selection
@@ -90,10 +102,6 @@ class ViewController: NSViewController {
         // TODO: Present error
       }
     }
-  }
-  
-  func updateCSVTableViewWithCSV(at url: URL) {
-    csvTableView.updateCSVData(with: url)
   }
   
   func dataNeedsUpdating() -> Bool {
