@@ -670,13 +670,73 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Debug" id="gnQ-Bb-Zc3">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Debug" id="7hE-Aw-94V">
+                                    <items>
+                                        <menuItem title="Status Bar States" id="4L7-Ov-oMR">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Status Bar States" id="rTW-8I-KWK">
+                                                <items>
+                                                    <menuItem title="Loading" id="bK9-R8-PVs">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugUpdateStatusBarLoading:" target="Voe-Tx-rLC" id="PeF-cN-P2k"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Up to Date" id="eTc-lZ-TVL">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugUpdateStatusBarUpToDate:" target="Voe-Tx-rLC" id="byX-5w-9go"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Currently Updating" id="Ur6-Xb-QFi">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugUpdateStatusBarIsCurrentlyUpdating:" target="Voe-Tx-rLC" id="Jgq-Z9-46m"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Failed to Update" id="a03-zD-euF">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugUpdateStatusBarFailedToUpdate:" target="Voe-Tx-rLC" id="u5z-Zn-hgs"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="No Connection and Prefers Update" id="rKQ-ZM-0kd">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugUpdateStatusBarNoConnectionAndPrefersUpdate:" target="Voe-Tx-rLC" id="8vh-Nf-fev"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="No Connection and No Database Exists" id="dWP-6y-UB3">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugUpdateStatusBarNoConnectionAndNoDb:" target="Voe-Tx-rLC" id="ZSb-hf-tSm"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem title="Item 2" id="Kkm-8L-1yh">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Item 3" id="eCY-Kv-ogB">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                         </items>
                     </menu>
                     <connections>
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Rates" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Rates" customModuleProvider="target">
+                    <connections>
+                        <outlet property="debugMenu" destination="gnQ-Bb-Zc3" id="LdV-oN-Bgq"/>
+                    </connections>
+                </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -750,7 +810,83 @@
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="2a1-wK-yrL">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="30"/>
+                                <subviews>
+                                    <visualEffectView blendingMode="behindWindow" material="menu" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="tRO-Iw-Egv">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="30"/>
+                                        <subviews>
+                                            <progressIndicator maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Dx8-bp-BmS">
+                                                <rect key="frame" x="-6" y="22" width="492" height="20"/>
+                                            </progressIndicator>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X7s-YA-3Xe">
+                                                <rect key="frame" x="6" y="7" width="34" height="17"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="34" id="z9C-no-fTK"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="checkmark.seal.fill" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="bZ7-wo-d8z">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                            </button>
+                                            <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e8u-Sv-OpI">
+                                                <rect key="frame" x="38" y="8" width="404" height="14"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Loading exchange rate database." id="kEB-N8-LiO">
+                                                    <font key="font" metaFont="system" size="11"/>
+                                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GFI-4z-YH6">
+                                                <rect key="frame" x="440" y="8.5" width="34.5" height="16"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="34" id="Tnc-2b-Lok"/>
+                                                </constraints>
+                                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="arrow.clockwise" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="gdU-FZ-uVo">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="statusBarRefreshButtonAction:" target="XfG-lQ-9wD" id="TXz-0b-6VH"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Dx8-bp-BmS" secondAttribute="trailing" constant="-6" id="62o-LP-XEV"/>
+                                            <constraint firstItem="X7s-YA-3Xe" firstAttribute="leading" secondItem="tRO-Iw-Egv" secondAttribute="leading" constant="6" id="JSx-fK-NwM"/>
+                                            <constraint firstItem="Dx8-bp-BmS" firstAttribute="leading" secondItem="tRO-Iw-Egv" secondAttribute="leading" constant="-6" id="Nlq-8C-nWP"/>
+                                            <constraint firstItem="Dx8-bp-BmS" firstAttribute="top" secondItem="tRO-Iw-Egv" secondAttribute="top" constant="-11" id="OHe-m4-gvX"/>
+                                            <constraint firstItem="GFI-4z-YH6" firstAttribute="leading" secondItem="e8u-Sv-OpI" secondAttribute="trailing" id="PzQ-2N-OIJ"/>
+                                            <constraint firstItem="GFI-4z-YH6" firstAttribute="centerY" secondItem="tRO-Iw-Egv" secondAttribute="centerY" id="nB2-6V-Rfm"/>
+                                            <constraint firstItem="e8u-Sv-OpI" firstAttribute="leading" secondItem="X7s-YA-3Xe" secondAttribute="trailing" id="nIX-6Y-K8W"/>
+                                            <constraint firstItem="e8u-Sv-OpI" firstAttribute="centerY" secondItem="tRO-Iw-Egv" secondAttribute="centerY" id="y66-bC-wW8"/>
+                                            <constraint firstAttribute="trailing" secondItem="GFI-4z-YH6" secondAttribute="trailing" constant="6" id="y84-TF-MmQ"/>
+                                            <constraint firstItem="X7s-YA-3Xe" firstAttribute="centerY" secondItem="tRO-Iw-Egv" secondAttribute="centerY" id="ykN-ve-Rrt"/>
+                                        </constraints>
+                                    </visualEffectView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="tRO-Iw-Egv" secondAttribute="trailing" id="8wR-iJ-5xZ"/>
+                                    <constraint firstItem="tRO-Iw-Egv" firstAttribute="leading" secondItem="2a1-wK-yrL" secondAttribute="leading" id="G3a-Pz-8Vr"/>
+                                    <constraint firstAttribute="bottom" secondItem="tRO-Iw-Egv" secondAttribute="bottom" id="QNd-CI-F0a"/>
+                                    <constraint firstAttribute="height" constant="30" id="epB-JC-ttB"/>
+                                    <constraint firstItem="tRO-Iw-Egv" firstAttribute="top" secondItem="2a1-wK-yrL" secondAttribute="top" id="uu4-Md-d6p"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="2a1-wK-yrL" secondAttribute="bottom" id="R3D-bJ-BVE"/>
+                            <constraint firstAttribute="trailing" secondItem="2a1-wK-yrL" secondAttribute="trailing" id="VDD-DA-f1I"/>
+                            <constraint firstItem="2a1-wK-yrL" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="boi-7k-LB4"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="statusBarButton" destination="X7s-YA-3Xe" id="QbJ-Tg-mAa"/>
+                        <outlet property="statusBarProgressBar" destination="Dx8-bp-BmS" id="QmI-fN-g8i"/>
+                        <outlet property="statusBarRefreshButton" destination="GFI-4z-YH6" id="ndj-cj-87J"/>
+                        <outlet property="statusBarText" destination="e8u-Sv-OpI" id="vGU-eS-YsP"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -832,8 +968,10 @@ Gw
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.clockwise" catalog="system" width="14" height="16"/>
         <image name="arrow.triangle.2.circlepath" catalog="system" width="18" height="15"/>
         <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
+        <image name="checkmark.seal.fill" catalog="system" width="17" height="17"/>
         <image name="doc.badge.plus" catalog="system" width="15" height="17"/>
         <image name="gear" catalog="system" width="17" height="17"/>
         <image name="line.3.horizontal.decrease.circle" catalog="system" width="15" height="15"/>
