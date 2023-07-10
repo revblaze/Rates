@@ -13,7 +13,7 @@ class ConvertCSV {
   func toSQLite(fileURL: URL) -> URL? {
     // Get the document directory URL
     guard let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-      print("Failed to get document directory URL")
+      Debug.log("Failed to get document directory URL")
       return nil
     }
     
@@ -23,7 +23,7 @@ class ConvertCSV {
     // Open SQLite database connection
     var db: OpaquePointer?
     if sqlite3_open(sqliteFileURL.path, &db) != SQLITE_OK {
-      print("Failed to open database")
+      Debug.log("Failed to open database")
       return nil
     }
     
@@ -36,7 +36,7 @@ class ConvertCSV {
       if let header = csvRows.first {
         let createTableStatement = "CREATE TABLE IF NOT EXISTS data (\(header));"
         if sqlite3_exec(db, createTableStatement, nil, nil, nil) != SQLITE_OK {
-          print("Failed to create table")
+          Debug.log("Failed to create table")
           return nil
         }
       }
@@ -50,7 +50,7 @@ class ConvertCSV {
         
         let insertStatement = "INSERT INTO data VALUES (\(row));"
         if sqlite3_exec(db, insertStatement, nil, nil, nil) != SQLITE_OK {
-          print("Failed to insert row: \(row)")
+          Debug.log("Failed to insert row: \(row)")
           return nil
         }
       }
@@ -61,7 +61,7 @@ class ConvertCSV {
       // Return the SQLite database file URL in the document directory
       return sqliteFileURL
     } catch {
-      print("Failed to read CSV file")
+      Debug.log("Failed to read CSV file")
       return nil
     }
   }

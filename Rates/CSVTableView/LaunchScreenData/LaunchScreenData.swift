@@ -20,7 +20,7 @@ extension ViewController {
   func generateLaunchScreenData(fromCsvFileUrl: URL) -> URL? {
     // Get the document directory URL
     guard let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-      print("Failed to get document directory URL")
+      Debug.log("Failed to get document directory URL")
       return nil
     }
     
@@ -61,7 +61,7 @@ extension ViewController {
       // Return the destination file URL
       return destinationFileURL
     } catch {
-      print("Failed to generate launch screen data")
+      Debug.log("Failed to generate launch screen data")
       return nil
     }
   }
@@ -69,7 +69,7 @@ extension ViewController {
   func searchExchangeRateDataInDocumentsDirectory() -> URL? {
     // Get the document directory URL
     guard let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-      print("Failed to get document directory URL")
+      Debug.log("Failed to get document directory URL")
       return nil
     }
     
@@ -77,7 +77,7 @@ extension ViewController {
     if let fileURL = searchFile(named: "WS_XRU_D_csv_row.csv", in: documentDirectoryURL) {
       return fileURL
     } else {
-      print("File not found")
+      Debug.log("File not found")
       return nil
     }
   }

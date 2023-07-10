@@ -78,7 +78,7 @@ extension ViewController {
   func openUserFile(completion: @escaping (URL?) -> Void) {
     let openPanel = NSOpenPanel()
     openPanel.allowsMultipleSelection = false
-    print(FileExtensions.all)
+    Debug.log(FileExtensions.all)
     openPanel.allowedFileTypes = FileExtensions.all //["csv", "tsv", "txt"]
     
     openPanel.begin { result in
