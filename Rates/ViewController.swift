@@ -67,6 +67,8 @@ class ViewController: NSViewController, FilterDelegate {
     csvTableView.unhideColumns()
   }
   
+  func filterAppStoreConnectSales() {
+    csvTableView.filterAppStoreConnectSales()
   }
   
   
