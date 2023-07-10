@@ -33,6 +33,9 @@
 		C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636FA72A5882480091BE7D /* KeysExtensions.swift */; };
 		C273B9262A5B2FB600212717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9252A5B2FB600212717 /* Constants.swift */; };
 		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
+		C2B83CAC2A5C54B1009763B6 /* ViewController+ImportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */; };
+		C2B83CB02A5C5864009763B6 /* ImportFileTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAF2A5C5864009763B6 /* ImportFileTemplateView.swift */; };
+		C2B83CB52A5C59EF009763B6 /* ImportFileTemplateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2B83CB32A5C59EF009763B6 /* ImportFileTemplateView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +50,6 @@
 		C2546AF82A59B89800C83FEC /* ConvertCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertCSV.swift; sourceTree = "<group>"; };
 		C2546AFB2A59B93300C83FEC /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		C255F2D82A5B556B004B7F95 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
-		C255F2FF2A5B7EFE004B7F95 /* ViewController+AddFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+AddFile.swift"; sourceTree = "<group>"; };
 		C255F3012A5B7F11004B7F95 /* FileTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTemplates.swift; sourceTree = "<group>"; };
 		C255F3042A5B8225004B7F95 /* ConvertTSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertTSV.swift; sourceTree = "<group>"; };
 		C255F3072A5B8A1E004B7F95 /* FileTemplateParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTemplateParsing.swift; sourceTree = "<group>"; };
@@ -62,6 +64,9 @@
 		C2636FA72A5882480091BE7D /* KeysExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysExtensions.swift; sourceTree = "<group>"; };
 		C273B9252A5B2FB600212717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
+		C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ImportFile.swift"; sourceTree = "<group>"; };
+		C2B83CAF2A5C5864009763B6 /* ImportFileTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFileTemplateView.swift; sourceTree = "<group>"; };
+		C2B83CB32A5C59EF009763B6 /* ImportFileTemplateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportFileTemplateView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,9 +124,11 @@
 		C255F2FE2A5B7EE1004B7F95 /* ImportFile */ = {
 			isa = PBXGroup;
 			children = (
+				C2B83CB12A5C59BA009763B6 /* ImportFileTemplateView */,
 				C255F3062A5B8A03004B7F95 /* FileTemplates */,
 				C255F3032A5B820D004B7F95 /* FileConversion */,
-				C255F2FF2A5B7EFE004B7F95 /* ViewController+AddFile.swift */,
+				C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */,
+				C2B83CAF2A5C5864009763B6 /* ImportFileTemplateView.swift */,
 			);
 			path = ImportFile;
 			sourceTree = "<group>";
@@ -198,6 +205,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		C2B83CB12A5C59BA009763B6 /* ImportFileTemplateView */ = {
+			isa = PBXGroup;
+			children = (
+				C2B83CB32A5C59EF009763B6 /* ImportFileTemplateView.xib */,
+			);
+			path = ImportFileTemplateView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -268,6 +283,7 @@
 			files = (
 				C2636F912A585D4F0091BE7D /* Assets.xcassets in Resources */,
 				C2636F942A585D4F0091BE7D /* Main.storyboard in Resources */,
+				C2B83CB52A5C59EF009763B6 /* ImportFileTemplateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +306,7 @@
 				C2546AEA2A589A5000C83FEC /* DownloadManagerSession.swift in Sources */,
 				C2636F8F2A585D4E0091BE7D /* ViewController.swift in Sources */,
 				C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */,
+				C2B83CB02A5C5864009763B6 /* ImportFileTemplateView.swift in Sources */,
 				C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */,
 				C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */,
 				C2546AF22A58A76A00C83FEC /* URLExtensions.swift in Sources */,
@@ -299,6 +316,7 @@
 				C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */,
 				C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */,
 				C2546AE82A58975E00C83FEC /* DownloadManager.swift in Sources */,
+				C2B83CAC2A5C54B1009763B6 /* ViewController+ImportFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
