@@ -22,6 +22,7 @@ class ViewController: NSViewController {
   @IBOutlet weak var statusBarButton: NSButton!
   @IBOutlet weak var statusBarText: NSTextField!
   @IBOutlet weak var statusBarProgressBar: NSProgressIndicator!
+  @IBOutlet weak var statusBarRefreshButton: NSButton!
   var statusBarButtonIsPulsing = false
   
   override func viewDidLoad() {

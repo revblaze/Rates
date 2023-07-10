@@ -13,21 +13,17 @@ extension ViewController {
     
     statusBarState = withState
     statusBarText.stringValue = withState.text
-    
     if let buttonCell = statusBarButton.cell as? NSButtonCell {
       buttonCell.image = NSImage(systemSymbolName: withState.symbolName, accessibilityDescription: nil)
     }
-    
     if withState == .loading || withState == .isCurrentlyUpdating {
-      //statusBarProgressBar.isHidden = false
       startStatusBarButtonPulsingAnimation()
       statusBarProgressBar.startAnimation(self)
     } else {
-      //statusBarProgressBar.isHidden = true
       stopStatusBarButtonPulsingAnimation()
       statusBarProgressBar.stopAnimation(self)
     }
-    
+    statusBarRefreshButton.isHidden = !withState.refreshButtonShouldBeVisible
   }
 
 
@@ -48,6 +44,10 @@ extension ViewController {
   func stopStatusBarButtonPulsingAnimation() {
     statusBarButton.layer?.removeAnimation(forKey: "pulse")
     statusBarButtonIsPulsing = false
+  }
+  
+  @IBAction func statusBarRefreshButtonAction(_ sender: NSButton) {
+    checkInternetAndUpdateData()
   }
   
 }
