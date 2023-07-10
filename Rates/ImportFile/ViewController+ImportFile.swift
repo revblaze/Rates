@@ -9,27 +9,46 @@ import Cocoa
 
 extension ViewController {
   
-  func presentImportFileTemplateSheet(_ fileUrl: URL, withDetection: FileTemplates) -> FileTemplates {
-    let importFileTemplateView = ImportFileTemplateView(fileUrl: fileUrl, withDetection: withDetection)
-    let window = NSApp.mainWindow
-    
-    guard let sheetWindow = window?.contentViewController?.view.window else {
-      // Unable to get the sheet window
-      return withDetection
+//  func presentImportFileTemplateSheet(_ fileUrl: URL, withDetection: FileTemplates) -> FileTemplates {
+//    let importFileTemplateView = ImportFileTemplateView(fileUrl: fileUrl, withDetection: withDetection)
+//    let window = NSApp.mainWindow
+//
+//    guard let contentViewController = window?.contentViewController else {
+//      // Unable to get the content view controller
+//      return withDetection
+//    }
+//
+//    contentViewController.presentAsSheet(importFileTemplateView)
+//
+//    return importFileTemplateView.waitForDismissal()
+//  }
+  
+  func presentImportFileTemplateSheet(_ fileUrl: URL, withDetection: FileTemplates) {
+    let storyboard = NSStoryboard(name: "Main", bundle: nil) // Replace "Main" with the actual name of your storyboard
+    guard let importFileTemplateViewController = storyboard.instantiateController(withIdentifier: "ImportFileTemplateViewController") as? ImportFileTemplateViewController else {
+      // Unable to instantiate ImportFileTemplateViewController from storyboard
+      return
     }
     
-    let fileTemplates = importFileTemplateView.waitForDismissal(on: sheetWindow)
-    return fileTemplates
+    importFileTemplateViewController.fileUrl = fileUrl
+    importFileTemplateViewController.withDetection = withDetection
+    
+    self.presentAsSheet(importFileTemplateViewController)
+  }
+  
+  func passDataToTableView(fileUrl: URL, withTemplate: FileTemplates) {
+    Debug.log("passDataToTableView: WE MADE IT")
   }
   
   func suggestDetectedFileTemplate(_ template: FileTemplates, forFileUrl: URL) {
-    switch presentImportFileTemplateSheet(forFileUrl, withDetection: template) {
-    case .generic:
-      self.updateCSVTableViewWithCSV(at: forFileUrl)
-    case .appStoreConnectSales:
-      cleanAppStoreSalesFileAndPassToTableView(forFileUrl)
+//      switch presentImportFileTemplateSheet(forFileUrl, withDetection: template) {
+//      case .generic:
+//        self.updateCSVTableViewWithCSV(at: forFileUrl)
+//      case .appStoreConnectSales:
+//        cleanAppStoreSalesFileAndPassToTableView(forFileUrl)
+//      }
+    presentImportFileTemplateSheet(forFileUrl, withDetection: template)
     }
-  }
   
   
   // MARK: File Browser Selection
