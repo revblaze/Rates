@@ -821,6 +821,9 @@ Gw
                             </textField>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="comboBox" destination="F5l-KP-r33" id="KYf-Ti-cDn"/>
+                    </connections>
                 </viewController>
                 <customObject id="R9b-3y-vlO" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

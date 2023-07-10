@@ -11,20 +11,30 @@ class ImportFileTemplateViewController: NSViewController {
   var fileUrl: URL?
   var withDetection: FileTemplates?
   
+  @IBOutlet private var comboBox: NSComboBox!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Perform any additional setup here
+    comboBox.removeAllItems()
+    comboBox.addItems(withObjectValues: FileTemplates.all)
+    
+    if let withDetection = withDetection {
+      let selectedValue = withDetection.rawValue
+      comboBox.selectItem(withObjectValue: selectedValue)
+    }
   }
   
   @IBAction func dismissSheetButtonAction(_ sender: Any) {
-    guard let fileUrl = fileUrl, let withDetection = withDetection else {
-      // Missing fileUrl or withDetection, unable to pass data
+    guard let fileUrl = fileUrl else {
+      // Missing fileUrl, unable to pass data
       dismissSheet()
       return
     }
     
-    if let presentingViewController = presentingViewController as? ViewController {
-      presentingViewController.passDataToTableView(fileUrl: fileUrl, withTemplate: withDetection)
+    if let selectedValue = comboBox.objectValueOfSelectedItem as? String,
+       let template = FileTemplates(rawValue: selectedValue) {
+      passDataToTableView(fileUrl: fileUrl, withTemplate: template)
     }
     
     dismissSheet()
@@ -32,5 +42,11 @@ class ImportFileTemplateViewController: NSViewController {
   
   private func dismissSheet() {
     view.window?.sheetParent?.endSheet(view.window!, returnCode: .OK)
+  }
+  
+  private func passDataToTableView(fileUrl: URL, withTemplate: FileTemplates) {
+    if let presentingViewController = presentingViewController as? ViewController {
+      presentingViewController.passDataToTableView(fileUrl: fileUrl, withTemplate: withTemplate)
+    }
   }
 }

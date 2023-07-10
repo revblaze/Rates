@@ -37,7 +37,7 @@ extension ViewController {
   }
   
   func passDataToTableView(fileUrl: URL, withTemplate: FileTemplates) {
-    Debug.log("passDataToTableView: WE MADE IT")
+    Debug.log("[passDataToTableView] withTemplate: \(withTemplate.rawValue) ")
   }
   
   func suggestDetectedFileTemplate(_ template: FileTemplates, forFileUrl: URL) {

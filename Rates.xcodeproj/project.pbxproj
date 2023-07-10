@@ -122,7 +122,6 @@
 		C255F2FE2A5B7EE1004B7F95 /* ImportFile */ = {
 			isa = PBXGroup;
 			children = (
-				C2B83CB12A5C59BA009763B6 /* ImportFileTemplateView */,
 				C255F3062A5B8A03004B7F95 /* FileTemplates */,
 				C255F3032A5B820D004B7F95 /* FileConversion */,
 				C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */,
@@ -201,13 +200,6 @@
 				C2546AF12A58A76A00C83FEC /* URLExtensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		C2B83CB12A5C59BA009763B6 /* ImportFileTemplateView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ImportFileTemplateView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
