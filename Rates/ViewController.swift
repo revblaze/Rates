@@ -33,6 +33,11 @@ class ViewController: NSViewController {
     scrollView.autoresizingMask = [.width, .height]
     scrollView.hasVerticalScroller = true
     
+    let bottomOffset: CGFloat = 30.0
+    let scrollViewHeight = view.bounds.height - bottomOffset
+    let scrollViewOriginY = bottomOffset
+    scrollView.frame = CGRect(x: 0, y: scrollViewOriginY, width: view.bounds.width, height: scrollViewHeight)
+    
     csvTableView = CSVTableView(frame: scrollView.bounds)
     csvTableView.autoresizingMask = [.width, .height]
     
@@ -198,7 +203,7 @@ class ViewController: NSViewController {
       }
       
       // Take the first 50 lines
-      let launchScreenLines = Array(lines.prefix(50))
+      let launchScreenLines = Array(lines.prefix(80))
       
       // Remove quotation marks from each line
       let sanitizedLines = launchScreenLines.map { line in
