@@ -11,6 +11,7 @@ class ImportFileTemplateViewController: NSViewController {
   var fileUrl: URL?
   var withDetection: FileTemplates?
   
+  @IBOutlet private var fileNameTextField: NSTextField!
   @IBOutlet private var comboBox: NSComboBox!
   
   override func viewDidLoad() {
@@ -22,6 +23,10 @@ class ImportFileTemplateViewController: NSViewController {
     if let withDetection = withDetection {
       let selectedValue = withDetection.rawValue
       comboBox.selectItem(withObjectValue: selectedValue)
+    }
+    
+    if let fileName = fileUrl?.lastPathComponent {
+      fileNameTextField.stringValue = fileName
     }
   }
   
