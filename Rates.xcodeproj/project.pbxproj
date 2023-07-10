@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C20749452A5B9FAB00240A66 /* CSVTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749442A5B9FAB00240A66 /* CSVTableView.swift */; };
+		C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */; };
 		C2546ADF2A58877B00C83FEC /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546ADE2A58877B00C83FEC /* AppDefaults.swift */; };
 		C2546AE12A58965900C83FEC /* ExchangeRateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546AE02A58965900C83FEC /* ExchangeRateData.swift */; };
 		C2546AE62A58973400C83FEC /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = C2546AE52A58973400C83FEC /* ZIPFoundation */; };
@@ -18,8 +20,10 @@
 		C2546AF62A58A93F00C83FEC /* ParseCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546AF52A58A93F00C83FEC /* ParseCSV.swift */; };
 		C2546AF92A59B89800C83FEC /* ConvertCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546AF82A59B89800C83FEC /* ConvertCSV.swift */; };
 		C2546AFC2A59B93300C83FEC /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546AFB2A59B93300C83FEC /* Debug.swift */; };
-		C255F2D72A5B50BD004B7F95 /* CSVTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C255F2D62A5B50BD004B7F95 /* CSVTableView.swift */; };
 		C255F2D92A5B556B004B7F95 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C255F2D82A5B556B004B7F95 /* WindowController.swift */; };
+		C255F3022A5B7F11004B7F95 /* FileTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = C255F3012A5B7F11004B7F95 /* FileTemplates.swift */; };
+		C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = C255F3042A5B8225004B7F95 /* ConvertTSV.swift */; };
+		C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C255F3072A5B8A1E004B7F95 /* FileTemplateParsing.swift */; };
 		C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */; };
 		C2636F8F2A585D4E0091BE7D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F8E2A585D4E0091BE7D /* ViewController.swift */; };
 		C2636F912A585D4F0091BE7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2636F902A585D4F0091BE7D /* Assets.xcassets */; };
@@ -32,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C20749442A5B9FAB00240A66 /* CSVTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableView.swift; sourceTree = "<group>"; };
+		C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreConnectSalesColumnHeaders.swift; sourceTree = "<group>"; };
 		C2546ADE2A58877B00C83FEC /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		C2546AE02A58965900C83FEC /* ExchangeRateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateData.swift; sourceTree = "<group>"; };
 		C2546AE72A58975E00C83FEC /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
@@ -40,8 +46,11 @@
 		C2546AF52A58A93F00C83FEC /* ParseCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseCSV.swift; sourceTree = "<group>"; };
 		C2546AF82A59B89800C83FEC /* ConvertCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertCSV.swift; sourceTree = "<group>"; };
 		C2546AFB2A59B93300C83FEC /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
-		C255F2D62A5B50BD004B7F95 /* CSVTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableView.swift; sourceTree = "<group>"; };
 		C255F2D82A5B556B004B7F95 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		C255F2FF2A5B7EFE004B7F95 /* ViewController+AddFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+AddFile.swift"; sourceTree = "<group>"; };
+		C255F3012A5B7F11004B7F95 /* FileTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTemplates.swift; sourceTree = "<group>"; };
+		C255F3042A5B8225004B7F95 /* ConvertTSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertTSV.swift; sourceTree = "<group>"; };
+		C255F3072A5B8A1E004B7F95 /* FileTemplateParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTemplateParsing.swift; sourceTree = "<group>"; };
 		C2636F892A585D4E0091BE7D /* Rates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2636F8E2A585D4E0091BE7D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +78,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C20749432A5B9F9E00240A66 /* CSVTableView */ = {
+			isa = PBXGroup;
+			children = (
+				C20749462A5BA01700240A66 /* CSVTableViewFilters */,
+				C20749442A5B9FAB00240A66 /* CSVTableView.swift */,
+			);
+			path = CSVTableView;
+			sourceTree = "<group>";
+		};
+		C20749462A5BA01700240A66 /* CSVTableViewFilters */ = {
+			isa = PBXGroup;
+			children = (
+				C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */,
+			);
+			path = CSVTableViewFilters;
+			sourceTree = "<group>";
+		};
 		C2546ADB2A5885DE00C83FEC /* ExchangeRateData */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,12 +116,31 @@
 			path = Testing;
 			sourceTree = "<group>";
 		};
-		C255F2D52A5B50B2004B7F95 /* ViewController */ = {
+		C255F2FE2A5B7EE1004B7F95 /* ImportFile */ = {
 			isa = PBXGroup;
 			children = (
-				C255F2D62A5B50BD004B7F95 /* CSVTableView.swift */,
+				C255F3062A5B8A03004B7F95 /* FileTemplates */,
+				C255F3032A5B820D004B7F95 /* FileConversion */,
+				C255F2FF2A5B7EFE004B7F95 /* ViewController+AddFile.swift */,
 			);
-			path = ViewController;
+			path = ImportFile;
+			sourceTree = "<group>";
+		};
+		C255F3032A5B820D004B7F95 /* FileConversion */ = {
+			isa = PBXGroup;
+			children = (
+				C255F3042A5B8225004B7F95 /* ConvertTSV.swift */,
+			);
+			path = FileConversion;
+			sourceTree = "<group>";
+		};
+		C255F3062A5B8A03004B7F95 /* FileTemplates */ = {
+			isa = PBXGroup;
+			children = (
+				C255F3012A5B7F11004B7F95 /* FileTemplates.swift */,
+				C255F3072A5B8A1E004B7F95 /* FileTemplateParsing.swift */,
+			);
+			path = FileTemplates;
 			sourceTree = "<group>";
 		};
 		C2636F802A585D4D0091BE7D = {
@@ -120,7 +165,8 @@
 				C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */,
 				C2636F8E2A585D4E0091BE7D /* ViewController.swift */,
 				C255F2D82A5B556B004B7F95 /* WindowController.swift */,
-				C255F2D52A5B50B2004B7F95 /* ViewController */,
+				C20749432A5B9F9E00240A66 /* CSVTableView */,
+				C255F2FE2A5B7EE1004B7F95 /* ImportFile */,
 				C2636F902A585D4F0091BE7D /* Assets.xcassets */,
 				C2636F922A585D4F0091BE7D /* Main.storyboard */,
 				C2636F952A585D4F0091BE7D /* Rates.entitlements */,
@@ -232,22 +278,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C20749452A5B9FAB00240A66 /* CSVTableView.swift in Sources */,
 				C2546ADF2A58877B00C83FEC /* AppDefaults.swift in Sources */,
 				C2636FA02A587DA70091BE7D /* StringExtensions.swift in Sources */,
 				C2546AE12A58965900C83FEC /* ExchangeRateData.swift in Sources */,
 				C2546AF62A58A93F00C83FEC /* ParseCSV.swift in Sources */,
 				C2546AF92A59B89800C83FEC /* ConvertCSV.swift in Sources */,
+				C255F3022A5B7F11004B7F95 /* FileTemplates.swift in Sources */,
 				C2636F9D2A5861350091BE7D /* Settings.swift in Sources */,
 				C2546AFC2A59B93300C83FEC /* Debug.swift in Sources */,
 				C2546AEA2A589A5000C83FEC /* DownloadManagerSession.swift in Sources */,
 				C2636F8F2A585D4E0091BE7D /* ViewController.swift in Sources */,
 				C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */,
+				C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */,
 				C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */,
 				C2546AF22A58A76A00C83FEC /* URLExtensions.swift in Sources */,
 				C255F2D92A5B556B004B7F95 /* WindowController.swift in Sources */,
-				C255F2D72A5B50BD004B7F95 /* CSVTableView.swift in Sources */,
+				C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */,
 				C273B9262A5B2FB600212717 /* Constants.swift in Sources */,
 				C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */,
+				C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */,
 				C2546AE82A58975E00C83FEC /* DownloadManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

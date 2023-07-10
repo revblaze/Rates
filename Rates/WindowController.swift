@@ -8,13 +8,23 @@
 import Cocoa
 
 class WindowController: NSWindowController, FileSelectionDelegate {
-  // Create an instance of ViewController
+  
   lazy var viewController: ViewController = {
     return self.window?.contentViewController as! ViewController
   }()
   
   @IBAction func openFileAction(_ sender: Any) {
     callOpenFileSelection()
+  }
+  
+  @IBAction func revertTableViewChanges(_ sender: Any) {
+    viewController.delegate = self
+    viewController.revertTableViewChanges()
+  }
+  
+  @IBAction func filterAppStoreConnectSales(_ sender: Any) {
+    viewController.delegate = self
+    viewController.filterAppStoreConnectSales()
   }
   
   // Function to call the file selection in ViewController
