@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum FileTemplates {
+enum FileTemplates: String, CaseIterable {
   
-  case generic
-  case appStoreConnectSales
+  case generic = "Generic"
+  case appStoreConnectSales = "App Store Connect Sales"
   
   var filterColumnHeaders: [String] {
     switch self {
@@ -19,5 +19,8 @@ enum FileTemplates {
     }
   }
   
+  static var all: [String] {
+    return FileTemplates.allCases.map { $0.rawValue }
+  }
 }
 
