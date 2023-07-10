@@ -7,15 +7,20 @@
 
 import Cocoa
 
+<<<<<<< Updated upstream
 protocol FileSelectionDelegate: AnyObject {
   func fileSelected(_ viewController: ViewController, fileURL: URL)
 }
 
-protocol FilterDelegate: class {
-    func filterAppStoreConnectSales()
+class ViewController: NSViewController {
+=======
+protocol FilterDelegate: AnyObject {
+  func revertTableViewChanges()
+  func filterAppStoreConnectSales()
 }
 
 class ViewController: NSViewController, FilterDelegate {
+>>>>>>> Stashed changes
   
   weak var delegate: FileSelectionDelegate?
   
@@ -46,13 +51,7 @@ class ViewController: NSViewController, FilterDelegate {
     csvTableView.updateCSVData(with: url)
   }
   
-  func filterAppStoreConnectSales() {
-    print("Made it to filterAppStoreConnectSales")
-    csvTableView.filterAppStoreConnectSales()
-  }
-  
-  
-  
+<<<<<<< Updated upstream
   // Function to open file selection
   func openFileSelection() {
     openUserFile { fileURL in
@@ -63,20 +62,17 @@ class ViewController: NSViewController, FilterDelegate {
       }
     }
   }
-  
-  func openUserFile(completion: @escaping (URL?) -> Void) {
-    let openPanel = NSOpenPanel()
-    openPanel.allowsMultipleSelection = false
-    openPanel.allowedFileTypes = ["csv"]
-    
-    openPanel.begin { result in
-      if result == NSApplication.ModalResponse.OK, let fileURL = openPanel.url {
-        completion(fileURL)
-      } else {
-        completion(nil)
-      }
-    }
+=======
+  func revertTableViewChanges() {
+    csvTableView.unhideColumns()
   }
+  
+  }
+  
+  
+  
+>>>>>>> Stashed changes
+  
   
   func beginLaunchSession() {
     

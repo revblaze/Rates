@@ -1,5 +1,5 @@
 //
-//  CSVFileTemplates.swift
+//  FileTemplates.swift
 //  Rates
 //
 //  Created by Justin Bush on 7/9/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CSVFileTemplates {
+enum FileTemplates {
   
   case generic
   case appStoreConnectSales
@@ -21,8 +21,3 @@ enum CSVFileTemplates {
   
 }
 
-class CSVFileTemplateParsing {
-  
-  
-  
-}

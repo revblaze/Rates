@@ -8,22 +8,20 @@
 import Cocoa
 
 class WindowController: NSWindowController, FileSelectionDelegate {
-  // Create an instance of ViewController
+  
   lazy var viewController: ViewController = {
     return self.window?.contentViewController as! ViewController
   }()
   
-  
-  override func windowDidLoad() {
-    super.windowDidLoad()
-    
-    // Implement this method to handle any initialization after
-    
-  }
-  
-  
   @IBAction func openFileAction(_ sender: Any) {
     callOpenFileSelection()
+  }
+  
+<<<<<<< Updated upstream
+=======
+  @IBAction func revertTableViewChanges(_ sender: Any) {
+    viewController.delegate = self
+    viewController.revertTableViewChanges()
   }
   
   @IBAction func filterAppStoreConnectSales(_ sender: Any) {
@@ -31,6 +29,7 @@ class WindowController: NSWindowController, FileSelectionDelegate {
     viewController.filterAppStoreConnectSales()
   }
   
+>>>>>>> Stashed changes
   // Function to call the file selection in ViewController
   func callOpenFileSelection() {
     viewController.delegate = self
