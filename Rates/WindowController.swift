@@ -35,7 +35,7 @@ class WindowController: NSWindowController, FileSelectionDelegate {
   
   // Implement the FileSelectionDelegate method
   func fileSelected(_ viewController: ViewController, fileURL: URL) {
-    print("Selected file: \(fileURL)")
+    Debug.log("Selected file: \(fileURL)")
     // Process the selected file URL
   }
 }

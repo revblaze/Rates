@@ -36,7 +36,7 @@ class ConvertTSV {
       
       return csvURL
     } catch {
-      print("Error converting TSV to CSV: \(error)")
+      Debug.log("Error converting TSV to CSV: \(error)")
       return nil
     }
   }
