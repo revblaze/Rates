@@ -24,9 +24,9 @@ extension ViewController {
 //  }
   
   func presentImportFileTemplateSheet(_ fileUrl: URL, withDetection: FileTemplates) {
-    let storyboard = NSStoryboard(name: "Main", bundle: nil) // Replace "Main" with the actual name of your storyboard
+    let storyboard = NSStoryboard(name: "Main", bundle: nil)
     guard let importFileTemplateViewController = storyboard.instantiateController(withIdentifier: "ImportFileTemplateViewController") as? ImportFileTemplateViewController else {
-      // Unable to instantiate ImportFileTemplateViewController from storyboard
+      Debug.log("Unable to instantiate ImportFileTemplateViewController from storyboard")
       return
     }
     
@@ -38,6 +38,29 @@ extension ViewController {
   
   func passDataToTableView(fileUrl: URL, withTemplate: FileTemplates) {
     Debug.log("[passDataToTableView] withTemplate: \(withTemplate.rawValue) ")
+    
+    switch withTemplate {
+    // MARK: App Store Sales Templates
+    case .appStoreConnectSales:
+      if fileUrl.hasFileExtension() == .txt || fileUrl.hasFileExtension() == .tsv {
+        cleanAppStoreSalesFileAndPassToTableView(fileUrl)
+      } else if fileUrl.hasFileExtension() == .csv {
+        updateCSVTableViewWithCSV(at: fileUrl)
+      } else {
+        Debug.log("[passDataToTableView] .appStore error for file: \(fileUrl)")
+      }
+    // MARK: Generic Template
+    case .generic:
+      if fileUrl.hasFileExtension() == .csv {
+        updateCSVTableViewWithCSV(at: fileUrl)
+      } else {
+        convertToCsvAndPassDataToTableView(fileUrl: fileUrl)
+      }
+      
+      
+    }
+    
+    
   }
   
   func suggestDetectedFileTemplate(_ template: FileTemplates, forFileUrl: URL) {
@@ -55,7 +78,8 @@ extension ViewController {
   func openUserFile(completion: @escaping (URL?) -> Void) {
     let openPanel = NSOpenPanel()
     openPanel.allowsMultipleSelection = false
-    openPanel.allowedFileTypes = ["csv", "tsv", "txt"]
+    print(FileExtensions.all)
+    openPanel.allowedFileTypes = FileExtensions.all //["csv", "tsv", "txt"]
     
     openPanel.begin { result in
       if result == NSApplication.ModalResponse.OK, let fileURL = openPanel.url {
@@ -70,22 +94,53 @@ extension ViewController {
   func openFileSelection() {
     openUserFile { fileURL in
       if let url = fileURL {
-        let fileExtension = url.pathExtension.lowercased()
         
-        if fileExtension == "csv" {
-          Debug.log("Selected file is of type CSV")
-          self.updateCSVTableViewWithCSV(at: url)
+        var detectedFileTemplate = FileTemplates.generic
+        
+        switch url.hasFileExtension() {
+        case .csv:
+          // generic
+          break
+            
+        case .tsv:
+          if FileTemplateParsing.containsAppStoreConnectHeaders(fileUrl: url) {
+            detectedFileTemplate = .appStoreConnectSales
+          }
           
-        } else if fileExtension == "tsv" {
-          Debug.log("Selected file is of type TSV")
-          self.handleTsvImport(fileURL: url)
+        case .txt:
+          if FileTemplateParsing.containsAppStoreConnectHeaders(fileUrl: url) {
+            detectedFileTemplate = .appStoreConnectSales
+          }
           
-        } else if fileExtension == "txt" {
-          Debug.log("Selected file is of type TXT")
-          self.handleTxtImport(fileURL: url)
-          
+        case .none:
+          // generic
+          Debug.log("[openFileSelection] error: unknown file type")
         }
+        
+        self.presentImportFileTemplateSheet(url, withDetection: detectedFileTemplate)
+        
       }
+    }
+  }
+  
+  // MARK: New Pass Functions
+  func convertToCsvAndPassDataToTableView(fileUrl: URL) {
+    let convertTSV = ConvertTSV()
+    if let csvFileURL = convertTSV.toCSV(fileURL: fileUrl) {
+      Debug.log("CSV file URL: \(csvFileURL)")
+      updateCSVTableViewWithCSV(at: csvFileURL)
+      
+    } else {
+      Debug.log("Failed to convert TSV to CSV.")
+    }
+  }
+  func cleanAppStoreSalesFileAndPassToTableView(_ fileUrl: URL) {
+    if let cleanedFileUrl = FileTemplateParsing.cleanAppStoreFile(fileUrl: fileUrl) {
+      Debug.log("Cleaned file created at: \(cleanedFileUrl)")
+      convertToCsvAndPassDataToTableView(fileUrl: cleanedFileUrl)
+    } else {
+      Debug.log("Failed to clean the file.")
+      return
     }
   }
   
@@ -117,15 +172,7 @@ extension ViewController {
     }
   }
   
-  func cleanAppStoreSalesFileAndPassToTableView(_ fileUrl: URL) {
-    if let cleanedFileUrl = FileTemplateParsing.cleanAppStoreFile(fileUrl: fileUrl) {
-      Debug.log("Cleaned file created at: \(cleanedFileUrl)")
-      passTSVtoCSVTableView(fileUrl: cleanedFileUrl)
-    } else {
-      Debug.log("Failed to clean the file.")
-      return
-    }
-  }
+  
   
   func passTSVtoCSVTableView(fileUrl: URL) {
     let convertTSV = ConvertTSV()
