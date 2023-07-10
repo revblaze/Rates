@@ -10,12 +10,16 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
   
-  
+  /// WindowController.window used to handle and present ViewController
+  var mainWindow: NSWindow!
   
   
   func applicationDidFinishLaunching(_ aNotification: Notification) {
-    // Insert code here to initialize your application
-    
+    /// Set mainWindow as initial window presented
+    mainWindow = NSApplication.shared.windows[0]
+    NSApp.activate(ignoringOtherApps: true)
+    /// Initialize Debug menu
+    initDebugMenu()
   }
   
   func applicationWillTerminate(_ aNotification: Notification) {
@@ -24,10 +28,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
   }
   
+  /// Called upon request to reactivate NSApp from an inactive state (ie. clicking the app from the dock)
+  func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+    /// If the app has no visible windows, present `mainWindow`
+    if !flag {
+      mainWindow.makeKeyAndOrderFront(self)
+    }
+    return true
+  }
+  
   func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
     return true
   }
   
+  
+  /// **MainMenu:** `Debug`
+  @IBOutlet weak var debugMenu: NSMenuItem!
   
 }
 
