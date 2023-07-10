@@ -708,13 +708,32 @@
                                         <action selector="openFileAction:" target="B8D-0N-5wS" id="7Ej-G4-N9v"/>
                                     </connections>
                                 </toolbarItem>
+<<<<<<< Updated upstream
                                 <toolbarItem implicitItemIdentifier="6727FC64-D617-44ED-A1EB-5F0BBDEC23BE" label="Convert" paletteLabel="Convert" tag="-1" image="arrow.triangle.2.circlepath" catalog="system" bordered="YES" id="uEg-WK-vIe">
                                     <size key="minSize" width="30" height="25"/>
                                     <size key="maxSize" width="30" height="25"/>
+=======
+                                <toolbarItem implicitItemIdentifier="6727FC64-D617-44ED-A1EB-5F0BBDEC23BE" label="Convert" paletteLabel="Convert" tag="-1" image="arrow.triangle.2.circlepath" catalog="system" bordered="YES" sizingBehavior="auto" id="uEg-WK-vIe"/>
+                                <toolbarItem implicitItemIdentifier="D1BFA734-F550-453D-AF23-4A0F34663249" label="Undo" paletteLabel="Undo Filters" tag="-1" image="arrow.uturn.backward" catalog="system" bordered="YES" sizingBehavior="auto" id="fqb-rO-691">
+                                    <connections>
+                                        <action selector="revertTableViewChanges:" target="B8D-0N-5wS" id="0Vl-v8-Gp2"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="2A25FDAE-932F-48D1-BF80-C13A1444100F" label="Filter" paletteLabel="Filter" tag="-1" image="line.3.horizontal.decrease.circle" catalog="system" bordered="YES" sizingBehavior="auto" id="zxs-eo-89M">
+                                    <connections>
+                                        <action selector="filterAppStoreConnectSales:" target="B8D-0N-5wS" id="hWU-eO-YhG"/>
+                                    </connections>
+>>>>>>> Stashed changes
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="LGC-fq-k0P"/>
+<<<<<<< Updated upstream
+=======
+                                <toolbarItem reference="fqb-rO-691"/>
+                                <toolbarItem reference="zxs-eo-89M"/>
+                                <toolbarItem reference="ZNq-Tc-vUD"/>
+>>>>>>> Stashed changes
                                 <toolbarItem reference="CvE-Zg-jBd"/>
                                 <toolbarItem reference="0Ad-i3-c1T"/>
                                 <toolbarItem reference="uEg-WK-vIe"/>
@@ -748,6 +767,7 @@
     </scenes>
     <resources>
         <image name="arrow.triangle.2.circlepath" catalog="system" width="18" height="15"/>
+        <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
         <image name="doc.badge.plus" catalog="system" width="15" height="17"/>
         <image name="gear" catalog="system" width="17" height="17"/>
     </resources>
