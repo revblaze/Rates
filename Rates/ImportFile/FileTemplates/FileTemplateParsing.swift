@@ -41,7 +41,7 @@ struct FileTemplateParsing {
         }
       }
     } catch {
-      print("Error reading file: \(error)")
+      Debug.log("Error reading file: \(error)")
     }
     
     return false
@@ -75,7 +75,7 @@ struct FileTemplateParsing {
       try cleanedContent.write(to: cleanedFileUrl, atomically: true, encoding: .utf8)
       return cleanedFileUrl
     } catch {
-      print("Failed to write cleaned content to file: \(error)")
+      Debug.log("Failed to write cleaned content to file: \(error)")
       return nil
     }
   }

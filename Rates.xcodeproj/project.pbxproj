@@ -40,6 +40,9 @@
 		C2B83CBC2A5C7AF4009763B6 /* ViewController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CBB2A5C7AF4009763B6 /* ViewController+StatusBar.swift */; };
 		C2B83CBE2A5C7E96009763B6 /* ViewController+Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CBD2A5C7E96009763B6 /* ViewController+Reachability.swift */; };
 		C2B83CC22A5C8350009763B6 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CC12A5C8350009763B6 /* DebugMenu.swift */; };
+		C2B83CC82A5C9D22009763B6 /* LaunchScreenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CC72A5C9D22009763B6 /* LaunchScreenData.swift */; };
+		C2B83CCC2A5C9E5C009763B6 /* ViewController+Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */; };
+		C2B83CCE2A5C9ED4009763B6 /* ViewController+Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +78,9 @@
 		C2B83CBB2A5C7AF4009763B6 /* ViewController+StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+StatusBar.swift"; sourceTree = "<group>"; };
 		C2B83CBD2A5C7E96009763B6 /* ViewController+Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Reachability.swift"; sourceTree = "<group>"; };
 		C2B83CC12A5C8350009763B6 /* DebugMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenu.swift; sourceTree = "<group>"; };
+		C2B83CC72A5C9D22009763B6 /* LaunchScreenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenData.swift; sourceTree = "<group>"; };
+		C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Filters.swift"; sourceTree = "<group>"; };
+		C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Launch.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,7 @@
 		C20749432A5B9F9E00240A66 /* CSVTableView */ = {
 			isa = PBXGroup;
 			children = (
+				C2B83CC62A5C9D0C009763B6 /* LaunchScreenData */,
 				C20749462A5BA01700240A66 /* CSVTableViewFilters */,
 				C20749442A5B9FAB00240A66 /* CSVTableView.swift */,
 			);
@@ -104,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */,
+				C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */,
 			);
 			path = CSVTableViewFilters;
 			sourceTree = "<group>";
@@ -180,6 +188,7 @@
 				C2B83CBF2A5C831B009763B6 /* MainMenu */,
 				C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */,
 				C2636F8E2A585D4E0091BE7D /* ViewController.swift */,
+				C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */,
 				C255F2D82A5B556B004B7F95 /* WindowController.swift */,
 				C2B83CB82A5C774D009763B6 /* StatusBar */,
 				C20749432A5B9F9E00240A66 /* CSVTableView */,
@@ -239,6 +248,14 @@
 				C2B83CC12A5C8350009763B6 /* DebugMenu.swift */,
 			);
 			path = Debug;
+			sourceTree = "<group>";
+		};
+		C2B83CC62A5C9D0C009763B6 /* LaunchScreenData */ = {
+			isa = PBXGroup;
+			children = (
+				C2B83CC72A5C9D22009763B6 /* LaunchScreenData.swift */,
+			);
+			path = LaunchScreenData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,6 +345,7 @@
 				C2546AE12A58965900C83FEC /* ExchangeRateData.swift in Sources */,
 				C2546AF62A58A93F00C83FEC /* ParseCSV.swift in Sources */,
 				C2546AF92A59B89800C83FEC /* ConvertCSV.swift in Sources */,
+				C2B83CC82A5C9D22009763B6 /* LaunchScreenData.swift in Sources */,
 				C255F3022A5B7F11004B7F95 /* FileTemplates.swift in Sources */,
 				C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */,
 				C2636F9D2A5861350091BE7D /* Settings.swift in Sources */,
@@ -340,7 +358,9 @@
 				C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */,
 				C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */,
 				C2546AF22A58A76A00C83FEC /* URLExtensions.swift in Sources */,
+				C2B83CCC2A5C9E5C009763B6 /* ViewController+Filters.swift in Sources */,
 				C255F2D92A5B556B004B7F95 /* WindowController.swift in Sources */,
+				C2B83CCE2A5C9ED4009763B6 /* ViewController+Launch.swift in Sources */,
 				C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */,
 				C273B9262A5B2FB600212717 /* Constants.swift in Sources */,
 				C2B83CC22A5C8350009763B6 /* DebugMenu.swift in Sources */,
