@@ -59,8 +59,6 @@ class CSVTableView: NSView {
     }
   }
   
-<<<<<<< Updated upstream:Rates/ViewController/CSVTableView.swift
-=======
   func unhideColumns() {
     tableView.tableColumns.forEach { column in
       column.isHidden = false
@@ -87,8 +85,6 @@ class CSVTableView: NSView {
       }
     }
   }
-  
->>>>>>> Stashed changes:Rates/CSVTableView/CSVTableView.swift
 }
 
 extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {

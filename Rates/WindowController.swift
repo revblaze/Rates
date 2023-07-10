@@ -17,8 +17,6 @@ class WindowController: NSWindowController, FileSelectionDelegate {
     callOpenFileSelection()
   }
   
-<<<<<<< Updated upstream
-=======
   @IBAction func revertTableViewChanges(_ sender: Any) {
     viewController.delegate = self
     viewController.revertTableViewChanges()
@@ -29,7 +27,6 @@ class WindowController: NSWindowController, FileSelectionDelegate {
     viewController.filterAppStoreConnectSales()
   }
   
->>>>>>> Stashed changes
   // Function to call the file selection in ViewController
   func callOpenFileSelection() {
     viewController.delegate = self

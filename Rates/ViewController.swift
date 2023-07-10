@@ -7,20 +7,11 @@
 
 import Cocoa
 
-<<<<<<< Updated upstream
 protocol FileSelectionDelegate: AnyObject {
   func fileSelected(_ viewController: ViewController, fileURL: URL)
 }
 
-class ViewController: NSViewController {
-=======
-protocol FilterDelegate: AnyObject {
-  func revertTableViewChanges()
-  func filterAppStoreConnectSales()
-}
-
-class ViewController: NSViewController, FilterDelegate {
->>>>>>> Stashed changes
+class ViewController: NSViewController, FileSelectionDelegate {
   
   weak var delegate: FileSelectionDelegate?
   
@@ -51,30 +42,16 @@ class ViewController: NSViewController, FilterDelegate {
     csvTableView.updateCSVData(with: url)
   }
   
-<<<<<<< Updated upstream
   // Function to open file selection
   func openFileSelection() {
     openUserFile { fileURL in
       if let url = fileURL {
         // Call the delegate method with the selected file URL
-        //self.delegate?.fileSelected(self, fileURL: url)
+        self.delegate?.fileSelected(self, fileURL: url)
         self.updateCSVTableViewWithCSV(at: url)
       }
     }
   }
-=======
-  func revertTableViewChanges() {
-    csvTableView.unhideColumns()
-  }
-  
-  func filterAppStoreConnectSales() {
-    csvTableView.filterAppStoreConnectSales()
-  }
-  
-  
-  
->>>>>>> Stashed changes
-  
   
   func beginLaunchSession() {
     
@@ -86,14 +63,14 @@ class ViewController: NSViewController, FilterDelegate {
       startCsvDownloadAndConvertToDb()
       
     }
-    
+      
     else {
       if let dbFileUrl = findDataDBFileURL() {
         updateCSVTableViewWithCSV(at: dbFileUrl)
       } else {
         startCsvDownloadAndConvertToDb()
       }
-      
+        
     }
     // TODO: Stop animations
   }
@@ -107,7 +84,7 @@ class ViewController: NSViewController, FilterDelegate {
         await self.updateCSVTableViewWithCSV(at: dbFileUrl)
         
       } else {
-        Debug.log("Error occured while awaiting getDb()")
+        Debug.log("Error occurred while awaiting getDb()")
         // TODO: Present error
       }
     }
@@ -123,12 +100,11 @@ class ViewController: NSViewController, FilterDelegate {
     }
   }
   
-  
   func findDataDBFileURL() -> URL? {
     do {
       let documentsURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
       let fileURLs = try FileManager.default.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
-      
+        
       // Filter fileURLs to find the file named "data.db"
       if let dataDBURL = fileURLs.first(where: { $0.lastPathComponent == "data.db" }) {
         return dataDBURL
@@ -136,20 +112,13 @@ class ViewController: NSViewController, FilterDelegate {
     } catch {
       print("Error while searching for data.db file: \(error)")
     }
-    
+      
     return nil
   }
-  
-  
-  
-  
   
   override var representedObject: Any? {
     didSet {
       // Update the view, if already loaded.
     }
   }
-  
-  
 }
-
