@@ -714,6 +714,19 @@
                                                             <action selector="debugUpdateStatusBarNoConnectionAndNoDb:" target="Voe-Tx-rLC" id="ZSb-hf-tSm"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="Rm6-Yz-79Y"/>
+                                                    <menuItem title="Loading User Data" id="itl-de-Ymd">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugUpdateStatusBarLoadingUserData:" target="Voe-Tx-rLC" id="PeF-Vq-VJF"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Failed to Load User Data" id="X4H-xJ-5qi">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugUpdateStatusBarFailedToLoadUserData:" target="Voe-Tx-rLC" id="Pa8-z6-HvC"/>
+                                                        </connections>
+                                                    </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>

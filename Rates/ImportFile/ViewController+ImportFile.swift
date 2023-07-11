@@ -36,6 +36,8 @@ extension ViewController {
       if let restructuredCsvFileUrl = StructureFile.forTableView(csvFileUrl: csvFileUrl, withTemplate: withTemplate) {
         
         updateCSVTableViewWithCSV(at: restructuredCsvFileUrl, withTemplate: withTemplate)
+        // TODO: Custom error handling?
+        updateStatusBar(withState: .upToDate)
         
       }
       

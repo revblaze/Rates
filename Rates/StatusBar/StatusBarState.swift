@@ -16,6 +16,7 @@ enum StatusBarState {
   case noConnectionAndPrefersUpdate
   case noConnectionAndNoDb
   case loadingUserData
+  case failedToLoadUserData
   
   var text: String {
     switch self {
@@ -26,6 +27,7 @@ enum StatusBarState {
     case .noConnectionAndPrefersUpdate: return "New exchange rate data may be available, but we were unable to check. Please check your network connection and try again."
     case .noConnectionAndNoDb: return "Please connect to the internet to download the latest exchange rate data."
     case .loadingUserData: return "Rendering data from file. This will only take a moment."
+    case .failedToLoadUserData: return "We encountered a problem with your file. Please try again."
     }
   }
   
@@ -38,6 +40,7 @@ enum StatusBarState {
     case .noConnectionAndPrefersUpdate: return "exclamationmark.icloud.fill"//"exclamationmark.triangle"
     case .noConnectionAndNoDb: return "wifi.exclamationmark"
     case .loadingUserData: return "hourglass"
+    case .failedToLoadUserData: return "exclamationmark.triangle.fill"
     }
   }
   
@@ -50,6 +53,7 @@ enum StatusBarState {
     case .noConnectionAndPrefersUpdate: return true
     case .noConnectionAndNoDb: return true
     case .loadingUserData: return false
+    case .failedToLoadUserData: return false
     }
   }
   
@@ -62,6 +66,7 @@ enum StatusBarState {
     case .noConnectionAndPrefersUpdate: return false
     case .noConnectionAndNoDb: return false
     case .loadingUserData: return true
+    case .failedToLoadUserData: return false
     }
   }
   

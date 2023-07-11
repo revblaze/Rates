@@ -39,12 +39,14 @@ class ImportFileTemplateViewController: NSViewController {
   
   @IBAction func cancelSheetButtonAction(_ sender: Any?) {
     dismissSheet()
+    stopAnimatingStatusBar()
   }
   
   @IBAction func dismissSheetButtonAction(_ sender: Any) {
     guard let fileUrl = fileUrl else {
-      // Missing fileUrl, unable to pass data
+      Debug.log("[dismissSheetButtonAction: missing fileUrl, unable to pass data.")
       dismissSheet()
+      stopAnimatingStatusBarWithError()
       return
     }
     
@@ -55,6 +57,8 @@ class ImportFileTemplateViewController: NSViewController {
       passDataToTableView(fileUrl: fileUrl, withTemplate: template)
     }
   }
+  
+  
   
   private func dismissSheet() {
     view.window?.sheetParent?.endSheet(view.window!, returnCode: .OK)
@@ -72,9 +76,7 @@ class ImportFileTemplateViewController: NSViewController {
     // Assuming your continueButton outlet is connected
     view.window?.makeFirstResponder(continueButton)
     
-    if let presentingViewController = presentingViewController as? ViewController {
-      presentingViewController.updateStatusBar(withState: .loadingUserData)
-    }
+    startAnimatingStatusBar()
   }
   
   override func keyDown(with event: NSEvent) {
@@ -87,6 +89,22 @@ class ImportFileTemplateViewController: NSViewController {
       }
     } else {
       super.keyDown(with: event)
+    }
+  }
+  
+  func startAnimatingStatusBar() {
+    if let presentingViewController = presentingViewController as? ViewController {
+      presentingViewController.updateStatusBar(withState: .loadingUserData)
+    }
+  }
+  func stopAnimatingStatusBar() {
+    if let presentingViewController = presentingViewController as? ViewController {
+      presentingViewController.updateStatusBar(withState: .upToDate)
+    }
+  }
+  func stopAnimatingStatusBarWithError() {
+    if let presentingViewController = presentingViewController as? ViewController {
+      presentingViewController.updateStatusBar(withState: .failedToLoadUserData)
     }
   }
   
