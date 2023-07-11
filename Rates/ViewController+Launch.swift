@@ -81,7 +81,6 @@ extension ViewController {
       let exchangeRateData = ExchangeRateData()
       if let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString) {
         Debug.log("Db file obtained: \(dbFileUrl)")
-        //await self.updateCSVTableViewWithCSV(at: dbFileUrl)
         await self.fillLaunchTableViewWithExchangeRateData()
         
       } else {

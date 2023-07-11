@@ -16,10 +16,5 @@ extension ViewController {
   func filterAppStoreConnectSales() {
     csvTableView.filterAppStoreConnectSales()
   }
-  // MARK: Pass Data to TableView
-  func updateCSVTableViewWithCSV(at url: URL) {
-    csvTableView.updateCSVData(with: url)
-    updateStatusBar(withState: .upToDate)
-  }
   
 }

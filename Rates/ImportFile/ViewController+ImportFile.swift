@@ -9,20 +9,6 @@ import Cocoa
 
 extension ViewController {
   
-//  func presentImportFileTemplateSheet(_ fileUrl: URL, withDetection: FileTemplates) -> FileTemplates {
-//    let importFileTemplateView = ImportFileTemplateView(fileUrl: fileUrl, withDetection: withDetection)
-//    let window = NSApp.mainWindow
-//
-//    guard let contentViewController = window?.contentViewController else {
-//      // Unable to get the content view controller
-//      return withDetection
-//    }
-//
-//    contentViewController.presentAsSheet(importFileTemplateView)
-//
-//    return importFileTemplateView.waitForDismissal()
-//  }
-  
   func presentImportFileTemplateSheet(_ fileUrl: URL, withDetection: FileTemplates) {
     let storyboard = NSStoryboard(name: "Main", bundle: nil)
     guard let importFileTemplateViewController = storyboard.instantiateController(withIdentifier: "ImportFileTemplateViewController") as? ImportFileTemplateViewController else {
@@ -38,7 +24,7 @@ extension ViewController {
   
   func passDataToTableView(fileUrl: URL, withTemplate: FileTemplates) {
     Debug.log("[passDataToTableView] withTemplate: \(withTemplate.rawValue) ")
-    
+    //MARK: UPDATE STATUS BAR
     
     // Step 1. Convert to CSV (without quotations)
     // Step 2. Modify for template
@@ -49,20 +35,25 @@ extension ViewController {
       
       if let restructuredCsvFileUrl = StructureFile.forTableView(csvFileUrl: csvFileUrl, withTemplate: withTemplate) {
         
-        updateCSVTableViewWithCSV(at: restructuredCsvFileUrl)
+        updateCSVTableViewWithCSV(at: restructuredCsvFileUrl, withTemplate: withTemplate)
+        // TODO: Custom error handling?
+        updateStatusBar(withState: .upToDate)
         
       }
       
     }
     
   }
-  
-  
-  
-  func suggestDetectedFileTemplate(_ template: FileTemplates, forFileUrl: URL) {
-
-    presentImportFileTemplateSheet(forFileUrl, withDetection: template)
+  // MARK: Pass Data to TableView
+  func updateCSVTableViewWithCSV(at url: URL, withTemplate: FileTemplates = .generic) {
+    Debug.log("[updateCSVTableViewWithCSV] withTemplate: \(withTemplate.rawValue)")
+    // Excel requires largest number of entries for header
+    if withTemplate == .excelSpreadsheet {
+      csvTableView.updateCSVData(with: url, withHeaderRowDetection: .largestNumberOfEntries)
+    } else {
+      csvTableView.updateCSVData(with: url)
     }
+  }
   
   
   // MARK: File Browser Selection
@@ -90,67 +81,6 @@ extension ViewController {
       }
     }
   }
-  
-  // MARK: New Pass Functions
-//  func convertToCsvAndPassDataToTableView(fileUrl: URL) {
-//    if let csvFileURL = ConvertTSV.toCSV(fileURL: fileUrl) {
-//      Debug.log("CSV file URL: \(csvFileURL)")
-//      updateCSVTableViewWithCSV(at: csvFileURL)
-//
-//    } else {
-//      Debug.log("Failed to convert TSV to CSV.")
-//    }
-//  }
-//  func cleanAppStoreSalesFileAndPassToTableView(_ fileUrl: URL) {
-//    if let cleanedFileUrl = FileTemplateParsing.cleanAppStoreFile(fileUrl: fileUrl) {
-//      Debug.log("Cleaned file created at: \(cleanedFileUrl)")
-//      convertToCsvAndPassDataToTableView(fileUrl: cleanedFileUrl)
-//    } else {
-//      Debug.log("Failed to clean the file.")
-//      return
-//    }
-//  }
-  
-  
-  // MARK: Import File Handlers
-  
-//  func handleTsvImport(fileURL: URL) {
-//    let convertTSV = ConvertTSV()
-//    if let csvFileURL = convertTSV.toCSV(fileURL: fileURL) {
-//      Debug.log("CSV file URL: \(csvFileURL)")
-//      self.updateCSVTableViewWithCSV(at: csvFileURL)
-//
-//    } else {
-//      Debug.log("Failed to convert TSV to CSV.")
-//    }
-//  }
-//
-//
-//  func handleTxtImport(fileURL: URL) {
-//
-//    switch FileTemplateParsing.detectFileTemplateType(fileUrl: fileURL) {
-//    case .appStoreConnectSales:
-//      Debug.log("handleTxtImport: .appStoreConnectSales")
-//      suggestDetectedFileTemplate(.appStoreConnectSales, forFileUrl: fileURL)
-//
-//    case .generic:
-//      Debug.log("handleTxtImport: .generic")
-//      suggestDetectedFileTemplate(.generic, forFileUrl: fileURL)
-//    }
-//  }
-//
-//
-//
-//  func passTSVtoCSVTableView(fileUrl: URL) {
-//    let convertTSV = ConvertTSV()
-//    if let csvFileURL = convertTSV.toCSV(fileURL: fileUrl) {
-//      Debug.log("CSV file URL: \(csvFileURL)")
-//      self.updateCSVTableViewWithCSV(at: csvFileURL)
-//
-//    } else {
-//      Debug.log("Failed to convert TXT to CSV.")
-//    }
-//  }
-  
+
   
 }

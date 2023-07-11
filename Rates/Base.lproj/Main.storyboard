@@ -714,6 +714,19 @@
                                                             <action selector="debugUpdateStatusBarNoConnectionAndNoDb:" target="Voe-Tx-rLC" id="ZSb-hf-tSm"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="Rm6-Yz-79Y"/>
+                                                    <menuItem title="Loading User Data" id="itl-de-Ymd">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugUpdateStatusBarLoadingUserData:" target="Voe-Tx-rLC" id="PeF-Vq-VJF"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Failed to Load User Data" id="X4H-xJ-5qi">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugUpdateStatusBarFailedToLoadUserData:" target="Voe-Tx-rLC" id="Pa8-z6-HvC"/>
+                                                        </connections>
+                                                    </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>
@@ -775,7 +788,7 @@
                                         <action selector="revertTableViewChanges:" target="B8D-0N-5wS" id="0Vl-v8-Gp2"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="2A25FDAE-932F-48D1-BF80-C13A1444100F" label="Filter" paletteLabel="Filter" tag="-1" image="line.3.horizontal.decrease.circle" catalog="system" bordered="YES" sizingBehavior="auto" id="zxs-eo-89M">
+                                <toolbarItem implicitItemIdentifier="2A25FDAE-932F-48D1-BF80-C13A1444100F" label="Filter" paletteLabel="Filter" tag="-1" image="list.bullet.rectangle" catalog="system" bordered="YES" sizingBehavior="auto" id="zxs-eo-89M">
                                     <connections>
                                         <action selector="filterAppStoreConnectSales:" target="B8D-0N-5wS" id="hWU-eO-YhG"/>
                                     </connections>
@@ -972,11 +985,15 @@
 Gw
 </string>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="cancelSheetButtonAction:" target="xg9-6X-NyW" id="jpL-kJ-2nt"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="comboBox" destination="F5l-KP-r33" id="KYf-Ti-cDn"/>
+                        <outlet property="continueButton" destination="1oI-l0-1MV" id="IBk-wn-C7M"/>
                         <outlet property="fileFormatTextField" destination="ddF-OX-5Mh" id="o3c-az-qBB"/>
                         <outlet property="fileNameTextField" destination="wBK-Ky-1WR" id="Do6-x2-j8w"/>
                     </connections>
@@ -993,7 +1010,7 @@ Gw
         <image name="checkmark.seal.fill" catalog="system" width="17" height="17"/>
         <image name="doc.badge.plus" catalog="system" width="15" height="17"/>
         <image name="gear" catalog="system" width="17" height="17"/>
-        <image name="line.3.horizontal.decrease.circle" catalog="system" width="15" height="15"/>
+        <image name="list.bullet.rectangle" catalog="system" width="18" height="14"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

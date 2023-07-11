@@ -35,14 +35,14 @@ class CSVTableView: NSView {
     tableView.dataSource = self
   }
   
-  func updateCSVData(with url: URL) {
+  func updateCSVData(with url: URL, withHeaderRowDetection: DetectHeaderRow = .modeNumberOfEntries) {
     if let csvString = try? String(contentsOf: url, encoding: .utf8) {
       let rows = csvString.components(separatedBy: .newlines)
       tableData = rows
         .filter { !$0.isEmpty }
         .map { $0.components(separatedBy: ",") }
       
-      updateTableColumns()
+      updateTableColumns(withHeaderRowDetection: withHeaderRowDetection)
       tableView.reloadData()
     }
   }
