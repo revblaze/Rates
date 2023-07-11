@@ -42,7 +42,7 @@ class CSVTableView: NSView {
         .filter { !$0.isEmpty }
         .map { $0.components(separatedBy: ",") }
       
-      updateTableColumns()
+      updateTableColumns(withHeaderRowDetection: withHeaderRowDetection)
       tableView.reloadData()
     }
   }

@@ -13,9 +13,16 @@ struct FileTemplateParsing {
     
     if containsAppStoreConnectHeaders(fileUrl: fileUrl) {
       return .appStoreConnectSales
-    } else {
+    }
+    
+    else if fileUrl.hasFileExtension() == .xlsx {
+      return .excelSpreadsheet
+    }
+    
+    else {
       return .generic
     }
+    
   }
   
   static func containsAppStoreConnectHeaders(fileUrl: URL) -> Bool {
