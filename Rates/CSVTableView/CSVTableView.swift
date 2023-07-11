@@ -50,13 +50,30 @@ class CSVTableView: NSView {
   private func updateTableColumns() {
     tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
     
-    if let headerRow = tableData.first {
-      for (index, header) in headerRow.enumerated() {
-        let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
-        column.title = header
-        tableView.addTableColumn(column)
+    guard let headerRow = findHeaderRow() else {
+      return
+    }
+    
+    for (index, header) in headerRow.enumerated() {
+      let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
+      column.title = header
+      tableView.addTableColumn(column)
+    }
+  }
+  
+  private func findHeaderRow() -> [String]? {
+    var headerRow: [String]? = nil
+    var maxEntryCount = 0
+    
+    for row in tableData {
+      let entryCount = row.count
+      if entryCount > maxEntryCount {
+        maxEntryCount = entryCount
+        headerRow = row
       }
     }
+    
+    return headerRow
   }
   
   func unhideColumns() {
