@@ -7,6 +7,10 @@
 
 import Cocoa
 
+enum DetectHeaderRow {
+  
+}
+
 class CSVTableView: NSView {
   
   private var tableView: NSTableView!
@@ -48,33 +52,65 @@ class CSVTableView: NSView {
   }
   
   private func updateTableColumns() {
-    tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
-    
-    guard let headerRow = findHeaderRow() else {
-      return
-    }
-    
-    for (index, header) in headerRow.enumerated() {
-      let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
-      column.title = header
-      tableView.addTableColumn(column)
-    }
+      tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
+
+      guard let headerRow = findModeHeaderRow() else {
+          return
+      }
+
+      for (index, header) in headerRow.enumerated() {
+          let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
+          column.title = header
+          tableView.addTableColumn(column)
+      }
+  }
+
+  private func findModeHeaderRow() -> [String]? {
+      var entryCountMap: [Int: Int] = [:] // [Entry count: Frequency]
+      var maxFrequency = 0
+
+      for row in tableData {
+          let entryCount = row.count
+          entryCountMap[entryCount, default: 0] += 1
+          maxFrequency = max(maxFrequency, entryCountMap[entryCount] ?? 0)
+      }
+
+      let modeEntryCounts = entryCountMap.filter { $0.value == maxFrequency }.map { $0.key }
+      let modeRows = tableData.filter { modeEntryCounts.contains($0.count) }
+
+      return modeRows.first
   }
   
-  private func findHeaderRow() -> [String]? {
-    var headerRow: [String]? = nil
-    var maxEntryCount = 0
-    
-    for row in tableData {
-      let entryCount = row.count
-      if entryCount > maxEntryCount {
-        maxEntryCount = entryCount
-        headerRow = row
-      }
-    }
-    
-    return headerRow
-  }
+  
+  
+//  private func updateTableColumns() {
+//    tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
+//
+//    guard let headerRow = findHeaderRow() else {
+//      return
+//    }
+//
+//    for (index, header) in headerRow.enumerated() {
+//      let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
+//      column.title = header
+//      tableView.addTableColumn(column)
+//    }
+//  }
+//
+//  private func findHeaderRow() -> [String]? {
+//    var headerRow: [String]? = nil
+//    var maxEntryCount = 0
+//
+//    for row in tableData {
+//      let entryCount = row.count
+//      if entryCount > maxEntryCount {
+//        maxEntryCount = entryCount
+//        headerRow = row
+//      }
+//    }
+//
+//    return headerRow
+//  }
   
   func unhideColumns() {
     tableView.tableColumns.forEach { column in
