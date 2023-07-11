@@ -12,6 +12,7 @@ class ImportFileTemplateViewController: NSViewController {
   var withDetection: FileTemplates?
   
   @IBOutlet private var fileNameTextField: NSTextField!
+  @IBOutlet private var fileFormatTextField: NSTextField!
   @IBOutlet private var comboBox: NSComboBox!
   
   override func viewDidLoad() {
@@ -28,6 +29,11 @@ class ImportFileTemplateViewController: NSViewController {
     if let fileName = fileUrl?.lastPathComponent {
       fileNameTextField.stringValue = fileName
     }
+    
+    if let fileExtensionType = fileUrl?.hasFileExtension() {
+      fileFormatTextField.stringValue = fileExtensionType.fullFormatName
+    }
+    fileFormatTextField.font = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
   }
   
   @IBAction func dismissSheetButtonAction(_ sender: Any) {
