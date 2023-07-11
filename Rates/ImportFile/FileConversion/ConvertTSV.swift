@@ -7,9 +7,9 @@
 
 import Foundation
 
-class ConvertTSV {
+struct ConvertTSV {
   
-  func toCSV(fileURL: URL) -> URL? {
+  static func toCSV(fileURL: URL) -> URL? {
     let fileManager = FileManager.default
     
     // Create a destination URL for the CSV file
