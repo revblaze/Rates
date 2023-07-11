@@ -30,13 +30,27 @@ struct ConvertTSV {
         return nil
       }
       
-      // Replace empty entries with "––"
-      
-      let csvString = tsvString.replacingOccurrences(of: "\t", with: ",")//.replacingOccurrences(of: "\t\t", with: ",––,")
+      let replaceTabbedEntries = tsvString.replacingOccurrences(of: "\t", with: ",")
         .replacingOccurrences(of: ",,", with: ",––,")
         .replacingOccurrences(of: ",\n", with: ",––\n")
         .replacingOccurrences(of: "\n,", with: "\n––,")
         .replacingOccurrences(of: "\n\n", with: "\n––\n")
+      
+      var replaceEmptyEntries = replaceTabbedEntries
+      
+      while replaceEmptyEntries.contains(",,") {
+        let replacedEntries = replaceEmptyEntries.replacingOccurrences(of: ",,", with: ",––,")
+          .replacingOccurrences(of: ",\n", with: ",––\n")
+          .replacingOccurrences(of: "\n,", with: "\n––,")
+          .replacingOccurrences(of: "\n\n", with: "\n––\n")
+        replaceEmptyEntries = replacedEntries
+      }
+      
+      var csvString = replaceEmptyEntries
+      
+      if let slimData = RemoveEmptyEntries.removeAppendingEmptyEntries(csvData: csvString) {
+        csvString = slimData
+      }
       
       // Write the CSV string to the destination URL
       try csvString.write(to: csvURL, atomically: true, encoding: .utf8)
