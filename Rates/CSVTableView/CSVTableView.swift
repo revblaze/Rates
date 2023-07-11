@@ -47,15 +47,26 @@ class CSVTableView: NSView {
     }
   }
   
-  private func updateTableColumns() {
+  private func updateTableColumns(withHeaderRowDetection: DetectHeaderRow = .modeNumberOfEntries) {
     tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
     
-    if let headerRow = tableData.first {
-      for (index, header) in headerRow.enumerated() {
-        let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
-        column.title = header
-        tableView.addTableColumn(column)
-      }
+    var headerRow: [String]? = nil
+    
+    switch withHeaderRowDetection {
+    case .modeNumberOfEntries:
+      headerRow = CSVTableView.findModeEntryHeaderRow(tableData: tableData)
+    case .largestNumberOfEntries:
+      headerRow = CSVTableView.findLargestNumberEntryHeaderRow(tableData: tableData)
+    }
+    
+    guard let foundHeaderRow = headerRow else {
+      return
+    }
+    
+    for (index, header) in foundHeaderRow.enumerated() {
+      let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
+      column.title = header
+      tableView.addTableColumn(column)
     }
   }
   
