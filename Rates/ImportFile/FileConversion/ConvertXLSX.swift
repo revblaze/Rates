@@ -27,13 +27,23 @@ struct ConvertXLSX {
           let worksheet = try file.parseWorksheet(at: path)
           for row in worksheet.data?.rows ?? [] {
             let rowData = row.cells.compactMap { cell -> String? in
-              if let value = cell.value {
-                return "\(value)"
-              } else if let formula = cell.formula {
-                return "\(formula)"
-              } else {
+              do {
+                if let sharedStrings = try file.parseSharedStrings() {
+                  if let value = cell.stringValue(sharedStrings) {
+                    return "\(value)"
+                  } else if let date = cell.dateValue {
+                    return "\(date)"
+                  } else if let formula = cell.formula {
+                    return "\(formula)"
+                  } else {
+                    return nil
+                  }
+                }
+              } catch {
+                print("Error parsing shared strings: \(error.localizedDescription)")
                 return nil
               }
+              return nil
             }
             let csvRow = rowData.joined(separator: ",")
             csvData += csvRow + "\n"

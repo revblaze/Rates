@@ -9,10 +9,15 @@ import Foundation
 
 extension ViewController {
   
+  func updateCSVTableViewWithLaunchData(at url: URL) {
+    csvTableView.updateCSVData(with: url)
+    updateStatusBar(withState: .upToDate)
+  }
+  
   func fillLaunchTableViewWithExchangeRateData() {
     if let searchExchangeRateDataUrl = searchExchangeRateDataInDocumentsDirectory() {
       if let launchScreenCsvFileUrl = generateLaunchScreenData(fromCsvFileUrl: searchExchangeRateDataUrl) {
-        passDataToTableView(fileUrl: launchScreenCsvFileUrl, withTemplate: .generic)
+        updateCSVTableViewWithLaunchData(at: launchScreenCsvFileUrl)
       }
     }
   }

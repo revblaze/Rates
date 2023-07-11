@@ -56,6 +56,17 @@ extension ViewController {
     }
     
   }
+  // MARK: Pass Data to TableView
+  func updateCSVTableViewWithCSV(at url: URL, withTemplate: FileTemplates = .generic) {
+    // Excel requires largest number of entries for header
+    if withTemplate == .excelSpreadsheet {
+      csvTableView.updateCSVData(with: url, withHeaderRowDetection: .largestNumberOfEntries)
+    } else {
+      csvTableView.updateCSVData(with: url)
+    }
+  }
+  
+  
   
   
   
