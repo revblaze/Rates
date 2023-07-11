@@ -7,9 +7,9 @@
 
 import Foundation
 
-class ConvertTSV {
+struct ConvertTSV {
   
-  func toCSV(fileURL: URL) -> URL? {
+  static func toCSV(fileURL: URL) -> URL? {
     let fileManager = FileManager.default
     
     // Create a destination URL for the CSV file
@@ -17,7 +17,8 @@ class ConvertTSV {
       return nil
     }
     
-    let csvFileName = "importedFile.csv"
+    let randomString = String((0..<5).map { _ in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".randomElement()! })
+    let csvFileName = "tabs_\(randomString).csv"
     let csvURL = documentsDirectory.appendingPathComponent(csvFileName)
     
     do {
@@ -29,7 +30,29 @@ class ConvertTSV {
         return nil
       }
       
-      let csvString = tsvString.replacingOccurrences(of: "\t", with: ",")
+      let replaceTabbedEntries = tsvString.replacingOccurrences(of: "\t", with: ",")
+        .replacingOccurrences(of: ",,", with: ",––,")
+        .replacingOccurrences(of: ",\n", with: ",––\n")
+        .replacingOccurrences(of: "\n,", with: "\n––,")
+        .replacingOccurrences(of: "\n\n", with: "\n––\n")
+      
+      var replaceEmptyEntries = replaceTabbedEntries
+      
+      while replaceEmptyEntries.contains(",,") {
+        let replacedEntries = replaceEmptyEntries.replacingOccurrences(of: ",,", with: ",––,")
+          .replacingOccurrences(of: ",\n", with: ",––\n")
+          .replacingOccurrences(of: "\n,", with: "\n––,")
+          .replacingOccurrences(of: "\n\n", with: "\n––\n")
+        replaceEmptyEntries = replacedEntries
+      }
+      
+      var csvString = replaceEmptyEntries
+      
+      if let slimData = RemoveEmptyEntries.removeAppendingEmptyEntries(csvData: csvString) {
+        csvString = slimData
+      } else {
+        Debug.log("[ConvertTSV.toCSV] Unable to slimData")
+      }
       
       // Write the CSV string to the destination URL
       try csvString.write(to: csvURL, atomically: true, encoding: .utf8)

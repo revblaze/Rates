@@ -16,7 +16,6 @@ struct FileTemplateParsing {
     } else {
       return .generic
     }
-    
   }
   
   static func containsAppStoreConnectHeaders(fileUrl: URL) -> Bool {
@@ -67,7 +66,7 @@ struct FileTemplateParsing {
     let fileManager = FileManager.default
     let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
     
-    let randomCharacters = randomString(length: 5)
+    let randomCharacters = Utils.randomString(length: 5)
     let cleanedFileName = "appstoresales_\(randomCharacters).txt"
     let cleanedFileUrl = documentsDirectory.appendingPathComponent(cleanedFileName)
     
@@ -78,11 +77,6 @@ struct FileTemplateParsing {
       Debug.log("Failed to write cleaned content to file: \(error)")
       return nil
     }
-  }
-  
-  static func randomString(length: Int) -> String {
-    let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    return String((0..<length).map { _ in letters.randomElement()! })
   }
   
 }
