@@ -43,6 +43,11 @@
 		C2B83CC82A5C9D22009763B6 /* LaunchScreenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CC72A5C9D22009763B6 /* LaunchScreenData.swift */; };
 		C2B83CCC2A5C9E5C009763B6 /* ViewController+Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */; };
 		C2B83CCE2A5C9ED4009763B6 /* ViewController+Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */; };
+		C2B83CD02A5DB998009763B6 /* ConvertXLSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCF2A5DB998009763B6 /* ConvertXLSX.swift */; };
+		C2B83CD32A5DBB0D009763B6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD22A5DBB0D009763B6 /* Utils.swift */; };
+		C2B83CD62A5DBBE3009763B6 /* CoreXLSX in Frameworks */ = {isa = PBXBuildFile; productRef = C2B83CD52A5DBBE3009763B6 /* CoreXLSX */; };
+		C2B83CD82A5DC1FE009763B6 /* ConvertFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */; };
+		C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD92A5DC382009763B6 /* StructureFile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +86,10 @@
 		C2B83CC72A5C9D22009763B6 /* LaunchScreenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenData.swift; sourceTree = "<group>"; };
 		C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Filters.swift"; sourceTree = "<group>"; };
 		C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Launch.swift"; sourceTree = "<group>"; };
+		C2B83CCF2A5DB998009763B6 /* ConvertXLSX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertXLSX.swift; sourceTree = "<group>"; };
+		C2B83CD22A5DBB0D009763B6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertFile.swift; sourceTree = "<group>"; };
+		C2B83CD92A5DC382009763B6 /* StructureFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureFile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2B83CD62A5DBBE3009763B6 /* CoreXLSX in Frameworks */,
 				C2546AF02A58A1D000C83FEC /* SQLite in Frameworks */,
 				C2546AE62A58973400C83FEC /* ZIPFoundation in Frameworks */,
 				C2546AED2A58A19400C83FEC /* SwiftCSV in Frameworks */,
@@ -152,6 +162,8 @@
 			isa = PBXGroup;
 			children = (
 				C255F3042A5B8225004B7F95 /* ConvertTSV.swift */,
+				C2B83CCF2A5DB998009763B6 /* ConvertXLSX.swift */,
+				C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */,
 			);
 			path = FileConversion;
 			sourceTree = "<group>";
@@ -162,6 +174,7 @@
 				C2B83CB62A5C6907009763B6 /* FileExtensions.swift */,
 				C255F3012A5B7F11004B7F95 /* FileTemplates.swift */,
 				C255F3072A5B8A1E004B7F95 /* FileTemplateParsing.swift */,
+				C2B83CD92A5DC382009763B6 /* StructureFile.swift */,
 			);
 			path = FileTemplates;
 			sourceTree = "<group>";
@@ -197,6 +210,7 @@
 				C2636F922A585D4F0091BE7D /* Main.storyboard */,
 				C2636F952A585D4F0091BE7D /* Rates.entitlements */,
 				C2546ADB2A5885DE00C83FEC /* ExchangeRateData */,
+				C2B83CD12A5DBAF8009763B6 /* Utilities */,
 				C2636F9E2A587D9B0091BE7D /* Extensions */,
 				C2636F9B2A5861280091BE7D /* Settings */,
 				C2546AFA2A59B91900C83FEC /* Testing */,
@@ -258,6 +272,14 @@
 			path = LaunchScreenData;
 			sourceTree = "<group>";
 		};
+		C2B83CD12A5DBAF8009763B6 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C2B83CD22A5DBB0D009763B6 /* Utils.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -278,6 +300,7 @@
 				C2546AE52A58973400C83FEC /* ZIPFoundation */,
 				C2546AEC2A58A19400C83FEC /* SwiftCSV */,
 				C2546AEF2A58A1D000C83FEC /* SQLite */,
+				C2B83CD52A5DBBE3009763B6 /* CoreXLSX */,
 			);
 			productName = Rates;
 			productReference = C2636F892A585D4E0091BE7D /* Rates.app */;
@@ -311,6 +334,7 @@
 				C2546AE42A58973400C83FEC /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				C2546AEB2A58A19400C83FEC /* XCRemoteSwiftPackageReference "SwiftCSV" */,
 				C2546AEE2A58A1D000C83FEC /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+				C2B83CD42A5DBBE3009763B6 /* XCRemoteSwiftPackageReference "CoreXLSX" */,
 			);
 			productRefGroup = C2636F8A2A585D4E0091BE7D /* Products */;
 			projectDirPath = "";
@@ -344,6 +368,7 @@
 				C2636FA02A587DA70091BE7D /* StringExtensions.swift in Sources */,
 				C2546AE12A58965900C83FEC /* ExchangeRateData.swift in Sources */,
 				C2546AF62A58A93F00C83FEC /* ParseCSV.swift in Sources */,
+				C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */,
 				C2546AF92A59B89800C83FEC /* ConvertCSV.swift in Sources */,
 				C2B83CC82A5C9D22009763B6 /* LaunchScreenData.swift in Sources */,
 				C255F3022A5B7F11004B7F95 /* FileTemplates.swift in Sources */,
@@ -366,8 +391,11 @@
 				C2B83CC22A5C8350009763B6 /* DebugMenu.swift in Sources */,
 				C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */,
 				C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */,
+				C2B83CD02A5DB998009763B6 /* ConvertXLSX.swift in Sources */,
+				C2B83CD32A5DBB0D009763B6 /* Utils.swift in Sources */,
 				C2546AE82A58975E00C83FEC /* DownloadManager.swift in Sources */,
 				C2B83CBC2A5C7AF4009763B6 /* ViewController+StatusBar.swift in Sources */,
+				C2B83CD82A5DC1FE009763B6 /* ConvertFile.swift in Sources */,
 				C2B83CAC2A5C54B1009763B6 /* ViewController+ImportFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -605,6 +633,14 @@
 				minimumVersion = 0.14.1;
 			};
 		};
+		C2B83CD42A5DBBE3009763B6 /* XCRemoteSwiftPackageReference "CoreXLSX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CoreOffice/CoreXLSX.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.14.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -622,6 +658,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C2546AEE2A58A1D000C83FEC /* XCRemoteSwiftPackageReference "SQLite.swift" */;
 			productName = SQLite;
+		};
+		C2B83CD52A5DBBE3009763B6 /* CoreXLSX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C2B83CD42A5DBBE3009763B6 /* XCRemoteSwiftPackageReference "CoreXLSX" */;
+			productName = CoreXLSX;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
