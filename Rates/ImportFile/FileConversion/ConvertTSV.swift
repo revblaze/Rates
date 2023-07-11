@@ -17,7 +17,8 @@ struct ConvertTSV {
       return nil
     }
     
-    let csvFileName = "importedFile.csv"
+    let randomString = String((0..<5).map { _ in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".randomElement()! })
+    let csvFileName = "tabs_\(randomString).csv"
     let csvURL = documentsDirectory.appendingPathComponent(csvFileName)
     
     do {

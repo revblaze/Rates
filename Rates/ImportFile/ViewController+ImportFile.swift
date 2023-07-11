@@ -47,7 +47,7 @@ extension ViewController {
     // TODO: Look for the first row with the longest avg entries and use that for header
     if let csvFileUrl = ConvertFile.toCSV(fileUrl: fileUrl) {
       
-      if let restructuredCsvFileUrl = StructureFile.forTableView(csvFileUrl: csvFileUrl) {
+      if let restructuredCsvFileUrl = StructureFile.forTableView(csvFileUrl: csvFileUrl, withTemplate: withTemplate) {
         
         updateCSVTableViewWithCSV(at: restructuredCsvFileUrl)
         

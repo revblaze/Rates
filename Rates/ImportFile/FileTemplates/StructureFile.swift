@@ -9,7 +9,7 @@ import Foundation
 
 struct StructureFile {
   
-  static func forTableView(csvFileUrl: URL) -> URL? {
+  static func forTableView(csvFileUrl: URL, withTemplate: FileTemplates) -> URL? {
     
     Debug.log("[StructureFile] csvFileUrl: \(csvFileUrl)")
     
