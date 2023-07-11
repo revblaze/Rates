@@ -9,10 +9,19 @@ import Foundation
 
 enum FileExtensions: String, CaseIterable {
   
-case csv, tsv, txt
+case csv, tsv, txt, xlsx
   
   static var all: [String] {
     return FileExtensions.allCases.map { $0.rawValue }
+  }
+  
+  var fullFormatName: String {
+    switch self {
+    case .csv: return "Comma Separated Values"
+    case .tsv: return "Tab Separated Values"
+    case .txt: return "Plain Text"
+    case .xlsx: return "Excel Spreadsheet"
+    }
   }
   
 }

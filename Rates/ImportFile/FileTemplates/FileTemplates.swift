@@ -9,7 +9,7 @@ import Foundation
 
 enum FileTemplates: String, CaseIterable {
   
-  case generic = "Generic"
+  case generic = "Generic Spreadsheet"
   case appStoreConnectSales = "App Store Connect Sales"
   
   var filterColumnHeaders: [String] {
