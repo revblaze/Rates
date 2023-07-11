@@ -37,7 +37,7 @@ class ImportFileTemplateViewController: NSViewController {
     fileFormatTextField.font = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
   }
   
-  @IBAction override func cancelSheetButtonAction(_ sender: Any?) {
+  @IBAction func cancelSheetButtonAction(_ sender: Any?) {
     dismissSheet()
   }
   
@@ -48,12 +48,12 @@ class ImportFileTemplateViewController: NSViewController {
       return
     }
     
+    dismissSheet()
+    
     if let selectedValue = comboBox.objectValueOfSelectedItem as? String,
        let template = FileTemplates(rawValue: selectedValue) {
       passDataToTableView(fileUrl: fileUrl, withTemplate: template)
     }
-    
-    dismissSheet()
   }
   
   private func dismissSheet() {
@@ -65,4 +65,29 @@ class ImportFileTemplateViewController: NSViewController {
       presentingViewController.passDataToTableView(fileUrl: fileUrl, withTemplate: withTemplate)
     }
   }
+  
+  override func viewDidAppear() {
+    super.viewDidAppear()
+    
+    // Assuming your continueButton outlet is connected
+    view.window?.makeFirstResponder(continueButton)
+    
+    if let presentingViewController = presentingViewController as? ViewController {
+      presentingViewController.updateStatusBar(withState: .loadingUserData)
+    }
+  }
+  
+  override func keyDown(with event: NSEvent) {
+    if let firstResponder = view.window?.firstResponder as? NSView, firstResponder == continueButton {
+      if event.keyCode == 36 {
+        // "Enter" key code is 36
+        continueButton.performClick(self)
+      } else {
+        super.keyDown(with: event)
+      }
+    } else {
+      super.keyDown(with: event)
+    }
+  }
+  
 }

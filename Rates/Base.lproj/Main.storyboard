@@ -972,11 +972,15 @@
 Gw
 </string>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="cancelSheetButtonAction:" target="xg9-6X-NyW" id="jpL-kJ-2nt"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="comboBox" destination="F5l-KP-r33" id="KYf-Ti-cDn"/>
+                        <outlet property="continueButton" destination="1oI-l0-1MV" id="IBk-wn-C7M"/>
                         <outlet property="fileFormatTextField" destination="ddF-OX-5Mh" id="o3c-az-qBB"/>
                         <outlet property="fileNameTextField" destination="wBK-Ky-1WR" id="Do6-x2-j8w"/>
                     </connections>

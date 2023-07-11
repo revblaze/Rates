@@ -16,7 +16,7 @@ extension ViewController {
     if let buttonCell = statusBarButton.cell as? NSButtonCell {
       buttonCell.image = NSImage(systemSymbolName: withState.symbolName, accessibilityDescription: nil)
     }
-    if withState == .loading || withState == .isCurrentlyUpdating {
+    if withState.shouldAnimateProgressBar {
       startStatusBarButtonPulsingAnimation()
       statusBarProgressBar.startAnimation(self)
     } else {
