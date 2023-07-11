@@ -27,8 +27,8 @@ struct RemoveEmptyEntries {
       for (index, row) in rows.enumerated() {
         let entries = row.components(separatedBy: ",")
         
-        // Check if the last entry of the row contains "––"
-        if entries.count == maxEntryCount && entries.last == "––" {
+        // Check if the last entry of the row is either "––" or an empty space/empty entry
+        if entries.count == maxEntryCount && (entries.last == "––" || entries.last?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == true) {
           // Remove the last entry from the row
           let updatedRow = entries.dropLast().joined(separator: ",")
           rows[index] = updatedRow

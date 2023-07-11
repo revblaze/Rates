@@ -50,6 +50,8 @@ struct ConvertTSV {
       
       if let slimData = RemoveEmptyEntries.removeAppendingEmptyEntries(csvData: csvString) {
         csvString = slimData
+      } else {
+        Debug.log("[ConvertTSV.toCSV] Unable to slimData")
       }
       
       // Write the CSV string to the destination URL
