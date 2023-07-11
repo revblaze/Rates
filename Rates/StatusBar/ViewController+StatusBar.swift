@@ -16,8 +16,8 @@ extension ViewController {
     if let buttonCell = statusBarButton.cell as? NSButtonCell {
       buttonCell.image = NSImage(systemSymbolName: withState.symbolName, accessibilityDescription: nil)
     }
-    if withState == .loading || withState == .isCurrentlyUpdating {
-      startStatusBarButtonPulsingAnimation()
+    if withState.shouldAnimateProgressBar {
+      startPulsingAnimation()
       statusBarProgressBar.startAnimation(self)
     } else {
       stopStatusBarButtonPulsingAnimation()
@@ -25,19 +25,19 @@ extension ViewController {
     }
     statusBarRefreshButton.isHidden = !withState.refreshButtonShouldBeVisible
   }
-
-
-  func startStatusBarButtonPulsingAnimation() {
+  
+  func startPulsingAnimation() {
     guard !statusBarButtonIsPulsing else { return }
     
-    let animation = CABasicAnimation(keyPath: "opacity")
-    animation.fromValue = 1.0
-    animation.toValue = 0.2
-    animation.duration = 1.0
-    animation.autoreverses = true
-    animation.repeatCount = .infinity
-    statusBarButton.layer?.add(animation, forKey: "pulse")
+    // Opacity animation
+    let opacityAnimation = CABasicAnimation(keyPath: "opacity")
+    opacityAnimation.fromValue = 1.0
+    opacityAnimation.toValue = 0.2
+    opacityAnimation.duration = 1.0
+    opacityAnimation.autoreverses = true
+    opacityAnimation.repeatCount = .infinity
     
+    statusBarButton.layer?.add(opacityAnimation, forKey: "pulse")
     statusBarButtonIsPulsing = true
   }
   

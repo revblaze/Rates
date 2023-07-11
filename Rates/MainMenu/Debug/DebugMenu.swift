@@ -40,5 +40,11 @@ extension AppDelegate {
   @IBAction func debugUpdateStatusBarNoConnectionAndNoDb(_ sender: NSMenuItem) {
     debugUpdateStatusBar(withStatus: .noConnectionAndNoDb)
   }
+  @IBAction func debugUpdateStatusBarLoadingUserData(_ sender: NSMenuItem) {
+    debugUpdateStatusBar(withStatus: .loadingUserData)
+  }
+  @IBAction func debugUpdateStatusBarFailedToLoadUserData(_ sender: NSMenuItem) {
+    debugUpdateStatusBar(withStatus: .failedToLoadUserData)
+  }
   
 }
