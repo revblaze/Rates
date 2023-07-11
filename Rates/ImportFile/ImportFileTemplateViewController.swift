@@ -73,10 +73,9 @@ class ImportFileTemplateViewController: NSViewController {
   override func viewDidAppear() {
     super.viewDidAppear()
     
+    startAnimatingStatusBar()
     // Assuming your continueButton outlet is connected
     view.window?.makeFirstResponder(continueButton)
-    
-    startAnimatingStatusBar()
   }
   
   override func keyDown(with event: NSEvent) {
