@@ -8,8 +8,12 @@
 import Cocoa
 import SystemConfiguration
 
+/// Extension of the `ViewController` class to add an additional method for checking the internet connection.
 extension ViewController {
   
+  /// Checks if there is no internet connection.
+  ///
+  /// - Returns: `true` if there is no internet connection, `false` otherwise.
   func noInternetConnection() -> Bool {
     var zeroAddress = sockaddr_in()
     zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
