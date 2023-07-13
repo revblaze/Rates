@@ -17,7 +17,7 @@ struct ConvertTSV {
       return nil
     }
     
-    let randomString = String((0..<5).map { _ in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".randomElement()! })
+    let randomString = Utility.randomString(length: 5)
     let csvFileName = "tabs_\(randomString).csv"
     let csvURL = documentsDirectory.appendingPathComponent(csvFileName)
     
@@ -56,8 +56,8 @@ struct ConvertTSV {
       
       // Write the CSV string to the destination URL
       try csvString.write(to: csvURL, atomically: true, encoding: .utf8)
-      
       return csvURL
+      
     } catch {
       Debug.log("Error converting TSV to CSV: \(error)")
       return nil

@@ -19,7 +19,7 @@ enum Keys: String, CaseIterable {
   /// The default value for a given UserDefaults key
   var defaultValue: Any {
     switch self {
-    case .exchangeRatesUrl: return Constants.CSV_URL_STRING
+    case .exchangeRatesUrl: return Constants.csvUrlString
     case .customExchangeRatesUrl: return ""
     case .appHasLaunchedBefore: return false
     }
