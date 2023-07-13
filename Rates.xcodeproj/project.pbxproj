@@ -44,7 +44,7 @@
 		C2B83CCC2A5C9E5C009763B6 /* ViewController+Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */; };
 		C2B83CCE2A5C9ED4009763B6 /* ViewController+Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */; };
 		C2B83CD02A5DB998009763B6 /* ConvertXLSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCF2A5DB998009763B6 /* ConvertXLSX.swift */; };
-		C2B83CD32A5DBB0D009763B6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD22A5DBB0D009763B6 /* Utils.swift */; };
+		C2B83CD32A5DBB0D009763B6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD22A5DBB0D009763B6 /* Utility.swift */; };
 		C2B83CD62A5DBBE3009763B6 /* CoreXLSX in Frameworks */ = {isa = PBXBuildFile; productRef = C2B83CD52A5DBBE3009763B6 /* CoreXLSX */; };
 		C2B83CD82A5DC1FE009763B6 /* ConvertFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */; };
 		C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD92A5DC382009763B6 /* StructureFile.swift */; };
@@ -89,7 +89,7 @@
 		C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Filters.swift"; sourceTree = "<group>"; };
 		C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Launch.swift"; sourceTree = "<group>"; };
 		C2B83CCF2A5DB998009763B6 /* ConvertXLSX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertXLSX.swift; sourceTree = "<group>"; };
-		C2B83CD22A5DBB0D009763B6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		C2B83CD22A5DBB0D009763B6 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertFile.swift; sourceTree = "<group>"; };
 		C2B83CD92A5DC382009763B6 /* StructureFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureFile.swift; sourceTree = "<group>"; };
 		C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveEmptyEntries.swift; sourceTree = "<group>"; };
@@ -281,7 +281,7 @@
 		C2B83CD12A5DBAF8009763B6 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				C2B83CD22A5DBB0D009763B6 /* Utils.swift */,
+				C2B83CD22A5DBB0D009763B6 /* Utility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -408,7 +408,7 @@
 				C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */,
 				C2B83CD02A5DB998009763B6 /* ConvertXLSX.swift in Sources */,
 				C2B83CDC2A5DD7E6009763B6 /* RemoveEmptyEntries.swift in Sources */,
-				C2B83CD32A5DBB0D009763B6 /* Utils.swift in Sources */,
+				C2B83CD32A5DBB0D009763B6 /* Utility.swift in Sources */,
 				C2546AE82A58975E00C83FEC /* DownloadManager.swift in Sources */,
 				C2B83CBC2A5C7AF4009763B6 /* ViewController+StatusBar.swift in Sources */,
 				C2B83CD82A5DC1FE009763B6 /* ConvertFile.swift in Sources */,
