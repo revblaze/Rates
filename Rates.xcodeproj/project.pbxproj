@@ -29,7 +29,6 @@
 		C2636F912A585D4F0091BE7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2636F902A585D4F0091BE7D /* Assets.xcassets */; };
 		C2636F942A585D4F0091BE7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2636F922A585D4F0091BE7D /* Main.storyboard */; };
 		C2636F9D2A5861350091BE7D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F9C2A5861350091BE7D /* Settings.swift */; };
-		C2636FA02A587DA70091BE7D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F9F2A587DA70091BE7D /* StringExtensions.swift */; };
 		C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636FA72A5882480091BE7D /* KeysExtensions.swift */; };
 		C273B9262A5B2FB600212717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9252A5B2FB600212717 /* Constants.swift */; };
 		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
@@ -74,7 +73,6 @@
 		C2636F932A585D4F0091BE7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C2636F952A585D4F0091BE7D /* Rates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rates.entitlements; sourceTree = "<group>"; };
 		C2636F9C2A5861350091BE7D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		C2636F9F2A587DA70091BE7D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C2636FA72A5882480091BE7D /* KeysExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysExtensions.swift; sourceTree = "<group>"; };
 		C273B9252A5B2FB600212717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
@@ -237,7 +235,6 @@
 		C2636F9E2A587D9B0091BE7D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C2636F9F2A587DA70091BE7D /* StringExtensions.swift */,
 				C2636FA72A5882480091BE7D /* KeysExtensions.swift */,
 				C2546AF12A58A76A00C83FEC /* URLExtensions.swift */,
 			);
@@ -379,7 +376,6 @@
 				C20749452A5B9FAB00240A66 /* CSVTableView.swift in Sources */,
 				C2546ADF2A58877B00C83FEC /* AppDefaults.swift in Sources */,
 				C2B83CBA2A5C776A009763B6 /* StatusBarState.swift in Sources */,
-				C2636FA02A587DA70091BE7D /* StringExtensions.swift in Sources */,
 				C2546AE12A58965900C83FEC /* ExchangeRateData.swift in Sources */,
 				C2546AF62A58A93F00C83FEC /* ParseCSV.swift in Sources */,
 				C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */,
