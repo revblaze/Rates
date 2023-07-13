@@ -57,3 +57,5 @@ extension ViewController {
   @IBAction func statusBarRefreshButtonAction(_ sender: NSButton) {
     checkInternetAndUpdateData()
   }
+  
+}
