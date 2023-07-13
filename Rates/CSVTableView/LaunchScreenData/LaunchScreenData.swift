@@ -20,11 +20,12 @@ extension ViewController {
   
   /// Fills the launch table view with exchange rate data.
   func fillLaunchTableViewWithExchangeRateData() {
-    if let searchExchangeRateDataUrl = searchExchangeRateDataInDocumentsDirectory() {
-      if let launchScreenCsvFileUrl = generateLaunchScreenData(fromCsvFileUrl: searchExchangeRateDataUrl) {
-        updateCSVTableViewWithLaunchData(at: launchScreenCsvFileUrl)
-      }
+    guard let searchExchangeRateDataUrl = searchExchangeRateDataInDocumentsDirectory(),
+          let launchScreenCsvFileUrl = generateLaunchScreenData(fromCsvFileUrl: searchExchangeRateDataUrl) else {
+      return
     }
+    
+    updateCSVTableViewWithLaunchData(at: launchScreenCsvFileUrl)
   }
   
   /// Generates launch screen data from a CSV file at a given URL.
