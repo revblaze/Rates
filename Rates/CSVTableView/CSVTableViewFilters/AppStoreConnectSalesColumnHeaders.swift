@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Enumeration representing the column headers for App Store Connect sales.
 enum AppStoreConnectSalesColumnHeaders: String {
   case transactionDate = "Transaction Date"
   case settlementDate = "Settlement Date"
@@ -27,6 +28,7 @@ enum AppStoreConnectSalesColumnHeaders: String {
   case orderType = "Order Type"
   case region = "Region"
   
+  /// An array of the column headers in expanded form.
   static var expanded: [String] {
     return [
       AppStoreConnectSalesColumnHeaders.transactionDate.rawValue,
@@ -40,6 +42,7 @@ enum AppStoreConnectSalesColumnHeaders: String {
     ]
   }
   
+  /// An array of the column headers in simplified form.
   static var simplified: [String] {
     return [
       AppStoreConnectSalesColumnHeaders.settlementDate.rawValue,

@@ -7,56 +7,57 @@
 
 import Foundation
 
+/// An extension of the `ViewController` class for handling the initial loading of the application.
 extension ViewController {
   
-  // MARK: Perform at Launch
-  
+  /// Initiates the launch process.
+  ///
+  /// Fills a table view with exchange rate data and updates the status bar. Checks if data needs updating
+  /// and either fetches new data from the internet or uses local data if it's up-to-date.
   func beginLaunchSession() {
     fillLaunchTableViewWithExchangeRateData()
     
     updateStatusBar(withState: .loading)
-    // If a day has passed since last updating the exchange rate data
     if dataNeedsUpdating() {
       checkInternetAndUpdateData()
-    }
-    // Else, data does not need updating
-    else {
+    } else {
       checkLocalDataAndUpdateIfNecessary()
     }
   }
   
+  /// Checks the internet connection and updates data accordingly.
+  ///
+  /// If there's no internet connection, it either shows a caution message (if a local database exists)
+  /// or an error message (if no local database exists). If there's an internet connection, it starts
+  /// downloading and converting CSV data to the database.
   func checkInternetAndUpdateData() {
-    // If there is no internet connection
     if noInternetConnection() {
-      // But there does exist a local database
       if localVersionOfDatabaseExists() {
-        // Update status bar to show caution message
         updateStatusBar(withState: .noConnectionAndPrefersUpdate)
       } else {
-        // Else, no internet or db > error message
         updateStatusBar(withState: .noConnectionAndNoDb)
       }
-    }
-    // Else, there is internet
-    else {
-      // Start download and conversion
+    } else {
       updateStatusBar(withState: .isCurrentlyUpdating)
       startCsvDownloadAndConvertToDb()
     }
   }
   
+  /// Checks if a local version of the database exists and updates the status bar and data accordingly.
+  ///
+  /// If a local version of the database exists, it updates the status bar to show the "Up to date" message.
+  /// If a local version of the database does not exist, it checks the internet connection and updates data if necessary.
   func checkLocalDataAndUpdateIfNecessary() {
-    // If local database exists
     if localVersionOfDatabaseExists() {
-      // Update status bar with "Up to date"
       updateStatusBar(withState: .upToDate)
-    }
-    // Else, if data does not exist
-    else {
+    } else {
       checkInternetAndUpdateData()
     }
   }
   
+  /// Checks if a local version of the database exists.
+  ///
+  /// - Returns: A boolean value indicating whether a local version of the database exists.
   func localVersionOfDatabaseExists() -> Bool {
     let fileManager = FileManager.default
     let documentsDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -76,6 +77,10 @@ extension ViewController {
     return false
   }
   
+  /// Starts the downloading of the CSV file and its conversion to the database.
+  ///
+  /// If the database file is obtained successfully, it fills a table view with exchange rate data.
+  /// If an error occurs, it updates the status bar to show a "Failed to update" message.
   func startCsvDownloadAndConvertToDb() {
     Task.detached {
       let exchangeRateData = ExchangeRateData()
@@ -91,6 +96,10 @@ extension ViewController {
     }
   }
   
+  /// Checks if the data needs updating.
+  ///
+  /// - Returns: A boolean value indicating whether the data needs updating. If a new day has started,
+  ///            it logs a message and returns `true`. If it's the same day, it logs a different message and returns `false`.
   func dataNeedsUpdating() -> Bool {
     if DailyCheck.shouldPerformAction() {
       Debug.log("[DailyCheck] New Day: download new exchange rate data")

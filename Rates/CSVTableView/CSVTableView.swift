@@ -7,21 +7,31 @@
 
 import Cocoa
 
+/// A custom view for displaying CSV data in a table view.
 class CSVTableView: NSView {
   
+  /// The table view for displaying CSV data.
   private var tableView: NSTableView!
+  /// The data to be displayed in the table view.
   private var tableData: [[String]] = []
   
+  /// Initializes the view with a given frame rectangle.
+  ///
+  /// - Parameter frameRect: The frame rectangle for the view.
   override init(frame frameRect: NSRect) {
     super.init(frame: frameRect)
     setupTableView()
   }
   
+  /// Initializes the view from data in a given unarchiver.
+  ///
+  /// - Parameter aDecoder: An unarchiver object.
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setupTableView()
   }
   
+  /// Sets up the table view.
   private func setupTableView() {
     tableView = NSTableView(frame: bounds)
     tableView.autoresizingMask = [.width, .height]
@@ -35,6 +45,11 @@ class CSVTableView: NSView {
     tableView.dataSource = self
   }
   
+  /// Updates the CSV data with the data from a given URL.
+  ///
+  /// - Parameters:
+  ///   - url: The URL of the CSV data.
+  ///   - withHeaderRowDetection: The mode of detecting the header row in the CSV data.
   func updateCSVData(with url: URL, withHeaderRowDetection: DetectHeaderRow = .modeNumberOfEntries) {
     if let csvString = try? String(contentsOf: url, encoding: .utf8) {
       let rows = csvString.components(separatedBy: .newlines)
@@ -47,6 +62,9 @@ class CSVTableView: NSView {
     }
   }
   
+  /// Updates the table columns based on the header row of the `tableData`.
+  ///
+  /// - Parameter withHeaderRowDetection: The mode of detecting the header row in the CSV data.
   private func updateTableColumns(withHeaderRowDetection: DetectHeaderRow = .modeNumberOfEntries) {
     tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
     
@@ -70,6 +88,7 @@ class CSVTableView: NSView {
     }
   }
   
+  /// Unhides all columns in the table view.
   func unhideColumns() {
     tableView.tableColumns.forEach { column in
       column.isHidden = false
@@ -77,10 +96,16 @@ class CSVTableView: NSView {
   }
   
   // MARK: App Store Connect
+  /// Filters the table view for App Store Connect sales.
   func filterAppStoreConnectSales() {
     filterAppStoreConnectSalesColumns(tableView: tableView)
   }
   
+  /// Filters the columns in the table view for App Store Connect sales with given column headers.
+  ///
+  /// - Parameters:
+  ///   - tableView: The table view to filter.
+  ///   - withColumns: The column headers for App Store Connect sales. See `AppStoreConnectSalesColumnHeaders.simplified` or `.expanded`.
   func filterAppStoreConnectSalesColumns(tableView: NSTableView, withColumns: [String] = AppStoreConnectSalesColumnHeaders.simplified) {
     let filterStrings = withColumns
     
@@ -98,12 +123,24 @@ class CSVTableView: NSView {
   }
 }
 
+/// Extension of the `CSVTableView` class to conform to the `NSTableViewDelegate` and `NSTableViewDataSource` protocols.
 extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
   
+  /// Returns the number of rows in the table view.
+  ///
+  /// - Parameter tableView: The table view.
+  /// - Returns: The number of rows in the table view.
   func numberOfRows(in tableView: NSTableView) -> Int {
     return tableData.count - 1 // Exclude the header row
   }
   
+  /// Returns the view that is associated with a specified row and table column.
+  ///
+  /// - Parameters:
+  ///   - tableView: The table view.
+  ///   - tableColumn: The table column.
+  ///   - row: The row.
+  /// - Returns: The view that is associated with `row` and `tableColumn`.
   func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
     let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "csvCell")
     var cellView = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTextFieldCellView
@@ -129,6 +166,7 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
   
 }
 
+/// A custom text field cell view with a custom intrinsic content size.
 class NSTextFieldCellView: NSTextField {
   override var intrinsicContentSize: NSSize {
     return NSSize(width: CGFloat.greatestFiniteMagnitude, height: super.intrinsicContentSize.height)
