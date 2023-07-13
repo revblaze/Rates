@@ -11,8 +11,6 @@ extension AppDelegate {
   
   /// Sets the Debug menu's `isHidden` and `isEnabled` properties based on the current environment (see Configuration.swift)
   func initDebugMenu() {
-//    debugMenu.isHidden = !Config.shared.debug
-//    debugMenu.isEnabled = Config.shared.debug
     debugMenu.isHidden = !Debug.isActive
     debugMenu.isEnabled = Debug.isActive
   }

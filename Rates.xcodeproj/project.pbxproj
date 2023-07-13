@@ -29,7 +29,6 @@
 		C2636F912A585D4F0091BE7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2636F902A585D4F0091BE7D /* Assets.xcassets */; };
 		C2636F942A585D4F0091BE7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2636F922A585D4F0091BE7D /* Main.storyboard */; };
 		C2636F9D2A5861350091BE7D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F9C2A5861350091BE7D /* Settings.swift */; };
-		C2636FA02A587DA70091BE7D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F9F2A587DA70091BE7D /* StringExtensions.swift */; };
 		C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636FA72A5882480091BE7D /* KeysExtensions.swift */; };
 		C273B9262A5B2FB600212717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9252A5B2FB600212717 /* Constants.swift */; };
 		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
@@ -44,7 +43,7 @@
 		C2B83CCC2A5C9E5C009763B6 /* ViewController+Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */; };
 		C2B83CCE2A5C9ED4009763B6 /* ViewController+Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */; };
 		C2B83CD02A5DB998009763B6 /* ConvertXLSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CCF2A5DB998009763B6 /* ConvertXLSX.swift */; };
-		C2B83CD32A5DBB0D009763B6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD22A5DBB0D009763B6 /* Utils.swift */; };
+		C2B83CD32A5DBB0D009763B6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD22A5DBB0D009763B6 /* Utility.swift */; };
 		C2B83CD62A5DBBE3009763B6 /* CoreXLSX in Frameworks */ = {isa = PBXBuildFile; productRef = C2B83CD52A5DBBE3009763B6 /* CoreXLSX */; };
 		C2B83CD82A5DC1FE009763B6 /* ConvertFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */; };
 		C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD92A5DC382009763B6 /* StructureFile.swift */; };
@@ -74,7 +73,6 @@
 		C2636F932A585D4F0091BE7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C2636F952A585D4F0091BE7D /* Rates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rates.entitlements; sourceTree = "<group>"; };
 		C2636F9C2A5861350091BE7D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		C2636F9F2A587DA70091BE7D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C2636FA72A5882480091BE7D /* KeysExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysExtensions.swift; sourceTree = "<group>"; };
 		C273B9252A5B2FB600212717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
@@ -89,7 +87,7 @@
 		C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Filters.swift"; sourceTree = "<group>"; };
 		C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Launch.swift"; sourceTree = "<group>"; };
 		C2B83CCF2A5DB998009763B6 /* ConvertXLSX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertXLSX.swift; sourceTree = "<group>"; };
-		C2B83CD22A5DBB0D009763B6 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		C2B83CD22A5DBB0D009763B6 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertFile.swift; sourceTree = "<group>"; };
 		C2B83CD92A5DC382009763B6 /* StructureFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureFile.swift; sourceTree = "<group>"; };
 		C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveEmptyEntries.swift; sourceTree = "<group>"; };
@@ -237,7 +235,6 @@
 		C2636F9E2A587D9B0091BE7D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C2636F9F2A587DA70091BE7D /* StringExtensions.swift */,
 				C2636FA72A5882480091BE7D /* KeysExtensions.swift */,
 				C2546AF12A58A76A00C83FEC /* URLExtensions.swift */,
 			);
@@ -281,7 +278,7 @@
 		C2B83CD12A5DBAF8009763B6 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				C2B83CD22A5DBB0D009763B6 /* Utils.swift */,
+				C2B83CD22A5DBB0D009763B6 /* Utility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -379,7 +376,6 @@
 				C20749452A5B9FAB00240A66 /* CSVTableView.swift in Sources */,
 				C2546ADF2A58877B00C83FEC /* AppDefaults.swift in Sources */,
 				C2B83CBA2A5C776A009763B6 /* StatusBarState.swift in Sources */,
-				C2636FA02A587DA70091BE7D /* StringExtensions.swift in Sources */,
 				C2546AE12A58965900C83FEC /* ExchangeRateData.swift in Sources */,
 				C2546AF62A58A93F00C83FEC /* ParseCSV.swift in Sources */,
 				C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */,
@@ -408,7 +404,7 @@
 				C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */,
 				C2B83CD02A5DB998009763B6 /* ConvertXLSX.swift in Sources */,
 				C2B83CDC2A5DD7E6009763B6 /* RemoveEmptyEntries.swift in Sources */,
-				C2B83CD32A5DBB0D009763B6 /* Utils.swift in Sources */,
+				C2B83CD32A5DBB0D009763B6 /* Utility.swift in Sources */,
 				C2546AE82A58975E00C83FEC /* DownloadManager.swift in Sources */,
 				C2B83CBC2A5C7AF4009763B6 /* ViewController+StatusBar.swift in Sources */,
 				C2B83CD82A5DC1FE009763B6 /* ConvertFile.swift in Sources */,

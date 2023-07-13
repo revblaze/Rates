@@ -10,8 +10,8 @@ import Cocoa
 extension ViewController {
   
   func presentImportFileTemplateSheet(_ fileUrl: URL, withDetection: FileTemplates) {
-    let storyboard = NSStoryboard(name: "Main", bundle: nil)
-    guard let importFileTemplateViewController = storyboard.instantiateController(withIdentifier: "ImportFileTemplateViewController") as? ImportFileTemplateViewController else {
+    let storyboard = NSStoryboard(name: Constants.mainStoryboard, bundle: nil)
+    guard let importFileTemplateViewController = storyboard.instantiateController(withIdentifier: Constants.importFileTemplateViewControllerIdentifier) as? ImportFileTemplateViewController else {
       Debug.log("Unable to instantiate ImportFileTemplateViewController from storyboard")
       return
     }
@@ -23,27 +23,22 @@ extension ViewController {
   }
   
   func passDataToTableView(fileUrl: URL, withTemplate: FileTemplates) {
-    Debug.log("[passDataToTableView] withTemplate: \(withTemplate.rawValue) ")
-    //MARK: UPDATE STATUS BAR
-    
-    // Step 1. Convert to CSV (without quotations)
-    // Step 2. Modify for template
-    
-    // TODO: Remove quotations if every entry has them
-    // TODO: Look for the first row with the longest avg entries and use that for header
-    if let csvFileUrl = ConvertFile.toCSV(fileUrl: fileUrl) {
-      
-      if let restructuredCsvFileUrl = StructureFile.forTableView(csvFileUrl: csvFileUrl, withTemplate: withTemplate) {
-        
-        updateCSVTableViewWithCSV(at: restructuredCsvFileUrl, withTemplate: withTemplate)
-        // TODO: Custom error handling?
-        updateStatusBar(withState: .upToDate)
-        
+      Debug.log("[passDataToTableView] withTemplate: \(withTemplate.rawValue) ")
+
+      guard
+          let csvFileUrl = ConvertFile.toCSV(fileUrl: fileUrl),
+          let restructuredCsvFileUrl = StructureFile.forTableView(csvFileUrl: csvFileUrl, withTemplate: withTemplate)
+      else {
+          // Add error handling here
+          Debug.log("Error converting file to CSV or restructuring CSV for table view.")
+          return
       }
-      
-    }
-    
+
+      updateCSVTableViewWithCSV(at: restructuredCsvFileUrl, withTemplate: withTemplate)
+      updateStatusBar(withState: .upToDate)
   }
+  
+  
   // MARK: Pass Data to TableView
   func updateCSVTableViewWithCSV(at url: URL, withTemplate: FileTemplates = .generic) {
     Debug.log("[updateCSVTableViewWithCSV] withTemplate: \(withTemplate.rawValue)")
