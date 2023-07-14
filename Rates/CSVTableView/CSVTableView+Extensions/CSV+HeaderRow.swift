@@ -9,7 +9,7 @@ import Foundation
 
 /// Enumeration specifying the modes of detecting the header row in CSV data.
 enum DetectHeaderRow {
-  case modeNumberOfEntries, largestNumberOfEntries
+  case modeNumberOfEntries, largestNumberOfEntries, custom
 }
 
 /// Extension of the `CSVTableView` class to add additional methods for detecting the header row in CSV data.
@@ -53,4 +53,5 @@ extension CSVTableView {
 
     return headerRow
   }
+  
 }

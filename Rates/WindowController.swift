@@ -10,6 +10,8 @@ import Cocoa
 /// The main window controller for the application.
 class WindowController: NSWindowController, FileSelectionDelegate {
   
+  @IBOutlet weak var selectCustomHeaderRowButton: NSToolbarItem!
+  
   /// The main view controller of the window.
   lazy var viewController: ViewController = {
     let vc = self.window?.contentViewController as! ViewController
@@ -30,6 +32,11 @@ class WindowController: NSWindowController, FileSelectionDelegate {
   /// Performs an action on the view controller to filter App Store Connect sales.
   @IBAction func filterAppStoreConnectSales(_ sender: Any) {
     performActionOnViewController(action: viewController.filterAppStoreConnectSales)
+  }
+  
+  /// Performs an action on the view controller to manually select the current table view row as the header row.
+  @IBAction func selectCustomHeaderRowFromTable(_ sender: Any) {
+    performActionOnViewController(action: viewController.selectCustomHeaderForTableView)
   }
   
   /// Calls the file selection in the view controller.

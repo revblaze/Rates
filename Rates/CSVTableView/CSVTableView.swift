@@ -65,7 +65,7 @@ class CSVTableView: NSView {
   /// Updates the table columns based on the header row of the `tableData`.
   ///
   /// - Parameter withHeaderRowDetection: The mode of detecting the header row in the CSV data.
-  private func updateTableColumns(withHeaderRowDetection: DetectHeaderRow = .modeNumberOfEntries) {
+  private func updateTableColumns(withHeaderRowDetection: DetectHeaderRow = .modeNumberOfEntries, customHeaderRow: [String] = [""]) {
     tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
     
     var headerRow: [String]? = nil
@@ -75,6 +75,8 @@ class CSVTableView: NSView {
       headerRow = CSVTableView.findModeEntryHeaderRow(tableData: tableData)
     case .largestNumberOfEntries:
       headerRow = CSVTableView.findLargestNumberEntryHeaderRow(tableData: tableData)
+    case .custom:
+      headerRow = customHeaderRow
     }
     
     guard let foundHeaderRow = headerRow else {
@@ -162,6 +164,43 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     return cellView
+  }
+  
+  // MARK: - Custom Header Row
+  /// Returns the header row of the currently selected row of the table view.
+  ///
+  /// If no row is selected in the table view, this method will present an NSAlert to the user instructing them to select a row.
+  ///
+  /// - Returns: The header row of the currently selected row of the table view, or `nil` if no row is selected.
+  func getCurrentlySelectedRow() -> [String]? {
+    // Check if a row is selected in the table view.
+    let selectedRow = tableView.selectedRow
+    if selectedRow >= 0 {
+      // Return the header row for the selected row.
+      return tableData[selectedRow+1]
+    } else {
+      // If no row is selected, present an NSAlert to the user.
+      let alert = NSAlert()
+      alert.messageText = "No Header Row Selected"
+      alert.informativeText = "Please select a row that you'd like to set as the header row and try again."
+      alert.alertStyle = .warning
+      alert.runModal()
+      return nil
+    }
+  }
+  
+  /// Updates the table columns based on the currently selected header row in the table view.
+  ///
+  /// This method uses the `getCurrentlySelectedRow()` method to acquire the selected header row. If no row is selected, this method will do nothing.
+  func manuallySelectHeaderRow() {
+    // Acquire the selected header row using the `getCurrentlySelectedRow()` method.
+    guard let selectedHeaderRow = getCurrentlySelectedRow() else {
+      // If no row is selected, do nothing.
+      return
+    }
+    
+    // Call the `updateTableColumns(withHeaderRowDetection:customHeaderRow:)` method, providing the selected header row.
+    updateTableColumns(withHeaderRowDetection: .custom, customHeaderRow: selectedHeaderRow)
   }
   
 }
