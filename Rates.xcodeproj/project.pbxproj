@@ -114,22 +114,39 @@
 		C20749432A5B9F9E00240A66 /* CSVTableView */ = {
 			isa = PBXGroup;
 			children = (
-				C2B83CC62A5C9D0C009763B6 /* LaunchScreenData */,
-				C20749462A5BA01700240A66 /* CSVTableViewControls */,
+				C20749462A5BA01700240A66 /* HeaderFilters */,
 				C20749442A5B9FAB00240A66 /* CSVTableView.swift */,
 				C2B83CDD2A5DF036009763B6 /* CSVTableView+Extensions */,
 			);
 			path = CSVTableView;
 			sourceTree = "<group>";
 		};
-		C20749462A5BA01700240A66 /* CSVTableViewControls */ = {
+		C20749462A5BA01700240A66 /* HeaderFilters */ = {
 			isa = PBXGroup;
 			children = (
 				C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */,
+			);
+			path = HeaderFilters;
+			sourceTree = "<group>";
+		};
+		C218CC552A61BE900046B90B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */,
+				C2B83CC62A5C9D0C009763B6 /* LaunchScreenData */,
+				C218CC562A61BEBC0046B90B /* TableViewControls */,
+			);
+			name = ViewController;
+			path = MainMenu/ViewController;
+			sourceTree = "<group>";
+		};
+		C218CC562A61BEBC0046B90B /* TableViewControls */ = {
+			isa = PBXGroup;
+			children = (
 				C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */,
 				C218CC532A61BB4A0046B90B /* ViewController+TableViewControls.swift */,
 			);
-			path = CSVTableViewControls;
+			path = TableViewControls;
 			sourceTree = "<group>";
 		};
 		C2546ADB2A5885DE00C83FEC /* ExchangeRateData */ = {
@@ -209,7 +226,7 @@
 				C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */,
 				C255F2D82A5B556B004B7F95 /* WindowController.swift */,
 				C2636F8E2A585D4E0091BE7D /* ViewController.swift */,
-				C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */,
+				C218CC552A61BE900046B90B /* ViewController */,
 				C2B83CB82A5C774D009763B6 /* StatusBar */,
 				C20749432A5B9F9E00240A66 /* CSVTableView */,
 				C255F2FE2A5B7EE1004B7F95 /* ImportFile */,
