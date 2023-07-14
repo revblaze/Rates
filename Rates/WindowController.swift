@@ -32,6 +32,10 @@ class WindowController: NSWindowController, FileSelectionDelegate {
     performActionOnViewController(action: viewController.filterAppStoreConnectSales)
   }
   
+  @IBAction func selectCustomHeaderRowFromTable(_ sender: Any) {
+    
+  }
+  
   /// Calls the file selection in the view controller.
   func callOpenFileSelection() {
     performActionOnViewController(action: viewController.openFileSelection)

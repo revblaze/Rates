@@ -204,9 +204,9 @@
 			children = (
 				C2B83CBF2A5C831B009763B6 /* MainMenu */,
 				C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */,
+				C255F2D82A5B556B004B7F95 /* WindowController.swift */,
 				C2636F8E2A585D4E0091BE7D /* ViewController.swift */,
 				C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */,
-				C255F2D82A5B556B004B7F95 /* WindowController.swift */,
 				C2B83CB82A5C774D009763B6 /* StatusBar */,
 				C20749432A5B9F9E00240A66 /* CSVTableView */,
 				C255F2FE2A5B7EE1004B7F95 /* ImportFile */,
