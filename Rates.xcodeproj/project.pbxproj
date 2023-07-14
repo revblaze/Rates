@@ -113,20 +113,20 @@
 			isa = PBXGroup;
 			children = (
 				C2B83CC62A5C9D0C009763B6 /* LaunchScreenData */,
-				C20749462A5BA01700240A66 /* CSVTableViewFilters */,
+				C20749462A5BA01700240A66 /* CSVTableViewControls */,
 				C20749442A5B9FAB00240A66 /* CSVTableView.swift */,
 				C2B83CDD2A5DF036009763B6 /* CSVTableView+Extensions */,
 			);
 			path = CSVTableView;
 			sourceTree = "<group>";
 		};
-		C20749462A5BA01700240A66 /* CSVTableViewFilters */ = {
+		C20749462A5BA01700240A66 /* CSVTableViewControls */ = {
 			isa = PBXGroup;
 			children = (
 				C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */,
 				C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */,
 			);
-			path = CSVTableViewFilters;
+			path = CSVTableViewControls;
 			sourceTree = "<group>";
 		};
 		C2546ADB2A5885DE00C83FEC /* ExchangeRateData */ = {
