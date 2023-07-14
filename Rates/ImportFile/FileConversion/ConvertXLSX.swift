@@ -8,8 +8,13 @@
 import Foundation
 import CoreXLSX
 
+/// A structure with a static method for converting an XLSX (Excel) file to a CSV (Comma-Separated Values) file.
 struct ConvertXLSX {
   
+  /// Converts an XLSX file to a CSV file.
+  ///
+  /// - Parameter fileURL: The URL of the XLSX file.
+  /// - Returns: The URL of the CSV file, or `nil` if an error occurs during the conversion.
   static func toCSV(fileURL: URL) -> URL? {
     do {
       guard let file = XLSXFile(filepath: fileURL.path) else {

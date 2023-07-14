@@ -1,3 +1,4 @@
+
 //
 //  ConvertFile.swift
 //  Rates
@@ -7,14 +8,19 @@
 
 import Foundation
 
+/// A structure with a static method for converting a file to CSV format.
 struct ConvertFile {
   
+  /// Converts a file to CSV format based on its file extension.
+  ///
+  /// - Parameter fileUrl: The URL of the file.
+  /// - Returns: The URL of the CSV file, or `nil` if the file extension is not recognized or the conversion fails.
   static func toCSV(fileUrl: URL) -> URL? {
     switch fileUrl.hasFileExtension() {
-    
+      
     case .csv:
       return fileUrl
-    
+      
     case .tsv:
       if let csvFileUrl = ConvertTSV.toCSV(fileURL: fileUrl) {
         return csvFileUrl

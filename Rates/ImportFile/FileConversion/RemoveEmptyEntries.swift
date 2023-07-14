@@ -1,3 +1,4 @@
+
 //
 //  RemoveEmptyEntries.swift
 //  Rates
@@ -7,8 +8,13 @@
 
 import Foundation
 
+/// A structure with a static method for removing the appending empty entries from CSV data.
 struct RemoveEmptyEntries {
   
+  /// Removes the appending empty entries from the CSV data.
+  ///
+  /// - Parameter csvData: The CSV data as a string.
+  /// - Returns: The modified CSV data as a string, or `nil` if the method fails to find the row(s) with the most entries.
   static func removeAppendingEmptyEntries(csvData: String) -> String? {
     // Split the CSV data into rows
     var rows = csvData.components(separatedBy: "\n")

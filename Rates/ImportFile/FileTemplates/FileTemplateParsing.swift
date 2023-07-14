@@ -1,3 +1,4 @@
+
 //
 //  FileTemplateParsing.swift
 //  Rates
@@ -7,8 +8,13 @@
 
 import Foundation
 
+/// A structure with static methods for detecting the file template type of a file and cleaning an App Store Connect Sales file.
 struct FileTemplateParsing {
   
+  /// Detects the file template type of the file at the given URL.
+  ///
+  /// - Parameter fileUrl: The URL of the file.
+  /// - Returns: The file template type of the file.
   static func detectFileTemplateType(fileUrl: URL) -> FileTemplates {
     
     if containsAppStoreConnectHeaders(fileUrl: fileUrl) {
@@ -25,6 +31,10 @@ struct FileTemplateParsing {
     
   }
   
+  /// Checks if the file at the given URL contains App Store Connect headers.
+  ///
+  /// - Parameter fileUrl: The URL of the file.
+  /// - Returns: `true` if the file contains App Store Connect headers, `false` otherwise.
   static func containsAppStoreConnectHeaders(fileUrl: URL) -> Bool {
     do {
       let fileContents = try String(contentsOf: fileUrl)
@@ -55,6 +65,10 @@ struct FileTemplateParsing {
   
   
   // MARK: Parse App Store Connect Sales
+  /// Cleans an App Store Connect Sales file by removing unnecessary lines.
+  ///
+  /// - Parameter fileUrl: The URL of the file.
+  /// - Returns: The URL of the cleaned file, or `nil` if an error occurs during the process.
   static func cleanAppStoreFile(fileUrl: URL) -> URL? {
     guard let fileContent = try? String(contentsOf: fileUrl) else {
       return nil
