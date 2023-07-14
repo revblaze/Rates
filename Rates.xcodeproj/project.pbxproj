@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C20749452A5B9FAB00240A66 /* CSVTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749442A5B9FAB00240A66 /* CSVTableView.swift */; };
 		C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */; };
+		C218CC542A61BB4A0046B90B /* ViewController+TableViewControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C218CC532A61BB4A0046B90B /* ViewController+TableViewControls.swift */; };
 		C2546ADF2A58877B00C83FEC /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546ADE2A58877B00C83FEC /* AppDefaults.swift */; };
 		C2546AE12A58965900C83FEC /* ExchangeRateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546AE02A58965900C83FEC /* ExchangeRateData.swift */; };
 		C2546AE62A58973400C83FEC /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = C2546AE52A58973400C83FEC /* ZIPFoundation */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		C20749442A5B9FAB00240A66 /* CSVTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableView.swift; sourceTree = "<group>"; };
 		C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreConnectSalesColumnHeaders.swift; sourceTree = "<group>"; };
+		C218CC532A61BB4A0046B90B /* ViewController+TableViewControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+TableViewControls.swift"; sourceTree = "<group>"; };
 		C2546ADE2A58877B00C83FEC /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		C2546AE02A58965900C83FEC /* ExchangeRateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateData.swift; sourceTree = "<group>"; };
 		C2546AE72A58975E00C83FEC /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			children = (
 				C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */,
 				C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */,
+				C218CC532A61BB4A0046B90B /* ViewController+TableViewControls.swift */,
 			);
 			path = CSVTableViewControls;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				C2546AFC2A59B93300C83FEC /* Debug.swift in Sources */,
 				C2546AEA2A589A5000C83FEC /* DownloadManagerSession.swift in Sources */,
 				C2636F8F2A585D4E0091BE7D /* ViewController.swift in Sources */,
+				C218CC542A61BB4A0046B90B /* ViewController+TableViewControls.swift in Sources */,
 				C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */,
 				C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */,
 				C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */,
