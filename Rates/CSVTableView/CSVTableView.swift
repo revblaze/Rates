@@ -177,7 +177,7 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
     let selectedRow = tableView.selectedRow
     if selectedRow >= 0 {
       // Return the header row for the selected row.
-      return tableData[selectedRow]
+      return tableData[selectedRow+1]
     } else {
       // If no row is selected, present an NSAlert to the user.
       let alert = NSAlert()
@@ -192,7 +192,7 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
   /// Updates the table columns based on the currently selected header row in the table view.
   ///
   /// This method uses the `getCurrentlySelectedRow()` method to acquire the selected header row. If no row is selected, this method will do nothing.
-  func manuallySelectHeader() {
+  func manuallySelectHeaderRow() {
     // Acquire the selected header row using the `getCurrentlySelectedRow()` method.
     guard let selectedHeaderRow = getCurrentlySelectedRow() else {
       // If no row is selected, do nothing.
