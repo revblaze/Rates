@@ -1,3 +1,4 @@
+
 //
 //  ConvertCSV.swift
 //  Rates
@@ -8,8 +9,13 @@
 import Foundation
 import SQLite3
 
+/// A class with a method for converting a CSV file to an SQLite database.
 class ConvertCSV {
   
+  /// Converts a CSV file to an SQLite database.
+  ///
+  /// - Parameter fileURL: The URL of the CSV file.
+  /// - Returns: The URL of the SQLite database file, or `nil` if an error occurs during the process.
   func toSQLite(fileURL: URL) -> URL? {
     // Get the document directory URL
     guard let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
