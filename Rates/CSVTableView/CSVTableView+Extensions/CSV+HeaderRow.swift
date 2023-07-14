@@ -7,11 +7,18 @@
 
 import Foundation
 
+/// Enumeration specifying the modes of detecting the header row in CSV data.
 enum DetectHeaderRow {
   case modeNumberOfEntries, largestNumberOfEntries
 }
 
+/// Extension of the `CSVTableView` class to add additional methods for detecting the header row in CSV data.
 extension CSVTableView {
+  
+  /// Finds the header row based on the mode of the number of entries in the CSV data.
+  ///
+  /// - Parameter tableData: The CSV data.
+  /// - Returns: The header row.
   static func findModeEntryHeaderRow(tableData: [[String]]) -> [String]? {
     var entryCountMap: [Int: Int] = [:] // [Entry count: Frequency]
     var maxFrequency = 0
@@ -28,6 +35,10 @@ extension CSVTableView {
     return modeRows.first
   }
 
+  /// Finds the header row with the largest number of entries in the CSV data.
+  ///
+  /// - Parameter tableData: The CSV data.
+  /// - Returns: The header row.
   static func findLargestNumberEntryHeaderRow(tableData: [[String]]) -> [String]? {
     var headerRow: [String]? = nil
     var maxEntryCount = 0

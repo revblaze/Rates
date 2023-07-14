@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Enumeration representing the various states of the status bar.
 enum StatusBarState {
   
   case loading
@@ -18,6 +19,7 @@ enum StatusBarState {
   case loadingUserData
   case failedToLoadUserData
   
+  /// The text description associated with the state.
   var text: String {
     switch self {
     case .loading: return "Loading exchange rate database."
@@ -31,6 +33,7 @@ enum StatusBarState {
     }
   }
   
+  /// The system symbol name associated with the state.
   var symbolName: String {
     switch self {
     case .loading: return "ellipsis"
@@ -44,6 +47,7 @@ enum StatusBarState {
     }
   }
   
+  /// Indicates whether the refresh button should be visible in the state.
   var refreshButtonShouldBeVisible: Bool {
     switch self {
     case .loading: return false
@@ -57,6 +61,7 @@ enum StatusBarState {
     }
   }
   
+  /// Indicates whether the progress bar should be animated in the state.
   var shouldAnimateProgressBar: Bool {
     switch self {
     case .loading: return true

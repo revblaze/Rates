@@ -1,3 +1,4 @@
+
 //
 //  DailyCheck.swift
 //  Rates
@@ -7,9 +8,11 @@
 
 import Foundation
 
+/// A structure with a static method for checking if an action should be performed based on the date.
 struct DailyCheck {
   private static let lastCheckedDateKey = "LastCheckedDate"
   
+  /// Gets and sets the last checked date in `UserDefaults`.
   static var lastCheckedDate: Date? {
     get {
       return UserDefaults.standard.object(forKey: lastCheckedDateKey) as? Date
@@ -19,6 +22,9 @@ struct DailyCheck {
     }
   }
   
+  /// Checks if an action should be performed based on the date.
+  ///
+  /// - Returns: `true` if the action should be performed, or `false` if no action is required.
   static func shouldPerformAction() -> Bool {
     let currentDate = Date()
     

@@ -1,3 +1,4 @@
+
 //
 //  DownloadManagerSession.swift
 //  Rates
@@ -7,7 +8,14 @@
 
 import Foundation
 
+/// A class with methods for getting exchange rate data from a URL, downloading exchange rate data, recursively finding a CSV file in a folder, and removing all files in the document directory.
 class DownloadManagerSession {
+  
+  /// Gets exchange rate data from a URL.
+  ///
+  /// - Parameter fromUrlString: The URL string to get the exchange rate data from. The default value is `Settings.defaultExchangeRatesUrlString`.
+  /// - Throws: An error of type `DownloadError` if the URL string is invalid or the file format is invalid.
+  /// - Returns: The URL of the downloaded file.
   func getExchangeRateData(fromUrlString: String = Settings.defaultExchangeRatesUrlString) async throws -> URL {
     let downloadManager = DownloadManager()
     
@@ -25,6 +33,13 @@ class DownloadManagerSession {
     }
   }
   
+  /// Downloads exchange rate data.
+  ///
+  /// - Parameters:
+  ///   - downloadManager: The `DownloadManager` instance to use for the download.
+  ///   - url: The URL to download the file from.
+  /// - Throws: An error if the download fails, the file format is invalid, or the file cannot be unzipped.
+  /// - Returns: The URL of the downloaded file.
   private func downloadExchangeRateData(downloadManager: DownloadManager, url: URL) async throws -> URL {
     return try await withCheckedThrowingContinuation { continuation in
       downloadManager.downloadFile(from: url) { (localURL, error) in
@@ -64,6 +79,10 @@ class DownloadManagerSession {
     }
   }
   
+  /// Recursively finds a CSV file in a folder.
+  ///
+  /// - Parameter folderURL: The URL of the folder to search in.
+  /// - Returns: The URL of the CSV file if found, or `nil` otherwise.
   private func recursivelyFindCSVFile(in folderURL: URL) -> URL? {
     let fileManager = FileManager.default
     do {
@@ -87,6 +106,7 @@ class DownloadManagerSession {
     return nil
   }
   
+  /// Removes all files in the document directory.
   func removeAllFilesInDocumentDirectory() {
     let fileManager = FileManager.default
     let documentDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -104,6 +124,7 @@ class DownloadManagerSession {
     }
   }
   
+  /// An enumeration that defines two types of download errors: `invalidURL` and `invalidFileFormat`.
   enum DownloadError: Error {
     case invalidURL
     case invalidFileFormat

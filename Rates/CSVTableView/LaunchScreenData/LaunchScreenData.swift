@@ -7,21 +7,31 @@
 
 import Foundation
 
+/// Extension of the `ViewController` class to add additional methods for handling launch screen data.
 extension ViewController {
   
+  /// Updates the CSV table view with launch data from a given URL.
+  ///
+  /// - Parameter url: The URL of the launch data.
   func updateCSVTableViewWithLaunchData(at url: URL) {
     csvTableView.updateCSVData(with: url)
     updateStatusBar(withState: .upToDate)
   }
   
+  /// Fills the launch table view with exchange rate data.
   func fillLaunchTableViewWithExchangeRateData() {
-    if let searchExchangeRateDataUrl = searchExchangeRateDataInDocumentsDirectory() {
-      if let launchScreenCsvFileUrl = generateLaunchScreenData(fromCsvFileUrl: searchExchangeRateDataUrl) {
-        updateCSVTableViewWithLaunchData(at: launchScreenCsvFileUrl)
-      }
+    guard let searchExchangeRateDataUrl = searchExchangeRateDataInDocumentsDirectory(),
+          let launchScreenCsvFileUrl = generateLaunchScreenData(fromCsvFileUrl: searchExchangeRateDataUrl) else {
+      return
     }
+    
+    updateCSVTableViewWithLaunchData(at: launchScreenCsvFileUrl)
   }
   
+  /// Generates launch screen data from a CSV file at a given URL.
+  ///
+  /// - Parameter fromCsvFileUrl: The URL of the CSV file.
+  /// - Returns: The URL of the generated launch screen data, or `nil` if the generation failed.
   func generateLaunchScreenData(fromCsvFileUrl: URL) -> URL? {
     // Get the document directory URL
     guard let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
@@ -29,7 +39,6 @@ extension ViewController {
       return nil
     }
     
-    // Create the destination file URL
     let destinationFileURL = documentDirectoryURL.appendingPathComponent("launchScreenData.csv")
     
     // Read the input CSV file
@@ -71,6 +80,9 @@ extension ViewController {
     }
   }
   
+  /// Searches for exchange rate data in the documents directory.
+  ///
+  /// - Returns: The URL of the exchange rate data, or `nil` if the search failed.
   func searchExchangeRateDataInDocumentsDirectory() -> URL? {
     // Get the document directory URL
     guard let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
@@ -87,6 +99,9 @@ extension ViewController {
     }
   }
   
+  /// Searches for exchange rate data in the documents directory.
+  ///
+  /// - Returns: The URL of the exchange rate data, or `nil` if the search failed.
   func searchFile(named fileName: String, in directoryURL: URL) -> URL? {
     // Get the contents of the directory
     let fileManager = FileManager.default

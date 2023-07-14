@@ -7,10 +7,13 @@
 
 import Cocoa
 
+/// Extension of the `ViewController` class to add additional methods for updating the status bar.
 extension ViewController {
   
+  /// Updates the status bar with a given state.
+  ///
+  /// - Parameter withState: The state to update the status bar with.
   func updateStatusBar(withState: StatusBarState) {
-    
     statusBarState = withState
     statusBarText.stringValue = withState.text
     if let buttonCell = statusBarButton.cell as? NSButtonCell {
@@ -26,6 +29,7 @@ extension ViewController {
     statusBarRefreshButton.isHidden = !withState.refreshButtonShouldBeVisible
   }
   
+  /// Starts a pulsing animation on the status bar button.
   func startPulsingAnimation() {
     guard !statusBarButtonIsPulsing else { return }
     
@@ -41,11 +45,15 @@ extension ViewController {
     statusBarButtonIsPulsing = true
   }
   
+  /// Stops the pulsing animation on the status bar button.
   func stopStatusBarButtonPulsingAnimation() {
     statusBarButton.layer?.removeAnimation(forKey: "pulse")
     statusBarButtonIsPulsing = false
   }
   
+  /// Checks the internet connection and updates the data when the status bar refresh button is clicked.
+  ///
+  /// - Parameter sender: The button that initiated the action.
   @IBAction func statusBarRefreshButtonAction(_ sender: NSButton) {
     checkInternetAndUpdateData()
   }

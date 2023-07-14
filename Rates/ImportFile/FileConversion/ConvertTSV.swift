@@ -7,8 +7,13 @@
 
 import Foundation
 
+/// A structure with a static method for converting a TSV (Tab-Separated Values) file to a CSV (Comma-Separated Values) file.
 struct ConvertTSV {
   
+  /// Converts a TSV file to a CSV file.
+  ///
+  /// - Parameter fileURL: The URL of the TSV file.
+  /// - Returns: The URL of the CSV file, or `nil` if an error occurs during the conversion.
   static func toCSV(fileURL: URL) -> URL? {
     let fileManager = FileManager.default
     

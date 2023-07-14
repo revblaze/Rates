@@ -1,3 +1,4 @@
+
 //
 //  ParseCSV.swift
 //  Rates
@@ -8,8 +9,15 @@
 import Foundation
 import SwiftCSV
 
+/// A class with methods for cleaning a CSV file and removing duplicate columns.
 class ParseCSV {
   
+  /// Cleans a CSV file.
+  ///
+  /// - Parameters:
+  ///   - fileURL: The URL of the CSV file.
+  ///   - cutOffDate: The cut-off date for the data to be cleaned. The default value is "2016-01-01".
+  /// - Throws: An error if there is any problem reading or writing the file.
   func clean(at fileURL: URL, cutOffDate: String = "2016-01-01") throws {
     // Read the file contents
     let fileContents = try String(contentsOf: fileURL)
@@ -34,7 +42,7 @@ class ParseCSV {
       substringsToDelete.contains { line.hasPrefix($0) }
     }
     
-    // Replace substrings between ":" and "\"" on the line starting with "\"Currency\""
+    // Replace substrings between ":" and "\" on the line starting with "\"Currency\""
     if let currencyIndex = lines.firstIndex(where: { $0.hasPrefix("\"Currency\"") }) {
       var currencyLine = lines[currencyIndex]
       let components = currencyLine.components(separatedBy: ",")
@@ -72,6 +80,9 @@ class ParseCSV {
     try updatedContents.write(to: fileURL, atomically: true, encoding: .utf8)
   }
   
+  /// Removes duplicate columns from a CSV file.
+  ///
+  /// - Parameter fileURL: The URL of the CSV file.
   func removeDuplicateColumns(fileURL: URL) {
     do {
       // Read the content of the CSV file
@@ -129,6 +140,5 @@ class ParseCSV {
       Debug.log("Error reading the file: \(error.localizedDescription)")
     }
   }
-  
   
 }

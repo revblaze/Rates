@@ -7,39 +7,49 @@
 
 import Cocoa
 
-// MARK: - WindowController
+/// The main window controller for the application.
 class WindowController: NSWindowController, FileSelectionDelegate {
   
+  /// The main view controller of the window.
   lazy var viewController: ViewController = {
     let vc = self.window?.contentViewController as! ViewController
     vc.delegate = self
     return vc
   }()
   
+  /// Performs an action on the view controller to open a file selection.
   @IBAction func openFileAction(_ sender: Any) {
     performActionOnViewController(action: viewController.openFileSelection)
   }
   
+  /// Performs an action on the view controller to revert changes to the table view.
   @IBAction func revertTableViewChanges(_ sender: Any) {
     performActionOnViewController(action: viewController.revertTableViewChanges)
   }
   
+  /// Performs an action on the view controller to filter App Store Connect sales.
   @IBAction func filterAppStoreConnectSales(_ sender: Any) {
     performActionOnViewController(action: viewController.filterAppStoreConnectSales)
   }
   
-  // Function to call the file selection in ViewController
+  /// Calls the file selection in the view controller.
   func callOpenFileSelection() {
     performActionOnViewController(action: viewController.openFileSelection)
   }
   
-  // Implement the FileSelectionDelegate method
+  /// Processes the selected file URL.
+  ///
+  /// - Parameters:
+  ///   - viewController: The view controller where the file was selected.
+  ///   - fileURL: The URL of the selected file.
   func fileSelected(_ viewController: ViewController, fileURL: URL) {
     Debug.log("Selected file: \(fileURL)")
     // Process the selected file URL
   }
   
-  // Helper method to avoid code duplication
+  /// Performs an action on the view controller.
+  ///
+  /// - Parameter action: The action to perform.
   private func performActionOnViewController(action: () -> ()) {
     action()
   }
