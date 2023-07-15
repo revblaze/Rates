@@ -11,9 +11,9 @@ import Cocoa
 class CSVTableView: NSView {
   
   /// The table view for displaying CSV data.
-  private var tableView: NSTableView!
+  var tableView: NSTableView!
   /// The data to be displayed in the table view.
-  private var tableData: [[String]] = []
+  var tableData: [[String]] = []
   
   /// Initializes the view with a given frame rectangle.
   ///
@@ -31,16 +31,18 @@ class CSVTableView: NSView {
     setupTableView()
   }
   
-  /// Sets up the table view.
   private func setupTableView() {
     tableView = NSTableView(frame: bounds)
-    tableView.autoresizingMask = [.width, .height]
+    tableView.autoresizingMask = [.height]
+    tableView.columnAutoresizingStyle = .noColumnAutoresizing
+    tableView.usesAlternatingRowBackgroundColors = true
     
     let scrollView = NSScrollView(frame: bounds)
     scrollView.autoresizingMask = [.width, .height]
     scrollView.documentView = tableView
     addSubview(scrollView)
     
+    tableView.allowsColumnResizing = true  // Enable column resizing
     tableView.delegate = self
     tableView.dataSource = self
   }
@@ -59,13 +61,14 @@ class CSVTableView: NSView {
       
       updateTableColumns(withHeaderRowDetection: withHeaderRowDetection)
       tableView.reloadData()
+      resizeTableViewColumnsToFit()
     }
   }
   
   /// Updates the table columns based on the header row of the `tableData`.
   ///
   /// - Parameter withHeaderRowDetection: The mode of detecting the header row in the CSV data.
-  private func updateTableColumns(withHeaderRowDetection: DetectHeaderRow = .modeNumberOfEntries, customHeaderRow: [String] = [""]) {
+  func updateTableColumns(withHeaderRowDetection: DetectHeaderRow = .modeNumberOfEntries, customHeaderRow: [String] = [""]) {
     tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
     
     var headerRow: [String]? = nil
@@ -86,16 +89,42 @@ class CSVTableView: NSView {
     for (index, header) in foundHeaderRow.enumerated() {
       let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
       column.title = header
+      column.maxWidth = CGFloat.greatestFiniteMagnitude  // Allow the column to grow as wide as needed
       tableView.addTableColumn(column)
+      column.sizeToFit()  // Resize the column to fit its content
+    }
+  }
+  
+  /// Resizes all columns in the table view to fit the widest content of their cells.
+  ///
+  /// This method iterates over all columns in the table view, and for each column,
+  /// it calculates the width of the content of all cells, finds the maximum width,
+  /// and sets the width of the column to this maximum value.
+  func resizeTableViewColumnsToFit() {
+    for column in tableView.tableColumns {
+      let columnIndex = tableView.column(withIdentifier: column.identifier)
+      var maxWidth: CGFloat = 0
+      for row in 0..<tableView.numberOfRows {
+        if let cellView = tableView.view(atColumn: columnIndex, row: row, makeIfNecessary: true) as? NSTextFieldCellView {
+          let cell = NSTextFieldCell()
+          cell.stringValue = cellView.stringValue
+          let cellSize = cell.cellSize(forBounds: NSRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
+          maxWidth = max(maxWidth, cellSize.width)
+        }
+      }
+      column.width = maxWidth
     }
   }
   
   /// Unhides all columns in the table view.
   func unhideColumns() {
-    tableView.tableColumns.forEach { column in
-      column.isHidden = false
+      tableView.tableColumns.forEach { column in
+        column.isHidden = false
+        column.width = CGFloat(100) // Set a default width if header cell size isn't sufficient
+      }
+      
+      resizeTableViewColumnsToFit()  // Resize columns after unhiding them
     }
-  }
   
   // MARK: App Store Connect
   /// Filters the table view for App Store Connect sales.
@@ -123,87 +152,10 @@ class CSVTableView: NSView {
       }
     }
   }
+  
 }
 
-/// Extension of the `CSVTableView` class to conform to the `NSTableViewDelegate` and `NSTableViewDataSource` protocols.
-extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
-  
-  /// Returns the number of rows in the table view.
-  ///
-  /// - Parameter tableView: The table view.
-  /// - Returns: The number of rows in the table view.
-  func numberOfRows(in tableView: NSTableView) -> Int {
-    return tableData.count - 1 // Exclude the header row
-  }
-  
-  /// Returns the view that is associated with a specified row and table column.
-  ///
-  /// - Parameters:
-  ///   - tableView: The table view.
-  ///   - tableColumn: The table column.
-  ///   - row: The row.
-  /// - Returns: The view that is associated with `row` and `tableColumn`.
-  func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-    let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "csvCell")
-    var cellView = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTextFieldCellView
-    
-    if cellView == nil {
-      cellView = NSTextFieldCellView(frame: NSRect.zero)
-      cellView?.identifier = cellIdentifier
-      cellView?.isBezeled = false
-      cellView?.isEditable = false
-      cellView?.drawsBackground = false
-    }
-    
-    let rowData = tableData[row + 1] // Skip the header row
-    let columnIndex = tableView.column(withIdentifier: tableColumn!.identifier)
-    if columnIndex < rowData.count {
-      cellView?.stringValue = rowData[columnIndex]
-    } else {
-      cellView?.stringValue = ""
-    }
-    
-    return cellView
-  }
-  
-  // MARK: - Custom Header Row
-  /// Returns the header row of the currently selected row of the table view.
-  ///
-  /// If no row is selected in the table view, this method will present an NSAlert to the user instructing them to select a row.
-  ///
-  /// - Returns: The header row of the currently selected row of the table view, or `nil` if no row is selected.
-  func getCurrentlySelectedRow() -> [String]? {
-    // Check if a row is selected in the table view.
-    let selectedRow = tableView.selectedRow
-    if selectedRow >= 0 {
-      // Return the header row for the selected row.
-      return tableData[selectedRow+1]
-    } else {
-      // If no row is selected, present an NSAlert to the user.
-      let alert = NSAlert()
-      alert.messageText = "No Header Row Selected"
-      alert.informativeText = "Please select a row that you'd like to set as the header row and try again."
-      alert.alertStyle = .warning
-      alert.runModal()
-      return nil
-    }
-  }
-  
-  /// Updates the table columns based on the currently selected header row in the table view.
-  ///
-  /// This method uses the `getCurrentlySelectedRow()` method to acquire the selected header row. If no row is selected, this method will do nothing.
-  func manuallySelectHeaderRow() {
-    // Acquire the selected header row using the `getCurrentlySelectedRow()` method.
-    guard let selectedHeaderRow = getCurrentlySelectedRow() else {
-      // If no row is selected, do nothing.
-      return
-    }
-    
-    // Call the `updateTableColumns(withHeaderRowDetection:customHeaderRow:)` method, providing the selected header row.
-    updateTableColumns(withHeaderRowDetection: .custom, customHeaderRow: selectedHeaderRow)
-  }
-  
-}
+
 
 /// A custom text field cell view with a custom intrinsic content size.
 class NSTextFieldCellView: NSTextField {
