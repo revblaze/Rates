@@ -54,20 +54,26 @@ class ViewController: NSViewController {
   
   /// Initializes a scroll view for the CSV table view.
   func initCsvTableScrollView() {
-    scrollView = NSScrollView(frame: view.bounds)
-    scrollView.autoresizingMask = [.width, .height]
+    scrollView = NSScrollView()
     scrollView.hasVerticalScroller = true
+    scrollView.hasHorizontalScroller = true
+    
+    csvTableView = CSVTableView()
+    csvTableView.autoresizingMask = [.height]
+    
+    scrollView.documentView = csvTableView
+    
+    view.addSubview(scrollView)
+  }
+  
+  override func viewDidLayout() {
+    super.viewDidLayout()
     
     let bottomOffset: CGFloat = 30.0
     let scrollViewHeight = view.bounds.height - bottomOffset
     let scrollViewOriginY = bottomOffset
     scrollView.frame = CGRect(x: 0, y: scrollViewOriginY, width: view.bounds.width, height: scrollViewHeight)
     
-    csvTableView = CSVTableView(frame: scrollView.bounds)
-    csvTableView.autoresizingMask = [.width, .height]
-    
-    scrollView.documentView = csvTableView
-    
-    view.addSubview(scrollView, positioned: .below, relativeTo: nil)
+    csvTableView.frame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: scrollView.bounds.height)
   }
 }
