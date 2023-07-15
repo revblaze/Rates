@@ -60,6 +60,7 @@ class CSVTableView: NSView {
       
       updateTableColumns(withHeaderRowDetection: withHeaderRowDetection)
       tableView.reloadData()
+      resizeTableViewColumnsToFit()
     }
   }
   
@@ -93,28 +94,36 @@ class CSVTableView: NSView {
     }
   }
   
-  /// Unhides all columns in the table view.
-  func unhideColumns() {
-    tableView.tableColumns.forEach { column in
-      column.isHidden = false
-      column.width = CGFloat(100) // Set a default width if header cell size isn't sufficient
-      
-      if let columnIndex = tableView.tableColumns.firstIndex(of: column) {
-        var maxWidth: CGFloat = 0
-        for row in 0..<tableView.numberOfRows {
-          if let cellView = tableView.view(atColumn: columnIndex, row: row, makeIfNecessary: true) as? NSTextFieldCellView {
-            let cell = NSTextFieldCell()
-            cell.stringValue = cellView.stringValue
-            let cellSize = cell.cellSize(forBounds: NSRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
-            maxWidth = max(maxWidth, cellSize.width)
-          }
+  /// Resizes all columns in the table view to fit the widest content of their cells.
+  ///
+  /// This method iterates over all columns in the table view, and for each column,
+  /// it calculates the width of the content of all cells, finds the maximum width,
+  /// and sets the width of the column to this maximum value.
+  func resizeTableViewColumnsToFit() {
+    for column in tableView.tableColumns {
+      let columnIndex = tableView.column(withIdentifier: column.identifier)
+      var maxWidth: CGFloat = 0
+      for row in 0..<tableView.numberOfRows {
+        if let cellView = tableView.view(atColumn: columnIndex, row: row, makeIfNecessary: true) as? NSTextFieldCellView {
+          let cell = NSTextFieldCell()
+          cell.stringValue = cellView.stringValue
+          let cellSize = cell.cellSize(forBounds: NSRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude))
+          maxWidth = max(maxWidth, cellSize.width)
         }
-        column.width = maxWidth
       }
-      
-      column.sizeToFit()
+      column.width = maxWidth
     }
   }
+  
+  /// Unhides all columns in the table view.
+  func unhideColumns() {
+      tableView.tableColumns.forEach { column in
+        column.isHidden = false
+        column.width = CGFloat(100) // Set a default width if header cell size isn't sufficient
+      }
+      
+      resizeTableViewColumnsToFit()  // Resize columns after unhiding them
+    }
   
   // MARK: App Store Connect
   /// Filters the table view for App Store Connect sales.
