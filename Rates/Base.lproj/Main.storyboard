@@ -771,13 +771,8 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="4lg-qe-kez"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="ZNq-Tc-vUD"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="LGC-fq-k0P"/>
-                                <toolbarItem implicitItemIdentifier="390E9090-C554-4023-A0A5-D4E8965ACF74" label="Settings" paletteLabel="Settings" tag="-1" image="gear" catalog="system" bordered="YES" id="CvE-Zg-jBd">
-                                    <size key="minSize" width="29" height="25"/>
-                                    <size key="maxSize" width="29" height="25"/>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="FCB2DF73-1766-4271-83F8-4D8AF703410B" label="Add File" paletteLabel="Add File" tag="-1" image="doc.badge.plus" catalog="system" bordered="YES" id="0Ad-i3-c1T">
-                                    <size key="minSize" width="26" height="25"/>
-                                    <size key="maxSize" width="26" height="25"/>
+                                <toolbarItem implicitItemIdentifier="390E9090-C554-4023-A0A5-D4E8965ACF74" label="Settings" paletteLabel="Settings" tag="-1" image="gear" catalog="system" bordered="YES" sizingBehavior="auto" id="CvE-Zg-jBd"/>
+                                <toolbarItem implicitItemIdentifier="FCB2DF73-1766-4271-83F8-4D8AF703410B" label="Add File" paletteLabel="Add File" tag="-1" image="doc.badge.plus" catalog="system" bordered="YES" sizingBehavior="auto" id="0Ad-i3-c1T">
                                     <connections>
                                         <action selector="openFileAction:" target="B8D-0N-5wS" id="7Ej-G4-N9v"/>
                                     </connections>
@@ -793,9 +788,7 @@
                                         <action selector="filterAppStoreConnectSales:" target="B8D-0N-5wS" id="hWU-eO-YhG"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="67C97AED-FC6C-4963-AA0F-E769BB773232" label="Select Header" paletteLabel="Select Header Row" tag="-1" image="textformat" catalog="system" bordered="YES" id="FsO-Zc-JPA">
-                                    <size key="minSize" width="30" height="25"/>
-                                    <size key="maxSize" width="30" height="25"/>
+                                <toolbarItem implicitItemIdentifier="67C97AED-FC6C-4963-AA0F-E769BB773232" label="Select Header" paletteLabel="Select Header Row" tag="-1" image="textformat" catalog="system" bordered="YES" sizingBehavior="auto" id="FsO-Zc-JPA">
                                     <connections>
                                         <action selector="selectCustomHeaderRowFromTable:" target="B8D-0N-5wS" id="tzk-I6-8t3"/>
                                     </connections>
