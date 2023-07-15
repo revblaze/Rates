@@ -52,6 +52,7 @@
 		C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */; };
 		C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */; };
 		C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */; };
+		C2ED16BB2A632AEA0037A558 /* CenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+HeaderRow.swift"; sourceTree = "<group>"; };
 		C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+FilterControls.swift"; sourceTree = "<group>"; };
 		C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableViewDelegate.swift; sourceTree = "<group>"; };
+		C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTextFieldCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 		C20749432A5B9F9E00240A66 /* CSVTableView */ = {
 			isa = PBXGroup;
 			children = (
+				C2ED16B92A632AC80037A558 /* TableViewObjects */,
 				C20749442A5B9FAB00240A66 /* CSVTableView.swift */,
 				C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */,
 				C2B83CDD2A5DF036009763B6 /* CSVTableViewExtensions */,
@@ -317,6 +320,14 @@
 			path = CSVTableViewExtensions;
 			sourceTree = "<group>";
 		};
+		C2ED16B92A632AC80037A558 /* TableViewObjects */ = {
+			isa = PBXGroup;
+			children = (
+				C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */,
+			);
+			path = TableViewObjects;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -416,6 +427,7 @@
 				C2546AFC2A59B93300C83FEC /* Debug.swift in Sources */,
 				C2546AEA2A589A5000C83FEC /* DownloadManagerSession.swift in Sources */,
 				C2636F8F2A585D4E0091BE7D /* ViewController.swift in Sources */,
+				C2ED16BB2A632AEA0037A558 /* CenteredTextFieldCell.swift in Sources */,
 				C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */,
 				C218CC542A61BB4A0046B90B /* ViewController+TableViewControls.swift in Sources */,
 				C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */,

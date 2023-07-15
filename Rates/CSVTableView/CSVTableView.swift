@@ -35,6 +35,7 @@ class CSVTableView: NSView {
     tableView = NSTableView(frame: bounds)
     tableView.autoresizingMask = [.height]
     tableView.columnAutoresizingStyle = .noColumnAutoresizing
+    tableView.usesAlternatingRowBackgroundColors = true
     
     let scrollView = NSScrollView(frame: bounds)
     scrollView.autoresizingMask = [.width, .height]

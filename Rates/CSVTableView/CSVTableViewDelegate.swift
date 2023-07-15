@@ -35,6 +35,7 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
       cellView?.isBezeled = false
       cellView?.isEditable = false
       cellView?.drawsBackground = false
+      cellView?.cell = CenteredTextFieldCell()
     }
     
     let rowIndex = row + 1
