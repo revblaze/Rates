@@ -118,13 +118,13 @@ class CSVTableView: NSView {
   
   /// Unhides all columns in the table view.
   func unhideColumns() {
-      tableView.tableColumns.forEach { column in
-        column.isHidden = false
-        column.width = CGFloat(100) // Set a default width if header cell size isn't sufficient
-      }
-      
-      resizeTableViewColumnsToFit()  // Resize columns after unhiding them
+    tableView.tableColumns.forEach { column in
+      column.isHidden = false
+      column.width = CGFloat(100) // Set a default width if header cell size isn't sufficient
     }
+    
+    resizeTableViewColumnsToFit()  // Resize columns after unhiding them
+  }
   
   // MARK: App Store Connect
   /// Filters the table view for App Store Connect sales.
