@@ -37,11 +37,17 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
       cellView?.drawsBackground = false
     }
     
-    let rowData = tableData[row + 1] // Skip the header row
-    let columnIndex = tableView.column(withIdentifier: tableColumn!.identifier)
-    if columnIndex < rowData.count {
-      cellView?.stringValue = rowData[columnIndex]
+    let rowIndex = row + 1
+    if rowIndex >= 0 && rowIndex < tableData.count {
+      let rowData = tableData[rowIndex]
+      let columnIndex = tableView.column(withIdentifier: tableColumn!.identifier)
+      if columnIndex >= 0 && columnIndex < rowData.count {
+        cellView?.stringValue = rowData[columnIndex]
+      } else {
+        cellView?.stringValue = ""
+      }
     } else {
+      Debug.log("Index out of range: row = \(row), tableData count = \(tableData.count)")
       cellView?.stringValue = ""
     }
     
