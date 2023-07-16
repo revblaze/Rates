@@ -8,7 +8,8 @@
 import Cocoa
 import SwiftUI
 
-let VIEW_WIDTH: CGFloat = 200
+let VIEW_WIDTH: CGFloat = 260
+let STATUS_BAR_HEIGHT: CGFloat = 30
 
 protocol FileSelectionDelegate: AnyObject {
   func fileSelected(_ viewController: ViewController, fileURL: URL)
@@ -21,6 +22,7 @@ class ViewController: NSViewController {
   private var scrollView: NSScrollView!
   
   var statusBarState: StatusBarState? = .loading
+  @IBOutlet weak var statusBarViewContainer: NSView!
   @IBOutlet weak var statusBarButton: NSButton!
   @IBOutlet weak var statusBarText: NSTextField!
   @IBOutlet weak var statusBarProgressBar: NSProgressIndicator!
@@ -71,7 +73,7 @@ class ViewController: NSViewController {
     
     NSLayoutConstraint.activate([
       filterControlsView.topAnchor.constraint(equalTo: view.topAnchor),
-      filterControlsView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      filterControlsView.bottomAnchor.constraint(equalTo: statusBarViewContainer.topAnchor),
       filterControlsView.widthAnchor.constraint(equalToConstant: VIEW_WIDTH),
     ])
   }
@@ -79,7 +81,7 @@ class ViewController: NSViewController {
   override func viewDidLayout() {
     super.viewDidLayout()
     
-    let bottomOffset: CGFloat = 30.0
+    let bottomOffset: CGFloat = STATUS_BAR_HEIGHT
     let scrollViewHeight = view.bounds.height - bottomOffset
     let scrollViewOriginY = bottomOffset
     scrollView.frame = CGRect(x: 0, y: scrollViewOriginY, width: view.bounds.width - (filterControlsConstraint.constant == 0 ? VIEW_WIDTH : 0), height: scrollViewHeight)

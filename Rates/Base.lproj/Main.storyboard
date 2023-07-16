@@ -914,6 +914,7 @@
                         <outlet property="statusBarProgressBar" destination="Dx8-bp-BmS" id="QmI-fN-g8i"/>
                         <outlet property="statusBarRefreshButton" destination="GFI-4z-YH6" id="ndj-cj-87J"/>
                         <outlet property="statusBarText" destination="e8u-Sv-OpI" id="vGU-eS-YsP"/>
+                        <outlet property="statusBarViewContainer" destination="2a1-wK-yrL" id="02e-j1-ROO"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
