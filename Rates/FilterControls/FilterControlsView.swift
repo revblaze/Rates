@@ -94,10 +94,10 @@ struct FilterControlsView: View {
                 Text("Remove")
               }
             }
-            //.padding()
             .padding(.horizontal)
-            .padding(.vertical, 4)
+            .padding(.vertical, 6)
           }
+          .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
         }
         .background(Color.gray.opacity(0.1))
         
