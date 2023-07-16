@@ -45,4 +45,14 @@ extension AppDelegate {
     debugUpdateStatusBar(withStatus: .failedToLoadUserData)
   }
   
+  
+  @IBAction func debugSlideInFilterControlsView(_ sender: NSMenuItem) {
+    let viewController = mainWindow.contentViewController as? ViewController
+    viewController?.slideInFilterControlsView()
+  }
+  @IBAction func debugSlideOutFilterControlsView(_ sender: NSMenuItem) {
+    let viewController = mainWindow.contentViewController as? ViewController
+    viewController?.slideOutFilterControlsView()
+  }
+  
 }
