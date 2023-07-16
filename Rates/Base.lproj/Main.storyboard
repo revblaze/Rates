@@ -730,11 +730,24 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
-                                        <menuItem title="Item 2" id="Kkm-8L-1yh">
+                                        <menuItem title="Filter Controls" id="Kkm-8L-1yh">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Item 3" id="eCY-Kv-ogB">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="xY9-Ku-Wb6">
+                                                <items>
+                                                    <menuItem title="Slide In" id="wVT-sf-RCD">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugSlideInFilterControlsView:" target="Voe-Tx-rLC" id="Gc3-Ud-2qN"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Slide Out" id="Ywb-Wl-pRL">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugSlideOutFilterControlsView:" target="Voe-Tx-rLC" id="dRZ-kZ-s2b"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -901,6 +914,7 @@
                         <outlet property="statusBarProgressBar" destination="Dx8-bp-BmS" id="QmI-fN-g8i"/>
                         <outlet property="statusBarRefreshButton" destination="GFI-4z-YH6" id="ndj-cj-87J"/>
                         <outlet property="statusBarText" destination="e8u-Sv-OpI" id="vGU-eS-YsP"/>
+                        <outlet property="statusBarViewContainer" destination="2a1-wK-yrL" id="02e-j1-ROO"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
