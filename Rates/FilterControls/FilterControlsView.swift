@@ -7,50 +7,110 @@
 
 import SwiftUI
 
+enum FilterTableViewInclusionExclusion: String, CaseIterable {
+  case filterTableViewToOnlyShowColumnsWithHeaders = "Show Headers"
+  case filterTableViewToOnlyHideColumnsWithHeaders = "Hide Headers"
+}
+
 struct FilterControlsView: View {
-  @State private var condition: String = ""
-  @State private var filters: [String] = []
+  @State var condition: String = ""
+  @State var filters: [String] = []
+  @State var columnHeadersToFilter: [String] = []
+  @State var selectedFilterType: FilterTableViewInclusionExclusion = .filterTableViewToOnlyShowColumnsWithHeaders
+  
+  // Add the headers from CSVTableView here.
+  let availableHeaders: [String] = ["Header1", "Header2", "Header3", "Header4", "Header5"]
   
   var body: some View {
     VStack {
+      Button(action: {
+        // ViewController's selectCustomHeaderForTableView() function
+      }) {
+        Text("Manually Select Header Row")
+      }
+      
       HStack {
         Text("Condition")
         Spacer()
-        Dropdown(condition: $condition)
+        Menu {
+          ForEach(FilterTableViewInclusionExclusion.allCases, id: \.self) { filterType in
+            Button(action: {
+              self.selectedFilterType = filterType
+            }) {
+              Text(filterType.rawValue)
+            }
+          }
+        } label: {
+          Text(selectedFilterType.rawValue)
+        }
       }
       .padding()
       
       HStack {
-        Button("Clear") {
-          condition = ""
+        Button(action: {
+          filters.removeAll()
+          columnHeadersToFilter.removeAll()
+        }) {
+          Text("Clear")
         }
         Spacer()
-        Button("Add Filter") {
+        Button(action: {
           filters.append(condition)
           condition = ""
+        }) {
+          Text("Add Filter")
         }
       }
       .padding(.horizontal)
       
+      Divider()
+      
       ScrollView {
-        VStack {
-          ForEach(filters, id: \.self) { filter in
-            Text(filter)
-              .padding()
+        ForEach(filters, id: \.self) { filter in
+          HStack {
+            Menu {
+              ForEach(availableHeaders.filter { !filters.contains($0) }, id: \.self) { header in
+                Button(action: {
+                  columnHeadersToFilter.append(header)
+                  filters.append(header)
+                }) {
+                  Text(header)
+                }
+              }
+            } label: {
+              Text(filter)
+            }
+            Spacer()
+            Button(action: {
+              filters.removeAll(where: { $0 == filter })
+              columnHeadersToFilter.removeAll(where: { $0 == filter })
+            }) {
+              Text("Remove")
+            }
           }
+          .padding()
         }
       }
       .background(Color.gray.opacity(0.1))
+      
+      Spacer()
+      
+      HStack {
+        Button(action: {
+          // ViewController's revertTableViewChanges() function
+        }) {
+          Text("Undo Filters")
+        }
+        Spacer()
+        Button(action: {
+          // ViewController's filterTableViewColumnHeaders(_ columnHeaders: [String], withFilterType: FilterTableViewInclusionExclusion) function
+        }) {
+          Text("Apply Filters")
+        }
+      }
+      .padding(.horizontal)
     }
-  }
-}
-
-struct Dropdown: View {
-  @Binding var condition: String
-  
-  var body: some View {
-    // Implement your dropdown logic here
-    Text("Dropdown")
+    .padding()
   }
 }
 
