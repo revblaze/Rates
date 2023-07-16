@@ -6,6 +6,11 @@
 //
 
 import Cocoa
+import Combine
+
+class SharedHeaders: ObservableObject {
+  @Published var availableHeaders: [String] = []
+}
 
 /// A custom view for displaying CSV data in a table view.
 class CSVTableView: NSView {
@@ -14,21 +19,24 @@ class CSVTableView: NSView {
   var tableView: NSTableView!
   /// The data to be displayed in the table view.
   var tableData: [[String]] = []
+  /// SharedHeaders instance for communicating with SwiftUI view.
+  var sharedHeaders: SharedHeaders
   
   /// Initializes the view with a given frame rectangle.
   ///
-  /// - Parameter frameRect: The frame rectangle for the view.
-  override init(frame frameRect: NSRect) {
+  /// - Parameters:
+  ///   - frameRect: The frame rectangle for the view.
+  ///   - sharedHeaders: SharedHeaders instance for communicating with SwiftUI view.
+  init(frame frameRect: NSRect, sharedHeaders: SharedHeaders) {
+    self.sharedHeaders = sharedHeaders
     super.init(frame: frameRect)
     setupTableView()
   }
-  
   /// Initializes the view from data in a given unarchiver.
   ///
   /// - Parameter aDecoder: An unarchiver object.
   required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    setupTableView()
+    fatalError("init(coder:) has not been implemented")
   }
   
   private func setupTableView() {
@@ -93,6 +101,9 @@ class CSVTableView: NSView {
       tableView.addTableColumn(column)
       column.sizeToFit()  // Resize the column to fit its content
     }
+    
+    // Update shared headers
+    sharedHeaders.availableHeaders = foundHeaderRow
   }
   
   /// Resizes all columns in the table view to fit the widest content of their cells.
