@@ -62,6 +62,8 @@ extension ViewController {
     } else {
       csvTableView.updateCSVData(with: url)
     }
+    // Enable FilterControl Sidebar
+    enableToggleFilterControlViewToolbar()
   }
   
   /// Opens a file selected by the user and calls the completion handler with the URL of the file.

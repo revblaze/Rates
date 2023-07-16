@@ -168,8 +168,8 @@
 		C253B1AF2A644C8900218532 /* FilterControls */ = {
 			isa = PBXGroup;
 			children = (
-				C253B1B42A64746600218532 /* CustomObjects */,
 				C253B1B02A644C9A00218532 /* FilterControlsView.swift */,
+				C253B1B42A64746600218532 /* CustomObjects */,
 			);
 			path = FilterControls;
 			sourceTree = "<group>";

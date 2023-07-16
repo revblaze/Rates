@@ -105,7 +105,7 @@ struct FilterControlsView: View {
           }
           .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
         }
-        .background(Color.gray.opacity(0.1))
+        //.background(Color.gray.opacity(0.1))
         
         Spacer()
         
@@ -117,7 +117,7 @@ struct FilterControlsView: View {
           Button(action: {
             self.revertTableViewChanges()
           }) {
-            Text("Undo Filters")
+            Text("Clear Filters")
           }
           Spacer()
           Button(action: {
