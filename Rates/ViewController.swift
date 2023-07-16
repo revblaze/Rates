@@ -32,6 +32,8 @@ class ViewController: NSViewController {
   var filterControlsView: NSHostingView<FilterControlsView>!
   var filterControlsConstraint: NSLayoutConstraint!
   
+  let sharedHeaders = SharedHeaders()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -54,7 +56,7 @@ class ViewController: NSViewController {
     scrollView.hasVerticalScroller = true
     scrollView.hasHorizontalScroller = true
     
-    csvTableView = CSVTableView()
+    csvTableView = CSVTableView(frame: .zero, sharedHeaders: sharedHeaders)
     csvTableView.autoresizingMask = [.height]
     
     scrollView.documentView = csvTableView
@@ -63,7 +65,7 @@ class ViewController: NSViewController {
   }
   
   func initFilterControlsView() {
-    filterControlsView = NSHostingView(rootView: FilterControlsView())
+    filterControlsView = NSHostingView(rootView: FilterControlsView(sharedHeaders: sharedHeaders))
     filterControlsView.translatesAutoresizingMaskIntoConstraints = false
     
     view.addSubview(filterControlsView)

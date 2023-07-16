@@ -18,8 +18,8 @@ struct FilterControlsView: View {
   @State var columnHeadersToFilter: [String] = []
   @State var selectedFilterType: FilterTableViewInclusionExclusion = .filterTableViewToOnlyShowColumnsWithHeaders
   
-  // Add the headers from CSVTableView here.
-  let availableHeaders: [String] = ["Header1", "Header2", "Header3", "Header4", "Header5"]
+  // Observe the sharedHeaders instance.
+  @ObservedObject var sharedHeaders: SharedHeaders
   
   var body: some View {
     VStack {
@@ -64,12 +64,13 @@ struct FilterControlsView: View {
       .padding(.horizontal)
       
       Divider()
+        .padding(.vertical)
       
       ScrollView {
         ForEach(filters, id: \.self) { filter in
           HStack {
             Menu {
-              ForEach(availableHeaders.filter { !filters.contains($0) }, id: \.self) { header in
+              ForEach(sharedHeaders.availableHeaders.filter { !filters.contains($0) }, id: \.self) { header in
                 Button(action: {
                   columnHeadersToFilter.append(header)
                   filters.append(header)
@@ -95,6 +96,9 @@ struct FilterControlsView: View {
       
       Spacer()
       
+      Divider()
+        //.padding(.vertical)
+      
       HStack {
         Button(action: {
           // ViewController's revertTableViewChanges() function
@@ -108,14 +112,17 @@ struct FilterControlsView: View {
           Text("Apply Filters")
         }
       }
-      .padding(.horizontal)
+      .padding()
+      
     }
-    .padding()
+    .padding(.top, 16)
+    .padding(.bottom, 6)
   }
 }
 
 struct FilterControlsView_Previews: PreviewProvider {
   static var previews: some View {
-    FilterControlsView()
+    let sharedHeaders = SharedHeaders()
+    FilterControlsView(sharedHeaders: sharedHeaders)
   }
 }

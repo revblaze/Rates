@@ -7,6 +7,7 @@
 
 import Cocoa
 
+
 extension CSVTableView {
   
   /// Filters the table view to show only columns with headers specified in `columnHeaders`.
