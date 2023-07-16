@@ -21,13 +21,18 @@ struct FilterControlsView: View {
   // Observe the sharedHeaders instance.
   @ObservedObject var sharedHeaders: SharedHeaders
   
+  // ViewController functions
+  var selectCustomHeaderForTableView: () -> Void
+  var revertTableViewChanges: () -> Void
+  var filterTableViewColumnHeaders: ([String], FilterTableViewInclusionExclusion) -> Void
+  
   var body: some View {
     ZStack {
-//      BackgroundBlurView(material: .sidebar, blendingMode: .behindWindow) // Use the desired material and blending mode
-//        .edgesIgnoringSafeArea(.all)
+      //      BackgroundBlurView(material: .sidebar, blendingMode: .behindWindow) // Use the desired material and blending mode
+      //        .edgesIgnoringSafeArea(.all)
       VStack {
         Button(action: {
-          // ViewController's selectCustomHeaderForTableView() function
+          self.selectCustomHeaderForTableView()
         }) {
           Text("Manually Select Header Row")
         }
@@ -58,8 +63,9 @@ struct FilterControlsView: View {
           }
           Spacer()
           Button(action: {
-            filters.append(condition)
-            condition = ""
+            if !filters.contains(where: { $0.isEmpty }) {
+              filters.append("")
+            }
           }) {
             Text("Add Filter")
           }
@@ -104,18 +110,18 @@ struct FilterControlsView: View {
         Spacer()
         
         Divider()
-        .padding(.horizontal)
-        .padding(.top, -8)
+          .padding(.horizontal)
+          .padding(.top, -8)
         
         HStack {
           Button(action: {
-            // ViewController's revertTableViewChanges() function
+            self.revertTableViewChanges()
           }) {
             Text("Undo Filters")
           }
           Spacer()
           Button(action: {
-            // ViewController's filterTableViewColumnHeaders(_ columnHeaders: [String], withFilterType: FilterTableViewInclusionExclusion) function
+            self.filterTableViewColumnHeaders(self.columnHeadersToFilter, self.selectedFilterType)
           }) {
             Text("Apply Filters")
           }
@@ -129,9 +135,9 @@ struct FilterControlsView: View {
   }
 }
 
-struct FilterControlsView_Previews: PreviewProvider {
-  static var previews: some View {
-    let sharedHeaders = SharedHeaders()
-    FilterControlsView(sharedHeaders: sharedHeaders)
-  }
-}
+//struct FilterControlsView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    let sharedHeaders = SharedHeaders()
+//    FilterControlsView(sharedHeaders: sharedHeaders)
+//  }
+//}
