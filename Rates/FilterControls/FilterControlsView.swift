@@ -22,101 +22,110 @@ struct FilterControlsView: View {
   @ObservedObject var sharedHeaders: SharedHeaders
   
   var body: some View {
-    VStack {
-      Button(action: {
-        // ViewController's selectCustomHeaderForTableView() function
-      }) {
-        Text("Manually Select Header Row")
-      }
-      
-      HStack {
-        Text("Condition")
-        Spacer()
-        Menu {
-          ForEach(FilterTableViewInclusionExclusion.allCases, id: \.self) { filterType in
-            Button(action: {
-              self.selectedFilterType = filterType
-            }) {
-              Text(filterType.rawValue)
-            }
-          }
-        } label: {
-          Text(selectedFilterType.rawValue)
-        }
-      }
-      .padding()
-      
-      HStack {
+    ZStack {
+//      BackgroundBlurView(material: .sidebar, blendingMode: .behindWindow) // Use the desired material and blending mode
+//        .edgesIgnoringSafeArea(.all)
+      VStack {
         Button(action: {
-          filters.removeAll()
-          columnHeadersToFilter.removeAll()
+          // ViewController's selectCustomHeaderForTableView() function
         }) {
-          Text("Clear")
+          Text("Manually Select Header Row")
         }
-        Spacer()
-        Button(action: {
-          filters.append(condition)
-          condition = ""
-        }) {
-          Text("Add Filter")
-        }
-      }
-      .padding(.horizontal)
-      
-      Divider()
-        .padding(.vertical)
-      
-      ScrollView {
-        ForEach(filters, id: \.self) { filter in
-          HStack {
-            Menu {
-              ForEach(sharedHeaders.availableHeaders.filter { !filters.contains($0) }, id: \.self) { header in
-                Button(action: {
-                  columnHeadersToFilter.append(header)
-                  filters.append(header)
-                }) {
-                  Text(header)
-                }
+        
+        HStack {
+          Text("Condition")
+          Spacer()
+          Menu {
+            ForEach(FilterTableViewInclusionExclusion.allCases, id: \.self) { filterType in
+              Button(action: {
+                self.selectedFilterType = filterType
+              }) {
+                Text(filterType.rawValue)
               }
-            } label: {
-              Text(filter)
             }
-            Spacer()
-            Button(action: {
-              filters.removeAll(where: { $0 == filter })
-              columnHeadersToFilter.removeAll(where: { $0 == filter })
-            }) {
-              Text("Remove")
-            }
+          } label: {
+            Text(selectedFilterType.rawValue)
           }
-          .padding()
         }
-      }
-      .background(Color.gray.opacity(0.1))
-      
-      Spacer()
-      
-      Divider()
-        //.padding(.vertical)
-      
-      HStack {
-        Button(action: {
-          // ViewController's revertTableViewChanges() function
-        }) {
-          Text("Undo Filters")
+        .padding()
+        
+        HStack {
+          Button(action: {
+            filters.removeAll()
+            columnHeadersToFilter.removeAll()
+          }) {
+            Text("Clear")
+          }
+          Spacer()
+          Button(action: {
+            filters.append(condition)
+            condition = ""
+          }) {
+            Text("Add Filter")
+          }
         }
+        .padding(.horizontal)
+        
+        Divider()
+          .padding(.horizontal)
+          .padding(.top)
+          .padding(.bottom, -8)
+        
+        ScrollView {
+          ForEach(filters, id: \.self) { filter in
+            HStack {
+              Menu {
+                ForEach(sharedHeaders.availableHeaders.filter { !filters.contains($0) }, id: \.self) { header in
+                  Button(action: {
+                    columnHeadersToFilter.append(header)
+                    filters.append(header)
+                  }) {
+                    Text(header)
+                  }
+                }
+              } label: {
+                Text(filter)
+              }
+              Spacer()
+              Button(action: {
+                filters.removeAll(where: { $0 == filter })
+                columnHeadersToFilter.removeAll(where: { $0 == filter })
+              }) {
+                Text("Remove")
+              }
+            }
+            //.padding()
+            .padding(.horizontal)
+            .padding(.vertical, 4)
+          }
+        }
+        .background(Color.gray.opacity(0.1))
+        
         Spacer()
-        Button(action: {
-          // ViewController's filterTableViewColumnHeaders(_ columnHeaders: [String], withFilterType: FilterTableViewInclusionExclusion) function
-        }) {
-          Text("Apply Filters")
+        
+        Divider()
+        .padding(.horizontal)
+        .padding(.top, -8)
+        
+        HStack {
+          Button(action: {
+            // ViewController's revertTableViewChanges() function
+          }) {
+            Text("Undo Filters")
+          }
+          Spacer()
+          Button(action: {
+            // ViewController's filterTableViewColumnHeaders(_ columnHeaders: [String], withFilterType: FilterTableViewInclusionExclusion) function
+          }) {
+            Text("Apply Filters")
+          }
         }
+        .padding()
+        
       }
-      .padding()
-      
+      .padding(.top, 16)
+      .padding(.bottom, 6)
     }
-    .padding(.top, 16)
-    .padding(.bottom, 6)
   }
 }
 
