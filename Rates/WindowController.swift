@@ -8,9 +8,16 @@
 import Cocoa
 
 /// The main window controller for the application.
-class WindowController: NSWindowController, FileSelectionDelegate {
+class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDelegate {
   
+  @IBOutlet weak var toggleFilterControlViewToolbarButton: NSToolbarItem!
+  
+  @IBOutlet weak var settingsToolbarButton: NSToolbarItem!
+  
+  @IBOutlet weak var undoToolbarButton: NSToolbarItem!
+  @IBOutlet weak var filterToolbarButton: NSToolbarItem!
   @IBOutlet weak var selectCustomHeaderRowButton: NSToolbarItem!
+  //@IBOutlet weak var
   
   /// The main view controller of the window.
   lazy var viewController: ViewController = {
@@ -18,6 +25,21 @@ class WindowController: NSWindowController, FileSelectionDelegate {
     vc.delegate = self
     return vc
   }()
+  
+  override func windowDidLoad() {
+    super.windowDidLoad()
+    if let toolbar = window?.toolbar {
+      toolbar.delegate = self
+    }
+    
+    viewController.windowController = self
+    toggleFilterControlViewToolbarButton.action = nil
+  }
+  
+  func enableToggleFilterControlViewToolbar() {
+    toggleFilterControlViewToolbarButton.action = #selector(toggleFilterControlViewToolbarAction(_:))
+    toggleFilterControlViewToolbarButton.target = self
+  }
   
   /// Performs an action on the view controller to open a file selection.
   @IBAction func openFileAction(_ sender: Any) {
@@ -37,6 +59,10 @@ class WindowController: NSWindowController, FileSelectionDelegate {
   /// Performs an action on the view controller to manually select the current table view row as the header row.
   @IBAction func selectCustomHeaderRowFromTable(_ sender: Any) {
     performActionOnViewController(action: viewController.selectCustomHeaderForTableView)
+  }
+  
+  @IBAction func toggleFilterControlViewToolbarAction(_ sender: Any) {
+    performActionOnViewController(action: viewController.toggleFilterControlsView)
   }
   
   /// Calls the file selection in the view controller.
@@ -60,4 +86,6 @@ class WindowController: NSWindowController, FileSelectionDelegate {
   private func performActionOnViewController(action: () -> ()) {
     action()
   }
+  
 }
+

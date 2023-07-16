@@ -14,6 +14,7 @@ protocol FileSelectionDelegate: AnyObject {
 
 class ViewController: NSViewController {
   weak var delegate: FileSelectionDelegate?
+  weak var windowController: WindowController?
   
   var csvTableView: CSVTableView!
   private var scrollView: NSScrollView!
@@ -89,16 +90,28 @@ class ViewController: NSViewController {
     csvTableView.frame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: scrollView.bounds.height)
   }
   
+  
+  var filterControlsViewIsHidden = true
+  func toggleFilterControlsView() {
+    if filterControlsViewIsHidden {
+      slideInFilterControlsView()
+    } else {
+      slideOutFilterControlsView()
+    }
+  }
+  
   /**
    Animates the position of the FilterControlsView’s trailing anchor by Constants.filterControlsViewWidth such that is visible on the screen.
    */
   func slideInFilterControlsView() {
     filterControlsConstraint.constant = 0
-    NSAnimationContext.runAnimationGroup { context in
+    NSAnimationContext.runAnimationGroup({ context in
       context.duration = 0.25
       context.allowsImplicitAnimation = true
       view.layoutSubtreeIfNeeded()
-    }
+    }, completionHandler: {
+      self.filterControlsViewIsHidden = false
+    })
   }
   
   /**
@@ -106,11 +119,13 @@ class ViewController: NSViewController {
    */
   func slideOutFilterControlsView() {
     filterControlsConstraint.constant = Constants.filterControlsViewWidth
-    NSAnimationContext.runAnimationGroup { context in
+    NSAnimationContext.runAnimationGroup({ context in
       context.duration = 0.25
       context.allowsImplicitAnimation = true
       view.layoutSubtreeIfNeeded()
-    }
+    }, completionHandler: {
+      self.filterControlsViewIsHidden = true
+    })
   }
   
   func filterTableViewColumnHeaders(_ columnHeaders: [String], withFilterType: FilterTableViewInclusionExclusion) {
@@ -118,6 +133,18 @@ class ViewController: NSViewController {
       csvTableView.filterTableViewToOnlyShowColumnsWithHeaders(columnHeaders)
     } else {
       csvTableView.filterTableViewToOnlyHideColumnsWithHeaders(columnHeaders)
+    }
+  }
+  
+  func enableToggleFilterControlViewToolbar() {
+    windowController?.enableToggleFilterControlViewToolbar()
+  }
+  
+  override var representedObject: Any? {
+    didSet {
+      if let windowController = representedObject as? WindowController {
+        self.windowController = windowController
+      }
     }
   }
 }
