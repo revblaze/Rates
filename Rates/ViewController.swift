@@ -43,11 +43,25 @@ class ViewController: NSViewController {
     beginLaunchSession()
   }
   
+  /// Starts the currency conversion process using columns with the selected headers.
+  func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool) {
+    Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined)")
+  }
   
+  /// Presents DataSelectionView as a sheet presentation style.
   func presentDataSelectionViewAsSheet() {
-    let contentView = DataSelectionView(sharedHeaders: sharedHeaders)
-    let hostingController = NSHostingController(rootView: contentView)
+    let contentView = DataSelectionView(
+      sharedHeaders: sharedHeaders,
+      onDismiss: { [weak self] in
+        print("WE MADE IT")
+        self?.dismiss(nil)
+      },
+      onConvert: { [weak self] (dates, amounts, currencies, amountsCurrenciesCombined) in
+        self?.performConversionUsingColumnWithHeaders(dates: dates, amounts: amounts, currencies: currencies, amountsCurrenciesCombined: amountsCurrenciesCombined)
+      }
+    )
     
+    let hostingController = NSHostingController(rootView: contentView)
     self.presentAsSheet(hostingController)
   }
   
