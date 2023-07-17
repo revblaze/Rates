@@ -43,6 +43,37 @@ class ViewController: NSViewController {
     beginLaunchSession()
   }
   
+  func saveTableViewAsFile() {
+    Debug.log("[saveTableViewAsFile] Needs implementation.")
+  }
+  
+  /// Starts the currency conversion process using columns with the selected headers.
+  func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool) {
+    Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined)")
+  }
+  
+  /// Presents DataSelectionView as a sheet presentation style.
+  func presentDataSelectionViewAsSheet() {
+    let contentView = DataSelectionView(
+      sharedHeaders: sharedHeaders,
+      onDismiss: { [weak self] in
+        NotificationCenter.default.post(name: NSNotification.Name("DismissSheet"), object: nil)
+        self?.dismiss(self)
+      },
+      onConvert: { [weak self] (dates, amounts, currencies, amountsCurrenciesCombined) in
+        NotificationCenter.default.post(name: NSNotification.Name("DismissSheet"), object: nil)
+        self?.performConversionUsingColumnWithHeaders(dates: dates, amounts: amounts, currencies: currencies, amountsCurrenciesCombined: amountsCurrenciesCombined)
+      }
+    )
+    
+    let hostingController = NSHostingController(rootView: contentView)
+    self.presentAsSheet(hostingController)
+    
+    NotificationCenter.default.addObserver(forName: NSNotification.Name("DismissSheet"), object: nil, queue: nil) { [weak self] _ in
+      self?.dismiss(hostingController)
+    }
+  }
+  
   func initCsvTableScrollView() {
     scrollView = NSScrollView()
     scrollView.hasVerticalScroller = true
@@ -136,8 +167,8 @@ class ViewController: NSViewController {
     }
   }
   
-  func enableToggleFilterControlViewToolbar() {
-    windowController?.enableToggleFilterControlViewToolbar()
+  func enableToolbarButtonsOnFileLoad() {
+    windowController?.enableToolbarItemsOnFileLoad()
   }
   
   override var representedObject: Any? {
@@ -146,5 +177,9 @@ class ViewController: NSViewController {
         self.windowController = windowController
       }
     }
+  }
+  
+  deinit {
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name("DismissSheet"), object: nil)
   }
 }
