@@ -10,11 +10,13 @@ import Cocoa
 /// The main window controller for the application.
 class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDelegate {
   
+  /// Toggles the FilterControlsView to animate in and out.
   @IBOutlet weak var toggleFilterControlViewToolbarButton: NSToolbarItem!
-  
-  @IBOutlet weak var settingsToolbarButton: NSToolbarItem!
-  
+  /// Clears all existing filters on CSVTableView and reverts it back to the original table.
   @IBOutlet weak var undoToolbarButton: NSToolbarItem!
+  
+  // MARK: Hidden Items
+  @IBOutlet weak var settingsToolbarButton: NSToolbarItem!
   @IBOutlet weak var filterToolbarButton: NSToolbarItem!
   @IBOutlet weak var selectCustomHeaderRowButton: NSToolbarItem!
   //@IBOutlet weak var
@@ -28,14 +30,19 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   
   override func windowDidLoad() {
     super.windowDidLoad()
-    if let toolbar = window?.toolbar {
-      toolbar.delegate = self
-    }
     
+    if let toolbar = window?.toolbar { toolbar.delegate = self }
     viewController.windowController = self
+    
+    disableToolbarItemsOnLaunch()
+  }
+  
+  /// Disables the necessary toolbar items on launch.
+  func disableToolbarItemsOnLaunch() {
     toggleFilterControlViewToolbarButton.action = nil
   }
   
+  /// Enables the toggleFilterControlsView toolbar button item. Called after a file is imported.
   func enableToggleFilterControlViewToolbar() {
     toggleFilterControlViewToolbarButton.action = #selector(toggleFilterControlViewToolbarAction(_:))
     toggleFilterControlViewToolbarButton.target = self
