@@ -53,16 +53,21 @@ class ViewController: NSViewController {
     let contentView = DataSelectionView(
       sharedHeaders: sharedHeaders,
       onDismiss: { [weak self] in
-        print("WE MADE IT")
-        self?.dismiss(nil)
+        NotificationCenter.default.post(name: NSNotification.Name("DismissSheet"), object: nil)
+        self?.dismiss(self)
       },
       onConvert: { [weak self] (dates, amounts, currencies, amountsCurrenciesCombined) in
+        NotificationCenter.default.post(name: NSNotification.Name("DismissSheet"), object: nil)
         self?.performConversionUsingColumnWithHeaders(dates: dates, amounts: amounts, currencies: currencies, amountsCurrenciesCombined: amountsCurrenciesCombined)
       }
     )
     
     let hostingController = NSHostingController(rootView: contentView)
     self.presentAsSheet(hostingController)
+    
+    NotificationCenter.default.addObserver(forName: NSNotification.Name("DismissSheet"), object: nil, queue: nil) { [weak self] _ in
+      self?.dismiss(hostingController)
+    }
   }
   
   func initCsvTableScrollView() {
@@ -168,5 +173,9 @@ class ViewController: NSViewController {
         self.windowController = windowController
       }
     }
+  }
+  
+  deinit {
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name("DismissSheet"), object: nil)
   }
 }

@@ -80,15 +80,14 @@ struct DataSelectionView: View {
         .padding(.vertical, 6)
       HStack {
         Button("Cancel") {
-          onDismiss?()
+          Debug.log("[DataSelectionView] User cancelled input.")
         }
         Button("Convert") {
           isConvertButtonPressed = true
           checkForErrors()
           if !showError {
-            Debug.log("[Convert] Dates: \(selectedDate ?? ""), Amounts: \(selectedAmount ?? ""), Currencies: \(selectedCurrency ?? ""), AmountCurrencyCombined: \(amountCurrencyCombined).")
+            Debug.log("[DataSelectionView] User clicked convert with Dates: \(selectedDate ?? ""), Amounts: \(selectedAmount ?? ""), Currencies: \(selectedCurrency ?? ""), AmountCurrencyCombined: \(amountCurrencyCombined).")
             onConvert?(selectedDate ?? "", selectedAmount ?? "", selectedCurrency ?? "", amountCurrencyCombined)
-            onDismiss?()
           }
         }
       }
