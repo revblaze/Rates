@@ -224,16 +224,16 @@ class CSVTableView: NSView {
   ///
   /// - Returns: The header of a column that contains dates, or an empty string if no such column is found.
   func guessDatesColumn() -> String {
-      for column in tableView.tableColumns where !column.isHidden {
-          let columnIndex = tableView.column(withIdentifier: column.identifier)
-          let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
-          for cell in columnData.dropFirst() {
-              if isDateString(cell) {
-                  return column.title
-              }
-          }
+    for column in tableView.tableColumns where !column.isHidden {
+      let columnIndex = tableView.column(withIdentifier: column.identifier)
+      let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
+      for cell in columnData.dropFirst() {
+        if isDateString(cell) {
+          return column.title
+        }
       }
-      return ""
+    }
+    return ""
   }
   
   /// Finds a column that contains numbers with two decimal places.
@@ -243,8 +243,10 @@ class CSVTableView: NSView {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
-      if columnData.dropFirst().allSatisfy(isNumberWithTwoDecimalsString) {
-        return column.title
+      for cell in columnData.dropFirst() {
+        if isNumberWithTwoDecimalsString(cell) {
+          return column.title
+        }
       }
     }
     return ""
@@ -257,8 +259,10 @@ class CSVTableView: NSView {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
-      if columnData.dropFirst().allSatisfy(isCurrencyCode) {
-        return column.title
+      for cell in columnData.dropFirst() {
+        if isCurrencyCode(cell) {
+          return column.title
+        }
       }
     }
     return ""
