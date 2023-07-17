@@ -18,6 +18,15 @@ struct DataSelectionView: View {
   var onDismiss: (() -> Void)?
   var onConvert: ((String, String, String, Bool) -> Void)?
   
+  init(sharedHeaders: SharedHeaders, onDismiss: (() -> Void)?, onConvert: ((String, String, String, Bool) -> Void)?) {
+    self.sharedHeaders = sharedHeaders
+    self.onDismiss = onDismiss
+    self.onConvert = onConvert
+    _selectedDate = State(initialValue: sharedHeaders.suggestedHeaders.count > 0 ? sharedHeaders.suggestedHeaders[0] : nil)
+    _selectedAmount = State(initialValue: sharedHeaders.suggestedHeaders.count > 1 ? sharedHeaders.suggestedHeaders[1] : nil)
+    _selectedCurrency = State(initialValue: sharedHeaders.suggestedHeaders.count > 2 ? sharedHeaders.suggestedHeaders[2] : nil)
+  }
+  
   var body: some View {
     VStack {
       Text("Select the transaction data to be used for the currency conversion")
