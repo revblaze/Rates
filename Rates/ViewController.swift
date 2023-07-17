@@ -45,11 +45,13 @@ class ViewController: NSViewController {
   
   func saveTableViewAsFile() {
     Debug.log("[saveTableViewAsFile] Needs implementation.")
+    // TODO: Export as CSV and prompt user to save file
   }
   
   /// Starts the currency conversion process using columns with the selected headers.
   func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool) {
     Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined)")
+    // TODO: Add column "To CUR" with conversions below
   }
   
   /// Presents DataSelectionView as a sheet presentation style.
