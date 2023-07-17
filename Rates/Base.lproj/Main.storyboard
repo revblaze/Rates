@@ -809,10 +809,14 @@
                                         <action selector="openFileAction:" target="B8D-0N-5wS" id="7Ej-G4-N9v"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="6727FC64-D617-44ED-A1EB-5F0BBDEC23BE" label="Convert" paletteLabel="Convert" tag="-1" image="arrow.triangle.2.circlepath" catalog="system" bordered="YES" sizingBehavior="auto" id="uEg-WK-vIe"/>
+                                <toolbarItem implicitItemIdentifier="6727FC64-D617-44ED-A1EB-5F0BBDEC23BE" label="Convert" paletteLabel="Convert" tag="-1" image="arrow.triangle.2.circlepath" catalog="system" bordered="YES" sizingBehavior="auto" id="uEg-WK-vIe">
+                                    <connections>
+                                        <action selector="convertToolbarButtonAction:" target="B8D-0N-5wS" id="unS-Hj-pVN"/>
+                                    </connections>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="D1BFA734-F550-453D-AF23-4A0F34663249" label="Clear" paletteLabel="Clear Filters" tag="-1" image="arrow.uturn.backward" catalog="system" bordered="YES" sizingBehavior="auto" id="fqb-rO-691">
                                     <connections>
-                                        <action selector="revertTableViewChanges:" target="B8D-0N-5wS" id="0Vl-v8-Gp2"/>
+                                        <action selector="clearFiltersToolbarButtonAction:" target="B8D-0N-5wS" id="zbr-lS-gbh"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="2A25FDAE-932F-48D1-BF80-C13A1444100F" label="Filter" paletteLabel="Filter" tag="-1" image="list.bullet.rectangle" catalog="system" bordered="YES" sizingBehavior="auto" id="zxs-eo-89M">
@@ -830,7 +834,11 @@
                                         <action selector="toggleFilterControlViewToolbarAction:" target="B8D-0N-5wS" id="cWv-lq-Lvx"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="7FE5FC6E-B726-4C2F-A335-BBE0C8ED84FA" label="Save" paletteLabel="Save File" tag="-1" image="square.and.arrow.down" catalog="system" bordered="YES" sizingBehavior="auto" id="b0T-PK-dtD"/>
+                                <toolbarItem implicitItemIdentifier="7FE5FC6E-B726-4C2F-A335-BBE0C8ED84FA" label="Save" paletteLabel="Save File" tag="-1" image="square.and.arrow.down" catalog="system" bordered="YES" sizingBehavior="auto" id="b0T-PK-dtD">
+                                    <connections>
+                                        <action selector="saveFileToolbarButtonAction:" target="B8D-0N-5wS" id="dOp-my-eEV"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="LGC-fq-k0P"/>
@@ -849,11 +857,13 @@
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="clearFiltersToolbarButton" destination="fqb-rO-691" id="oOy-IN-sgq"/>
+                        <outlet property="convertToolbarButton" destination="uEg-WK-vIe" id="sw3-Qi-KTw"/>
                         <outlet property="filterToolbarButton" destination="zxs-eo-89M" id="Jxh-iC-JW3"/>
+                        <outlet property="saveFileToolbarButton" destination="b0T-PK-dtD" id="gYp-8E-qQV"/>
                         <outlet property="selectCustomHeaderRowButton" destination="FsO-Zc-JPA" id="gJ5-Gu-PxU"/>
                         <outlet property="settingsToolbarButton" destination="CvE-Zg-jBd" id="qpc-Yd-Oec"/>
                         <outlet property="toggleFilterControlViewToolbarButton" destination="vsl-Nn-ax5" id="Cr1-wD-eyb"/>
-                        <outlet property="undoToolbarButton" destination="fqb-rO-691" id="oA8-yw-hAs"/>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
                     </connections>
                 </windowController>

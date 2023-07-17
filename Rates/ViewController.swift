@@ -43,6 +43,10 @@ class ViewController: NSViewController {
     beginLaunchSession()
   }
   
+  func saveTableViewAsFile() {
+    Debug.log("[saveTableViewAsFile] Needs implementation.")
+  }
+  
   /// Starts the currency conversion process using columns with the selected headers.
   func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool) {
     Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined)")
@@ -163,8 +167,8 @@ class ViewController: NSViewController {
     }
   }
   
-  func enableToggleFilterControlViewToolbar() {
-    windowController?.enableToggleFilterControlViewToolbar()
+  func enableToolbarButtonsOnFileLoad() {
+    windowController?.enableToolbarItemsOnFileLoad()
   }
   
   override var representedObject: Any? {
