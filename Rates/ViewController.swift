@@ -43,6 +43,14 @@ class ViewController: NSViewController {
     beginLaunchSession()
   }
   
+  
+  func presentDataSelectionViewAsSheet() {
+    let contentView = DataSelectionView(sharedHeaders: sharedHeaders)
+    let hostingController = NSHostingController(rootView: contentView)
+    
+    self.presentAsSheet(hostingController)
+  }
+  
   func initCsvTableScrollView() {
     scrollView = NSScrollView()
     scrollView.hasVerticalScroller = true

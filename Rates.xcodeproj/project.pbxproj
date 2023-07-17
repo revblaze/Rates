@@ -36,6 +36,7 @@
 		C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636FA72A5882480091BE7D /* KeysExtensions.swift */; };
 		C273B9262A5B2FB600212717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9252A5B2FB600212717 /* Constants.swift */; };
 		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
+		C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C922A6598A10034FA1D /* DataSelectionView.swift */; };
 		C2B83CAC2A5C54B1009763B6 /* ViewController+ImportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */; };
 		C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */; };
 		C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CB62A5C6907009763B6 /* FileExtensions.swift */; };
@@ -87,6 +88,7 @@
 		C2636FA72A5882480091BE7D /* KeysExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysExtensions.swift; sourceTree = "<group>"; };
 		C273B9252A5B2FB600212717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
+		C2B11C922A6598A10034FA1D /* DataSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSelectionView.swift; sourceTree = "<group>"; };
 		C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ImportFile.swift"; sourceTree = "<group>"; };
 		C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFileTemplateViewController.swift; sourceTree = "<group>"; };
 		C2B83CB62A5C6907009763B6 /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		C2636F8B2A585D4E0091BE7D /* Rates */ = {
 			isa = PBXGroup;
 			children = (
+				C2B11C912A6598730034FA1D /* DataSelectionView */,
 				C253B1AF2A644C8900218532 /* FilterControls */,
 				C2B83CBF2A5C831B009763B6 /* MainMenu */,
 				C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */,
@@ -292,6 +295,14 @@
 				C2546AF12A58A76A00C83FEC /* URLExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C2B11C912A6598730034FA1D /* DataSelectionView */ = {
+			isa = PBXGroup;
+			children = (
+				C2B11C922A6598A10034FA1D /* DataSelectionView.swift */,
+			);
+			path = DataSelectionView;
 			sourceTree = "<group>";
 		};
 		C2B83CB82A5C774D009763B6 /* StatusBar */ = {
@@ -460,6 +471,7 @@
 				C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */,
 				C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */,
 				C2546AF22A58A76A00C83FEC /* URLExtensions.swift in Sources */,
+				C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */,
 				C253B1B62A64747900218532 /* BackgroundBlurView.swift in Sources */,
 				C2B83CCC2A5C9E5C009763B6 /* ViewController+Filters.swift in Sources */,
 				C255F2D92A5B556B004B7F95 /* WindowController.swift in Sources */,

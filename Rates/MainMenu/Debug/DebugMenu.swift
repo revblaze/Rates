@@ -55,4 +55,23 @@ extension AppDelegate {
     viewController?.slideOutFilterControlsView()
   }
   
+  
+  @IBAction func debugPresentDataSelectionViewAsSheet(_ sender: NSMenuItem) {
+    performActionOnViewController { viewController in
+      viewController.presentDataSelectionViewAsSheet()
+    }
+  }
+  
+  
+  private func performActionOnViewController(action: @escaping (ViewController) -> Void) {
+    guard let viewController = mainWindow.contentViewController as? ViewController else {
+      return
+    }
+    
+    DispatchQueue.main.async {
+      action(viewController)
+    }
+  }
+  
+  
 }
