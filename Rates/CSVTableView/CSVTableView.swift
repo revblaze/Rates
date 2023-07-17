@@ -10,6 +10,7 @@ import Combine
 
 class SharedHeaders: ObservableObject {
   @Published var availableHeaders: [String] = []
+  @Published var suggestedHeaders: [String] = []
 }
 
 /// A custom view for displaying CSV data in a table view.
@@ -104,6 +105,7 @@ class CSVTableView: NSView {
     
     // Update shared headers
     sharedHeaders.availableHeaders = foundHeaderRow
+    determineSuggestedHeadersForConversion()
   }
   
   /// Resizes all columns in the table view to fit the widest content of their cells.
@@ -162,6 +164,104 @@ class CSVTableView: NSView {
         column.isHidden = true
       }
     }
+  }
+  
+  
+  func determineSuggestedHeadersForConversion() {
+    sharedHeaders.suggestedHeaders.removeAll()
+    let datesColumn = guessDatesColumn()
+    let amountsColumn = guessAmountsColumn()
+    let currenciesColumn = guessCurrenciesColumn()
+    sharedHeaders.suggestedHeaders.append(datesColumn)
+    sharedHeaders.suggestedHeaders.append(amountsColumn)
+    sharedHeaders.suggestedHeaders.append(currenciesColumn)
+    Debug.log("[determineSuggestedHeadersForConversion] update headers: \(datesColumn), \(amountsColumn), \(currenciesColumn)")
+  }
+  
+  
+  /// Checks if the given string can be converted to a date.
+  ///
+  /// - Parameter dateString: The string to check.
+  /// - Returns: A Boolean value indicating whether the string can be converted to a date.
+  private func isDateString(_ dateString: String) -> Bool {
+    let dateFormats = ["yyyy-MM-dd", "yyyy-dd-MM", "dd-MM-yyyy", "MM-dd-yyyy", "yyyy/MM/dd", "yyyy/dd/MM", "dd/MM/yyyy", "MM/dd/yyyy", "MMMM dd, yyyy", "dd MMMM, yyyy"]
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    
+    for format in dateFormats {
+      formatter.dateFormat = format
+      if formatter.date(from: dateString) != nil {
+        return true
+      }
+    }
+    
+    return false
+  }
+  
+  /// Checks if the given string can be converted to a number with two decimal places.
+  ///
+  /// - Parameter numberString: The string to check.
+  /// - Returns: A Boolean value indicating whether the string can be converted to a number with two decimal places.
+  private func isNumberWithTwoDecimalsString(_ numberString: String) -> Bool {
+    let components = numberString.components(separatedBy: ".")
+    
+    if components.count == 2, components[1].count == 2, Double(numberString) != nil {
+      return true
+    }
+    
+    return false
+  }
+  
+  /// Checks if the given string is a valid currency code.
+  ///
+  /// - Parameter currencyString: The string to check.
+  /// - Returns: A Boolean value indicating whether the string is a valid currency code.
+  private func isCurrencyCode(_ currencyString: String) -> Bool {
+    return Locale.commonISOCurrencyCodes.contains(currencyString.uppercased())
+  }
+  
+  /// Finds a column that contains dates.
+  ///
+  /// - Returns: The header of a column that contains dates, or an empty string if no such column is found.
+  func guessDatesColumn() -> String {
+      for column in tableView.tableColumns where !column.isHidden {
+          let columnIndex = tableView.column(withIdentifier: column.identifier)
+          let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
+          for cell in columnData.dropFirst() {
+              if isDateString(cell) {
+                  return column.title
+              }
+          }
+      }
+      return ""
+  }
+  
+  /// Finds a column that contains numbers with two decimal places.
+  ///
+  /// - Returns: The header of a column that contains numbers with two decimal places, or an empty string if no such column is found.
+  func guessAmountsColumn() -> String {
+    for column in tableView.tableColumns where !column.isHidden {
+      let columnIndex = tableView.column(withIdentifier: column.identifier)
+      let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
+      if columnData.dropFirst().allSatisfy(isNumberWithTwoDecimalsString) {
+        return column.title
+      }
+    }
+    return ""
+  }
+  
+  /// Finds a column that contains currency codes.
+  ///
+  /// - Returns: The header of a column that contains currency codes, or an empty string if no such column is found.
+  func guessCurrenciesColumn() -> String {
+    for column in tableView.tableColumns where !column.isHidden {
+      let columnIndex = tableView.column(withIdentifier: column.identifier)
+      let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
+      if columnData.dropFirst().allSatisfy(isCurrencyCode) {
+        return column.title
+      }
+    }
+    return ""
   }
   
 }
