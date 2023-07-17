@@ -49,15 +49,15 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   }
   /// Enables the necessary toolbar item once the user has loaded up a file.
   func enableToolbarItemsOnFileLoad() {
-    enableToggleFilterControlViewToolbar()
+    enableToggleFilterControlViewToolbarButton()
     enableConvertToolbarButton()
     enableSaveFileToolbarButton()
     enableClearFiltersToolbarButton()
   }
   
   /// Enables the toggleFilterControlsView toolbar button item. Called after a file has been imported.
-  func enableToggleFilterControlViewToolbar() {
-    toggleFilterControlViewToolbarButton.action = #selector(toggleFilterControlViewToolbarAction(_:))
+  func enableToggleFilterControlViewToolbarButton() {
+    toggleFilterControlViewToolbarButton.action = #selector(toggleFilterControlViewToolbarButtonAction(_:))
     toggleFilterControlViewToolbarButton.target = self
   }
   /// Enables the convert toolbar button item. Called after a file has been imported.
@@ -96,7 +96,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     performActionOnViewController(action: viewController.selectCustomHeaderForTableView)
   }
   
-  @IBAction func toggleFilterControlViewToolbarAction(_ sender: Any) {
+  @IBAction func toggleFilterControlViewToolbarButtonAction(_ sender: Any) {
     performActionOnViewController(action: viewController.toggleFilterControlsView)
   }
   @IBAction func convertToolbarButtonAction(_ sender: Any) {

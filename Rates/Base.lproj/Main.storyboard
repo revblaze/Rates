@@ -831,7 +831,7 @@
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="CA141235-FDE4-4E02-A2AE-112A94AFA249" explicitItemIdentifier="FilterSidebarIdentifier" label="Filters" paletteLabel="Filters Sidebar" tag="-1" image="tablecells.badge.ellipsis" catalog="system" bordered="YES" sizingBehavior="auto" id="vsl-Nn-ax5">
                                     <connections>
-                                        <action selector="toggleFilterControlViewToolbarAction:" target="B8D-0N-5wS" id="cWv-lq-Lvx"/>
+                                        <action selector="toggleFilterControlViewToolbarButtonAction:" target="B8D-0N-5wS" id="n5x-rF-oiL"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="7FE5FC6E-B726-4C2F-A335-BBE0C8ED84FA" label="Save" paletteLabel="Save File" tag="-1" image="square.and.arrow.down" catalog="system" bordered="YES" sizingBehavior="auto" id="b0T-PK-dtD">
