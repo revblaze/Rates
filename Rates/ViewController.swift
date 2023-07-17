@@ -7,6 +7,13 @@
 
 import Cocoa
 import SwiftUI
+import Combine
+
+class SharedHeaders: ObservableObject {
+  @Published var availableHeaders: [String] = []
+  @Published var suggestedHeaders: [String] = []
+  @Published var currencyCodeHeaders: [String] = []
+}
 
 protocol FileSelectionDelegate: AnyObject {
   func fileSelected(_ viewController: ViewController, fileURL: URL)
