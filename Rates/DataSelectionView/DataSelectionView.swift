@@ -15,6 +15,8 @@ struct DataSelectionView: View {
   @State private var amountCurrencyCombined: Bool = false
   @State private var showError: Bool = false
   @State private var isConvertButtonPressed: Bool = false
+  var onDismiss: (() -> Void)?
+  var onConvert: ((String, String, String, Bool) -> Void)?
   
   var body: some View {
     VStack {
@@ -78,12 +80,16 @@ struct DataSelectionView: View {
         .padding(.vertical, 6)
       HStack {
         Button("Cancel") {
-          print("Cancel")
+          Debug.log("[DataSelectionView] User cancelled input.")
+          onDismiss?()
         }
         Button("Convert") {
           isConvertButtonPressed = true
           checkForErrors()
-          print("[Convert] Dates: \(selectedDate ?? ""), Amounts: \(selectedAmount ?? ""), Currencies: \(selectedCurrency ?? ""), AmountCurrencyCombined: \(amountCurrencyCombined).")
+          if !showError {
+            Debug.log("[DataSelectionView] User clicked convert with Dates: \(selectedDate ?? ""), Amounts: \(selectedAmount ?? ""), Currencies: \(selectedCurrency ?? ""), AmountCurrencyCombined: \(amountCurrencyCombined).")
+            onConvert?(selectedDate ?? "", selectedAmount ?? "", selectedCurrency ?? "", amountCurrencyCombined)
+          }
         }
       }
       if showError && isConvertButtonPressed {
