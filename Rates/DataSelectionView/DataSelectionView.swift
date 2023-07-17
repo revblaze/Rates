@@ -81,6 +81,7 @@ struct DataSelectionView: View {
       HStack {
         Button("Cancel") {
           Debug.log("[DataSelectionView] User cancelled input.")
+          onDismiss?()
         }
         Button("Convert") {
           isConvertButtonPressed = true
