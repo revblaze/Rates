@@ -12,16 +12,9 @@ struct DataSelectionView: View {
   @State private var selectedDate: String?
   @State private var selectedAmount: String?
   @State private var selectedCurrency: String?
+  @State private var amountCurrencyCombined: Bool = false
   @State private var showError: Bool = false
   @State private var isConvertButtonPressed: Bool = false
-  
-  @State private var amountCurrencyCombined: Bool = false {
-    didSet {
-      if amountCurrencyCombined {
-        selectedCurrency = nil
-      }
-    }
-  }
   
   var body: some View {
     VStack {
@@ -66,7 +59,8 @@ struct DataSelectionView: View {
         }.disabled(amountCurrencyCombined)
       }
       Toggle(isOn: $amountCurrencyCombined) {
-        Text("Amounts and currencies are in the same box")
+        Text("Amounts and currencies are in the same column")
+          .fixedSize(horizontal: false, vertical: true)
       }
       Divider()
         .padding(.vertical, 6)
@@ -100,7 +94,7 @@ struct DataSelectionView: View {
     }
     .padding()
     .padding(.horizontal)
-    .frame(minWidth: 340)
+    .frame(minWidth: 380)
     .onChange(of: selectedDate) { _ in
       checkForErrors()
     }
