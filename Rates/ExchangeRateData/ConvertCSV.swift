@@ -36,9 +36,12 @@ class ConvertCSV {
     // Read the CSV file
     do {
       let csvString = try String(contentsOf: fileUrl, encoding: .utf8)
-      let csvRows = csvString.components(separatedBy: "\n")
+      var modifiedCsvString = csvString
+      if let range = csvString.range(of: "Currency") {
+        modifiedCsvString = csvString.replacingOccurrences(of: "Currency", with: Constants.sqliteDateColumnValue, options: [], range: range)
+      }
       
-      
+      let csvRows = modifiedCsvString.components(separatedBy: "\n")
       
       // Create SQLite table based on the CSV header
       if let header = csvRows.first {
@@ -58,7 +61,7 @@ class ConvertCSV {
         
         let insertStatement = "INSERT INTO data VALUES (\(row));"
         if sqlite3_exec(db, insertStatement, nil, nil, nil) != SQLITE_OK {
-          Debug.log("Failed to insert row: \(row)")
+          Debug.log("[ConvertCSV.toSQLite] Failed to insert row: \(row)")
           return nil
         }
       }
@@ -69,7 +72,7 @@ class ConvertCSV {
       // Return the SQLite database file URL in the document directory
       return sqliteFileUrl
     } catch {
-      Debug.log("Failed to read CSV file")
+      Debug.log("[ConvertCSV.toSQLite] Failed to read CSV file")
       return nil
     }
   }
