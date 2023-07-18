@@ -161,7 +161,7 @@ class CSVTableView: NSView {
     }
   }
   
-  
+  /// Replaces suggestedHeaders with column headers for detected data types, if applicable.
   func determineSuggestedHeadersForConversion() {
     sharedHeaders.suggestedHeaders.removeAll()
     let datesColumn = guessDatesColumn()
@@ -170,16 +170,13 @@ class CSVTableView: NSView {
     sharedHeaders.suggestedHeaders.append(datesColumn)
     sharedHeaders.suggestedHeaders.append(amountsColumn)
     sharedHeaders.suggestedHeaders.append(currenciesColumn)
-    Debug.log("[determineSuggestedHeadersForConversion] update headers: \(datesColumn), \(amountsColumn), \(currenciesColumn)")
+    Debug.log("[determineSuggestedHeadersForConversion] update headers: \(sharedHeaders.suggestedHeaders)")
   }
-  
-  
-  
   
   /// Finds a column that contains dates.
   ///
-  /// - Returns: The header of a column that contains dates, or an empty string if no such column is found.
-  func guessDatesColumn() -> String {
+  /// - Returns: The header of a column that contains dates, or `nil` if no such column is found.
+  func guessDatesColumn() -> String? {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
@@ -189,7 +186,7 @@ class CSVTableView: NSView {
         }
       }
     }
-    return ""
+    return nil
   }
   
   /// Finds a column that contains numbers with two decimal places.
@@ -197,8 +194,8 @@ class CSVTableView: NSView {
   /// Before determining if a cell contains a number with two decimal places,
   /// it removes any characters that are not a number, period, or minus ("-") from the cell string.
   ///
-  /// - Returns: The header of a column that contains numbers with two decimal places, or an empty string if no such column is found.
-  func guessAmountsColumn() -> String {
+  /// - Returns: The header of a column that contains numbers with two decimal places, or `nil` if no such column is found.
+  func guessAmountsColumn() -> String? {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
@@ -210,13 +207,13 @@ class CSVTableView: NSView {
         }
       }
     }
-    return ""
+    return nil
   }
   
   /// Finds a column that contains currency codes.
   ///
-  /// - Returns: The header of a column that contains currency codes, or an empty string if no such column is found.
-  func guessCurrenciesColumn() -> String {
+  /// - Returns: The header of a column that contains currency codes, or `nil` if no such column is found.
+  func guessCurrenciesColumn() -> String? {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
@@ -226,7 +223,7 @@ class CSVTableView: NSView {
         }
       }
     }
-    return ""
+    return nil
   }
   
   func prepareForConversion() {
@@ -237,8 +234,8 @@ class CSVTableView: NSView {
    Performs a currency conversion to the specified currency using the given headers.
    
    - Parameters:
-   - toCurrency: The currency code to convert to.
-   - usingHeaders: An array of headers used to locate the necessary data.
+      - toCurrency: The currency code to convert to.
+      - usingHeaders: An array of headers used to locate the necessary data.
    
    - Important:
    - The function assumes the table data is stored in `tableData`.
@@ -265,7 +262,7 @@ class CSVTableView: NSView {
    Creates a new column in the table with converted amounts in USD.
    
    - Parameters:
-   - usingHeaders: An array of headers used to locate the necessary data.
+      - usingHeaders: An array of headers used to locate the necessary data.
    
    - Important:
    - The function assumes the table data is stored in `tableData`.
