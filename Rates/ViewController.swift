@@ -16,10 +16,6 @@ class SharedHeaders: ObservableObject {
   @Published var sqliteUrl: URL?
 }
 
-protocol FileSelectionDelegate: AnyObject {
-  func fileSelected(_ viewController: ViewController, fileURL: URL)
-}
-
 class ViewController: NSViewController {
   
   override func viewDidLoad() {
@@ -128,6 +124,38 @@ class ViewController: NSViewController {
   }
   
   
+  /**
+   Disables interaction with the main view by adding a transparent gray overlay over all views except the status bar.
+   */
+  func disableMainViewInteraction() {
+    // Create the overlay view
+    overlayView = OverlayView()
+    overlayView?.wantsLayer = true
+    overlayView?.layer?.backgroundColor = NSColor.darkGray.withAlphaComponent(0.5).cgColor//NSColor.gray.withAlphaComponent(0.5).cgColor
+    
+    // Add the overlay view to the main view
+    view.addSubview(overlayView!, positioned: .below, relativeTo: statusBarViewContainer)
+    
+    // Set up constraints for the overlay view
+    overlayView?.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      overlayView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      overlayView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      overlayView!.topAnchor.constraint(equalTo: view.topAnchor),
+      overlayView!.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    ])
+  }
+  
+  /**
+   Enables interaction with the main view by removing the transparent gray overlay.
+   */
+  func enableMainViewInteraction() {
+    // Remove the overlay view
+    overlayView?.removeFromSuperview()
+    overlayView = nil
+  }
+  
+  
   
   // MARK: - Variables
   /// The shared headers used by the view controller.
@@ -164,6 +192,8 @@ class ViewController: NSViewController {
   @IBOutlet weak var statusBarRefreshButton: NSButton!
   /// A flag indicating if the status bar button is pulsing.
   var statusBarButtonIsPulsing = false
+  // A view that will act as an overlay to disable interaction
+  private var overlayView: NSView?
   
   // MARK: - Represented Objects
   override var representedObject: Any? {
@@ -174,4 +204,11 @@ class ViewController: NSViewController {
     }
   }
   
+}
+
+
+class OverlayView: NSView {
+  override func mouseDown(with event: NSEvent) {
+    // Do nothing, just consume the event
+  }
 }

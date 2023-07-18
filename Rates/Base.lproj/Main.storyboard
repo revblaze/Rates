@@ -730,6 +730,26 @@
                                                 </items>
                                             </menu>
                                         </menuItem>
+                                        <menuItem title="Main View States" id="J2U-hN-ej4">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" id="TZK-pY-sgE">
+                                                <items>
+                                                    <menuItem title="Enable MainView Interaction" id="jOt-7b-lFA">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugEnableMainViewInteraction:" target="Voe-Tx-rLC" id="f4c-1F-x2Q"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Disable MainView Interaction" id="SCU-qY-ymm">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugDisableMainViewInteraction:" target="Voe-Tx-rLC" id="wkm-07-Ldk"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="37a-bW-rLB"/>
                                         <menuItem title="Filter Controls" id="Kkm-8L-1yh">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" id="xY9-Ku-Wb6">

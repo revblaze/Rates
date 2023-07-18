@@ -62,6 +62,17 @@ extension AppDelegate {
     }
   }
   
+  @IBAction func debugDisableMainViewInteraction(_ sender: NSMenuItem) {
+    performActionOnViewController { viewController in
+      viewController.disableMainViewInteraction()
+    }
+  }
+  @IBAction func debugEnableMainViewInteraction(_ sender: NSMenuItem) {
+    performActionOnViewController { viewController in
+      viewController.enableMainViewInteraction()
+    }
+  }
+  
   
   private func performActionOnViewController(action: @escaping (ViewController) -> Void) {
     guard let viewController = mainWindow.contentViewController as? ViewController else {
