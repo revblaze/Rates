@@ -59,6 +59,7 @@
 		C2B83CDC2A5DD7E6009763B6 /* RemoveEmptyEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */; };
 		C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */; };
 		C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */; };
+		C2C8FB1C2A66CE4E00DBD083 /* ViewController+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */; };
 		C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */; };
 		C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */; };
 		C2ED16BB2A632AEA0037A558 /* CenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */; };
@@ -115,6 +116,7 @@
 		C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveEmptyEntries.swift; sourceTree = "<group>"; };
 		C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+HeaderRow.swift"; sourceTree = "<group>"; };
 		C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DataSelectionViewHostingController.swift"; sourceTree = "<group>"; };
+		C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Animations.swift"; sourceTree = "<group>"; };
 		C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+FilterControls.swift"; sourceTree = "<group>"; };
 		C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableViewDelegate.swift; sourceTree = "<group>"; };
 		C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTextFieldCell.swift; sourceTree = "<group>"; };
@@ -158,7 +160,7 @@
 		C218CC552A61BE900046B90B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */,
+				C2C8FB1D2A66CE8800DBD083 /* MainView */,
 				C2B83CB82A5C774D009763B6 /* StatusBar */,
 				C2B83CC62A5C9D0C009763B6 /* LaunchScreenData */,
 				C218CC562A61BEBC0046B90B /* TableViewControls */,
@@ -379,6 +381,15 @@
 			path = CSVTableViewExtensions;
 			sourceTree = "<group>";
 		};
+		C2C8FB1D2A66CE8800DBD083 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */,
+				C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
 		C2ED16B92A632AC80037A558 /* TableViewObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -500,6 +511,7 @@
 				C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */,
 				C2546AF22A58A76A00C83FEC /* URLExtensions.swift in Sources */,
 				C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */,
+				C2C8FB1C2A66CE4E00DBD083 /* ViewController+Animations.swift in Sources */,
 				C253B1B62A64747900218532 /* BackgroundBlurView.swift in Sources */,
 				C2B83CCC2A5C9E5C009763B6 /* ViewController+Filters.swift in Sources */,
 				C255F2D92A5B556B004B7F95 /* WindowController.swift in Sources */,
