@@ -11,7 +11,6 @@
 		C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */; };
 		C218CC542A61BB4A0046B90B /* ViewController+TableViewControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C218CC532A61BB4A0046B90B /* ViewController+TableViewControls.swift */; };
 		C253B1B12A644C9A00218532 /* FilterControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C253B1B02A644C9A00218532 /* FilterControlsView.swift */; };
-		C253B1B32A6469BF00218532 /* SharedHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C253B1B22A6469BF00218532 /* SharedHeaders.swift */; };
 		C253B1B62A64747900218532 /* BackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C253B1B52A64747900218532 /* BackgroundBlurView.swift */; };
 		C2546ADF2A58877B00C83FEC /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546ADE2A58877B00C83FEC /* AppDefaults.swift */; };
 		C2546AE12A58965900C83FEC /* ExchangeRateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546AE02A58965900C83FEC /* ExchangeRateData.swift */; };
@@ -37,6 +36,7 @@
 		C273B9262A5B2FB600212717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9252A5B2FB600212717 /* Constants.swift */; };
 		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
 		C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C922A6598A10034FA1D /* DataSelectionView.swift */; };
+		C2B11C952A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C942A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift */; };
 		C2B83CAC2A5C54B1009763B6 /* ViewController+ImportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */; };
 		C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */; };
 		C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CB62A5C6907009763B6 /* FileExtensions.swift */; };
@@ -64,7 +64,6 @@
 		C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreConnectSalesColumnHeaders.swift; sourceTree = "<group>"; };
 		C218CC532A61BB4A0046B90B /* ViewController+TableViewControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+TableViewControls.swift"; sourceTree = "<group>"; };
 		C253B1B02A644C9A00218532 /* FilterControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterControlsView.swift; sourceTree = "<group>"; };
-		C253B1B22A6469BF00218532 /* SharedHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedHeaders.swift; sourceTree = "<group>"; };
 		C253B1B52A64747900218532 /* BackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlurView.swift; sourceTree = "<group>"; };
 		C2546ADE2A58877B00C83FEC /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		C2546AE02A58965900C83FEC /* ExchangeRateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateData.swift; sourceTree = "<group>"; };
@@ -89,6 +88,7 @@
 		C273B9252A5B2FB600212717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
 		C2B11C922A6598A10034FA1D /* DataSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSelectionView.swift; sourceTree = "<group>"; };
+		C2B11C942A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryCurrencyCodeHeaders.swift; sourceTree = "<group>"; };
 		C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ImportFile.swift"; sourceTree = "<group>"; };
 		C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFileTemplateViewController.swift; sourceTree = "<group>"; };
 		C2B83CB62A5C6907009763B6 /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
@@ -131,7 +131,6 @@
 				C2ED16B92A632AC80037A558 /* TableViewObjects */,
 				C20749442A5B9FAB00240A66 /* CSVTableView.swift */,
 				C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */,
-				C253B1B22A6469BF00218532 /* SharedHeaders.swift */,
 				C2B83CDD2A5DF036009763B6 /* CSVTableViewExtensions */,
 				C20749462A5BA01700240A66 /* HeaderFilters */,
 			);
@@ -335,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				C2B83CC72A5C9D22009763B6 /* LaunchScreenData.swift */,
+				C2B11C942A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift */,
 			);
 			path = LaunchScreenData;
 			sourceTree = "<group>";
@@ -467,6 +467,7 @@
 				C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */,
 				C218CC542A61BB4A0046B90B /* ViewController+TableViewControls.swift in Sources */,
 				C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */,
+				C2B11C952A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift in Sources */,
 				C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */,
 				C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */,
 				C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */,
@@ -479,7 +480,6 @@
 				C253B1B12A644C9A00218532 /* FilterControlsView.swift in Sources */,
 				C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */,
 				C273B9262A5B2FB600212717 /* Constants.swift in Sources */,
-				C253B1B32A6469BF00218532 /* SharedHeaders.swift in Sources */,
 				C2B83CC22A5C8350009763B6 /* DebugMenu.swift in Sources */,
 				C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */,
 				C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */,

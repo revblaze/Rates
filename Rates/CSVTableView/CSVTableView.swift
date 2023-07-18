@@ -6,12 +6,6 @@
 //
 
 import Cocoa
-import Combine
-
-class SharedHeaders: ObservableObject {
-  @Published var availableHeaders: [String] = []
-  @Published var suggestedHeaders: [String] = []
-}
 
 /// A custom view for displaying CSV data in a table view.
 class CSVTableView: NSView {
