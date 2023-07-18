@@ -54,4 +54,14 @@ extension Utility {
     return Locale.commonISOCurrencyCodes.contains(currencyString.uppercased())
   }
   
+  /// This function takes an input string and removes any characters that are not a number, period, or minus ("-").
+  /// It returns the cleaned string if it's not empty; otherwise, it returns nil.
+  ///
+  /// - Parameter cellString: The string to clean.
+  /// - Returns: The cleaned string, or nil if the cleaned string is empty.
+  static func removeAlphaAndParseAmount(_ cellString: String) -> String? {
+    let cleanedString = cellString.replacingOccurrences(of: "[^0-9.-]", with: "", options: .regularExpression)
+    return cleanedString.isEmpty ? nil : cleanedString
+  }
+  
 }

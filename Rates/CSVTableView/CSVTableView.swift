@@ -194,13 +194,18 @@ class CSVTableView: NSView {
   
   /// Finds a column that contains numbers with two decimal places.
   ///
+  /// Before determining if a cell contains a number with two decimal places,
+  /// it removes any characters that are not a number, period, or minus ("-") from the cell string.
+  ///
   /// - Returns: The header of a column that contains numbers with two decimal places, or an empty string if no such column is found.
   func guessAmountsColumn() -> String {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
       for cell in columnData.dropFirst() {
-        if Utility.isNumberWithTwoDecimalsString(cell) {
+        // Remove any characters that are not a number, period, or minus ("-") from the cell string
+        let cleanedCell = Utility.removeAlphaAndParseAmount(cell) ?? cell
+        if Utility.isNumberWithTwoDecimalsString(cleanedCell) {
           return column.title
         }
       }
@@ -248,7 +253,6 @@ class CSVTableView: NSView {
     // TODO: if headers.count < 3 { separate amount + currency codes into separate arrays }
     
     Debug.log("[performConversion] toCurrency: \(code), usingHeaders: \(headers)")
-    //let conversionRate = Query.usdExchangeRate(forCurrency: code, onDate: dates)
     createUsdColumnWithConvertedAmounts(usingHeaders: headers)
     
     if code != "USD" {
@@ -285,7 +289,11 @@ class CSVTableView: NSView {
     for i in 1..<tableData.count {  // Skip the header row
       let row = tableData[i]
       let date = row[datesIndex]
-      let amountString = row[amountsIndex]
+      var amountString = row[amountsIndex]
+      
+      // Remove any characters that are not a number, period, or minus ("-")
+      amountString = Utility.removeAlphaAndParseAmount(amountString) ?? amountString
+      
       let currencyCode = row[currenciesIndex]
       
       if let usdValue = Query.valueInUsd(currencyCode: currencyCode, amountOfCurrency: amountString, onDate: date) {
