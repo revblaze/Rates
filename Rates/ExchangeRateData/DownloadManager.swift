@@ -81,7 +81,7 @@ class DownloadManager {
       
       try fileManager.unzipItem(at: URL(fileURLWithPath: zipPath), to: destinationUrl)
       
-      Debug.log("File unzipped successfully.")
+      Debug.log("[unzipFile] File unzipped successfully.")
     } catch {
       throw error
     }

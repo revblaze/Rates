@@ -24,7 +24,7 @@ class ConvertCSV {
     }
     
     // Create the SQLite database file URL in the document directory
-    let sqliteFileUrl = documentDirectoryUrl.appendingPathComponent("data.db")
+    let sqliteFileUrl = documentDirectoryUrl.appendingPathComponent(Constants.sqliteFileName)
     
     // Open SQLite database connection
     var db: OpaquePointer?

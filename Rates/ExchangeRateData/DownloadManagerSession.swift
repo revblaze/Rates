@@ -20,14 +20,14 @@ class DownloadManagerSession {
     let downloadManager = DownloadManager()
     
     guard let url = URL(string: fromUrlString) else {
-      Debug.log("Invalid URL string")
-      throw DownloadError.invalidURL
+      Debug.log("[DownloadManagerSession.getExchangeRateData] Invalid URL string")
+      throw DownloadError.invalidUrl
     }
     
     do {
       return try await downloadExchangeRateData(downloadManager: downloadManager, url: url)
     } catch {
-      Debug.log("Download failed: \(error.localizedDescription)")
+      Debug.log("[DownloadManagerSession.getExchangeRateData] Download failed: \(error.localizedDescription)")
       removeAllFilesInDocumentDirectory()
       return try await downloadExchangeRateData(downloadManager: downloadManager, url: url)
     }
@@ -42,36 +42,36 @@ class DownloadManagerSession {
   /// - Returns: The URL of the downloaded file.
   private func downloadExchangeRateData(downloadManager: DownloadManager, url: URL) async throws -> URL {
     return try await withCheckedThrowingContinuation { continuation in
-      downloadManager.downloadFile(from: url) { (localURL, error) in
+      downloadManager.downloadFile(from: url) { (localUrl, error) in
         if let error = error {
           continuation.resume(throwing: error)
-        } else if let localURL = localURL {
-          Debug.log("File downloaded successfully. Local URL: \(localURL)")
+        } else if let localUrl = localUrl {
+          Debug.log("[DownloadManagerSession.downloadExchangeRateData] File downloaded successfully. Local URL: \(localUrl)")
           
-          let fileExtension = localURL.pathExtension.lowercased()
+          let fileExtension = localUrl.pathExtension.lowercased()
           
           if fileExtension == "csv" {
-            continuation.resume(returning: localURL)
+            continuation.resume(returning: localUrl)
           } else if fileExtension == "zip" {
-            let destinationURL = localURL.deletingPathExtension()
+            let destinationUrl = localUrl.deletingPathExtension()
             do {
-              try FileManager.default.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
-              try FileManager.default.unzipItem(at: localURL, to: destinationURL)
+              try FileManager.default.createDirectory(at: destinationUrl, withIntermediateDirectories: true, attributes: nil)
+              try FileManager.default.unzipItem(at: localUrl, to: destinationUrl)
               
-              if let csvURL = self.recursivelyFindCSVFile(in: destinationURL) {
-                continuation.resume(returning: csvURL)
+              if let csvUrl = self.recursivelyFindCSVFile(in: destinationUrl) {
+                continuation.resume(returning: csvUrl)
               } else {
                 let error = DownloadError.invalidFileFormat
-                Debug.log("No CSV file found in the unzipped folder")
+                Debug.log("[DownloadManagerSession.downloadExchangeRateData] No CSV file found in the unzipped folder")
                 continuation.resume(throwing: error)
               }
             } catch {
-              Debug.log("Unzipping failed: \(error.localizedDescription)")
+              Debug.log("[DownloadManagerSession.downloadExchangeRateData] Unzipping failed: \(error.localizedDescription)")
               continuation.resume(throwing: error)
             }
           } else {
             let error = DownloadError.invalidFileFormat
-            Debug.log("Invalid file format: \(fileExtension)")
+            Debug.log("[DownloadManagerSession.downloadExchangeRateData] Invalid file format: \(fileExtension)")
             continuation.resume(throwing: error)
           }
         }
@@ -81,26 +81,26 @@ class DownloadManagerSession {
   
   /// Recursively finds a CSV file in a folder.
   ///
-  /// - Parameter folderURL: The URL of the folder to search in.
+  /// - Parameter folderUrl: The URL of the folder to search in.
   /// - Returns: The URL of the CSV file if found, or `nil` otherwise.
-  private func recursivelyFindCSVFile(in folderURL: URL) -> URL? {
+  private func recursivelyFindCSVFile(in folderUrl: URL) -> URL? {
     let fileManager = FileManager.default
     do {
-      let contents = try fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
-      for itemURL in contents {
+      let contents = try fileManager.contentsOfDirectory(at: folderUrl, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])
+      for itemUrl in contents {
         var isDirectory: ObjCBool = false
-        if fileManager.fileExists(atPath: itemURL.path, isDirectory: &isDirectory) {
+        if fileManager.fileExists(atPath: itemUrl.path, isDirectory: &isDirectory) {
           if isDirectory.boolValue {
-            if let csvURL = recursivelyFindCSVFile(in: itemURL) {
-              return csvURL
+            if let csvUrl = recursivelyFindCSVFile(in: itemUrl) {
+              return csvUrl
             }
-          } else if itemURL.pathExtension.lowercased() == "csv" {
-            return itemURL
+          } else if itemUrl.pathExtension.lowercased() == FileExtensions.csv.rawValue  {//"csv" {
+            return itemUrl
           }
         }
       }
     } catch {
-      Debug.log("Error while searching for CSV file: \(error.localizedDescription)")
+      Debug.log("[DownloadManagerSession.recursivelyFindCSVFile] Error while searching for CSV file: \(error.localizedDescription)")
     }
     
     return nil
@@ -118,15 +118,15 @@ class DownloadManagerSession {
         try fileManager.removeItem(at: fileUrl)
       }
       
-      Debug.log("All files in the document directory removed successfully.")
+      Debug.log("[DownloadManagerSession.removeAllFilesInDocumentDirectory] All files in the document directory removed successfully.")
     } catch {
-      Debug.log("Failed to remove files in the document directory: \(error.localizedDescription)")
+      Debug.log("[DownloadManagerSession.removeAllFilesInDocumentDirectory] Failed to remove files in the document directory: \(error.localizedDescription)")
     }
   }
   
-  /// An enumeration that defines two types of download errors: `invalidURL` and `invalidFileFormat`.
+  /// An enumeration that defines two types of download errors: `invalidUrl` and `invalidFileFormat`.
   enum DownloadError: Error {
-    case invalidURL
+    case invalidUrl
     case invalidFileFormat
   }
 }

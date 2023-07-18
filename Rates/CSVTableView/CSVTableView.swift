@@ -277,7 +277,7 @@ class CSVTableView: NSView {
     guard let datesIndex = tableView.tableColumns.firstIndex(where: { $0.title == datesHeader }),
           let amountsIndex = tableView.tableColumns.firstIndex(where: { $0.title == amountsHeader }),
           let currenciesIndex = tableView.tableColumns.firstIndex(where: { $0.title == currenciesHeader }) else {
-      Debug.log("Unable to find one or more columns")
+      Debug.log("[createUsdColumnWithConvertedAmounts] Unable to find one or more columns")
       return
     }
     
@@ -291,7 +291,7 @@ class CSVTableView: NSView {
       if let usdValue = Query.valueInUsd(currencyCode: currencyCode, amountOfCurrency: amountString, onDate: date) {
         usdValues.append(usdValue)
       } else {
-        Debug.log("Unable to convert value for row \(i)")
+        Debug.log("[createUsdColumnWithConvertedAmounts] Unable to convert value for row \(i)")
         usdValues.append(0.0)  // Or some other default value
       }
     }
@@ -327,7 +327,7 @@ class CSVTableView: NSView {
     
     guard let datesIndex = tableView.tableColumns.firstIndex(where: { $0.title == datesHeader }),
           let usdColumnIndex = tableView.tableColumns.firstIndex(where: { $0.identifier.rawValue == "ToUsdColumn" }) else {
-      Debug.log("Unable to find one or more columns")
+      Debug.log("[createSecondColumnWithConvertedAmounts] Unable to find one or more columns")
       return
     }
     
@@ -340,7 +340,7 @@ class CSVTableView: NSView {
       if let newCurrencyValue = Query.valueInNewCurrency(fromUsdAmount: usdAmountString, toCurrencyCode: code, onDate: date) {
         newCurrencyValues.append(newCurrencyValue)
       } else {
-        Debug.log("Unable to convert value for row \(i)")
+        Debug.log("[createSecondColumnWithConvertedAmounts] Unable to convert value for row \(i)")
         newCurrencyValues.append(0.0)  // Or some other default value
       }
     }

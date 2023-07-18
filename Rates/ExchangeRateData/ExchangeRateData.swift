@@ -26,23 +26,23 @@ class ExchangeRateData {
           
           let session = DownloadManagerSession()
           let fileUrl = try await session.getExchangeRateData(fromUrlString: fromUrl)
-          Debug.log("Downloaded file URL: \(fileUrl)")
+          Debug.log("[ExchangeRateData.getDb] Downloaded file URL: \(fileUrl)")
           
           let parseCsv = ParseCSV()
           try parseCsv.clean(at: fileUrl)
-          Debug.log("Lines deleted successfully.")
+          Debug.log("[ExchangeRateData.getDb] Lines deleted successfully.")
           
           parseCsv.removeDuplicateColumns(fileUrl: fileUrl)
           
           let convertCsv = ConvertCSV()
           if let sqliteFileUrl = convertCsv.toSQLite(fileUrl: fileUrl) {
-            Debug.log("SQLite file URL: \(sqliteFileUrl)")
+            Debug.log("[ExchangeRateData.getDb] SQLite file URL: \(sqliteFileUrl)")
             return sqliteFileUrl
           } else {
-            Debug.log("Conversion failed.")
+            Debug.log("[ExchangeRateData.getDb] Conversion failed.")
           }
         } catch {
-          Debug.log("Error: \(error)")
+          Debug.log("[ExchangeRateData.getDb] Error: \(error)")
         }
         
         return nil
