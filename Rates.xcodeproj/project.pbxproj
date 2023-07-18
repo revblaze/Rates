@@ -60,6 +60,7 @@
 		C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */; };
 		C2C8FB1C2A66CE4E00DBD083 /* ViewController+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */; };
 		C2C8FB202A66CF3600DBD083 /* ViewController+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */; };
+		C2C8FB222A66D1FE00DBD083 /* ViewController+HeaderColumnFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB212A66D1FE00DBD083 /* ViewController+HeaderColumnFilters.swift */; };
 		C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */; };
 		C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */; };
 		C2ED16BB2A632AEA0037A558 /* CenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */; };
@@ -117,6 +118,7 @@
 		C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DataSelectionViewHostingController.swift"; sourceTree = "<group>"; };
 		C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Animations.swift"; sourceTree = "<group>"; };
 		C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Toolbar.swift"; sourceTree = "<group>"; };
+		C2C8FB212A66D1FE00DBD083 /* ViewController+HeaderColumnFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+HeaderColumnFilters.swift"; sourceTree = "<group>"; };
 		C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+FilterControls.swift"; sourceTree = "<group>"; };
 		C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableViewDelegate.swift; sourceTree = "<group>"; };
 		C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTextFieldCell.swift; sourceTree = "<group>"; };
@@ -173,17 +175,18 @@
 			isa = PBXGroup;
 			children = (
 				C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */,
+				C2C8FB212A66D1FE00DBD083 /* ViewController+HeaderColumnFilters.swift */,
 			);
 			path = TableViewControls;
 			sourceTree = "<group>";
 		};
-		C253B1AF2A644C8900218532 /* FilterControls */ = {
+		C253B1AF2A644C8900218532 /* FilterControlsView */ = {
 			isa = PBXGroup;
 			children = (
 				C253B1B02A644C9A00218532 /* FilterControlsView.swift */,
 				C253B1B42A64746600218532 /* CustomObjects */,
 			);
-			path = FilterControls;
+			path = FilterControlsView;
 			sourceTree = "<group>";
 		};
 		C253B1B42A64746600218532 /* CustomObjects */ = {
@@ -269,7 +272,7 @@
 			children = (
 				C2B11C9A2A6628F50034FA1D /* Query */,
 				C2B11C912A6598730034FA1D /* DataSelectionView */,
-				C253B1AF2A644C8900218532 /* FilterControls */,
+				C253B1AF2A644C8900218532 /* FilterControlsView */,
 				C2B83CBF2A5C831B009763B6 /* MainMenu */,
 				C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */,
 				C255F2D82A5B556B004B7F95 /* WindowController.swift */,
@@ -511,6 +514,7 @@
 				C2B11C9C2A6629160034FA1D /* QueryUsdExchangeRate.swift in Sources */,
 				C2ED16BB2A632AEA0037A558 /* CenteredTextFieldCell.swift in Sources */,
 				C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */,
+				C2C8FB222A66D1FE00DBD083 /* ViewController+HeaderColumnFilters.swift in Sources */,
 				C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */,
 				C2B11C952A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift in Sources */,
 				C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */,

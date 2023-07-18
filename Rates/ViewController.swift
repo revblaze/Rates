@@ -143,15 +143,6 @@ class ViewController: NSViewController {
   
   
   
-  func filterTableViewColumnHeaders(_ columnHeaders: [String], withFilterType: FilterTableViewInclusionExclusion) {
-    if withFilterType == .filterTableViewToOnlyShowColumnsWithHeaders {
-      csvTableView.filterTableViewToOnlyShowColumnsWithHeaders(columnHeaders)
-    } else {
-      csvTableView.filterTableViewToOnlyHideColumnsWithHeaders(columnHeaders)
-    }
-  }
-  
-  
   
   override var representedObject: Any? {
     didSet {
