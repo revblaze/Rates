@@ -52,17 +52,6 @@ class ViewController: NSViewController {
     beginLaunchSession()
   }
   
-  func sqliteUrl() -> URL? {
-    let fileManager = FileManager.default
-    let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-    
-    if let fileUrl = documentsDirectory?.appendingPathComponent("data.db"), fileManager.fileExists(atPath: fileUrl.path) {
-      return fileUrl
-    }
-    
-    return nil
-  }
-  
   func saveTableViewAsFile() {
     Debug.log("[saveTableViewAsFile] Needs implementation.")
     // TODO: Export as CSV and prompt user to save file
@@ -81,20 +70,22 @@ class ViewController: NSViewController {
     let contentView = DataSelectionView(
       sharedHeaders: sharedHeaders,
       onDismiss: { [weak self] in
-        NotificationCenter.default.post(name: NSNotification.Name("DismissSheet"), object: nil)
-        self?.dismiss(self)
+        self?.dismissDataSelectionView()
       },
       onConvert: { [weak self] (dates, amounts, currencies, amountsCurrenciesCombined, toCurrency) in
-        NotificationCenter.default.post(name: NSNotification.Name("DismissSheet"), object: nil)
+        self?.dismissDataSelectionView()
         self?.performConversionUsingColumnWithHeaders(dates: dates, amounts: amounts, currencies: currencies, amountsCurrenciesCombined: amountsCurrenciesCombined, toCurrency: toCurrency)
       }
     )
     
     let hostingController = NSHostingController(rootView: contentView)
+    hostingController.identifier = NSUserInterfaceItemIdentifier(rawValue: "DataSelectionViewHostingController")
     self.presentAsSheet(hostingController)
-    
-    NotificationCenter.default.addObserver(forName: NSNotification.Name("DismissSheet"), object: nil, queue: nil) { [weak self] _ in
-      self?.dismiss(hostingController)
+  }
+  
+  func dismissDataSelectionView() {
+    if let presentedViewController = self.presentedViewControllers?.first(where: { $0.identifier?.rawValue == "DataSelectionViewHostingController" }) {
+      self.dismiss(presentedViewController)
     }
   }
   
@@ -146,7 +137,6 @@ class ViewController: NSViewController {
   }
   
   
-  var filterControlsViewIsHidden = true
   func toggleFilterControlsView() {
     if filterControlsViewIsHidden {
       slideInFilterControlsView()
@@ -154,6 +144,7 @@ class ViewController: NSViewController {
       slideOutFilterControlsView()
     }
   }
+  var filterControlsViewIsHidden = true
   
   /**
    Animates the position of the FilterControlsView’s trailing anchor by Constants.filterControlsViewWidth such that is visible on the screen.
@@ -201,10 +192,6 @@ class ViewController: NSViewController {
         self.windowController = windowController
       }
     }
-  }
-  
-  deinit {
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name("DismissSheet"), object: nil)
   }
   
 }
