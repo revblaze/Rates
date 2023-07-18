@@ -10,15 +10,19 @@ import Foundation
 /// Extension of the `ViewController` class to add additional methods for handling launch screen data.
 extension ViewController {
   
+  func launchScreenDataDidFinishLoading() {
+    updateAvailableCurrencyCodeHeaders()
+    sharedHeaders.sqliteUrl = Query.sqliteUrl()
+    windowController?.enableToolbarItemsOnLaunchDataLoad()
+  }
+  
   /// Updates the CSV table view with launch data from a given URL.
   ///
   /// - Parameter url: The URL of the launch data.
   func updateCSVTableViewWithLaunchData(at url: URL) {
     csvTableView.updateCSVData(with: url)
     updateStatusBar(withState: .upToDate)
-    
-    updateAvailableCurrencyCodeHeaders()
-    sharedHeaders.sqliteUrl = Query.sqliteUrl()
+    launchScreenDataDidFinishLoading()
   }
   
   

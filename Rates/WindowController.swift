@@ -13,15 +13,16 @@ protocol FileSelectionDelegate: AnyObject {
 
 /// The main window controller for the application.
 class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDelegate {
-  
   /// Toggles the FilterControlsView to animate in and out.
   @IBOutlet weak var toggleFilterControlViewToolbarButton: NSToolbarItem!
   /// Presents the DataSelectionView as a sheet to determine relevant columns of data to convert.
   @IBOutlet weak var convertToolbarButton: NSToolbarItem!
-  /// Clears all existing filters on CSVTableView and reverts it back to the original table.
-  @IBOutlet weak var clearFiltersToolbarButton: NSToolbarItem!
   /// Exports the current CSVTableView to save as a file on the user's drive.
   @IBOutlet weak var saveFileToolbarButton: NSToolbarItem!
+  /// Imports the user's data file to be displayed in the CSVTableView.
+  @IBOutlet weak var openFileToolbarButton: NSToolbarItem!
+  /// Clears all existing filters on CSVTableView and reverts it back to the original table.
+  @IBOutlet weak var clearFiltersToolbarButton: NSToolbarItem!
   
   // MARK: Hidden Items
   @IBOutlet weak var settingsToolbarButton: NSToolbarItem!
@@ -48,15 +49,29 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   func disableToolbarItemsOnLaunch() {
     toggleFilterControlViewToolbarButton.action = nil
     convertToolbarButton.action = nil
-    clearFiltersToolbarButton.action = nil
     saveFileToolbarButton.action = nil
+    openFileToolbarButton.action = nil
+    clearFiltersToolbarButton.action = nil
   }
-  /// Enables the necessary toolbar item once the user has loaded up a file.
+  /// Enables the necessary toolbar items once the user has loaded up a file.
   func enableToolbarItemsOnFileLoad() {
     enableToggleFilterControlViewToolbarButton()
     enableConvertToolbarButton()
     enableSaveFileToolbarButton()
     enableClearFiltersToolbarButton()
+    validateToolbarItems()
+  }
+  
+  /// Enables the necessary toolbar items once the initial launch data has been loaded.
+  func enableToolbarItemsOnLaunchDataLoad() {
+    enableOpenFileToolbarButton()
+    validateToolbarItems()
+  }
+  
+  /// Enables the openFileActiont oolbar button item. Called after the initial launch data has been loaded.
+  func enableOpenFileToolbarButton() {
+    openFileToolbarButton.action = #selector(openFileAction(_:))
+    openFileToolbarButton.target = self
   }
   
   /// Enables the toggleFilterControlsView toolbar button item. Called after a file has been imported.
@@ -131,6 +146,10 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   /// - Parameter action: The action to perform.
   private func performActionOnViewController(action: () -> ()) {
     action()
+  }
+  
+  func validateToolbarItems() {
+    if let toolbar = window?.toolbar { toolbar.validateVisibleItems() }
   }
   
 }
