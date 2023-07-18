@@ -880,6 +880,7 @@
                         <outlet property="clearFiltersToolbarButton" destination="fqb-rO-691" id="oOy-IN-sgq"/>
                         <outlet property="convertToolbarButton" destination="uEg-WK-vIe" id="sw3-Qi-KTw"/>
                         <outlet property="filterToolbarButton" destination="zxs-eo-89M" id="Jxh-iC-JW3"/>
+                        <outlet property="openFileToolbarButton" destination="0Ad-i3-c1T" id="T4k-7v-5ji"/>
                         <outlet property="saveFileToolbarButton" destination="b0T-PK-dtD" id="gYp-8E-qQV"/>
                         <outlet property="selectCustomHeaderRowButton" destination="FsO-Zc-JPA" id="gJ5-Gu-PxU"/>
                         <outlet property="settingsToolbarButton" destination="CvE-Zg-jBd" id="qpc-Yd-Oec"/>
