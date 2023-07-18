@@ -25,19 +25,19 @@ class ExchangeRateData {
           downloadManager.removeAllFilesInDocumentDirectory()
           
           let session = DownloadManagerSession()
-          let fileURL = try await session.getExchangeRateData(fromUrlString: fromUrl)
-          Debug.log("Downloaded file URL: \(fileURL)")
+          let fileUrl = try await session.getExchangeRateData(fromUrlString: fromUrl)
+          Debug.log("Downloaded file URL: \(fileUrl)")
           
           let parseCsv = ParseCSV()
-          try parseCsv.clean(at: fileURL)
+          try parseCsv.clean(at: fileUrl)
           Debug.log("Lines deleted successfully.")
           
-          parseCsv.removeDuplicateColumns(fileURL: fileURL)
+          parseCsv.removeDuplicateColumns(fileUrl: fileUrl)
           
           let convertCsv = ConvertCSV()
-          if let sqliteFileURL = convertCsv.toSQLite(fileURL: fileURL) {
-            Debug.log("SQLite file URL: \(sqliteFileURL)")
-            return sqliteFileURL
+          if let sqliteFileUrl = convertCsv.toSQLite(fileUrl: fileUrl) {
+            Debug.log("SQLite file URL: \(sqliteFileUrl)")
+            return sqliteFileUrl
           } else {
             Debug.log("Conversion failed.")
           }

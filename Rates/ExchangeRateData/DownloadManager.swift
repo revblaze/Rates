@@ -46,18 +46,18 @@ class DownloadManager {
   /// Removes all files in the document directory.
   func removeAllFilesInDocumentDirectory() {
     let fileManager = FileManager.default
-    let documentDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    let documentDirectoryUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
     do {
-      let fileURLs = try fileManager.contentsOfDirectory(at: documentDirectoryURL, includingPropertiesForKeys: nil, options: [])
+      let fileUrls = try fileManager.contentsOfDirectory(at: documentDirectoryUrl, includingPropertiesForKeys: nil, options: [])
       
-      for fileURL in fileURLs {
-        try fileManager.removeItem(at: fileURL)
+      for fileUrl in fileUrls {
+        try fileManager.removeItem(at: fileUrl)
       }
       
-      Debug.log("All files in the document directory removed successfully.")
+      Debug.log("[removeAllFilesInDocumentDirectory] All files in the document directory removed successfully.")
     } catch {
-      Debug.log("Failed to remove files in the document directory: \(error.localizedDescription)")
+      Debug.log("[removeAllFilesInDocumentDirectory] Failed to remove files in the document directory: \(error.localizedDescription)")
     }
   }
   
@@ -74,12 +74,12 @@ class DownloadManager {
       throw NSError(domain: "com.example", code: 404, userInfo: [NSLocalizedDescriptionKey: "Zip file not found"])
     }
     
-    let destinationURL = URL(fileURLWithPath: destinationPath)
+    let destinationUrl = URL(fileURLWithPath: destinationPath)
     
     do {
-      try fileManager.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
+      try fileManager.createDirectory(at: destinationUrl, withIntermediateDirectories: true, attributes: nil)
       
-      try fileManager.unzipItem(at: URL(fileURLWithPath: zipPath), to: destinationURL)
+      try fileManager.unzipItem(at: URL(fileURLWithPath: zipPath), to: destinationUrl)
       
       Debug.log("File unzipped successfully.")
     } catch {

@@ -15,12 +15,12 @@ class ParseCSV {
   /// Cleans a CSV file.
   ///
   /// - Parameters:
-  ///   - fileURL: The URL of the CSV file.
+  ///   - fileUrl: The URL of the CSV file.
   ///   - cutOffDate: The cut-off date for the data to be cleaned. The default value is "2016-01-01".
   /// - Throws: An error if there is any problem reading or writing the file.
-  func clean(at fileURL: URL, cutOffDate: String = "2016-01-01") throws {
+  func clean(at fileUrl: URL, cutOffDate: String = "2016-01-01") throws {
     // Read the file contents
-    let fileContents = try String(contentsOf: fileURL)
+    let fileContents = try String(contentsOf: fileUrl)
     
     // Split the file contents into individual lines
     var lines = fileContents.components(separatedBy: .newlines)
@@ -77,16 +77,16 @@ class ParseCSV {
     let updatedContents = lines.joined(separator: "\n")
     
     // Write the updated contents back to the file
-    try updatedContents.write(to: fileURL, atomically: true, encoding: .utf8)
+    try updatedContents.write(to: fileUrl, atomically: true, encoding: .utf8)
   }
   
   /// Removes duplicate columns from a CSV file.
   ///
-  /// - Parameter fileURL: The URL of the CSV file.
-  func removeDuplicateColumns(fileURL: URL) {
+  /// - Parameter fileUrl: The URL of the CSV file.
+  func removeDuplicateColumns(fileUrl: URL) {
     do {
       // Read the content of the CSV file
-      let fileContent = try String(contentsOf: fileURL, encoding: .utf8)
+      let fileContent = try String(contentsOf: fileUrl, encoding: .utf8)
       
       // Split the file content into lines
       var lines = fileContent.components(separatedBy: .newlines)
@@ -132,7 +132,7 @@ class ParseCSV {
       let newContent = headers.joined(separator: ",") + "\n" + lines.joined(separator: "\n")
       
       // Write the updated content back to the file
-      try newContent.write(to: fileURL, atomically: true, encoding: .utf8)
+      try newContent.write(to: fileUrl, atomically: true, encoding: .utf8)
       
       Debug.log("Duplicate columns and corresponding data removed successfully.")
       

@@ -13,7 +13,12 @@ class SharedHeaders: ObservableObject {
   @Published var availableCurrencyCodeHeaders: [String] = []
   @Published var availableHeaders: [String] = []
   @Published var suggestedHeaders: [String] = []
+  
+}
+
+class SharedData: ObservableObject {
   @Published var sqliteUrl: URL?
+  @Published var inputUserFile: URL?
 }
 
 class ViewController: NSViewController {
@@ -160,6 +165,8 @@ class ViewController: NSViewController {
   // MARK: - Variables
   /// The shared headers used by the view controller.
   let sharedHeaders = SharedHeaders()
+  /// The shared data used by the view controller.
+  let sharedData = SharedData()
   /// The delegate for file selection events.
   weak var delegate: FileSelectionDelegate?
   /// The window controller associated with the view controller.

@@ -109,13 +109,13 @@ class DownloadManagerSession {
   /// Removes all files in the document directory.
   func removeAllFilesInDocumentDirectory() {
     let fileManager = FileManager.default
-    let documentDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    let documentDirectoryUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
     do {
-      let fileURLs = try fileManager.contentsOfDirectory(at: documentDirectoryURL, includingPropertiesForKeys: nil, options: [])
+      let fileUrls = try fileManager.contentsOfDirectory(at: documentDirectoryUrl, includingPropertiesForKeys: nil, options: [])
       
-      for fileURL in fileURLs {
-        try fileManager.removeItem(at: fileURL)
+      for fileURL in fileUrls {
+        try fileManager.removeItem(at: fileUrl)
       }
       
       Debug.log("All files in the document directory removed successfully.")

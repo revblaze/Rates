@@ -12,7 +12,7 @@ extension ViewController {
   
   func launchScreenDataDidFinishLoading() {
     updateAvailableCurrencyCodeHeaders()
-    sharedHeaders.sqliteUrl = Query.sqliteUrl()
+    sharedData.sqliteUrl = Query.sqliteUrl()
     windowController?.enableToolbarItemsOnLaunchDataLoad()
   }
   
@@ -110,10 +110,10 @@ extension ViewController {
     }
     
     // Perform recursive search in the documents directory
-    if let fileURL = searchFile(named: "WS_XRU_D_csv_row.csv", in: documentDirectoryURL) {
-      return fileURL
+    if let fileUrl = searchFile(named: "WS_XRU_D_csv_row.csv", in: documentDirectoryURL) {
+      return fileUrl
     } else {
-      Debug.log("File not found")
+      Debug.log("[searchExchangeRateDataInDocumentsDirectory] File not found")
       return nil
     }
   }

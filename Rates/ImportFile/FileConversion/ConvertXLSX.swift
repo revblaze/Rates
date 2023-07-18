@@ -13,12 +13,12 @@ struct ConvertXLSX {
   
   /// Converts an XLSX file to a CSV file.
   ///
-  /// - Parameter fileURL: The URL of the XLSX file.
+  /// - Parameter fileUrl: The URL of the XLSX file.
   /// - Returns: The URL of the CSV file, or `nil` if an error occurs during the conversion.
-  static func toCSV(fileURL: URL) -> URL? {
+  static func toCSV(fileUrl: URL) -> URL? {
     do {
-      guard let file = XLSXFile(filepath: fileURL.path) else {
-        fatalError("XLSX file at \(fileURL.path) is corrupted or does not exist")
+      guard let file = XLSXFile(filepath: fileUrl.path) else {
+        fatalError("XLSX file at \(fileUrl.path) is corrupted or does not exist")
       }
       
       var csvData = ""
