@@ -37,6 +37,7 @@
 		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
 		C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C922A6598A10034FA1D /* DataSelectionView.swift */; };
 		C2B11C952A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C942A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift */; };
+		C2B11C972A661E490034FA1D /* Utility+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C962A661E490034FA1D /* Utility+TableView.swift */; };
 		C2B83CAC2A5C54B1009763B6 /* ViewController+ImportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */; };
 		C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */; };
 		C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CB62A5C6907009763B6 /* FileExtensions.swift */; };
@@ -89,6 +90,7 @@
 		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
 		C2B11C922A6598A10034FA1D /* DataSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSelectionView.swift; sourceTree = "<group>"; };
 		C2B11C942A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryCurrencyCodeHeaders.swift; sourceTree = "<group>"; };
+		C2B11C962A661E490034FA1D /* Utility+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+TableView.swift"; sourceTree = "<group>"; };
 		C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ImportFile.swift"; sourceTree = "<group>"; };
 		C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFileTemplateViewController.swift; sourceTree = "<group>"; };
 		C2B83CB62A5C6907009763B6 /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				C2B83CD22A5DBB0D009763B6 /* Utility.swift */,
+				C2B11C962A661E490034FA1D /* Utility+TableView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */,
 				C2636F9D2A5861350091BE7D /* Settings.swift in Sources */,
 				C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */,
+				C2B11C972A661E490034FA1D /* Utility+TableView.swift in Sources */,
 				C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */,
 				C2B83CBE2A5C7E96009763B6 /* ViewController+Reachability.swift in Sources */,
 				C2546AFC2A59B93300C83FEC /* Debug.swift in Sources */,
