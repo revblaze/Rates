@@ -60,7 +60,7 @@ extension Query {
               let db = try Connection(url)
               
               // Construct the SQL query
-              let query = "SELECT \(code) FROM data WHERE Currency = ?"
+              let query = "SELECT \(code) FROM data WHERE \(Constants.sqliteDateColumnValue) = ?"
               
               // Prepare the statement
               let stmt = try db.prepare(query)

@@ -22,18 +22,18 @@ struct ConvertFile {
       return fileUrl
       
     case .tsv:
-      if let csvFileUrl = ConvertTSV.toCSV(fileURL: fileUrl) {
+      if let csvFileUrl = ConvertTSV.toCSV(fileUrl: fileUrl) {
         return csvFileUrl
       }
       
     case .txt:
       // TODO: Dedicated TXT to CSV handler?
-      if let csvFileUrl = ConvertTSV.toCSV(fileURL: fileUrl) {
+      if let csvFileUrl = ConvertTSV.toCSV(fileUrl: fileUrl) {
         return csvFileUrl
       }
       
     case .xlsx:
-      if let csvFileUrl = ConvertXLSX.toCSV(fileURL: fileUrl) {
+      if let csvFileUrl = ConvertXLSX.toCSV(fileUrl: fileUrl) {
         return csvFileUrl
       }
       

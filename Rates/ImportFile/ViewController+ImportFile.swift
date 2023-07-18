@@ -75,8 +75,8 @@ extension ViewController {
     openPanel.allowedFileTypes = FileExtensions.all
     
     openPanel.begin { result in
-      if result == NSApplication.ModalResponse.OK, let fileURL = openPanel.url {
-        completion(fileURL)
+      if result == NSApplication.ModalResponse.OK, let fileUrl = openPanel.url {
+        completion(fileUrl)
       } else {
         completion(nil)
       }
@@ -85,8 +85,10 @@ extension ViewController {
   
   /// Opens the file selection interface.
   func openFileSelection() {
-    openUserFile { fileURL in
-      if let url = fileURL {
+    openUserFile { fileUrl in
+      if let url = fileUrl {
+        self.sharedData.inputUserFile = fileUrl
+        // TODO: Remove ImportFileTemplateSheet and FileTemplate
         let fileTemplate = FileTemplateParsing.detectFileTemplateType(fileUrl: url)
         self.presentImportFileTemplateSheet(url, withDetection: fileTemplate)
       }

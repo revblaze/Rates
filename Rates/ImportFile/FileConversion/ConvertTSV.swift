@@ -12,9 +12,9 @@ struct ConvertTSV {
   
   /// Converts a TSV file to a CSV file.
   ///
-  /// - Parameter fileURL: The URL of the TSV file.
+  /// - Parameter fileUrl: The URL of the TSV file.
   /// - Returns: The URL of the CSV file, or `nil` if an error occurs during the conversion.
-  static func toCSV(fileURL: URL) -> URL? {
+  static func toCSV(fileUrl: URL) -> URL? {
     let fileManager = FileManager.default
     
     // Create a destination URL for the CSV file
@@ -28,7 +28,7 @@ struct ConvertTSV {
     
     do {
       // Read the contents of the TSV file
-      let tsvData = try Data(contentsOf: fileURL)
+      let tsvData = try Data(contentsOf: fileUrl)
       
       // Convert TSV data to a CSV string
       guard let tsvString = String(data: tsvData, encoding: .utf8) else {

@@ -8,7 +8,7 @@
 import Cocoa
 
 protocol FileSelectionDelegate: AnyObject {
-  func fileSelected(_ viewController: ViewController, fileURL: URL)
+  func fileSelected(_ viewController: ViewController, fileUrl: URL)
 }
 
 /// The main window controller for the application.
@@ -135,9 +135,9 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   ///
   /// - Parameters:
   ///   - viewController: The view controller where the file was selected.
-  ///   - fileURL: The URL of the selected file.
-  func fileSelected(_ viewController: ViewController, fileURL: URL) {
-    Debug.log("Selected file: \(fileURL)")
+  ///   - fileUrl: The URL of the selected file.
+  func fileSelected(_ viewController: ViewController, fileUrl: URL) {
+    Debug.log("[fileSelected] fileUrl: \(fileUrl)")
     // Process the selected file URL
   }
   
