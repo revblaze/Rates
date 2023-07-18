@@ -12,8 +12,7 @@ import Combine
 class SharedHeaders: ObservableObject {
   @Published var availableCurrencyCodeHeaders: [String] = []
   @Published var availableHeaders: [String] = []
-  @Published var suggestedHeaders: [String] = []
-  
+  @Published var suggestedHeaders: [String?] = [nil]
 }
 
 class SharedData: ObservableObject {

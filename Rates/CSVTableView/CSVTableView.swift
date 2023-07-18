@@ -161,7 +161,7 @@ class CSVTableView: NSView {
     }
   }
   
-  
+  /// Replaces suggestedHeaders with column headers for detected data types, if applicable.
   func determineSuggestedHeadersForConversion() {
     sharedHeaders.suggestedHeaders.removeAll()
     let datesColumn = guessDatesColumn()
@@ -170,16 +170,13 @@ class CSVTableView: NSView {
     sharedHeaders.suggestedHeaders.append(datesColumn)
     sharedHeaders.suggestedHeaders.append(amountsColumn)
     sharedHeaders.suggestedHeaders.append(currenciesColumn)
-    Debug.log("[determineSuggestedHeadersForConversion] update headers: \(datesColumn), \(amountsColumn), \(currenciesColumn)")
+    Debug.log("[determineSuggestedHeadersForConversion] update headers: \(sharedHeaders.suggestedHeaders)")
   }
-  
-  
-  
   
   /// Finds a column that contains dates.
   ///
-  /// - Returns: The header of a column that contains dates, or an empty string if no such column is found.
-  func guessDatesColumn() -> String {
+  /// - Returns: The header of a column that contains dates, or `nil` if no such column is found.
+  func guessDatesColumn() -> String? {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
@@ -189,29 +186,34 @@ class CSVTableView: NSView {
         }
       }
     }
-    return ""
+    return nil
   }
   
   /// Finds a column that contains numbers with two decimal places.
   ///
-  /// - Returns: The header of a column that contains numbers with two decimal places, or an empty string if no such column is found.
-  func guessAmountsColumn() -> String {
+  /// Before determining if a cell contains a number with two decimal places,
+  /// it removes any characters that are not a number, period, or minus ("-") from the cell string.
+  ///
+  /// - Returns: The header of a column that contains numbers with two decimal places, or `nil` if no such column is found.
+  func guessAmountsColumn() -> String? {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
       for cell in columnData.dropFirst() {
-        if Utility.isNumberWithTwoDecimalsString(cell) {
+        // Remove any characters that are not a number, period, or minus ("-") from the cell string
+        let cleanedCell = Utility.removeAlphaAndParseAmount(cell) ?? cell
+        if Utility.isNumberWithTwoDecimalsString(cleanedCell) {
           return column.title
         }
       }
     }
-    return ""
+    return nil
   }
   
   /// Finds a column that contains currency codes.
   ///
-  /// - Returns: The header of a column that contains currency codes, or an empty string if no such column is found.
-  func guessCurrenciesColumn() -> String {
+  /// - Returns: The header of a column that contains currency codes, or `nil` if no such column is found.
+  func guessCurrenciesColumn() -> String? {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
@@ -221,7 +223,7 @@ class CSVTableView: NSView {
         }
       }
     }
-    return ""
+    return nil
   }
   
   func prepareForConversion() {
@@ -229,26 +231,27 @@ class CSVTableView: NSView {
   }
   
   /**
-   Performs a currency conversion to the specified currency using the given headers.
-   
-   - Parameters:
-   - toCurrency: The currency code to convert to.
-   - usingHeaders: An array of headers used to locate the necessary data.
-   
-   - Important:
-   - The function assumes the table data is stored in `tableData`.
-   - The function creates a new column in the table for the converted amounts.
-   - If `toCurrency` is not USD, a second column will be created for the converted amounts from USD to the specified currency.
-   - The function relies on `Query` class for currency conversion and `Debug` class for logging.
-   - Make sure to reload the table data after calling this function.
-   */
+     Performs a currency conversion to the specified currency using the given headers.
+     
+     - Parameters:
+        - toCurrency: The currency code to convert to.
+        - usingHeaders: An array of headers used to locate the necessary data.
+     
+     - Important:
+     - The function assumes the table data is stored in `tableData`.
+     - The function creates a new column in the table for the converted amounts.
+     - If `headers[2]` is empty or nil, the function calls `splitCurrencyCodesIntoSeparateColumn(amountColumnHeader: headers[1])` and sets `headers[2]` to the return value.
+     - If `toCurrency` is not USD, a second column will be created for the converted amounts from USD to the specified currency.
+     - The function relies on `Query` class for currency conversion, `Debug` class for logging, and `Utility` class for processing currency codes.
+     - Make sure to reload the table data after calling this function.
+     */
   func performConversion(toCurrency code: String, usingHeaders headers: [String]) {
-    
-    // TODO: Clean up $ and other symbols
-    // TODO: if headers.count < 3 { separate amount + currency codes into separate arrays }
+    var headers = headers
+    if headers[2].isEmpty {//|| headers[2] == nil {
+      headers[2] = splitCurrencyCodesIntoSeparateColumn(amountColumnHeader: headers[1])
+    }
     
     Debug.log("[performConversion] toCurrency: \(code), usingHeaders: \(headers)")
-    //let conversionRate = Query.usdExchangeRate(forCurrency: code, onDate: dates)
     createUsdColumnWithConvertedAmounts(usingHeaders: headers)
     
     if code != "USD" {
@@ -258,10 +261,53 @@ class CSVTableView: NSView {
   }
   
   /**
+     Splits the currency codes into a separate column in the table.
+
+     - Parameters:
+        - columnHeader: The header row text for a column.
+     
+     - Returns: The header text of the newly created column.
+     
+     - Important:
+     - The function assumes the table data is stored in `tableData`.
+     - The function creates a new column in the table for the currency codes.
+     - The function relies on `Utility` class for processing the currency codes.
+     - Make sure to reload the table data after calling this function.
+     */
+  func splitCurrencyCodesIntoSeparateColumn(amountColumnHeader columnHeader: String) -> String {
+    let columnIndex = tableView.tableColumns.firstIndex(where: { $0.title == columnHeader })!
+    
+    var currencyCodes: [String] = []
+    for i in 1..<tableData.count {  // Skip the header row
+      var cell = tableData[i][columnIndex]
+      
+      let currencyCode = Utility.extractCurrencyCode(&cell, usingCurrencyCodes: sharedHeaders.availableCurrencyCodeHeaders)
+      currencyCodes.append(currencyCode)
+      
+      tableData[i][columnIndex] = cell  // Update the cell value
+    }
+    
+    // Add a new column to the table
+    let currencyCodeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "CurrencyCodeColumn"))
+    currencyCodeColumn.title = "From Currency"
+    
+    tableView.addTableColumn(currencyCodeColumn)
+    
+    // Add the currency codes to the table data
+    for (i, currencyCode) in currencyCodes.enumerated() {
+      tableData[i+1].append(currencyCode)
+    }
+    
+    tableView.reloadData()
+    
+    return currencyCodeColumn.title
+  }
+  
+  /**
    Creates a new column in the table with converted amounts in USD.
    
    - Parameters:
-   - usingHeaders: An array of headers used to locate the necessary data.
+      - usingHeaders: An array of headers used to locate the necessary data.
    
    - Important:
    - The function assumes the table data is stored in `tableData`.
@@ -285,7 +331,11 @@ class CSVTableView: NSView {
     for i in 1..<tableData.count {  // Skip the header row
       let row = tableData[i]
       let date = row[datesIndex]
-      let amountString = row[amountsIndex]
+      var amountString = row[amountsIndex]
+      
+      // Remove any characters that are not a number, period, or minus ("-")
+      amountString = Utility.removeAlphaAndParseAmount(amountString) ?? amountString
+      
       let currencyCode = row[currenciesIndex]
       
       if let usdValue = Query.valueInUsd(currencyCode: currencyCode, amountOfCurrency: amountString, onDate: date) {
