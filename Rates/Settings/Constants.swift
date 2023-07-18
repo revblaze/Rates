@@ -32,5 +32,6 @@ struct Constants {
   static let filterControlsViewWidth: CGFloat = 260
   static let statusBarHeight: CGFloat = 30
   
+  static let dataSelectionViewHostingControllerIdentifier = "DataSelectionViewHostingController"
   
 }

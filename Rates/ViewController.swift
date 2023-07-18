@@ -16,30 +16,7 @@ class SharedHeaders: ObservableObject {
   @Published var sqliteUrl: URL?
 }
 
-protocol FileSelectionDelegate: AnyObject {
-  func fileSelected(_ viewController: ViewController, fileURL: URL)
-}
-
 class ViewController: NSViewController {
-  
-  weak var delegate: FileSelectionDelegate?
-  weak var windowController: WindowController?
-  
-  var csvTableView: CSVTableView!
-  private var scrollView: NSScrollView!
-  
-  var statusBarState: StatusBarState? = .loading
-  @IBOutlet weak var statusBarViewContainer: NSView!
-  @IBOutlet weak var statusBarButton: NSButton!
-  @IBOutlet weak var statusBarText: NSTextField!
-  @IBOutlet weak var statusBarProgressBar: NSProgressIndicator!
-  @IBOutlet weak var statusBarRefreshButton: NSButton!
-  var statusBarButtonIsPulsing = false
-  
-  var filterControlsView: NSHostingView<FilterControlsView>!
-  var filterControlsConstraint: NSLayoutConstraint!
-  
-  let sharedHeaders = SharedHeaders()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -52,52 +29,38 @@ class ViewController: NSViewController {
     beginLaunchSession()
   }
   
-  func sqliteUrl() -> URL? {
-    let fileManager = FileManager.default
-    let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-    
-    if let fileUrl = documentsDirectory?.appendingPathComponent("data.db"), fileManager.fileExists(atPath: fileUrl.path) {
-      return fileUrl
-    }
-    
-    return nil
-  }
-  
   func saveTableViewAsFile() {
     Debug.log("[saveTableViewAsFile] Needs implementation.")
     // TODO: Export as CSV and prompt user to save file
   }
   
-  /// Starts the currency conversion process using columns with the selected headers.
+  /**
+   This function performs currency conversion on a column of data.
+   
+   The function expects the headers for dates, amounts, and currencies. It also needs to know if the amounts and currencies are combined in the same column, as well as the target currency for conversion.
+   
+   - Parameters:
+   - dates: The header for the dates column.
+   - amounts: The header for the amounts column.
+   - currencies: The header for the currencies column.
+   - amountsCurrenciesCombined: A boolean flag indicating whether the amounts and currencies are combined in the same column.
+   - toCurrency: The target currency code for conversion.
+   
+   - Returns: Void
+   */
   func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool, toCurrency: String) {
     Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined), toCurrency: \(toCurrency)")
-    // TODO: Add column "To CUR" with conversions below
     
     csvTableView.performConversion(toCurrency: toCurrency, usingHeaders: [dates, amounts, currencies])
   }
   
-  /// Presents DataSelectionView as a sheet presentation style.
-  func presentDataSelectionViewAsSheet() {
-    let contentView = DataSelectionView(
-      sharedHeaders: sharedHeaders,
-      onDismiss: { [weak self] in
-        NotificationCenter.default.post(name: NSNotification.Name("DismissSheet"), object: nil)
-        self?.dismiss(self)
-      },
-      onConvert: { [weak self] (dates, amounts, currencies, amountsCurrenciesCombined, toCurrency) in
-        NotificationCenter.default.post(name: NSNotification.Name("DismissSheet"), object: nil)
-        self?.performConversionUsingColumnWithHeaders(dates: dates, amounts: amounts, currencies: currencies, amountsCurrenciesCombined: amountsCurrenciesCombined, toCurrency: toCurrency)
-      }
-    )
-    
-    let hostingController = NSHostingController(rootView: contentView)
-    self.presentAsSheet(hostingController)
-    
-    NotificationCenter.default.addObserver(forName: NSNotification.Name("DismissSheet"), object: nil, queue: nil) { [weak self] _ in
-      self?.dismiss(hostingController)
-    }
-  }
-  
+  /**
+   This function initializes the CSV table scroll view.
+   
+   The function creates an instance of `NSScrollView`, enables the vertical and horizontal scrollers, and adds it to the main view of the view controller. The CSV table view is also initialized and added to the scroll view as its document view.
+   
+   - Returns: Void
+   */
   func initCsvTableScrollView() {
     scrollView = NSScrollView()
     scrollView.hasVerticalScroller = true
@@ -111,6 +74,14 @@ class ViewController: NSViewController {
     view.addSubview(scrollView, positioned: .below, relativeTo: filterControlsView)
   }
   
+  
+  /**
+   This function initializes the filter controls view.
+   
+   The function creates an instance of `NSHostingView` with a `FilterControlsView` as its root view, and adds it to the main view of the view controller. The filter controls view is set up with constraints to position it correctly within the main view.
+   
+   - Returns: Void
+   */
   func initFilterControlsView() {
     filterControlsView = NSHostingView(
       rootView: FilterControlsView(
@@ -134,9 +105,10 @@ class ViewController: NSViewController {
     ])
   }
   
-  override func viewDidLayout() {
-    super.viewDidLayout()
-    
+  /**
+   Updates the layout of the scroll view and the CSV table view based on the current view bounds.
+   */
+  func updateScrollViewLayout() {
     let bottomOffset: CGFloat = Constants.statusBarHeight
     let scrollViewHeight = view.bounds.height - bottomOffset
     let scrollViewOriginY = bottomOffset
@@ -145,56 +117,85 @@ class ViewController: NSViewController {
     csvTableView.frame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: scrollView.bounds.height)
   }
   
+  override func viewDidLayout() {
+    super.viewDidLayout()
+    
+    updateScrollViewLayout()
+  }
   
+  
+  /**
+   Disables interaction with the main view by adding a transparent gray overlay over all views except the status bar.
+   */
+  func disableMainViewInteraction() {
+    // Create the overlay view
+    overlayView = OverlayView()
+    overlayView?.wantsLayer = true
+    overlayView?.layer?.backgroundColor = NSColor.darkGray.withAlphaComponent(0.5).cgColor//NSColor.gray.withAlphaComponent(0.5).cgColor
+    
+    // Add the overlay view to the main view
+    view.addSubview(overlayView!, positioned: .below, relativeTo: statusBarViewContainer)
+    
+    // Set up constraints for the overlay view
+    overlayView?.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      overlayView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      overlayView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      overlayView!.topAnchor.constraint(equalTo: view.topAnchor),
+      overlayView!.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    ])
+  }
+  
+  /**
+   Enables interaction with the main view by removing the transparent gray overlay.
+   */
+  func enableMainViewInteraction() {
+    // Remove the overlay view
+    overlayView?.removeFromSuperview()
+    overlayView = nil
+  }
+  
+  
+  
+  // MARK: - Variables
+  /// The shared headers used by the view controller.
+  let sharedHeaders = SharedHeaders()
+  /// The delegate for file selection events.
+  weak var delegate: FileSelectionDelegate?
+  /// The window controller associated with the view controller.
+  weak var windowController: WindowController?
+  /// The CSV table view.
+  var csvTableView: CSVTableView!
+  /// The scroll view for the CSV table view.
+  private var scrollView: NSScrollView!
+  
+  // MARK: - FilterControls View
+  /// The view hosting the filter controls.
+  var filterControlsView: NSHostingView<FilterControlsView>!
+  /// The constraint for the filter controls view.
+  var filterControlsConstraint: NSLayoutConstraint!
+  /// The state of the filter controls view's current display on the main ViewController.
   var filterControlsViewIsHidden = true
-  func toggleFilterControlsView() {
-    if filterControlsViewIsHidden {
-      slideInFilterControlsView()
-    } else {
-      slideOutFilterControlsView()
-    }
-  }
   
-  /**
-   Animates the position of the FilterControlsView’s trailing anchor by Constants.filterControlsViewWidth such that is visible on the screen.
-   */
-  func slideInFilterControlsView() {
-    filterControlsConstraint.constant = 0
-    NSAnimationContext.runAnimationGroup({ context in
-      context.duration = 0.25
-      context.allowsImplicitAnimation = true
-      view.layoutSubtreeIfNeeded()
-    }, completionHandler: {
-      self.filterControlsViewIsHidden = false
-    })
-  }
+  // MARK: - StatusBar View
+  /// The state of the status bar.
+  var statusBarState: StatusBarState? = .loading
+  /// The container view for the status bar.
+  @IBOutlet weak var statusBarViewContainer: NSView!
+  /// The button in the status bar.
+  @IBOutlet weak var statusBarButton: NSButton!
+  /// The text field in the status bar.
+  @IBOutlet weak var statusBarText: NSTextField!
+  /// The progress bar in the status bar.
+  @IBOutlet weak var statusBarProgressBar: NSProgressIndicator!
+  /// The refresh button in the status bar.
+  @IBOutlet weak var statusBarRefreshButton: NSButton!
+  /// A flag indicating if the status bar button is pulsing.
+  var statusBarButtonIsPulsing = false
+  // A view that will act as an overlay to disable interaction
+  private var overlayView: NSView?
   
-  /**
-   Animates the position of the FilterControlsView’s trailing anchor by Constants.filterControlsViewWidth such that it is once again out of view entirely.
-   */
-  func slideOutFilterControlsView() {
-    filterControlsConstraint.constant = Constants.filterControlsViewWidth
-    NSAnimationContext.runAnimationGroup({ context in
-      context.duration = 0.25
-      context.allowsImplicitAnimation = true
-      view.layoutSubtreeIfNeeded()
-    }, completionHandler: {
-      self.filterControlsViewIsHidden = true
-    })
-  }
-  
-  func filterTableViewColumnHeaders(_ columnHeaders: [String], withFilterType: FilterTableViewInclusionExclusion) {
-    if withFilterType == .filterTableViewToOnlyShowColumnsWithHeaders {
-      csvTableView.filterTableViewToOnlyShowColumnsWithHeaders(columnHeaders)
-    } else {
-      csvTableView.filterTableViewToOnlyHideColumnsWithHeaders(columnHeaders)
-    }
-  }
-  
-  func enableToolbarButtonsOnFileLoad() {
-    windowController?.enableToolbarItemsOnFileLoad()
-  }
-  
+  // MARK: - Represented Objects
   override var representedObject: Any? {
     didSet {
       if let windowController = representedObject as? WindowController {
@@ -203,8 +204,11 @@ class ViewController: NSViewController {
     }
   }
   
-  deinit {
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name("DismissSheet"), object: nil)
+}
+
+
+class OverlayView: NSView {
+  override func mouseDown(with event: NSEvent) {
+    // Do nothing, just consume the event
   }
-  
 }

@@ -18,7 +18,7 @@ extension ViewController {
     updateStatusBar(withState: .upToDate)
     
     updateAvailableCurrencyCodeHeaders()
-    sharedHeaders.sqliteUrl = sqliteUrl()
+    sharedHeaders.sqliteUrl = Query.sqliteUrl()
   }
   
   

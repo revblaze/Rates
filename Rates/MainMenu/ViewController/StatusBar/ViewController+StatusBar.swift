@@ -13,20 +13,20 @@ extension ViewController {
   /// Updates the status bar with a given state.
   ///
   /// - Parameter withState: The state to update the status bar with.
-  func updateStatusBar(withState: StatusBarState) {
-    statusBarState = withState
-    statusBarText.stringValue = withState.text
+  func updateStatusBar(withState state: StatusBarState) {
+    statusBarState = state
+    statusBarText.stringValue = state.text
     if let buttonCell = statusBarButton.cell as? NSButtonCell {
-      buttonCell.image = NSImage(systemSymbolName: withState.symbolName, accessibilityDescription: nil)
+      buttonCell.image = NSImage(systemSymbolName: state.symbolName, accessibilityDescription: nil)
     }
-    if withState.shouldAnimateProgressBar {
+    if state.shouldAnimateProgressBar {
       startPulsingAnimation()
       statusBarProgressBar.startAnimation(self)
     } else {
       stopStatusBarButtonPulsingAnimation()
       statusBarProgressBar.stopAnimation(self)
     }
-    statusBarRefreshButton.isHidden = !withState.refreshButtonShouldBeVisible
+    statusBarRefreshButton.isHidden = !state.refreshButtonShouldBeVisible
   }
   
   /// Starts a pulsing animation on the status bar button.

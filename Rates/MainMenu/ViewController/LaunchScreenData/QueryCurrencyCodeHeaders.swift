@@ -22,7 +22,7 @@ extension ViewController {
   /// If the sqliteUrl() function returns nil or encounters any errors during the querying process,
   /// the availableCurrencyCodeHeaders will not be updated.
   func updateAvailableCurrencyCodeHeaders() {
-    if let sqliteUrl = sqliteUrl() {
+    if let sqliteUrl = Query.sqliteUrl() {
       
       let queriedCurrencyCodeHeaders = queryCurrencyCodeHeaders(sqliteFileUrl: sqliteUrl)
       let cleanedCurrencyCodeHeaders = cleanCurrencyCodeArray(queriedCurrencyCodeHeaders)
