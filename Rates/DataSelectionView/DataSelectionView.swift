@@ -138,15 +138,22 @@ struct FormattingOptionsView: View {
           }
           Spacer()  // Push the Toggle and Text to the left
         }
-        .padding()
+        .padding(.top, 10)
+        HStack {
+          Toggle(isOn: $sharedFormattingOptions.removeEmptyColumns) {
+            Text("Remove empty columns")
+              .fixedSize(horizontal: false, vertical: true)
+          }
+          Spacer()  // Push the Toggle and Text to the left
+        }
         HStack {
           Toggle(isOn: $sharedFormattingOptions.hideIrrelevantColumns) {
             Text("Remove irrelevant columns")
               .fixedSize(horizontal: false, vertical: true)
           }
-          .padding()
           Spacer()  // Push the Toggle and Text to the left
         }
+        //.padding(.bottom, 10)
       }) {
         Text("Formatting Options")
           .bold()

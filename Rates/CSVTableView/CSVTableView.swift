@@ -19,6 +19,8 @@ class CSVTableView: NSView {
   var sharedHeaders: SharedHeaders
   /// SharedFormattingOptions instance for communicating with SwiftUI view.
   var sharedFormattingOptions: SharedFormattingOptions
+  /// Number of new currency columns for identification.
+  var newCurrencyColumnCount = 0
   
   /// Initializes the view with a given frame rectangle.
   ///
@@ -250,12 +252,17 @@ class CSVTableView: NSView {
      */
   func performConversion(toCurrency code: String, usingHeaders headers: [String]) {
     var headers = headers
-    if headers[2].isEmpty {//|| headers[2] == nil {
+    // If the currency codes have already been split from the amount column, do not re-split them.
+    if headers[2].isEmpty, tableView.tableColumns.first(where: { $0.identifier.rawValue == "CurrencyCodeColumn" })?.isHidden != false {
       headers[2] = splitCurrencyCodesIntoSeparateColumn(amountColumnHeader: headers[1])
     }
     
     Debug.log("[performConversion] toCurrency: \(code), usingHeaders: \(headers)")
-    createUsdColumnWithConvertedAmounts(usingHeaders: headers)
+    
+    // If the USD column already exists and is visible, do not re-calculate the USD column.
+    if tableView.tableColumns.first(where: { $0.identifier.rawValue == "ToUsdColumn" })?.isHidden != false {
+      createUsdColumnWithConvertedAmounts(usingHeaders: headers)
+    }
     
     if code != "USD" {
       let datesHeader = headers[0]
@@ -399,7 +406,8 @@ class CSVTableView: NSView {
     }
     
     // Add a new column to the table
-    let newCurrencyColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "ToNewCurrency"))
+    newCurrencyColumnCount += 1
+    let newCurrencyColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "ToNewCurrency-\(newCurrencyColumnCount)"))
     newCurrencyColumn.title = "To \(code)"
     
     tableView.addTableColumn(newCurrencyColumn)
