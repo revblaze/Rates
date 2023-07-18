@@ -13,6 +13,7 @@ class SharedHeaders: ObservableObject {
   @Published var availableCurrencyCodeHeaders: [String] = []
   @Published var availableHeaders: [String] = []
   @Published var suggestedHeaders: [String] = []
+  @Published var sqliteUrl: URL?
 }
 
 protocol FileSelectionDelegate: AnyObject {
@@ -71,6 +72,8 @@ class ViewController: NSViewController {
   func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool, toCurrency: String) {
     Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined), toCurrency: \(toCurrency)")
     // TODO: Add column "To CUR" with conversions below
+    
+    csvTableView.performConversion(toCurrency: toCurrency, usingHeaders: [dates, amounts, currencies])
   }
   
   /// Presents DataSelectionView as a sheet presentation style.
@@ -203,4 +206,5 @@ class ViewController: NSViewController {
   deinit {
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name("DismissSheet"), object: nil)
   }
+  
 }

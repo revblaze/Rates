@@ -9,12 +9,16 @@ import Foundation
 
 extension Utility {
   
+  static let dateFormats = ["yyyy-MM-dd", "yyyy-dd-MM", "dd-MM-yyyy", "MM-dd-yyyy",
+                            "yyyy/MM/dd", "yyyy/dd/MM", "dd/MM/yyyy", "MM/dd/yyyy",
+                            "MMMM dd, yyyy", "dd MMMM, yyyy"]
+  
   /// Checks if the given string can be converted to a date.
   ///
   /// - Parameter dateString: The string to check.
   /// - Returns: A Boolean value indicating whether the string can be converted to a date.
   static func isDateString(_ dateString: String) -> Bool {
-    let dateFormats = ["yyyy-MM-dd", "yyyy-dd-MM", "dd-MM-yyyy", "MM-dd-yyyy", "yyyy/MM/dd", "yyyy/dd/MM", "dd/MM/yyyy", "MM/dd/yyyy", "MMMM dd, yyyy", "dd MMMM, yyyy"]
+    let dateFormats = Utility.dateFormats
     let formatter = DateFormatter()
     formatter.locale = Locale(identifier: "en_US_POSIX")
     

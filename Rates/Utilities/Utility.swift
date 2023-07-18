@@ -9,7 +9,6 @@ import Foundation
 
 /// A structure with helpful utility functions.
 struct Utility {
-  
   /// Writes the given data to a file with the specified file name in the user's document directory.
   ///
   /// - Parameters:

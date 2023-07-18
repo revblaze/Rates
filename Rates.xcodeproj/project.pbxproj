@@ -38,6 +38,9 @@
 		C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C922A6598A10034FA1D /* DataSelectionView.swift */; };
 		C2B11C952A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C942A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift */; };
 		C2B11C972A661E490034FA1D /* Utility+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C962A661E490034FA1D /* Utility+TableView.swift */; };
+		C2B11C9C2A6629160034FA1D /* QueryUsdExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C9B2A6629160034FA1D /* QueryUsdExchangeRate.swift */; };
+		C2B11C9E2A66298D0034FA1D /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C9D2A66298D0034FA1D /* Query.swift */; };
+		C2B11CA02A6643950034FA1D /* NewCurrencyExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C9F2A6643950034FA1D /* NewCurrencyExchangeRate.swift */; };
 		C2B83CAC2A5C54B1009763B6 /* ViewController+ImportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */; };
 		C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */; };
 		C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CB62A5C6907009763B6 /* FileExtensions.swift */; };
@@ -91,6 +94,9 @@
 		C2B11C922A6598A10034FA1D /* DataSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSelectionView.swift; sourceTree = "<group>"; };
 		C2B11C942A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryCurrencyCodeHeaders.swift; sourceTree = "<group>"; };
 		C2B11C962A661E490034FA1D /* Utility+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+TableView.swift"; sourceTree = "<group>"; };
+		C2B11C9B2A6629160034FA1D /* QueryUsdExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryUsdExchangeRate.swift; sourceTree = "<group>"; };
+		C2B11C9D2A66298D0034FA1D /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		C2B11C9F2A6643950034FA1D /* NewCurrencyExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCurrencyExchangeRate.swift; sourceTree = "<group>"; };
 		C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ImportFile.swift"; sourceTree = "<group>"; };
 		C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFileTemplateViewController.swift; sourceTree = "<group>"; };
 		C2B83CB62A5C6907009763B6 /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
@@ -258,6 +264,7 @@
 		C2636F8B2A585D4E0091BE7D /* Rates */ = {
 			isa = PBXGroup;
 			children = (
+				C2B11C9A2A6628F50034FA1D /* Query */,
 				C2B11C912A6598730034FA1D /* DataSelectionView */,
 				C253B1AF2A644C8900218532 /* FilterControls */,
 				C2B83CBF2A5C831B009763B6 /* MainMenu */,
@@ -304,6 +311,16 @@
 				C2B11C922A6598A10034FA1D /* DataSelectionView.swift */,
 			);
 			path = DataSelectionView;
+			sourceTree = "<group>";
+		};
+		C2B11C9A2A6628F50034FA1D /* Query */ = {
+			isa = PBXGroup;
+			children = (
+				C2B11C9B2A6629160034FA1D /* QueryUsdExchangeRate.swift */,
+				C2B11C9D2A66298D0034FA1D /* Query.swift */,
+				C2B11C9F2A6643950034FA1D /* NewCurrencyExchangeRate.swift */,
+			);
+			path = Query;
 			sourceTree = "<group>";
 		};
 		C2B83CB82A5C774D009763B6 /* StatusBar */ = {
@@ -465,8 +482,10 @@
 				C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */,
 				C2B83CBE2A5C7E96009763B6 /* ViewController+Reachability.swift in Sources */,
 				C2546AFC2A59B93300C83FEC /* Debug.swift in Sources */,
+				C2B11C9E2A66298D0034FA1D /* Query.swift in Sources */,
 				C2546AEA2A589A5000C83FEC /* DownloadManagerSession.swift in Sources */,
 				C2636F8F2A585D4E0091BE7D /* ViewController.swift in Sources */,
+				C2B11C9C2A6629160034FA1D /* QueryUsdExchangeRate.swift in Sources */,
 				C2ED16BB2A632AEA0037A558 /* CenteredTextFieldCell.swift in Sources */,
 				C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */,
 				C218CC542A61BB4A0046B90B /* ViewController+TableViewControls.swift in Sources */,
@@ -485,6 +504,7 @@
 				C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */,
 				C273B9262A5B2FB600212717 /* Constants.swift in Sources */,
 				C2B83CC22A5C8350009763B6 /* DebugMenu.swift in Sources */,
+				C2B11CA02A6643950034FA1D /* NewCurrencyExchangeRate.swift in Sources */,
 				C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */,
 				C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */,
 				C2B83CD02A5DB998009763B6 /* ConvertXLSX.swift in Sources */,
