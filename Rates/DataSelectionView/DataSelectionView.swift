@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DataSelectionView: View {
   @ObservedObject var sharedHeaders: SharedHeaders
-  @ObservedObject var sharedFormattingOptions = SharedFormattingOptions()
+  @ObservedObject var sharedFormattingOptions: SharedFormattingOptions
   @State private var selectedDate: String?
   @State private var selectedAmount: String?
   @State private var selectedCurrency: String?
@@ -101,12 +101,8 @@ struct DataSelectionView: View {
       }
       Divider()
         .padding(.vertical, 6)
-      DisclosureGroup("Formatting Options") {
-        Toggle(isOn: $sharedFormattingOptions.roundToTwoDigits) {
-          Text("Round the converted amount to two significant digits")
-            .fixedSize(horizontal: false, vertical: true)
-        }
-      }
+      
+      FormattingOptionsView(sharedFormattingOptions: sharedFormattingOptions)
       
       Divider()
         .padding(.vertical, 6)
