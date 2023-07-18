@@ -40,6 +40,7 @@
 		C2B11C972A661E490034FA1D /* Utility+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C962A661E490034FA1D /* Utility+TableView.swift */; };
 		C2B11C9C2A6629160034FA1D /* QueryUsdExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C9B2A6629160034FA1D /* QueryUsdExchangeRate.swift */; };
 		C2B11C9E2A66298D0034FA1D /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C9D2A66298D0034FA1D /* Query.swift */; };
+		C2B11CA02A6643950034FA1D /* NewCurrencyExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C9F2A6643950034FA1D /* NewCurrencyExchangeRate.swift */; };
 		C2B83CAC2A5C54B1009763B6 /* ViewController+ImportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */; };
 		C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */; };
 		C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CB62A5C6907009763B6 /* FileExtensions.swift */; };
@@ -95,6 +96,7 @@
 		C2B11C962A661E490034FA1D /* Utility+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utility+TableView.swift"; sourceTree = "<group>"; };
 		C2B11C9B2A6629160034FA1D /* QueryUsdExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryUsdExchangeRate.swift; sourceTree = "<group>"; };
 		C2B11C9D2A66298D0034FA1D /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		C2B11C9F2A6643950034FA1D /* NewCurrencyExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCurrencyExchangeRate.swift; sourceTree = "<group>"; };
 		C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ImportFile.swift"; sourceTree = "<group>"; };
 		C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFileTemplateViewController.swift; sourceTree = "<group>"; };
 		C2B83CB62A5C6907009763B6 /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 			children = (
 				C2B11C9B2A6629160034FA1D /* QueryUsdExchangeRate.swift */,
 				C2B11C9D2A66298D0034FA1D /* Query.swift */,
+				C2B11C9F2A6643950034FA1D /* NewCurrencyExchangeRate.swift */,
 			);
 			path = Query;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */,
 				C273B9262A5B2FB600212717 /* Constants.swift in Sources */,
 				C2B83CC22A5C8350009763B6 /* DebugMenu.swift in Sources */,
+				C2B11CA02A6643950034FA1D /* NewCurrencyExchangeRate.swift in Sources */,
 				C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */,
 				C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */,
 				C2B83CD02A5DB998009763B6 /* ConvertXLSX.swift in Sources */,
