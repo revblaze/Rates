@@ -135,6 +135,11 @@ struct DataSelectionView: View {
     .onChange(of: amountCurrencyCombined) { _ in
       checkForErrors()
     }
+    .onAppear {
+      if selectedCurrency == nil && selectedDate != nil && selectedAmount != nil {
+        amountCurrencyCombined = true
+      }
+    }
   }
   
   func checkForErrors() {
