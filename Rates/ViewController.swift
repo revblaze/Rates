@@ -10,9 +10,9 @@ import SwiftUI
 import Combine
 
 class SharedHeaders: ObservableObject {
+  @Published var availableCurrencyCodeHeaders: [String] = []
   @Published var availableHeaders: [String] = []
   @Published var suggestedHeaders: [String] = []
-  @Published var currencyCodeHeaders: [String] = []
 }
 
 protocol FileSelectionDelegate: AnyObject {
@@ -20,6 +20,7 @@ protocol FileSelectionDelegate: AnyObject {
 }
 
 class ViewController: NSViewController {
+  
   weak var delegate: FileSelectionDelegate?
   weak var windowController: WindowController?
   
@@ -50,14 +51,25 @@ class ViewController: NSViewController {
     beginLaunchSession()
   }
   
+  func sqliteUrl() -> URL? {
+    let fileManager = FileManager.default
+    let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+    
+    if let fileUrl = documentsDirectory?.appendingPathComponent("data.db"), fileManager.fileExists(atPath: fileUrl.path) {
+      return fileUrl
+    }
+    
+    return nil
+  }
+  
   func saveTableViewAsFile() {
     Debug.log("[saveTableViewAsFile] Needs implementation.")
     // TODO: Export as CSV and prompt user to save file
   }
   
   /// Starts the currency conversion process using columns with the selected headers.
-  func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool) {
-    Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined)")
+  func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool, toCurrency: String) {
+    Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined), toCurrency: \(toCurrency)")
     // TODO: Add column "To CUR" with conversions below
   }
   
@@ -69,9 +81,9 @@ class ViewController: NSViewController {
         NotificationCenter.default.post(name: NSNotification.Name("DismissSheet"), object: nil)
         self?.dismiss(self)
       },
-      onConvert: { [weak self] (dates, amounts, currencies, amountsCurrenciesCombined) in
+      onConvert: { [weak self] (dates, amounts, currencies, amountsCurrenciesCombined, toCurrency) in
         NotificationCenter.default.post(name: NSNotification.Name("DismissSheet"), object: nil)
-        self?.performConversionUsingColumnWithHeaders(dates: dates, amounts: amounts, currencies: currencies, amountsCurrenciesCombined: amountsCurrenciesCombined)
+        self?.performConversionUsingColumnWithHeaders(dates: dates, amounts: amounts, currencies: currencies, amountsCurrenciesCombined: amountsCurrenciesCombined, toCurrency: toCurrency)
       }
     )
     
