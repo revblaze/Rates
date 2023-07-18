@@ -75,7 +75,6 @@ class ViewController: NSViewController {
    */
   func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool, toCurrency: String) {
     Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined), toCurrency: \(toCurrency)")
-    // TODO: Add column "To CUR" with conversions below
     
     csvTableView.performConversion(toCurrency: toCurrency, usingHeaders: [dates, amounts, currencies])
   }
@@ -152,9 +151,7 @@ class ViewController: NSViewController {
     }
   }
   
-  func enableToolbarButtonsOnFileLoad() {
-    windowController?.enableToolbarItemsOnFileLoad()
-  }
+  
   
   override var representedObject: Any? {
     didSet {

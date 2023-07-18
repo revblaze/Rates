@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C20749452A5B9FAB00240A66 /* CSVTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749442A5B9FAB00240A66 /* CSVTableView.swift */; };
 		C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */; };
-		C218CC542A61BB4A0046B90B /* ViewController+TableViewControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C218CC532A61BB4A0046B90B /* ViewController+TableViewControls.swift */; };
 		C253B1B12A644C9A00218532 /* FilterControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C253B1B02A644C9A00218532 /* FilterControlsView.swift */; };
 		C253B1B62A64747900218532 /* BackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C253B1B52A64747900218532 /* BackgroundBlurView.swift */; };
 		C2546ADF2A58877B00C83FEC /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546ADE2A58877B00C83FEC /* AppDefaults.swift */; };
@@ -60,6 +59,7 @@
 		C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */; };
 		C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */; };
 		C2C8FB1C2A66CE4E00DBD083 /* ViewController+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */; };
+		C2C8FB202A66CF3600DBD083 /* ViewController+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */; };
 		C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */; };
 		C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */; };
 		C2ED16BB2A632AEA0037A558 /* CenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */; };
@@ -68,7 +68,6 @@
 /* Begin PBXFileReference section */
 		C20749442A5B9FAB00240A66 /* CSVTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableView.swift; sourceTree = "<group>"; };
 		C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreConnectSalesColumnHeaders.swift; sourceTree = "<group>"; };
-		C218CC532A61BB4A0046B90B /* ViewController+TableViewControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+TableViewControls.swift"; sourceTree = "<group>"; };
 		C253B1B02A644C9A00218532 /* FilterControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterControlsView.swift; sourceTree = "<group>"; };
 		C253B1B52A64747900218532 /* BackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlurView.swift; sourceTree = "<group>"; };
 		C2546ADE2A58877B00C83FEC /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
@@ -117,6 +116,7 @@
 		C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+HeaderRow.swift"; sourceTree = "<group>"; };
 		C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DataSelectionViewHostingController.swift"; sourceTree = "<group>"; };
 		C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Animations.swift"; sourceTree = "<group>"; };
+		C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Toolbar.swift"; sourceTree = "<group>"; };
 		C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+FilterControls.swift"; sourceTree = "<group>"; };
 		C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableViewDelegate.swift; sourceTree = "<group>"; };
 		C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTextFieldCell.swift; sourceTree = "<group>"; };
@@ -173,7 +173,6 @@
 			isa = PBXGroup;
 			children = (
 				C2B83CCB2A5C9E5C009763B6 /* ViewController+Filters.swift */,
-				C218CC532A61BB4A0046B90B /* ViewController+TableViewControls.swift */,
 			);
 			path = TableViewControls;
 			sourceTree = "<group>";
@@ -274,6 +273,7 @@
 				C2B83CBF2A5C831B009763B6 /* MainMenu */,
 				C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */,
 				C255F2D82A5B556B004B7F95 /* WindowController.swift */,
+				C2C8FB1E2A66CF2600DBD083 /* WindowController */,
 				C2636F8E2A585D4E0091BE7D /* ViewController.swift */,
 				C218CC552A61BE900046B90B /* ViewController */,
 				C20749432A5B9F9E00240A66 /* CSVTableView */,
@@ -390,6 +390,14 @@
 			path = MainView;
 			sourceTree = "<group>";
 		};
+		C2C8FB1E2A66CF2600DBD083 /* WindowController */ = {
+			isa = PBXGroup;
+			children = (
+				C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */,
+			);
+			path = WindowController;
+			sourceTree = "<group>";
+		};
 		C2ED16B92A632AC80037A558 /* TableViewObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,7 +511,6 @@
 				C2B11C9C2A6629160034FA1D /* QueryUsdExchangeRate.swift in Sources */,
 				C2ED16BB2A632AEA0037A558 /* CenteredTextFieldCell.swift in Sources */,
 				C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */,
-				C218CC542A61BB4A0046B90B /* ViewController+TableViewControls.swift in Sources */,
 				C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */,
 				C2B11C952A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift in Sources */,
 				C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */,
@@ -530,6 +537,7 @@
 				C2B83CBC2A5C7AF4009763B6 /* ViewController+StatusBar.swift in Sources */,
 				C2B83CD82A5DC1FE009763B6 /* ConvertFile.swift in Sources */,
 				C2B83CAC2A5C54B1009763B6 /* ViewController+ImportFile.swift in Sources */,
+				C2C8FB202A66CF3600DBD083 /* ViewController+Toolbar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
