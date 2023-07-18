@@ -231,23 +231,25 @@ class CSVTableView: NSView {
   }
   
   /**
-   Performs a currency conversion to the specified currency using the given headers.
-   
-   - Parameters:
-      - toCurrency: The currency code to convert to.
-      - usingHeaders: An array of headers used to locate the necessary data.
-   
-   - Important:
-   - The function assumes the table data is stored in `tableData`.
-   - The function creates a new column in the table for the converted amounts.
-   - If `toCurrency` is not USD, a second column will be created for the converted amounts from USD to the specified currency.
-   - The function relies on `Query` class for currency conversion and `Debug` class for logging.
-   - Make sure to reload the table data after calling this function.
-   */
+     Performs a currency conversion to the specified currency using the given headers.
+     
+     - Parameters:
+        - toCurrency: The currency code to convert to.
+        - usingHeaders: An array of headers used to locate the necessary data.
+     
+     - Important:
+     - The function assumes the table data is stored in `tableData`.
+     - The function creates a new column in the table for the converted amounts.
+     - If `headers[2]` is empty or nil, the function calls `splitCurrencyCodesIntoSeparateColumn(amountColumnHeader: headers[1])` and sets `headers[2]` to the return value.
+     - If `toCurrency` is not USD, a second column will be created for the converted amounts from USD to the specified currency.
+     - The function relies on `Query` class for currency conversion, `Debug` class for logging, and `Utility` class for processing currency codes.
+     - Make sure to reload the table data after calling this function.
+     */
   func performConversion(toCurrency code: String, usingHeaders headers: [String]) {
-    
-    // TODO: Clean up $ and other symbols
-    // TODO: if headers.count < 3 { separate amount + currency codes into separate arrays }
+    var headers = headers
+    if headers[2].isEmpty {//|| headers[2] == nil {
+      headers[2] = splitCurrencyCodesIntoSeparateColumn(amountColumnHeader: headers[1])
+    }
     
     Debug.log("[performConversion] toCurrency: \(code), usingHeaders: \(headers)")
     createUsdColumnWithConvertedAmounts(usingHeaders: headers)
@@ -256,6 +258,49 @@ class CSVTableView: NSView {
       let datesHeader = headers[0]
       createSecondColumnWithConvertedAmounts(toCurrency: code, usingDatesHeader: datesHeader)
     }
+  }
+  
+  /**
+     Splits the currency codes into a separate column in the table.
+
+     - Parameters:
+        - columnHeader: The header row text for a column.
+     
+     - Returns: The header text of the newly created column.
+     
+     - Important:
+     - The function assumes the table data is stored in `tableData`.
+     - The function creates a new column in the table for the currency codes.
+     - The function relies on `Utility` class for processing the currency codes.
+     - Make sure to reload the table data after calling this function.
+     */
+  func splitCurrencyCodesIntoSeparateColumn(amountColumnHeader columnHeader: String) -> String {
+    let columnIndex = tableView.tableColumns.firstIndex(where: { $0.title == columnHeader })!
+    
+    var currencyCodes: [String] = []
+    for i in 1..<tableData.count {  // Skip the header row
+      var cell = tableData[i][columnIndex]
+      
+      let currencyCode = Utility.extractCurrencyCode(&cell, usingCurrencyCodes: sharedHeaders.availableCurrencyCodeHeaders)
+      currencyCodes.append(currencyCode)
+      
+      tableData[i][columnIndex] = cell  // Update the cell value
+    }
+    
+    // Add a new column to the table
+    let currencyCodeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "CurrencyCodeColumn"))
+    currencyCodeColumn.title = "From Currency"
+    
+    tableView.addTableColumn(currencyCodeColumn)
+    
+    // Add the currency codes to the table data
+    for (i, currencyCode) in currencyCodes.enumerated() {
+      tableData[i+1].append(currencyCode)
+    }
+    
+    tableView.reloadData()
+    
+    return currencyCodeColumn.title
   }
   
   /**
