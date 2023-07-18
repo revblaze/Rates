@@ -1,41 +1,53 @@
 //
-//  QueryUsdExchangeRate.swift
+//  NewCurrencyExchangeRate.swift
 //  Rates
 //
 //  Created by Justin Bush on 7/17/23.
 //
 
-import Cocoa
+import Foundation
 import SQLite
 
 extension Query {
   
-  /// Converts the given amount of currency to its equivalent value in USD based on the specified exchange rate.
-  ///
-  /// - Parameters:
-  ///   - code: The currency code representing the currency to be converted.
-  ///   - amountString: The string representation of the amount of currency to be converted.
-  ///   - date: The date on which the conversion should be based.
-  /// - Returns: The value in USD as a `Double` if the conversion is successful; `nil` otherwise.
-  static func valueInUsd(currencyCode code: String, amountOfCurrency amountString: String, onDate date: String) -> Double? {
-    let usdExchangeRate = usdExchangeRate(forCurrency: code, onDate: date)
+  /**
+   Converts the specified amount from USD to the specified currency on the given date.
+   
+   - Parameters:
+   - amountString: The amount in USD as a string.
+   - code: The currency code to convert to.
+   - date: The date for the conversion.
+   
+   - Returns: The converted amount in the new currency as a double, or nil if the conversion fails.
+   
+   - Important:
+   - The function relies on `Query` class for currency conversion and `Debug` class for logging.
+   */
+  static func valueInNewCurrency(fromUsdAmount amountString: String, toCurrencyCode code: String, onDate date: String) -> Double? {
+    let newCurrencyExchangeRate = newCurrencyExchangeRate(toCurrency: code, onDate: date)
     
     if let amount = Double(amountString) {
-      return amount/usdExchangeRate
+      return amount * newCurrencyExchangeRate
     }
     
-    Debug.log("[Query.valueInUsd] Unable to convert amount to double.")
+    Debug.log("[Query.valueInNewCurrency] Unable to convert amount to double.")
     return nil
-    
   }
   
-  /// Retrieves the exchange rate of the specified currency to USD on the given date.
-  ///
-  /// - Parameters:
-  ///   - code: The currency code representing the currency for which the exchange rate is needed.
-  ///   - date: The date on which the exchange rate should be retrieved.
-  /// - Returns: The exchange rate as a `Double`.
-  static func usdExchangeRate(forCurrency code: String, onDate date: String) -> Double {
+  /**
+   Retrieves the exchange rate for the specified currency on the given date.
+   
+   - Parameters:
+   - code: The currency code to get the exchange rate for.
+   - date: The date for the exchange rate.
+   
+   - Returns: The exchange rate as a double.
+   
+   - Important:
+   - The function relies on `Query` class for database access and `Debug` class for logging.
+   - Make sure to handle the case where the exchange rate is not found.
+   */
+  static func newCurrencyExchangeRate(toCurrency code: String, onDate date: String) -> Double {
     // Define the list of date formats
     let dateFormats = Utility.dateFormats
     
@@ -90,7 +102,6 @@ extension Query {
         }
       }
     }
-    
     // If no formats match or connection fails, return 0.0
     return 0.0
   }
