@@ -26,7 +26,7 @@ struct ConvertXLSX {
       for workbook in try file.parseWorkbooks() {
         for (name, path) in try file.parseWorksheetPathsAndNames(workbook: workbook) {
           if let worksheetName = name {
-            Debug.log("This worksheet has a name: \(worksheetName)")
+            Debug.log("[ConvertXLSX.toCSV] This worksheet has a name: \(worksheetName)")
           }
           
           let worksheet = try file.parseWorksheet(at: path)
@@ -45,7 +45,7 @@ struct ConvertXLSX {
                   }
                 }
               } catch {
-                Debug.log("Error parsing shared strings: \(error.localizedDescription)")
+                Debug.log("[ConvertXLSX.toCSV] Error parsing shared strings: \(error.localizedDescription)")
                 return nil
               }
               return nil
@@ -65,7 +65,7 @@ struct ConvertXLSX {
       
       return csvFileURL
     } catch {
-      Debug.log("Error converting XLSX to CSV: \(error.localizedDescription)")
+      Debug.log("[ConvertXLSX.toCSV] Error converting XLSX to CSV: \(error.localizedDescription)")
       return nil
     }
   }

@@ -48,7 +48,7 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
         cellView?.stringValue = ""
       }
     } else {
-      Debug.log("Index out of range: row = \(row), tableData count = \(tableData.count)")
+      Debug.log("[tableView] Index out of range: row = \(row), tableData count = \(tableData.count)")
       cellView?.stringValue = ""
     }
     

@@ -60,19 +60,19 @@ extension ViewController {
   /// - Returns: A boolean value indicating whether a local version of the database exists.
   func localVersionOfDatabaseExists() -> Bool {
     let fileManager = FileManager.default
-    let documentsDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+    let documentsDirectoryUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
     
     do {
-      let directoryContents = try fileManager.contentsOfDirectory(at: documentsDirectoryURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+      let directoryContents = try fileManager.contentsOfDirectory(at: documentsDirectoryUrl, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
       
-      if directoryContents.isEmpty || !directoryContents.contains(where: { $0.lastPathComponent == "data.db" }) {
-        Debug.log("Documents directory is empty or does not contain 'data.db'")
+      if directoryContents.isEmpty || !directoryContents.contains(where: { $0.lastPathComponent == Constants.sqliteFileName }) {
+        Debug.log("[localVersionOfDatabaseExists] Documents directory is empty or does not contain '\(Constants.sqliteFileName)'")
       } else {
-        Debug.log("Documents directory is not empty and contains 'data.db'")
+        Debug.log("[localVersionOfDatabaseExists] Documents directory is not empty and contains '\(Constants.sqliteFileName)'")
         return true
       }
     } catch {
-      Debug.log("Error accessing documents directory: \(error)")
+      Debug.log("[localVersionOfDatabaseExists] Error accessing documents directory: \(error)")
     }
     return false
   }
@@ -85,11 +85,11 @@ extension ViewController {
     Task.detached {
       let exchangeRateData = ExchangeRateData()
       if let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString) {
-        Debug.log("Db file obtained: \(dbFileUrl)")
+        Debug.log("[startCsvDownloadAndConvertToDb] Db file obtained: \(dbFileUrl)")
         await self.fillLaunchTableViewWithExchangeRateData()
         
       } else {
-        Debug.log("Error occurred while awaiting getDb()")
+        Debug.log("[startCsvDownloadAndConvertToDb] Error occurred while awaiting getDb()")
         await self.updateStatusBar(withState: .failedToUpdate)
         
       }

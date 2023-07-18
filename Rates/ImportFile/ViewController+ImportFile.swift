@@ -41,7 +41,7 @@ extension ViewController {
       let restructuredCsvFileUrl = StructureFile.forTableView(csvFileUrl: csvFileUrl, withTemplate: withTemplate)
     else {
       // Add error handling here
-      Debug.log("Error converting file to CSV or restructuring CSV for table view.")
+      Debug.log("[passDataToTableView] Error converting file to CSV or restructuring CSV for table view.")
       return
     }
     

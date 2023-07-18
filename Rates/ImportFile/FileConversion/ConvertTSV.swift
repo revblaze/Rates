@@ -64,7 +64,7 @@ struct ConvertTSV {
       return csvURL
       
     } catch {
-      Debug.log("Error converting TSV to CSV: \(error)")
+      Debug.log("[ConvertTSV.toCSV] Error converting TSV to CSV: \(error)")
       return nil
     }
   }
