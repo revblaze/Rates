@@ -22,27 +22,6 @@ protocol FileSelectionDelegate: AnyObject {
 
 class ViewController: NSViewController {
   
-  weak var delegate: FileSelectionDelegate?
-  weak var windowController: WindowController?
-  
-  var csvTableView: CSVTableView!
-  private var scrollView: NSScrollView!
-  
-  var statusBarState: StatusBarState? = .loading
-  @IBOutlet weak var statusBarViewContainer: NSView!
-  @IBOutlet weak var statusBarButton: NSButton!
-  @IBOutlet weak var statusBarText: NSTextField!
-  @IBOutlet weak var statusBarProgressBar: NSProgressIndicator!
-  @IBOutlet weak var statusBarRefreshButton: NSButton!
-  var statusBarButtonIsPulsing = false
-  
-  var filterControlsView: NSHostingView<FilterControlsView>!
-  var filterControlsConstraint: NSLayoutConstraint!
-  /// The state of FilterControlsView current display on the main ViewController.
-  var filterControlsViewIsHidden = true
-  
-  let sharedHeaders = SharedHeaders()
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -130,9 +109,10 @@ class ViewController: NSViewController {
     ])
   }
   
-  override func viewDidLayout() {
-    super.viewDidLayout()
-    
+  /**
+   Updates the layout of the scroll view and the CSV table view based on the current view bounds.
+   */
+  func updateScrollViewLayout() {
     let bottomOffset: CGFloat = Constants.statusBarHeight
     let scrollViewHeight = view.bounds.height - bottomOffset
     let scrollViewOriginY = bottomOffset
@@ -141,9 +121,51 @@ class ViewController: NSViewController {
     csvTableView.frame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: scrollView.bounds.height)
   }
   
+  override func viewDidLayout() {
+    super.viewDidLayout()
+    
+    updateScrollViewLayout()
+  }
   
   
   
+  // MARK: - Variables
+  /// The shared headers used by the view controller.
+  let sharedHeaders = SharedHeaders()
+  /// The delegate for file selection events.
+  weak var delegate: FileSelectionDelegate?
+  /// The window controller associated with the view controller.
+  weak var windowController: WindowController?
+  /// The CSV table view.
+  var csvTableView: CSVTableView!
+  /// The scroll view for the CSV table view.
+  private var scrollView: NSScrollView!
+  
+  // MARK: - FilterControls View
+  /// The view hosting the filter controls.
+  var filterControlsView: NSHostingView<FilterControlsView>!
+  /// The constraint for the filter controls view.
+  var filterControlsConstraint: NSLayoutConstraint!
+  /// The state of the filter controls view's current display on the main ViewController.
+  var filterControlsViewIsHidden = true
+  
+  // MARK: - StatusBar View
+  /// The state of the status bar.
+  var statusBarState: StatusBarState? = .loading
+  /// The container view for the status bar.
+  @IBOutlet weak var statusBarViewContainer: NSView!
+  /// The button in the status bar.
+  @IBOutlet weak var statusBarButton: NSButton!
+  /// The text field in the status bar.
+  @IBOutlet weak var statusBarText: NSTextField!
+  /// The progress bar in the status bar.
+  @IBOutlet weak var statusBarProgressBar: NSProgressIndicator!
+  /// The refresh button in the status bar.
+  @IBOutlet weak var statusBarRefreshButton: NSButton!
+  /// A flag indicating if the status bar button is pulsing.
+  var statusBarButtonIsPulsing = false
+  
+  // MARK: - Represented Objects
   override var representedObject: Any? {
     didSet {
       if let windowController = representedObject as? WindowController {
