@@ -7,6 +7,10 @@
 
 import Cocoa
 
+protocol FileSelectionDelegate: AnyObject {
+  func fileSelected(_ viewController: ViewController, fileURL: URL)
+}
+
 /// The main window controller for the application.
 class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDelegate {
   
