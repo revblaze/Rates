@@ -58,6 +58,7 @@
 		C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD92A5DC382009763B6 /* StructureFile.swift */; };
 		C2B83CDC2A5DD7E6009763B6 /* RemoveEmptyEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */; };
 		C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */; };
+		C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */; };
 		C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */; };
 		C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */; };
 		C2ED16BB2A632AEA0037A558 /* CenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */; };
@@ -113,6 +114,7 @@
 		C2B83CD92A5DC382009763B6 /* StructureFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureFile.swift; sourceTree = "<group>"; };
 		C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveEmptyEntries.swift; sourceTree = "<group>"; };
 		C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+HeaderRow.swift"; sourceTree = "<group>"; };
+		C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DataSelectionViewHostingController.swift"; sourceTree = "<group>"; };
 		C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+FilterControls.swift"; sourceTree = "<group>"; };
 		C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableViewDelegate.swift; sourceTree = "<group>"; };
 		C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredTextFieldCell.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				C2B11C922A6598A10034FA1D /* DataSelectionView.swift */,
+				C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */,
 			);
 			path = DataSelectionView;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				C2B83CC82A5C9D22009763B6 /* LaunchScreenData.swift in Sources */,
 				C255F3022A5B7F11004B7F95 /* FileTemplates.swift in Sources */,
 				C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */,
+				C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */,
 				C2636F9D2A5861350091BE7D /* Settings.swift in Sources */,
 				C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */,
 				C2B11C972A661E490034FA1D /* Utility+TableView.swift in Sources */,
