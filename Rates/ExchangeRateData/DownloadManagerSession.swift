@@ -114,7 +114,7 @@ class DownloadManagerSession {
     do {
       let fileUrls = try fileManager.contentsOfDirectory(at: documentDirectoryUrl, includingPropertiesForKeys: nil, options: [])
       
-      for fileURL in fileUrls {
+      for fileUrl in fileUrls {
         try fileManager.removeItem(at: fileUrl)
       }
       

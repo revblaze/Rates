@@ -34,4 +34,5 @@ struct Constants {
   
   static let dataSelectionViewHostingControllerIdentifier = "DataSelectionViewHostingController"
   
+  static let sqliteDateColumnValue = "Date"
 }
