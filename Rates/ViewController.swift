@@ -79,12 +79,12 @@ class ViewController: NSViewController {
     )
     
     let hostingController = NSHostingController(rootView: contentView)
-    hostingController.identifier = NSUserInterfaceItemIdentifier(rawValue: "DataSelectionViewHostingController")
+    hostingController.identifier = NSUserInterfaceItemIdentifier(rawValue: Constants.dataSelectionViewHostingControllerIdentifier)
     self.presentAsSheet(hostingController)
   }
   
   func dismissDataSelectionView() {
-    if let presentedViewController = self.presentedViewControllers?.first(where: { $0.identifier?.rawValue == "DataSelectionViewHostingController" }) {
+    if let presentedViewController = self.presentedViewControllers?.first(where: { $0.identifier?.rawValue == Constants.dataSelectionViewHostingControllerIdentifier }) {
       self.dismiss(presentedViewController)
     }
   }
