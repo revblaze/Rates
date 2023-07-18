@@ -108,6 +108,7 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
         column.isHidden = !hidden
       }
     }
+    determineSuggestedHeadersForConversion()
   }
   
 }

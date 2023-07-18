@@ -16,7 +16,11 @@ extension ViewController {
   func updateCSVTableViewWithLaunchData(at url: URL) {
     csvTableView.updateCSVData(with: url)
     updateStatusBar(withState: .upToDate)
+    
+    updateAvailableCurrencyCodeHeaders()
   }
+  
+  
   
   /// Fills the launch table view with exchange rate data.
   func fillLaunchTableViewWithExchangeRateData() {
@@ -66,8 +70,18 @@ extension ViewController {
         return line.replacingOccurrences(of: "\"", with: "")
       }
       
+      // Replace "NaN" with "––" in each line
+      let replacedNanLines = sanitizedLines.map { line in
+        return line.replacingOccurrences(of: "NaN", with: Constants.replaceNanLinesInLaunchData)
+      }
+      
+      let replacedLines = replacedNanLines.map { line in
+        let firstRound = line.replacingOccurrences(of: ",,", with: ",\(Constants.replaceEmptyLinesInLaunchData),")
+        return firstRound.replacingOccurrences(of: ",,", with: ",\(Constants.replaceEmptyLinesInLaunchData),")
+      }
+      
       // Join the sanitized lines into a new CSV string
-      let launchScreenCSVString = sanitizedLines.joined(separator: "\n")
+      let launchScreenCSVString = replacedLines.joined(separator: "\n")
       
       // Write the new CSV string to the destination file
       try launchScreenCSVString.write(to: destinationFileURL, atomically: true, encoding: .utf8)
