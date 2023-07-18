@@ -74,6 +74,10 @@ struct DataSelectionView: View {
       Toggle(isOn: $amountCurrencyCombined) {
         Text("Amounts and currencies are in the same column")
           .fixedSize(horizontal: false, vertical: true)
+      }.onChange(of: amountCurrencyCombined) { newValue in
+        if newValue {
+          self.selectedCurrency = nil
+        }
       }
       Divider()
         .padding(.vertical, 6)
