@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import SQLite
 
 /// A custom view for displaying CSV data in a table view.
 class CSVTableView: NSView {
@@ -222,6 +223,66 @@ class CSVTableView: NSView {
     }
     return ""
   }
+  
+  func prepareForConversion() {
+    
+  }
+  
+  func performConversion(toCurrency code: String, usingHeaders headers: [String]) {
+    let dates = headers[0]
+    let amounts = headers[1]
+    let currency = headers[2]
+    
+    // TODO: Clean up $ and other symbols
+    // TODO: if headers.count < 3 { separate amount + currency codes into separate arrays }
+    
+    Debug.log("[performConversion] toCurrency: \(code), usingHeaders: \(headers)")
+    //let conversionRate = Query.usdExchangeRate(forCurrency: code, onDate: dates)
+    createUsdColumnWithConvertedAmounts(usingHeaders: headers)
+    
+    //Debug.log("[Query] \(conversionRate)")
+  }
+  
+  func createUsdColumnWithConvertedAmounts(usingHeaders headers: [String]) {
+    let datesHeader = headers[0]
+    let amountsHeader = headers[1]
+    let currenciesHeader = headers[2]
+    
+    guard let datesIndex = tableView.tableColumns.firstIndex(where: { $0.title == datesHeader }),
+          let amountsIndex = tableView.tableColumns.firstIndex(where: { $0.title == amountsHeader }),
+          let currenciesIndex = tableView.tableColumns.firstIndex(where: { $0.title == currenciesHeader }) else {
+      Debug.log("Unable to find one or more columns")
+      return
+    }
+    
+    var usdValues: [Double] = []
+    for i in 1..<tableData.count {  // Skip the header row
+      let row = tableData[i]
+      let date = row[datesIndex]
+      let amountString = row[amountsIndex]
+      let currencyCode = row[currenciesIndex]
+      
+      if let usdValue = Query.valueInUsd(currencyCode: currencyCode, amountOfCurrency: amountString, onDate: date) {
+        usdValues.append(usdValue)
+      } else {
+        Debug.log("Unable to convert value for row \(i)")
+        usdValues.append(0.0)  // Or some other default value
+      }
+    }
+    
+    // Add a new column to the table
+    let usdColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "To USD"))
+    tableView.addTableColumn(usdColumn)
+    
+    // Add the USD values to the table data
+    for (i, usdValue) in usdValues.enumerated() {
+      tableData[i+1].append(String(usdValue))
+    }
+    
+    tableView.reloadData()
+  }
+  
+  
   
 }
 
