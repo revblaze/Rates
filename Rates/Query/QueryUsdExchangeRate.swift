@@ -21,7 +21,7 @@ extension Query {
     let usdExchangeRate = usdExchangeRate(forCurrency: code, onDate: date)
     
     if let amount = Double(amountString) {
-      return amount*usdExchangeRate
+      return amount/usdExchangeRate
     }
     
     Debug.log("[Query.valueInUsd] Unable to convert amount to double.")
