@@ -21,7 +21,8 @@ class SharedData: ObservableObject {
 }
 
 class SharedFormattingOptions: ObservableObject {
-  @Published var roundToTwoDigits: Bool = false
+  @Published var roundToTwoDigits: Bool = true
+  @Published var hideIrrelevantColumns: Bool = true
 }
 
 class ViewController: NSViewController {
@@ -74,7 +75,7 @@ class ViewController: NSViewController {
     scrollView.hasVerticalScroller = true
     scrollView.hasHorizontalScroller = true
     
-    csvTableView = CSVTableView(frame: .zero, sharedHeaders: sharedHeaders)
+    csvTableView = CSVTableView(frame: .zero, sharedHeaders: sharedHeaders, sharedFormattingOptions: sharedFormattingOptions)
     csvTableView.autoresizingMask = [.height]
     
     scrollView.documentView = csvTableView

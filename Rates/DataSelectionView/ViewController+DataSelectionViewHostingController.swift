@@ -14,6 +14,7 @@ extension ViewController {
   func presentDataSelectionViewAsSheet() {
     let contentView = DataSelectionView(
       sharedHeaders: sharedHeaders,
+      sharedFormattingOptions: sharedFormattingOptions,
       onDismiss: { [weak self] in
         self?.dismissDataSelectionView()
       },

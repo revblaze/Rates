@@ -17,14 +17,17 @@ class CSVTableView: NSView {
   var tableData: [[String]] = []
   /// SharedHeaders instance for communicating with SwiftUI view.
   var sharedHeaders: SharedHeaders
+  /// SharedFormattingOptions instance for communicating with SwiftUI view.
+  var sharedFormattingOptions: SharedFormattingOptions
   
   /// Initializes the view with a given frame rectangle.
   ///
   /// - Parameters:
   ///   - frameRect: The frame rectangle for the view.
   ///   - sharedHeaders: SharedHeaders instance for communicating with SwiftUI view.
-  init(frame frameRect: NSRect, sharedHeaders: SharedHeaders) {
+  init(frame frameRect: NSRect, sharedHeaders: SharedHeaders, sharedFormattingOptions: SharedFormattingOptions) {
     self.sharedHeaders = sharedHeaders
+    self.sharedFormattingOptions = sharedFormattingOptions
     super.init(frame: frameRect)
     setupTableView()
   }
