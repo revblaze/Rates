@@ -20,6 +20,10 @@ class SharedData: ObservableObject {
   @Published var inputUserFile: URL?
 }
 
+class SharedFormattingOptions: ObservableObject {
+  @Published var roundToTwoDigits: Bool = false
+}
+
 class ViewController: NSViewController {
   
   override func viewDidLoad() {
@@ -166,6 +170,8 @@ class ViewController: NSViewController {
   let sharedHeaders = SharedHeaders()
   /// The shared data used by the view controller.
   let sharedData = SharedData()
+  /// The shared formatting options to apply to the converted values.
+  let sharedFormattingOptions = SharedFormattingOptions()
   /// The delegate for file selection events.
   weak var delegate: FileSelectionDelegate?
   /// The window controller associated with the view controller.
