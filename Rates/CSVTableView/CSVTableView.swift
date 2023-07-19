@@ -19,8 +19,12 @@ class CSVTableView: NSView {
   var sharedHeaders: SharedHeaders
   /// SharedFormattingOptions instance for communicating with SwiftUI view.
   var sharedFormattingOptions: SharedFormattingOptions
+  /// Referenc to ViewController delegate.
+  weak var viewController: ViewController?
   /// Number of new currency columns for identification.
   var newCurrencyColumnCount = 0
+  /// Determines whether to round cell values to two decimal places for display.
+  var roundToTwoDecimalPlaces = false
   
   /// Initializes the view with a given frame rectangle.
   ///
@@ -424,6 +428,12 @@ class CSVTableView: NSView {
   
   /// Checks to see if the user has applied any SharedFormattingOptions and triggers the code if applicable.
   func checkAndApplyFormattingOptions(withHeaders headers: [String]) {
+    if sharedFormattingOptions.roundToTwoDecimalPlaces {
+      enableRoundToTwoDecimalPlaces()
+    } else {
+      disableRoundToTwoDecimalPlaces()
+    }
+    
     hideEmptyColumns(userSelectedHeaders: headers)
     hideIrrelevantColumns(userSelectedHeaders: headers)
   }
@@ -437,30 +447,25 @@ class CSVTableView: NSView {
   ///
   /// - Parameter headers: An array of headers that should not be removed.
   func hideEmptyColumns(userSelectedHeaders headers: [String]) {
-    // Check if the sharedFormattingOptions.removeEmptyColumns property is true.
+    // Check if the sharedFormattingOptions.hideEmptyColumns property is true.
     guard sharedFormattingOptions.hideEmptyColumns else {
       return
     }
-    
+
     // Loop through all the columns in the table.
     for column in tableView.tableColumns {
       let identifier = column.identifier.rawValue
       let headerText = column.headerCell.stringValue
       
       // If the column header or identifier matches the specified conditions, skip the column.
-      if headers.contains(headerText) || ["CurrencyCodeColumn", "ToUsdColumn"].contains(identifier) || identifier.hasPrefix("ToNewCurrency-") {
+      guard !Utility.shouldSkipColumn(headerText: headerText, identifier: identifier, headers: headers) else {
         continue
       }
-      
+
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       
-      // If all the cells in the column (excluding the header) are empty, remove the column.
-      let columnIsEmpty = tableData.dropFirst().allSatisfy { row in
-        let cell = row[columnIndex]
-        return cell.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-      }
-      
-      if columnIsEmpty {
+      // If all the cells in the column (excluding the header) are empty, hide the column.
+      if Utility.isColumnEmpty(data: tableData, columnIndex: columnIndex) {
         column.isHidden = true
       }
     }
@@ -485,10 +490,30 @@ class CSVTableView: NSView {
       let headerText = column.headerCell.stringValue
       
       // If the column header or identifier does not match the specified conditions, hide the column.
-      if !headers.contains(headerText) && !["CurrencyCodeColumn", "ToUsdColumn"].contains(identifier) && !identifier.hasPrefix("ToNewCurrency-") {
+      if !Utility.shouldSkipColumn(headerText: headerText, identifier: identifier, headers: headers) {
         column.isHidden = true
       }
     }
+  }
+  
+  // MARK: - Rounding 2 Decimal Places
+  /// Rounds all cell values in the table view to two decimal places for display.
+  ///
+  /// The actual cell values remain the same.
+  func enableRoundToTwoDecimalPlaces() {
+    roundToTwoDecimalPlaces = true
+    tableView.reloadData()
+    sharedFormattingOptions.roundToTwoDecimalPlaces = true
+    viewController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: true)
+    
+  }
+  
+  /// Shows all cell values in the table view as they are, without rounding to two decimal places.
+  func disableRoundToTwoDecimalPlaces() {
+    roundToTwoDecimalPlaces = false
+    tableView.reloadData()
+    sharedFormattingOptions.roundToTwoDecimalPlaces = false
+    viewController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: false)
   }
   
   

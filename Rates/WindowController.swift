@@ -24,6 +24,8 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   /// Clears all existing filters on CSVTableView and reverts it back to the original table.
   @IBOutlet weak var clearFiltersToolbarButton: NSToolbarItem!
   
+  @IBOutlet weak var toggleRoundToTwoDecimalPlacesToolbarButton: NSToolbarItem!
+  
   // MARK: Hidden Items
   @IBOutlet weak var settingsToolbarButton: NSToolbarItem!
   @IBOutlet weak var filterToolbarButton: NSToolbarItem!
@@ -52,6 +54,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     saveFileToolbarButton.action = nil
     openFileToolbarButton.action = nil
     clearFiltersToolbarButton.action = nil
+    toggleRoundToTwoDecimalPlacesToolbarButton.action = nil
   }
   /// Enables the necessary toolbar items once the user has loaded up a file.
   func enableToolbarItemsOnFileLoad() {
@@ -59,12 +62,15 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     enableConvertToolbarButton()
     enableSaveFileToolbarButton()
     enableClearFiltersToolbarButton()
+    enableToggleRoundToTwoDecimalPlacesToolbarButton()
+    // Update toolbar item appearance
     validateToolbarItems()
   }
   
   /// Enables the necessary toolbar items once the initial launch data has been loaded.
   func enableToolbarItemsOnLaunchDataLoad() {
     enableOpenFileToolbarButton()
+    // Update toolbar item appearance
     validateToolbarItems()
   }
   
@@ -93,6 +99,20 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   func enableSaveFileToolbarButton() {
     saveFileToolbarButton.action = #selector(saveFileToolbarButtonAction(_:))
     saveFileToolbarButton.target = self
+  }
+  
+  func enableToggleRoundToTwoDecimalPlacesToolbarButton() {
+    toggleRoundToTwoDecimalPlacesToolbarButton.action = #selector(toggleRoundToTwoDecimalPlacesToolbarButtonAction(_:))
+    toggleRoundToTwoDecimalPlacesToolbarButton.target = self
+  }
+  /// Updates the image of `roundToTwoDecimalPlacesToolbarButton` based on the provided state.
+  ///
+  /// - Parameter state: A boolean value indicating whether the button should be active or not.
+  func updateRoundToTwoDecimalPlacesToolbarButton(toBeActive state: Bool) {
+    let symbolName = state ? "dollarsign.circle.fill" : "dollarsign.circle"
+    let symbolImage = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
+    
+    toggleRoundToTwoDecimalPlacesToolbarButton.image = symbolImage
   }
   
   /// Performs an action on the view controller to open a file selection.
@@ -124,6 +144,10 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   
   @IBAction func saveFileToolbarButtonAction(_ sender: Any) {
     performActionOnViewController(action: viewController.saveTableViewAsFile)
+  }
+  
+  @IBAction func toggleRoundToTwoDecimalPlacesToolbarButtonAction(_ sender: Any) {
+    performActionOnViewController(action: viewController.toggleRoundToTwoDecimalPlaces)
   }
   
   /// Calls the file selection in the view controller.

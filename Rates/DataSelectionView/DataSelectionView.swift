@@ -132,8 +132,8 @@ struct FormattingOptionsView: View {
     }) {
       DisclosureGroup(isExpanded: $isExpanded, content: {
         HStack {
-          Toggle(isOn: $sharedFormattingOptions.roundToTwoDigits) {
-            Text("Round to two significant digits")
+          Toggle(isOn: $sharedFormattingOptions.roundToTwoDecimalPlaces) {
+            Text("Round to two decimal places")
               .fixedSize(horizontal: false, vertical: true)
           }
           Spacer()  // Push the Toggle and Text to the left

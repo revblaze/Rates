@@ -95,6 +95,30 @@ extension Utility {
     // If no currency code was found, return an empty string
     return ""
   }
+  
+  /// Checks if the column should be skipped based on the header, identifier, and headers array.
+    ///
+    /// - Parameters:
+    ///   - headerText: The text of the header cell.
+    ///   - identifier: The raw value of the NSUserInterfaceItemIdentifier for the column.
+    ///   - headers: An array of headers that should not be hidden.
+    /// - Returns: A Boolean value indicating whether the column should be skipped.
+    static func shouldSkipColumn(headerText: String, identifier: String, headers: [String]) -> Bool {
+      return headers.contains(headerText) || ["CurrencyCodeColumn", "ToUsdColumn"].contains(identifier) || identifier.hasPrefix("ToNewCurrency-")
+    }
+
+    /// Checks if all the cells in the column are empty.
+    ///
+    /// - Parameters:
+    ///   - data: The table data.
+    ///   - columnIndex: The index of the column.
+    /// - Returns: A Boolean value indicating whether all the cells in the column are empty.
+    static func isColumnEmpty(data: [[String]], columnIndex: Int) -> Bool {
+      return data.dropFirst().allSatisfy { row in
+        let cell = row[columnIndex]
+        return cell.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+      }
+    }
 
   
 }
