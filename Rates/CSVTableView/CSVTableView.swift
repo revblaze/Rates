@@ -231,25 +231,21 @@ class CSVTableView: NSView {
     return nil
   }
   
-  func prepareForConversion() {
-    
-  }
-  
   /**
-     Performs a currency conversion to the specified currency using the given headers.
-     
-     - Parameters:
-        - toCurrency: The currency code to convert to.
-        - usingHeaders: An array of headers used to locate the necessary data.
-     
-     - Important:
-     - The function assumes the table data is stored in `tableData`.
-     - The function creates a new column in the table for the converted amounts.
-     - If `headers[2]` is empty or nil, the function calls `splitCurrencyCodesIntoSeparateColumn(amountColumnHeader: headers[1])` and sets `headers[2]` to the return value.
-     - If `toCurrency` is not USD, a second column will be created for the converted amounts from USD to the specified currency.
-     - The function relies on `Query` class for currency conversion, `Debug` class for logging, and `Utility` class for processing currency codes.
-     - Make sure to reload the table data after calling this function.
-     */
+   Performs a currency conversion to the specified currency using the given headers.
+   
+   - Parameters:
+   - toCurrency: The currency code to convert to.
+   - usingHeaders: An array of headers used to locate the necessary data.
+   
+   - Important:
+   - The function assumes the table data is stored in `tableData`.
+   - The function creates a new column in the table for the converted amounts.
+   - If `headers[2]` is empty or nil, the function calls `splitCurrencyCodesIntoSeparateColumn(amountColumnHeader: headers[1])` and sets `headers[2]` to the return value.
+   - If `toCurrency` is not USD, a second column will be created for the converted amounts from USD to the specified currency.
+   - The function relies on `Query` class for currency conversion, `Debug` class for logging, and `Utility` class for processing currency codes.
+   - Make sure to reload the table data after calling this function.
+   */
   func performConversion(toCurrency code: String, usingHeaders headers: [String]) {
     var headers = headers
     // If the currency codes have already been split from the amount column, do not re-split them.
@@ -268,22 +264,24 @@ class CSVTableView: NSView {
       let datesHeader = headers[0]
       createSecondColumnWithConvertedAmounts(toCurrency: code, usingDatesHeader: datesHeader)
     }
+    
+    checkAndApplyFormattingOptions(withHeaders: headers)
   }
   
   /**
-     Splits the currency codes into a separate column in the table.
-
-     - Parameters:
-        - columnHeader: The header row text for a column.
-     
-     - Returns: The header text of the newly created column.
-     
-     - Important:
-     - The function assumes the table data is stored in `tableData`.
-     - The function creates a new column in the table for the currency codes.
-     - The function relies on `Utility` class for processing the currency codes.
-     - Make sure to reload the table data after calling this function.
-     */
+   Splits the currency codes into a separate column in the table.
+   
+   - Parameters:
+   - columnHeader: The header row text for a column.
+   
+   - Returns: The header text of the newly created column.
+   
+   - Important:
+   - The function assumes the table data is stored in `tableData`.
+   - The function creates a new column in the table for the currency codes.
+   - The function relies on `Utility` class for processing the currency codes.
+   - Make sure to reload the table data after calling this function.
+   */
   func splitCurrencyCodesIntoSeparateColumn(amountColumnHeader columnHeader: String) -> String {
     let columnIndex = tableView.tableColumns.firstIndex(where: { $0.title == columnHeader })!
     
@@ -317,7 +315,7 @@ class CSVTableView: NSView {
    Creates a new column in the table with converted amounts in USD.
    
    - Parameters:
-      - usingHeaders: An array of headers used to locate the necessary data.
+   - usingHeaders: An array of headers used to locate the necessary data.
    
    - Important:
    - The function assumes the table data is stored in `tableData`.
@@ -418,6 +416,79 @@ class CSVTableView: NSView {
     }
     
     tableView.reloadData()
+  }
+  
+  
+  // MARK: - Shared Formatting Options
+  
+  
+  /// Checks to see if the user has applied any SharedFormattingOptions and triggers the code if applicable.
+  func checkAndApplyFormattingOptions(withHeaders headers: [String]) {
+    hideEmptyColumns(userSelectedHeaders: headers)
+    hideIrrelevantColumns(userSelectedHeaders: headers)
+  }
+  
+  /// This function removes all of the columns from the CSVTableView whose values consist of empty cells, spaces, tabs,
+  /// or a combination of the three, unless one of these conditions is met:
+  /// - The header cell text is equal to any string within the input parameter 'headers'.
+  /// - The NSTableColumn identifier NSUserInterfaceItemIdentifier rawValue is equal to one of these Strings ["CurrencyCodeColumn", "ToUsdColumn"].
+  /// - The NSTableColumn identifier NSUserInterfaceItemIdentifier rawValue is prefixed with "ToNewCurrency-".
+  /// The function only runs if the `sharedFormattingOptions.removeEmptyColumns` property is true.
+  ///
+  /// - Parameter headers: An array of headers that should not be removed.
+  func hideEmptyColumns(userSelectedHeaders headers: [String]) {
+    // Check if the sharedFormattingOptions.removeEmptyColumns property is true.
+    guard sharedFormattingOptions.hideEmptyColumns else {
+      return
+    }
+    
+    // Loop through all the columns in the table.
+    for column in tableView.tableColumns {
+      let identifier = column.identifier.rawValue
+      let headerText = column.headerCell.stringValue
+      
+      // If the column header or identifier matches the specified conditions, skip the column.
+      if headers.contains(headerText) || ["CurrencyCodeColumn", "ToUsdColumn"].contains(identifier) || identifier.hasPrefix("ToNewCurrency-") {
+        continue
+      }
+      
+      let columnIndex = tableView.column(withIdentifier: column.identifier)
+      
+      // If all the cells in the column (excluding the header) are empty, remove the column.
+      let columnIsEmpty = tableData.dropFirst().allSatisfy { row in
+        let cell = row[columnIndex]
+        return cell.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+      }
+      
+      if columnIsEmpty {
+        column.isHidden = true
+      }
+    }
+  }
+  
+  /// This function hides all of the columns from the CSVTableView unless one of these conditions is met:
+  /// - The header cell text is equal to any string within the input parameter 'headers'.
+  /// - The NSTableColumn identifier NSUserInterfaceItemIdentifier rawValue is equal to one of these Strings ["CurrencyCodeColumn", "ToUsdColumn"].
+  /// - The NSTableColumn identifier NSUserInterfaceItemIdentifier rawValue is prefixed with "ToNewCurrency-".
+  /// The function only runs if the `sharedFormattingOptions.hideIrrelevantColumns` property is true.
+  ///
+  /// - Parameter headers: An array of headers that should not be hidden.
+  func hideIrrelevantColumns(userSelectedHeaders headers: [String]) {
+    // Check if the sharedFormattingOptions.hideIrrelevantColumns property is true.
+    guard sharedFormattingOptions.hideIrrelevantColumns else {
+      return
+    }
+    
+    // Loop through all the columns in the table.
+    for column in tableView.tableColumns {
+      let identifier = column.identifier.rawValue
+      let headerText = column.headerCell.stringValue
+      
+      // If the column header or identifier does not match the specified conditions, hide the column.
+      if !headers.contains(headerText) && !["CurrencyCodeColumn", "ToUsdColumn"].contains(identifier) && !identifier.hasPrefix("ToNewCurrency-") {
+        column.isHidden = true
+      }
+    }
   }
   
   

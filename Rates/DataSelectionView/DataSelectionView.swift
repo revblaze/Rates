@@ -140,7 +140,7 @@ struct FormattingOptionsView: View {
         }
         .padding(.top, 10)
         HStack {
-          Toggle(isOn: $sharedFormattingOptions.removeEmptyColumns) {
+          Toggle(isOn: $sharedFormattingOptions.hideEmptyColumns) {
             Text("Remove empty columns")
               .fixedSize(horizontal: false, vertical: true)
           }

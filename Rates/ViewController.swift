@@ -22,7 +22,7 @@ class SharedData: ObservableObject {
 
 class SharedFormattingOptions: ObservableObject {
   @Published var roundToTwoDigits: Bool = true
-  @Published var removeEmptyColumns: Bool = true
+  @Published var hideEmptyColumns: Bool = true
   @Published var hideIrrelevantColumns: Bool = true
 }
 
