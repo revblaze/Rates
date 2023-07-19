@@ -105,6 +105,15 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     toggleRoundToTwoDecimalPlacesToolbarButton.action = #selector(toggleRoundToTwoDecimalPlacesToolbarButtonAction(_:))
     toggleRoundToTwoDecimalPlacesToolbarButton.target = self
   }
+  /// Updates the image of `roundToTwoDecimalPlacesToolbarButton` based on the provided state.
+  ///
+  /// - Parameter state: A boolean value indicating whether the button should be active or not.
+  func updateRoundToTwoDecimalPlacesToolbarButton(toBeActive state: Bool) {
+    let symbolName = state ? "dollarsign.circle.fill" : "dollarsign.circle"
+    let symbolImage = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
+    
+    toggleRoundToTwoDecimalPlacesToolbarButton.image = symbolImage
+  }
   
   /// Performs an action on the view controller to open a file selection.
   @IBAction func openFileAction(_ sender: Any) {

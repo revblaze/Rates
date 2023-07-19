@@ -19,6 +19,8 @@ class CSVTableView: NSView {
   var sharedHeaders: SharedHeaders
   /// SharedFormattingOptions instance for communicating with SwiftUI view.
   var sharedFormattingOptions: SharedFormattingOptions
+  /// Referenc to ViewController delegate.
+  weak var viewController: ViewController?
   /// Number of new currency columns for identification.
   var newCurrencyColumnCount = 0
   /// Determines whether to round cell values to two decimal places for display.
@@ -502,6 +504,8 @@ class CSVTableView: NSView {
     roundToTwoDecimalPlaces = true
     tableView.reloadData()
     sharedFormattingOptions.roundToTwoDecimalPlaces = true
+    viewController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: true)
+    
   }
   
   /// Shows all cell values in the table view as they are, without rounding to two decimal places.
@@ -509,6 +513,7 @@ class CSVTableView: NSView {
     roundToTwoDecimalPlaces = false
     tableView.reloadData()
     sharedFormattingOptions.roundToTwoDecimalPlaces = false
+    viewController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: false)
   }
   
   

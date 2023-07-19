@@ -178,10 +178,14 @@ class ViewController: NSViewController {
   weak var delegate: FileSelectionDelegate?
   /// The window controller associated with the view controller.
   weak var windowController: WindowController?
-  /// The CSV table view.
-  var csvTableView: CSVTableView!
   /// The scroll view for the CSV table view.
   private var scrollView: NSScrollView!
+  /// The CSV table view.
+  var csvTableView: CSVTableView! {
+    didSet {
+      csvTableView.viewController = self
+    }
+  }
   
   // MARK: - FilterControls View
   /// The view hosting the filter controls.

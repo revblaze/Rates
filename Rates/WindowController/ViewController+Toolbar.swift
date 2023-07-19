@@ -14,6 +14,13 @@ extension ViewController {
     windowController?.enableToolbarItemsOnFileLoad()
   }
   
+  /// Updates the image of `roundToTwoDecimalPlacesToolbarButton` based on the provided state.
+  ///
+  /// - Parameter state: A boolean value indicating whether the button should be active or not.
+  func updateRoundToTwoDecimalPlacesToolbarButton(toBeActive state: Bool) {
+    windowController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: state)
+  }
+  
   func toggleRoundToTwoDecimalPlaces() {
     if sharedFormattingOptions.roundToTwoDecimalPlaces {
       disableRoundToTwoDecimalPlaces()
