@@ -9,9 +9,6 @@ import SwiftUI
 
 struct SaveFileView: View {
   @ObservedObject var sharedData: SharedData
-  @State private var outputUserFileName: String
-  @State private var outputUserFileExtension: FileExtensions?
-  @State private var outputUserFileFormat: FileExtensions?
   var onDismiss: () -> Void
   var onSave: (String, FileExtensions, FileExtensions) -> Void
   
@@ -20,53 +17,70 @@ struct SaveFileView: View {
     self.onDismiss = onDismiss
     self.onSave = onSave
     
-    _outputUserFileName = State(initialValue: sharedData.inputUserFile?.deletingPathExtension().lastPathComponent ?? "")
-    _outputUserFileExtension = State(initialValue: sharedData.inputUserFileExtension)
-    _outputUserFileFormat = State(initialValue: sharedData.inputUserFileExtension?.canBeExportedWithFormat.first)
+    // Initialize outputUserFileName with the last path component of inputUserFile, without its file extension.
+    sharedData.outputUserFileName = sharedData.inputUserFile?.deletingPathExtension().lastPathComponent ?? ""
   }
   
   var body: some View {
     VStack {
       HStack {
         Text("Save File As...")
-        TextField("Filename", text: $outputUserFileName)
+          .bold()
+      }
+      .padding()
+      HStack {
+        TextField("Filename", text: $sharedData.outputUserFileName)
         Menu {
           ForEach(FileExtensions.all, id: \.self) { ext in
             Button("\(ext)") {
-              outputUserFileExtension = FileExtensions(rawValue: ext)
+              sharedData.outputUserFileExtension = FileExtensions(rawValue: ext) ?? .csv
             }
           }
         } label: {
-          Text("\(outputUserFileExtension?.stringWithPeriod ?? ".csv")")
+          Text("\(sharedData.outputUserFileExtension.stringWithPeriod)")
         }
+        .frame(maxWidth: 80)
       }
+      .padding()
       
-      if outputUserFileExtension?.canBeExportedWithFormat.count ?? 0 > 1 {
+      if sharedData.outputUserFileExtension.canBeExportedWithFormat.count > 1 {
+        Divider()
+          .padding(.horizontal, 12)
         HStack {
           Text("Select Data Format:")
           Menu {
-            ForEach(outputUserFileExtension?.canBeExportedWithFormat ?? [], id: \.self) { format in
+            ForEach(sharedData.outputUserFileExtension.canBeExportedWithFormat, id: \.self) { format in
               Button(format.fullFormatName) {
-                outputUserFileFormat = format
+                sharedData.outputUserFileFormat = format
               }
             }
           } label: {
-            Text("\(outputUserFileFormat?.fullFormatName ?? "")")
+            Text("\(sharedData.outputUserFileFormat.fullFormatName)")
           }
         }
+        .padding()
+        Divider()
+          .padding(.horizontal, 12)
+          .padding(.bottom, 6)
       }
       
       HStack {
         Button("Cancel") {
           onDismiss()
         }
+        .frame(width: 200, height: 50)
+        .padding(.horizontal)
         
         Button("Save...") {
-          onSave(outputUserFileName, outputUserFileExtension, outputUserFileFormat)
+          onSave(sharedData.outputUserFileName, sharedData.outputUserFileExtension, sharedData.outputUserFileFormat)
         }
+        .frame(width: 200, height: 50)
+        .padding(.horizontal)
       }
+      .padding()
     }
     .padding()
+    .frame(minWidth: 400)
   }
 }
 
