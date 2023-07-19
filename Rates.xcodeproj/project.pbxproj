@@ -57,6 +57,8 @@
 		C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD92A5DC382009763B6 /* StructureFile.swift */; };
 		C2B83CDC2A5DD7E6009763B6 /* RemoveEmptyEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */; };
 		C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */; };
+		C2BC70732A68593400FB627F /* ExportFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70722A68593400FB627F /* ExportFormat.swift */; };
+		C2BC70752A685A5900FB627F /* SaveFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70742A685A5900FB627F /* SaveFileView.swift */; };
 		C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */; };
 		C2C8FB1C2A66CE4E00DBD083 /* ViewController+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */; };
 		C2C8FB202A66CF3600DBD083 /* ViewController+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */; };
@@ -115,6 +117,8 @@
 		C2B83CD92A5DC382009763B6 /* StructureFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureFile.swift; sourceTree = "<group>"; };
 		C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveEmptyEntries.swift; sourceTree = "<group>"; };
 		C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+HeaderRow.swift"; sourceTree = "<group>"; };
+		C2BC70722A68593400FB627F /* ExportFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportFormat.swift; sourceTree = "<group>"; };
+		C2BC70742A685A5900FB627F /* SaveFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFileView.swift; sourceTree = "<group>"; };
 		C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DataSelectionViewHostingController.swift"; sourceTree = "<group>"; };
 		C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Animations.swift"; sourceTree = "<group>"; };
 		C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Toolbar.swift"; sourceTree = "<group>"; };
@@ -270,6 +274,7 @@
 		C2636F8B2A585D4E0091BE7D /* Rates */ = {
 			isa = PBXGroup;
 			children = (
+				C2BC70712A68590100FB627F /* SaveFile */,
 				C2B11C9A2A6628F50034FA1D /* Query */,
 				C2B11C912A6598730034FA1D /* DataSelectionView */,
 				C253B1AF2A644C8900218532 /* FilterControlsView */,
@@ -382,6 +387,15 @@
 				C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */,
 			);
 			path = CSVTableViewExtensions;
+			sourceTree = "<group>";
+		};
+		C2BC70712A68590100FB627F /* SaveFile */ = {
+			isa = PBXGroup;
+			children = (
+				C2BC70722A68593400FB627F /* ExportFormat.swift */,
+				C2BC70742A685A5900FB627F /* SaveFileView.swift */,
+			);
+			path = SaveFile;
 			sourceTree = "<group>";
 		};
 		C2C8FB1D2A66CE8800DBD083 /* MainView */ = {
@@ -504,6 +518,7 @@
 				C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */,
 				C2636F9D2A5861350091BE7D /* Settings.swift in Sources */,
 				C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */,
+				C2BC70732A68593400FB627F /* ExportFormat.swift in Sources */,
 				C2B11C972A661E490034FA1D /* Utility+TableView.swift in Sources */,
 				C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */,
 				C2B83CBE2A5C7E96009763B6 /* ViewController+Reachability.swift in Sources */,
@@ -535,6 +550,7 @@
 				C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */,
 				C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */,
 				C2B83CD02A5DB998009763B6 /* ConvertXLSX.swift in Sources */,
+				C2BC70752A685A5900FB627F /* SaveFileView.swift in Sources */,
 				C2B83CDC2A5DD7E6009763B6 /* RemoveEmptyEntries.swift in Sources */,
 				C2B83CD32A5DBB0D009763B6 /* Utility.swift in Sources */,
 				C2546AE82A58975E00C83FEC /* DownloadManager.swift in Sources */,

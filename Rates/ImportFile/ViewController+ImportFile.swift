@@ -87,7 +87,8 @@ extension ViewController {
   func openFileSelection() {
     openUserFile { fileUrl in
       if let url = fileUrl {
-        self.sharedData.inputUserFile = fileUrl
+        self.sharedData.inputUserFile = url
+        self.sharedData.inputUserFileExtension = url.hasFileExtension()
         // TODO: Remove ImportFileTemplateSheet and FileTemplate
         let fileTemplate = FileTemplateParsing.detectFileTemplateType(fileUrl: url)
         self.presentImportFileTemplateSheet(url, withDetection: fileTemplate)

@@ -18,6 +18,7 @@ class SharedHeaders: ObservableObject {
 class SharedData: ObservableObject {
   @Published var sqliteUrl: URL?
   @Published var inputUserFile: URL?
+  @Published var inputUserFileExtension: FileExtensions?
 }
 
 class SharedFormattingOptions: ObservableObject {
