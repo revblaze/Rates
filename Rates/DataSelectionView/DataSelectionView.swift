@@ -69,6 +69,10 @@ struct DataSelectionView: View {
           Debug.log("[DataSelectionView] User cancelled input.")
           onDismiss?()
         }
+        .keyboardShortcut(.cancelAction)
+        
+        Spacer()
+        
         Button("Convert") {
           isConvertButtonPressed = true
           checkForErrors()
@@ -77,6 +81,7 @@ struct DataSelectionView: View {
             onConvert?(selectedDate ?? "", selectedAmount ?? "", selectedCurrency ?? "", amountCurrencyCombined, selectedConvertCurrency ?? "")
           }
         }
+        .keyboardShortcut(.defaultAction)
       }
       if showError && isConvertButtonPressed {
         Text("Please select the columns of data to be used for the conversion.")

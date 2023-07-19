@@ -68,14 +68,14 @@ struct SaveFileView: View {
         Button("Cancel") {
           onDismiss()
         }
-        .frame(width: 200, height: 50)
-        .padding(.horizontal)
+        .keyboardShortcut(.cancelAction)
+        
+        Spacer()
         
         Button("Save...") {
           onSave(sharedData.outputUserFileName, sharedData.outputUserFileExtension, sharedData.outputUserFileFormat)
         }
-        .frame(width: 200, height: 50)
-        .padding(.horizontal)
+        .keyboardShortcut(.defaultAction)
       }
       .padding()
     }
