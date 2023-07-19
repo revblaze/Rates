@@ -59,6 +59,7 @@
 		C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */; };
 		C2BC70732A68593400FB627F /* ExportFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70722A68593400FB627F /* ExportFormat.swift */; };
 		C2BC70752A685A5900FB627F /* SaveFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70742A685A5900FB627F /* SaveFileView.swift */; };
+		C2BC70772A68643E00FB627F /* ViewController+SaveFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70762A68643E00FB627F /* ViewController+SaveFileView.swift */; };
 		C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */; };
 		C2C8FB1C2A66CE4E00DBD083 /* ViewController+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */; };
 		C2C8FB202A66CF3600DBD083 /* ViewController+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */; };
@@ -119,6 +120,7 @@
 		C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+HeaderRow.swift"; sourceTree = "<group>"; };
 		C2BC70722A68593400FB627F /* ExportFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportFormat.swift; sourceTree = "<group>"; };
 		C2BC70742A685A5900FB627F /* SaveFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFileView.swift; sourceTree = "<group>"; };
+		C2BC70762A68643E00FB627F /* ViewController+SaveFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+SaveFileView.swift"; sourceTree = "<group>"; };
 		C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DataSelectionViewHostingController.swift"; sourceTree = "<group>"; };
 		C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Animations.swift"; sourceTree = "<group>"; };
 		C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Toolbar.swift"; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 			children = (
 				C2BC70722A68593400FB627F /* ExportFormat.swift */,
 				C2BC70742A685A5900FB627F /* SaveFileView.swift */,
+				C2BC70762A68643E00FB627F /* ViewController+SaveFileView.swift */,
 			);
 			path = SaveFile;
 			sourceTree = "<group>";
@@ -523,6 +526,7 @@
 				C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */,
 				C2B83CBE2A5C7E96009763B6 /* ViewController+Reachability.swift in Sources */,
 				C2546AFC2A59B93300C83FEC /* Debug.swift in Sources */,
+				C2BC70772A68643E00FB627F /* ViewController+SaveFileView.swift in Sources */,
 				C2B11C9E2A66298D0034FA1D /* Query.swift in Sources */,
 				C2546AEA2A589A5000C83FEC /* DownloadManagerSession.swift in Sources */,
 				C2636F8F2A585D4E0091BE7D /* ViewController.swift in Sources */,

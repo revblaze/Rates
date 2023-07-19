@@ -38,6 +38,8 @@ struct Constants {
   static let statusBarHeight: CGFloat = 30
   /// Identifier of the DataSelectionView's Hosting Controller.
   static let dataSelectionViewHostingControllerIdentifier = "DataSelectionViewHostingController"
+  /// Identifier of the SaveFileView's Hosting Controller.
+  static let saveFileViewHostingControllerIdentifier = "SaveFileViewHostingController"
   
   
   // MARK: - Utility Constants

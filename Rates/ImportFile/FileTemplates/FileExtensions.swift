@@ -35,6 +35,24 @@ enum FileExtensions: String, CaseIterable {
     }
   }
   
+  var stringWithPeriod: String {
+    switch self {
+    case .csv: return ".csv"
+    case .tsv: return ".tsv"
+    case .txt: return ".txt"
+    case .xlsx: return ".xlsx"
+    }
+  }
+  
+  var canBeExportedWithFormat: [FileExtensions] {
+    switch self {
+    case .csv: return [.csv]
+    case .tsv: return [.tsv]
+    case .txt: return [.csv, .tsv]
+    case .xlsx: return [.xlsx]
+    }
+  }
+  
 }
 
 /// An extension to the `URL` structure that adds a `hasFileExtension()` method for checking the file extension of a URL.

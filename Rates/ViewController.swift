@@ -19,6 +19,10 @@ class SharedData: ObservableObject {
   @Published var sqliteUrl: URL?
   @Published var inputUserFile: URL?
   @Published var inputUserFileExtension: FileExtensions?
+  @Published var outputUserFile: URL?
+  @Published var outputUserFileName: String = ""
+  @Published var outputUserFileExtension: FileExtensions = .csv
+  @Published var outputUserFileFormat: FileExtensions = .csv
 }
 
 class SharedFormattingOptions: ObservableObject {
@@ -34,6 +38,7 @@ class ViewController: NSViewController {
     
     initCsvTableScrollView()
     initFilterControlsView()
+    
   }
   
   override func viewDidAppear() {
@@ -43,6 +48,8 @@ class ViewController: NSViewController {
   func saveTableViewAsFile() {
     Debug.log("[saveTableViewAsFile] Needs implementation.")
     // TODO: Export as CSV and prompt user to save file
+    
+    presentSaveFileViewAsSheet()
   }
   
   /**
