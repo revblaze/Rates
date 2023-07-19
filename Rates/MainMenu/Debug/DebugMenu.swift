@@ -73,6 +73,17 @@ extension AppDelegate {
     }
   }
   
+  @IBAction func debugEnableRoundToTwoDecimalPlaces(_ sender: NSMenuItem) {
+    performActionOnViewController { viewController in
+      viewController.enableRoundToTwoDecimalPlaces()
+    }
+  }
+  @IBAction func debugDisableRoundToTwoDecimalPlaces(_ sender: NSMenuItem) {
+    performActionOnViewController { viewController in
+      viewController.disableRoundToTwoDecimalPlaces()
+    }
+  }
+  
   
   private func performActionOnViewController(action: @escaping (ViewController) -> Void) {
     guard let viewController = mainWindow.contentViewController as? ViewController else {

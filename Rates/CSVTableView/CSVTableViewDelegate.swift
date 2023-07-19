@@ -43,7 +43,15 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
       let rowData = tableData[rowIndex]
       let columnIndex = tableView.column(withIdentifier: tableColumn!.identifier)
       if columnIndex >= 0 && columnIndex < rowData.count {
-        cellView?.stringValue = rowData[columnIndex]
+        var cellValue = rowData[columnIndex]
+        
+        // If roundToTwoDecimalPlaces is true, and the cell value can be converted to a Double,
+        // round the cell value to two decimal places for display.
+        if roundToTwoDecimalPlaces, let doubleValue = Double(cellValue) {
+          cellValue = String(format: "%.2f", doubleValue)
+        }
+        
+        cellView?.stringValue = cellValue
       } else {
         cellView?.stringValue = ""
       }
