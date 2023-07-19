@@ -70,6 +70,7 @@ struct DataSelectionView: View {
           onDismiss?()
         }
         .keyboardShortcut(.cancelAction)
+        .largeButton()
         
         Spacer()
         
@@ -82,6 +83,7 @@ struct DataSelectionView: View {
           }
         }
         .keyboardShortcut(.defaultAction)
+        .largeButton(foregroundColor: .white, backgroundColor: .accentColor, pressedColor: .accentColor.opacity(0.6))
       }
       if showError && isConvertButtonPressed {
         Text("Please select the columns of data to be used for the conversion.")

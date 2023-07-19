@@ -60,6 +60,7 @@
 		C2BC70732A68593400FB627F /* ExportFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70722A68593400FB627F /* ExportFormat.swift */; };
 		C2BC70752A685A5900FB627F /* SaveFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70742A685A5900FB627F /* SaveFileView.swift */; };
 		C2BC70772A68643E00FB627F /* ViewController+SaveFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70762A68643E00FB627F /* ViewController+SaveFileView.swift */; };
+		C2BC70792A686FF600FB627F /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70782A686FF600FB627F /* LargeButton.swift */; };
 		C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */; };
 		C2C8FB1C2A66CE4E00DBD083 /* ViewController+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */; };
 		C2C8FB202A66CF3600DBD083 /* ViewController+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */; };
@@ -121,6 +122,7 @@
 		C2BC70722A68593400FB627F /* ExportFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportFormat.swift; sourceTree = "<group>"; };
 		C2BC70742A685A5900FB627F /* SaveFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFileView.swift; sourceTree = "<group>"; };
 		C2BC70762A68643E00FB627F /* ViewController+SaveFileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+SaveFileView.swift"; sourceTree = "<group>"; };
+		C2BC70782A686FF600FB627F /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
 		C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DataSelectionViewHostingController.swift"; sourceTree = "<group>"; };
 		C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Animations.swift"; sourceTree = "<group>"; };
 		C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Toolbar.swift"; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 			children = (
 				C2B11C922A6598A10034FA1D /* DataSelectionView.swift */,
 				C2C8FB192A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift */,
+				C2BC70782A686FF600FB627F /* LargeButton.swift */,
 			);
 			path = DataSelectionView;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				C2B83CC82A5C9D22009763B6 /* LaunchScreenData.swift in Sources */,
 				C255F3022A5B7F11004B7F95 /* FileTemplates.swift in Sources */,
 				C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */,
+				C2BC70792A686FF600FB627F /* LargeButton.swift in Sources */,
 				C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */,
 				C2636F9D2A5861350091BE7D /* Settings.swift in Sources */,
 				C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */,

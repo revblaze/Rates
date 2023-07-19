@@ -69,6 +69,7 @@ struct SaveFileView: View {
           onDismiss()
         }
         .keyboardShortcut(.cancelAction)
+        .largeButton()
         
         Spacer()
         
@@ -76,6 +77,7 @@ struct SaveFileView: View {
           onSave(sharedData.outputUserFileName, sharedData.outputUserFileExtension, sharedData.outputUserFileFormat)
         }
         .keyboardShortcut(.defaultAction)
+        .largeButton(foregroundColor: .white, backgroundColor: .accentColor, pressedColor: .accentColor.opacity(0.6))
       }
       .padding()
     }
