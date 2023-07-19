@@ -14,12 +14,19 @@ extension ViewController {
     windowController?.enableToolbarItemsOnFileLoad()
   }
   
+  func toggleRoundToTwoDecimalPlaces() {
+    if sharedFormattingOptions.roundToTwoDecimalPlaces {
+      disableRoundToTwoDecimalPlaces()
+    } else {
+      enableRoundToTwoDecimalPlaces()
+    }
+  }
   
-  func enableRoundToTwoSignificantDigits() {
+  func enableRoundToTwoDecimalPlaces() {
     csvTableView.enableRoundToTwoDecimalPlaces()
   }
   
-  func disableRoundToTwoSignificantDigits() {
+  func disableRoundToTwoDecimalPlaces() {
     csvTableView.disableRoundToTwoDecimalPlaces()
   }
   

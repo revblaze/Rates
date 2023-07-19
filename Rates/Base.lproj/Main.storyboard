@@ -793,16 +793,16 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" id="QXK-Fs-sMn">
                                                 <items>
-                                                    <menuItem title="Enable 2-Significant Digits" id="uUd-nV-S7j">
+                                                    <menuItem title="Enable Round 2 Decimal Places" id="uUd-nV-S7j">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
-                                                            <action selector="debugEnableRoundToTwoSignificantDigits:" target="Voe-Tx-rLC" id="ynb-Pv-c1b"/>
+                                                            <action selector="debugEnableRoundToTwoDecimalPlaces:" target="Voe-Tx-rLC" id="peo-wx-DT6"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Disable 2-Significant Digits" id="BrD-4j-Jeq">
+                                                    <menuItem title="Disable Round 2 Decimal Places" id="BrD-4j-Jeq">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
-                                                            <action selector="debugDisableRoundToTwoSignificantDigits:" target="Voe-Tx-rLC" id="mLp-ES-WPR"/>
+                                                            <action selector="debugDisableRoundToTwoDecimalPlaces:" target="Voe-Tx-rLC" id="hsw-h1-fvx"/>
                                                         </connections>
                                                     </menuItem>
                                                 </items>
@@ -879,7 +879,11 @@
                                         <action selector="saveFileToolbarButtonAction:" target="B8D-0N-5wS" id="dOp-my-eEV"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="EC66F66C-45ED-4B26-9E53-B8E431AFE450" label="Round" paletteLabel="Round Amounts" tag="-1" image="dollarsign.circle" catalog="system" bordered="YES" sizingBehavior="auto" id="te1-ox-y1L"/>
+                                <toolbarItem implicitItemIdentifier="EC66F66C-45ED-4B26-9E53-B8E431AFE450" label="Round" paletteLabel="Round Amounts" tag="-1" image="dollarsign.circle" catalog="system" bordered="YES" sizingBehavior="auto" id="te1-ox-y1L">
+                                    <connections>
+                                        <action selector="toggleRoundToTwoDecimalPlacesToolbarButtonAction:" target="B8D-0N-5wS" id="yv4-BL-6oU"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="LGC-fq-k0P"/>
@@ -908,6 +912,7 @@
                         <outlet property="selectCustomHeaderRowButton" destination="FsO-Zc-JPA" id="gJ5-Gu-PxU"/>
                         <outlet property="settingsToolbarButton" destination="CvE-Zg-jBd" id="qpc-Yd-Oec"/>
                         <outlet property="toggleFilterControlViewToolbarButton" destination="vsl-Nn-ax5" id="Cr1-wD-eyb"/>
+                        <outlet property="toggleRoundToTwoDecimalPlacesToolbarButton" destination="te1-ox-y1L" id="LyC-rB-oq0"/>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
                     </connections>
                 </windowController>

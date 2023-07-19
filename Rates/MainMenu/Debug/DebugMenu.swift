@@ -73,14 +73,14 @@ extension AppDelegate {
     }
   }
   
-  @IBAction func debugEnableRoundToTwoSignificantDigits(_ sender: NSMenuItem) {
+  @IBAction func debugEnableRoundToTwoDecimalPlaces(_ sender: NSMenuItem) {
     performActionOnViewController { viewController in
-      viewController.enableRoundToTwoSignificantDigits()
+      viewController.enableRoundToTwoDecimalPlaces()
     }
   }
-  @IBAction func debugDisableRoundToTwoSignificantDigits(_ sender: NSMenuItem) {
+  @IBAction func debugDisableRoundToTwoDecimalPlaces(_ sender: NSMenuItem) {
     performActionOnViewController { viewController in
-      viewController.disableRoundToTwoSignificantDigits()
+      viewController.disableRoundToTwoDecimalPlaces()
     }
   }
   
