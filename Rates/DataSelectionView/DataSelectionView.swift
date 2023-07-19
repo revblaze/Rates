@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DataSelectionView: View {
   @ObservedObject var sharedHeaders: SharedHeaders
+  @ObservedObject var sharedFormattingOptions: SharedFormattingOptions
   @State private var selectedDate: String?
   @State private var selectedAmount: String?
   @State private var selectedCurrency: String?
@@ -19,8 +20,9 @@ struct DataSelectionView: View {
   var onDismiss: (() -> Void)?
   var onConvert: ((String, String, String, Bool, String) -> Void)?
   
-  init(sharedHeaders: SharedHeaders, onDismiss: (() -> Void)?, onConvert: ((String, String, String, Bool, String) -> Void)?) {
+  init(sharedHeaders: SharedHeaders, sharedFormattingOptions: SharedFormattingOptions, onDismiss: (() -> Void)?, onConvert: ((String, String, String, Bool, String) -> Void)?) {
     self.sharedHeaders = sharedHeaders
+    self.sharedFormattingOptions = sharedFormattingOptions
     self.onDismiss = onDismiss
     self.onConvert = onConvert
     _selectedDate = State(initialValue: sharedHeaders.suggestedHeaders.count > 0 ? sharedHeaders.suggestedHeaders[0] : nil)
@@ -35,50 +37,7 @@ struct DataSelectionView: View {
         .fixedSize(horizontal: false, vertical: true)
         .padding(.vertical, 6)
         .padding(.bottom, 10)
-      HStack {
-        Text("Dates")
-        Menu {
-          ForEach(sharedHeaders.availableHeaders, id: \.self) { header in
-            Button(header) {
-              self.selectedDate = header
-            }.disabled(selectedAmount == header || selectedCurrency == header)
-          }
-        } label: {
-          Text(selectedDate ?? "Select")
-        }
-      }
-      HStack {
-        Text("Amounts")
-        Menu {
-          ForEach(sharedHeaders.availableHeaders, id: \.self) { header in
-            Button(header) {
-              self.selectedAmount = header
-            }.disabled(selectedDate == header || selectedCurrency == header)
-          }
-        } label: {
-          Text(selectedAmount ?? "Select")
-        }
-      }
-      HStack {
-        Text("Currencies")
-        Menu {
-          ForEach(sharedHeaders.availableHeaders, id: \.self) { header in
-            Button(header) {
-              self.selectedCurrency = header
-            }.disabled(selectedDate == header || selectedAmount == header || amountCurrencyCombined)
-          }
-        } label: {
-          Text(selectedCurrency ?? "Select")
-        }.disabled(amountCurrencyCombined)
-      }
-      Toggle(isOn: $amountCurrencyCombined) {
-        Text("Amounts and currencies are in the same column")
-          .fixedSize(horizontal: false, vertical: true)
-      }.onChange(of: amountCurrencyCombined) { newValue in
-        if newValue {
-          self.selectedCurrency = nil
-        }
-      }
+      ColumnSelectionView(selectedDate: $selectedDate, selectedAmount: $selectedAmount, selectedCurrency: $selectedCurrency, amountCurrencyCombined: $amountCurrencyCombined, sharedHeaders: sharedHeaders)
       Divider()
         .padding(.vertical, 6)
       HStack {
@@ -98,6 +57,11 @@ struct DataSelectionView: View {
           Text(selectedConvertCurrency ?? "Select")
         }
       }
+      Divider()
+        .padding(.vertical, 6)
+      
+      FormattingOptionsView(sharedFormattingOptions: sharedFormattingOptions)
+      
       Divider()
         .padding(.vertical, 6)
       HStack {
@@ -155,6 +119,105 @@ struct DividerItemView: View {
       .frame(maxWidth: .infinity)
       .contentShape(Rectangle())
       .onTapGesture {} // Empty action to prevent selection
+  }
+}
+
+struct FormattingOptionsView: View {
+  @ObservedObject var sharedFormattingOptions: SharedFormattingOptions
+  @State private var isExpanded: Bool = false
+  
+  var body: some View {
+    Button(action: {
+      isExpanded.toggle()
+    }) {
+      DisclosureGroup(isExpanded: $isExpanded, content: {
+        HStack {
+          Toggle(isOn: $sharedFormattingOptions.roundToTwoDigits) {
+            Text("Round to two significant digits")
+              .fixedSize(horizontal: false, vertical: true)
+          }
+          Spacer()  // Push the Toggle and Text to the left
+        }
+        .padding(.top, 10)
+        HStack {
+          Toggle(isOn: $sharedFormattingOptions.removeEmptyColumns) {
+            Text("Remove empty columns")
+              .fixedSize(horizontal: false, vertical: true)
+          }
+          Spacer()  // Push the Toggle and Text to the left
+        }
+        HStack {
+          Toggle(isOn: $sharedFormattingOptions.hideIrrelevantColumns) {
+            Text("Remove irrelevant columns")
+              .fixedSize(horizontal: false, vertical: true)
+          }
+          Spacer()  // Push the Toggle and Text to the left
+        }
+        //.padding(.bottom, 10)
+      }) {
+        Text("Formatting Options")
+          .bold()
+      }
+    }
+    .buttonStyle(PlainButtonStyle())
+    .frame(maxWidth: .infinity)
+  }
+}
+
+struct ColumnSelectionView: View {
+  @Binding var selectedDate: String?
+  @Binding var selectedAmount: String?
+  @Binding var selectedCurrency: String?
+  @Binding var amountCurrencyCombined: Bool
+  @ObservedObject var sharedHeaders: SharedHeaders
+  
+  var body: some View {
+    VStack {
+      HStack {
+        Text("Dates")
+        Menu {
+          ForEach(sharedHeaders.availableHeaders, id: \.self) { header in
+            Button(header) {
+              self.selectedDate = header
+            }.disabled(selectedAmount == header || selectedCurrency == header)
+          }
+        } label: {
+          Text(selectedDate ?? "Select")
+        }
+      }
+      HStack {
+        Text("Amounts")
+        Menu {
+          ForEach(sharedHeaders.availableHeaders, id: \.self) { header in
+            Button(header) {
+              self.selectedAmount = header
+            }.disabled(selectedDate == header || selectedCurrency == header)
+          }
+        } label: {
+          Text(selectedAmount ?? "Select")
+        }
+      }
+      HStack {
+        Text("Currencies")
+        Menu {
+          ForEach(sharedHeaders.availableHeaders, id: \.self) { header in
+            Button(header) {
+              self.selectedCurrency = header
+            }.disabled(selectedDate == header || selectedAmount == header || amountCurrencyCombined)
+          }
+        } label: {
+          Text(selectedCurrency ?? "Select")
+        }.disabled(amountCurrencyCombined)
+      }
+      Toggle(isOn: $amountCurrencyCombined) {
+        Text("Amounts and currencies are in the same column")
+          .fixedSize(horizontal: false, vertical: true)
+      }.onChange(of: amountCurrencyCombined) { newValue in
+        if newValue {
+          self.selectedCurrency = nil
+        }
+      }
+    }
   }
 }
 

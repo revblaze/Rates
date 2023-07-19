@@ -20,6 +20,12 @@ class SharedData: ObservableObject {
   @Published var inputUserFile: URL?
 }
 
+class SharedFormattingOptions: ObservableObject {
+  @Published var roundToTwoDigits: Bool = true
+  @Published var removeEmptyColumns: Bool = true
+  @Published var hideIrrelevantColumns: Bool = true
+}
+
 class ViewController: NSViewController {
   
   override func viewDidLoad() {
@@ -70,7 +76,7 @@ class ViewController: NSViewController {
     scrollView.hasVerticalScroller = true
     scrollView.hasHorizontalScroller = true
     
-    csvTableView = CSVTableView(frame: .zero, sharedHeaders: sharedHeaders)
+    csvTableView = CSVTableView(frame: .zero, sharedHeaders: sharedHeaders, sharedFormattingOptions: sharedFormattingOptions)
     csvTableView.autoresizingMask = [.height]
     
     scrollView.documentView = csvTableView
@@ -166,6 +172,8 @@ class ViewController: NSViewController {
   let sharedHeaders = SharedHeaders()
   /// The shared data used by the view controller.
   let sharedData = SharedData()
+  /// The shared formatting options to apply to the converted values.
+  let sharedFormattingOptions = SharedFormattingOptions()
   /// The delegate for file selection events.
   weak var delegate: FileSelectionDelegate?
   /// The window controller associated with the view controller.
