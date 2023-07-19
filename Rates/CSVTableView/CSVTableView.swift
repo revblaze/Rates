@@ -21,6 +21,8 @@ class CSVTableView: NSView {
   var sharedFormattingOptions: SharedFormattingOptions
   /// Number of new currency columns for identification.
   var newCurrencyColumnCount = 0
+  /// Determines whether to round cell values to two decimal places for display.
+  var roundToTwoDecimalPlaces = false
   
   /// Initializes the view with a given frame rectangle.
   ///
@@ -489,6 +491,21 @@ class CSVTableView: NSView {
         column.isHidden = true
       }
     }
+  }
+  
+  // MARK: - Rounding 2 Decimal Places
+  /// Rounds all cell values in the table view to two decimal places for display.
+  ///
+  /// The actual cell values remain the same.
+  func enableRoundToTwoDecimalPlaces() {
+    roundToTwoDecimalPlaces = true
+    tableView.reloadData()
+  }
+  
+  /// Shows all cell values in the table view as they are, without rounding to two decimal places.
+  func disableRoundToTwoDecimalPlaces() {
+    roundToTwoDecimalPlaces = false
+    tableView.reloadData()
   }
   
   

@@ -73,6 +73,17 @@ extension AppDelegate {
     }
   }
   
+  @IBAction func debugEnableRoundToTwoSignificantDigits(_ sender: NSMenuItem) {
+    performActionOnViewController { viewController in
+      viewController.enableRoundToTwoSignificantDigits()
+    }
+  }
+  @IBAction func debugDisableRoundToTwoSignificantDigits(_ sender: NSMenuItem) {
+    performActionOnViewController { viewController in
+      viewController.disableRoundToTwoSignificantDigits()
+    }
+  }
+  
   
   private func performActionOnViewController(action: @escaping (ViewController) -> Void) {
     guard let viewController = mainWindow.contentViewController as? ViewController else {

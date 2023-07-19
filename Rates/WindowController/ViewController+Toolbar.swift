@@ -14,4 +14,13 @@ extension ViewController {
     windowController?.enableToolbarItemsOnFileLoad()
   }
   
+  
+  func enableRoundToTwoSignificantDigits() {
+    csvTableView.enableRoundToTwoDecimalPlaces()
+  }
+  
+  func disableRoundToTwoSignificantDigits() {
+    csvTableView.disableRoundToTwoDecimalPlaces()
+  }
+  
 }
