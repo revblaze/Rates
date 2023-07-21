@@ -25,7 +25,6 @@
 		C255F2D92A5B556B004B7F95 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C255F2D82A5B556B004B7F95 /* WindowController.swift */; };
 		C255F3022A5B7F11004B7F95 /* FileTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = C255F3012A5B7F11004B7F95 /* FileTemplates.swift */; };
 		C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = C255F3042A5B8225004B7F95 /* ConvertTSV.swift */; };
-		C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C255F3072A5B8A1E004B7F95 /* FileTemplateParsing.swift */; };
 		C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */; };
 		C2636F8F2A585D4E0091BE7D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F8E2A585D4E0091BE7D /* ViewController.swift */; };
 		C2636F912A585D4F0091BE7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2636F902A585D4F0091BE7D /* Assets.xcassets */; };
@@ -41,7 +40,6 @@
 		C2B11C9E2A66298D0034FA1D /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C9D2A66298D0034FA1D /* Query.swift */; };
 		C2B11CA02A6643950034FA1D /* Query+NewCurrencyExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C9F2A6643950034FA1D /* Query+NewCurrencyExchangeRate.swift */; };
 		C2B83CAC2A5C54B1009763B6 /* ViewController+ImportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */; };
-		C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */; };
 		C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CB62A5C6907009763B6 /* FileExtensions.swift */; };
 		C2B83CBA2A5C776A009763B6 /* StatusBarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CB92A5C776A009763B6 /* StatusBarState.swift */; };
 		C2B83CBC2A5C7AF4009763B6 /* ViewController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CBB2A5C7AF4009763B6 /* ViewController+StatusBar.swift */; };
@@ -54,7 +52,6 @@
 		C2B83CD32A5DBB0D009763B6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD22A5DBB0D009763B6 /* Utility.swift */; };
 		C2B83CD62A5DBBE3009763B6 /* CoreXLSX in Frameworks */ = {isa = PBXBuildFile; productRef = C2B83CD52A5DBBE3009763B6 /* CoreXLSX */; };
 		C2B83CD82A5DC1FE009763B6 /* ConvertFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */; };
-		C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD92A5DC382009763B6 /* StructureFile.swift */; };
 		C2B83CDC2A5DD7E6009763B6 /* RemoveEmptyEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */; };
 		C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */; };
 		C2BC70732A68593400FB627F /* ExportTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70722A68593400FB627F /* ExportTable.swift */; };
@@ -89,7 +86,6 @@
 		C255F2D82A5B556B004B7F95 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		C255F3012A5B7F11004B7F95 /* FileTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTemplates.swift; sourceTree = "<group>"; };
 		C255F3042A5B8225004B7F95 /* ConvertTSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertTSV.swift; sourceTree = "<group>"; };
-		C255F3072A5B8A1E004B7F95 /* FileTemplateParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTemplateParsing.swift; sourceTree = "<group>"; };
 		C2636F892A585D4E0091BE7D /* Rates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2636F8E2A585D4E0091BE7D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,7 +103,6 @@
 		C2B11C9D2A66298D0034FA1D /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
 		C2B11C9F2A6643950034FA1D /* Query+NewCurrencyExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Query+NewCurrencyExchangeRate.swift"; sourceTree = "<group>"; };
 		C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ImportFile.swift"; sourceTree = "<group>"; };
-		C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportFileTemplateViewController.swift; sourceTree = "<group>"; };
 		C2B83CB62A5C6907009763B6 /* FileExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExtensions.swift; sourceTree = "<group>"; };
 		C2B83CB92A5C776A009763B6 /* StatusBarState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarState.swift; sourceTree = "<group>"; };
 		C2B83CBB2A5C7AF4009763B6 /* ViewController+StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+StatusBar.swift"; sourceTree = "<group>"; };
@@ -119,7 +114,6 @@
 		C2B83CCF2A5DB998009763B6 /* ConvertXLSX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertXLSX.swift; sourceTree = "<group>"; };
 		C2B83CD22A5DBB0D009763B6 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertFile.swift; sourceTree = "<group>"; };
-		C2B83CD92A5DC382009763B6 /* StructureFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureFile.swift; sourceTree = "<group>"; };
 		C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveEmptyEntries.swift; sourceTree = "<group>"; };
 		C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+HeaderRow.swift"; sourceTree = "<group>"; };
 		C2BC70722A68593400FB627F /* ExportTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTable.swift; sourceTree = "<group>"; };
@@ -235,10 +229,9 @@
 		C255F2FE2A5B7EE1004B7F95 /* ImportFile */ = {
 			isa = PBXGroup;
 			children = (
+				C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */,
 				C255F3062A5B8A03004B7F95 /* FileTemplates */,
 				C255F3032A5B820D004B7F95 /* FileConversion */,
-				C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */,
-				C2B83CAF2A5C5864009763B6 /* ImportFileTemplateViewController.swift */,
 			);
 			path = ImportFile;
 			sourceTree = "<group>";
@@ -259,8 +252,6 @@
 			children = (
 				C2B83CB62A5C6907009763B6 /* FileExtensions.swift */,
 				C255F3012A5B7F11004B7F95 /* FileTemplates.swift */,
-				C255F3072A5B8A1E004B7F95 /* FileTemplateParsing.swift */,
-				C2B83CD92A5DC382009763B6 /* StructureFile.swift */,
 			);
 			path = FileTemplates;
 			sourceTree = "<group>";
@@ -534,7 +525,6 @@
 				C2B83CBA2A5C776A009763B6 /* StatusBarState.swift in Sources */,
 				C2546AE12A58965900C83FEC /* ExchangeRateData.swift in Sources */,
 				C2546AF62A58A93F00C83FEC /* ParseCSV.swift in Sources */,
-				C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */,
 				C2546AF92A59B89800C83FEC /* ConvertCSV.swift in Sources */,
 				C2B83CC82A5C9D22009763B6 /* LaunchScreenData.swift in Sources */,
 				C255F3022A5B7F11004B7F95 /* FileTemplates.swift in Sources */,
@@ -559,7 +549,6 @@
 				C2C8FB222A66D1FE00DBD083 /* ViewController+HeaderColumnFilters.swift in Sources */,
 				C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */,
 				C2B11C952A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift in Sources */,
-				C2B83CB02A5C5864009763B6 /* ImportFileTemplateViewController.swift in Sources */,
 				C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */,
 				C2DC12762A6AE786000D99AB /* ViewController+RevealSavedFilePrompt.swift in Sources */,
 				C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */,
@@ -576,7 +565,6 @@
 				C2B83CC22A5C8350009763B6 /* DebugMenu.swift in Sources */,
 				C2B11CA02A6643950034FA1D /* Query+NewCurrencyExchangeRate.swift in Sources */,
 				C2636F8D2A585D4E0091BE7D /* AppDelegate.swift in Sources */,
-				C255F3082A5B8A1E004B7F95 /* FileTemplateParsing.swift in Sources */,
 				C2B83CD02A5DB998009763B6 /* ConvertXLSX.swift in Sources */,
 				C2BC70752A685A5900FB627F /* SaveFileView.swift in Sources */,
 				C2B83CDC2A5DD7E6009763B6 /* RemoveEmptyEntries.swift in Sources */,
