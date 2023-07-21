@@ -153,6 +153,7 @@ extension ViewController {
     guard savePanel.runModal() == .OK, let url = savePanel.url else {
       // User canceled the save operation or an error occurred
       Debug.log("Error: Failed to get the URL for saving \(fullFileName)")
+      removeTempFileOnFailure(tempFilePath: tempFilePath)
       completion(nil)
       return
     }
@@ -164,6 +165,7 @@ extension ViewController {
       completion(url)
     } catch let error as NSError {
       Debug.log("Error: Unable to save \(fullFileName) at the specified location.\nDescription: \(error.localizedDescription)")
+      removeTempFileOnFailure(tempFilePath: tempFilePath)
       
       // Show an error alert to the user
       let alert = NSAlert()
@@ -174,6 +176,23 @@ extension ViewController {
       alert.runModal()
       
       completion(nil)
+    }
+  }
+  
+  /// Removes the temporary file in the event of a failure.
+  ///
+  /// This function deletes a temporary file from the Application Support directory when
+  /// the file fails to be moved to the user-selected location.
+  ///
+  /// - Parameters:
+  ///   - tempFilePath: The path of the temporary file.
+  func removeTempFileOnFailure(tempFilePath: String) {
+    let fileManager = FileManager.default
+    do {
+      try fileManager.removeItem(atPath: tempFilePath)
+      Debug.log("Successfully removed temporary file at: \(tempFilePath)")
+    } catch let error as NSError {
+      Debug.log("Error: Unable to remove temporary file at \(tempFilePath).\nDescription: \(error.localizedDescription)")
     }
   }
   
