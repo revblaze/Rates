@@ -54,7 +54,6 @@
 		C2B83CD32A5DBB0D009763B6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD22A5DBB0D009763B6 /* Utility.swift */; };
 		C2B83CD62A5DBBE3009763B6 /* CoreXLSX in Frameworks */ = {isa = PBXBuildFile; productRef = C2B83CD52A5DBBE3009763B6 /* CoreXLSX */; };
 		C2B83CD82A5DC1FE009763B6 /* ConvertFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */; };
-		C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CD92A5DC382009763B6 /* StructureFile.swift */; };
 		C2B83CDC2A5DD7E6009763B6 /* RemoveEmptyEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */; };
 		C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */; };
 		C2BC70732A68593400FB627F /* ExportTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC70722A68593400FB627F /* ExportTable.swift */; };
@@ -119,7 +118,6 @@
 		C2B83CCF2A5DB998009763B6 /* ConvertXLSX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertXLSX.swift; sourceTree = "<group>"; };
 		C2B83CD22A5DBB0D009763B6 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		C2B83CD72A5DC1FE009763B6 /* ConvertFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertFile.swift; sourceTree = "<group>"; };
-		C2B83CD92A5DC382009763B6 /* StructureFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructureFile.swift; sourceTree = "<group>"; };
 		C2B83CDB2A5DD7E6009763B6 /* RemoveEmptyEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveEmptyEntries.swift; sourceTree = "<group>"; };
 		C2B83CDE2A5DF062009763B6 /* CSV+HeaderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSV+HeaderRow.swift"; sourceTree = "<group>"; };
 		C2BC70722A68593400FB627F /* ExportTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTable.swift; sourceTree = "<group>"; };
@@ -260,7 +258,6 @@
 				C2B83CB62A5C6907009763B6 /* FileExtensions.swift */,
 				C255F3012A5B7F11004B7F95 /* FileTemplates.swift */,
 				C255F3072A5B8A1E004B7F95 /* FileTemplateParsing.swift */,
-				C2B83CD92A5DC382009763B6 /* StructureFile.swift */,
 			);
 			path = FileTemplates;
 			sourceTree = "<group>";
@@ -534,7 +531,6 @@
 				C2B83CBA2A5C776A009763B6 /* StatusBarState.swift in Sources */,
 				C2546AE12A58965900C83FEC /* ExchangeRateData.swift in Sources */,
 				C2546AF62A58A93F00C83FEC /* ParseCSV.swift in Sources */,
-				C2B83CDA2A5DC382009763B6 /* StructureFile.swift in Sources */,
 				C2546AF92A59B89800C83FEC /* ConvertCSV.swift in Sources */,
 				C2B83CC82A5C9D22009763B6 /* LaunchScreenData.swift in Sources */,
 				C255F3022A5B7F11004B7F95 /* FileTemplates.swift in Sources */,

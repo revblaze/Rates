@@ -37,15 +37,14 @@ extension ViewController {
     Debug.log("[passDataToTableView] withTemplate: \(withTemplate.rawValue) ")
     
     guard
-      let csvFileUrl = ConvertFile.toCSV(fileUrl: fileUrl),
-      let restructuredCsvFileUrl = StructureFile.forTableView(csvFileUrl: csvFileUrl, withTemplate: withTemplate)
+      let csvFileUrl = ConvertFile.toCSV(fileUrl: fileUrl)
     else {
       // Add error handling here
       Debug.log("[passDataToTableView] Error converting file to CSV or restructuring CSV for table view.")
       return
     }
     
-    updateCSVTableViewWithCSV(at: restructuredCsvFileUrl, withTemplate: withTemplate)
+    updateCSVTableViewWithCSV(at: csvFileUrl, withTemplate: withTemplate)
     updateStatusBar(withState: .upToDate)
   }
   
@@ -57,7 +56,7 @@ extension ViewController {
   func updateCSVTableViewWithCSV(at url: URL, withTemplate: FileTemplates = .generic) {
     Debug.log("[updateCSVTableViewWithCSV] withTemplate: \(withTemplate.rawValue)")
     // Excel requires largest number of entries for header
-    if withTemplate == .excelSpreadsheet {
+    if url.hasFileExtension() == .xlsx {
       csvTableView.updateCSVData(with: url, withHeaderRowDetection: .largestNumberOfEntries)
     } else {
       csvTableView.updateCSVData(with: url)
