@@ -71,4 +71,30 @@ struct Utility {
     }
   }
   
+  /// Clears the Application Support directory by removing all of its contents.
+  ///
+  /// This function retrieves the URL of the Application Support directory and removes all of its contents.
+  /// If the directory does not exist, or if there is an error during the deletion, an error message is printed.
+  ///
+  /// - Returns: A boolean value that indicates whether the operation was successful. If the operation was successful, it returns `true`; otherwise, it returns `false`.
+  static func clearApplicationSupportDirectory() -> Bool {
+    guard let appSupportURL = getApplicationSupportDirectory() else {
+      print("Error: Unable to retrieve Application Support directory URL")
+      return false
+    }
+    
+    let fileManager = FileManager.default
+    do {
+      let filePaths = try fileManager.contentsOfDirectory(at: appSupportURL, includingPropertiesForKeys: nil, options: [])
+      for filePath in filePaths {
+        try fileManager.removeItem(at: filePath)
+      }
+    } catch {
+      print("Error: Unable to clear Application Support directory: \(error)")
+      return false
+    }
+    
+    return true
+  }
+  
 }
