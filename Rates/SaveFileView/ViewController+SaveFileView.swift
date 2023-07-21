@@ -38,7 +38,16 @@ extension ViewController {
   func saveUserFile(withName name: String, fileExtension: FileExtensions, dataFormat: FileExtensions) {
     Debug.log("[saveUserFile] \(name).\(fileExtension) [\(dataFormat.fullFormatName)] ")
     
-    // TODO: present save file prompt
+    let tableData = csvTableView.tableData
+    
+    saveTableViewAsFile(withName: name, fileExtension: fileExtension, dataFormat: dataFormat, tableData: tableData) { url in
+      // This is the completion handler.
+      if let url = url {
+        self.alertFileDidSave(withOutputUrl: url)
+      } else {
+        Debug.log("[saveUserFile] Failed to save file.")
+      }
+    }
   }
   
 }

@@ -32,4 +32,19 @@ struct Utility {
     return String((0..<length).map { _ in letters.randomElement()! })
   }
   
+  static func getApplicationSupportDirectory() -> URL? {
+    let fileManager = FileManager.default
+    guard let appSupportURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+      return nil
+    }
+    let appSupportFolderPath = appSupportURL.appendingPathComponent(Bundle.main.bundleIdentifier ?? "")
+    do {
+      try fileManager.createDirectory(atPath: appSupportFolderPath.path, withIntermediateDirectories: true, attributes: nil)
+      return appSupportFolderPath
+    } catch {
+      print("Error creating Application Support directory: \(error)")
+      return nil
+    }
+  }
+  
 }
