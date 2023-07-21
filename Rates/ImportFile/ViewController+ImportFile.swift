@@ -60,14 +60,18 @@ extension ViewController {
   ///   - url: The URL of the CSV file.
   func updateCSVTableViewWithCSV(at url: URL) {
     Debug.log("[updateCSVTableViewWithCSV] CSV: \(url)")
-    // Excel requires largest number of entries for header
-    if url.hasFileExtension() == .xlsx {
-      csvTableView.updateCSVData(with: url, withHeaderRowDetection: .largestNumberOfEntries)
+    
+    if let fileExtension = url.hasFileExtension() {
+      // Set custom header detection method
+      csvTableView.updateCSVData(with: url, withHeaderRowDetection: fileExtension?.headerDetectionMethod)
     } else {
+      // Revert to default detection method (.mode
       csvTableView.updateCSVData(with: url)
     }
+    
     // Enable Toolbar items
     enableToolbarItemsOnFileLoad()
+    // Set user session flag
     userHasPreviouslyLoadedInputFileThisSession = true
   }
   
