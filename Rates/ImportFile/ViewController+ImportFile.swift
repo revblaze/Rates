@@ -88,7 +88,13 @@ extension ViewController {
     openUserFile { fileUrl in
       if let url = fileUrl {
         self.sharedData.inputUserFile = url
-        self.sharedData.inputUserFileExtension = url.hasFileExtension()
+        
+        if let fileExtension = url.hasFileExtension() {
+          self.sharedData.inputUserFileExtension = fileExtension
+          self.sharedData.outputUserFileExtension = fileExtension
+          //self.sharedData.outputUserFileFormat = fileExtension
+        }
+        
         // TODO: Remove ImportFileTemplateSheet and FileTemplate
         let fileTemplate = FileTemplateParsing.detectFileTemplateType(fileUrl: url)
         self.presentImportFileTemplateSheet(url, withDetection: fileTemplate)
