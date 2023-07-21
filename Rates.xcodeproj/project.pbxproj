@@ -66,6 +66,7 @@
 		C2C8FB1C2A66CE4E00DBD083 /* ViewController+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */; };
 		C2C8FB202A66CF3600DBD083 /* ViewController+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */; };
 		C2C8FB222A66D1FE00DBD083 /* ViewController+HeaderColumnFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C8FB212A66D1FE00DBD083 /* ViewController+HeaderColumnFilters.swift */; };
+		C2DC12742A6ACD8A000D99AB /* xlsxwriter in Frameworks */ = {isa = PBXBuildFile; productRef = C2DC12732A6ACD8A000D99AB /* xlsxwriter */; };
 		C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B52A6310A00037A558 /* CSV+FilterControls.swift */; };
 		C2ED16B82A6312FB0037A558 /* CSVTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */; };
 		C2ED16BB2A632AEA0037A558 /* CenteredTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2ED16BA2A632AEA0037A558 /* CenteredTextFieldCell.swift */; };
@@ -142,6 +143,7 @@
 				C2B83CD62A5DBBE3009763B6 /* CoreXLSX in Frameworks */,
 				C2546AF02A58A1D000C83FEC /* SQLite in Frameworks */,
 				C2546AE62A58973400C83FEC /* ZIPFoundation in Frameworks */,
+				C2DC12742A6ACD8A000D99AB /* xlsxwriter in Frameworks */,
 				C2546AED2A58A19400C83FEC /* SwiftCSV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,6 +463,7 @@
 				C2546AEC2A58A19400C83FEC /* SwiftCSV */,
 				C2546AEF2A58A1D000C83FEC /* SQLite */,
 				C2B83CD52A5DBBE3009763B6 /* CoreXLSX */,
+				C2DC12732A6ACD8A000D99AB /* xlsxwriter */,
 			);
 			productName = Rates;
 			productReference = C2636F892A585D4E0091BE7D /* Rates.app */;
@@ -495,6 +498,7 @@
 				C2546AEB2A58A19400C83FEC /* XCRemoteSwiftPackageReference "SwiftCSV" */,
 				C2546AEE2A58A1D000C83FEC /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 				C2B83CD42A5DBBE3009763B6 /* XCRemoteSwiftPackageReference "CoreXLSX" */,
+				C2DC12722A6ACD8A000D99AB /* XCRemoteSwiftPackageReference "xlsxwriter" */,
 			);
 			productRefGroup = C2636F8A2A585D4E0091BE7D /* Products */;
 			projectDirPath = "";
@@ -822,6 +826,14 @@
 				minimumVersion = 0.14.2;
 			};
 		};
+		C2DC12722A6ACD8A000D99AB /* XCRemoteSwiftPackageReference "xlsxwriter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/damuellen/xlsxwriter.swift";
+			requirement = {
+				branch = SPM;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -844,6 +856,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C2B83CD42A5DBBE3009763B6 /* XCRemoteSwiftPackageReference "CoreXLSX" */;
 			productName = CoreXLSX;
+		};
+		C2DC12732A6ACD8A000D99AB /* xlsxwriter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C2DC12722A6ACD8A000D99AB /* XCRemoteSwiftPackageReference "xlsxwriter" */;
+			productName = xlsxwriter;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -39,6 +39,9 @@ extension ViewController {
     Debug.log("[saveUserFile] \(name).\(fileExtension) [\(dataFormat.fullFormatName)] ")
     
     // TODO: present save file prompt
+    if let savedFileUrl = saveTableViewAsFile(withName: name, fileExtension: fileExtension, dataFormat: dataFormat, tableData: csvTableView.tableData) {
+      Debug.log("File saved to: \(savedFileUrl)")
+    }
   }
   
 }

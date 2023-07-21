@@ -6,7 +6,7 @@
 //
 
 import Cocoa
-import CoreXLSX
+import xlsxwriter
 
 extension ViewController {
   
@@ -67,55 +67,92 @@ extension ViewController {
   ///   - tableData: The table data.
   /// - Returns: The URL of the created XLSX file.
   func tableToXlsxDataStructure(fileName: String, tableData: [[String]]) -> URL? {
-    // Create a workbook.
-    var workbook = Workbook()
-    
-    // Create a worksheet.
-    var worksheet = Worksheet()
-    
-    // Convert each row in tableData to a row in the worksheet.
-    for (rowIndex, row) in tableData.enumerated() {
-      var cells: [Cell] = []
-      for (columnIndex, column) in row.enumerated() {
-        let cellReference = CellReference(column: columnIndex + 1, row: rowIndex + 1)
-        let cell = Cell(reference: cellReference, value: column)
-        cells.append(cell)
-      }
-      let worksheetRow = Row(cells: cells, number: UInt(rowIndex + 1))
-      worksheet.data?.rows.append(worksheetRow)
-    }
-    
-    // Add the worksheet to the workbook.
-    workbook.appendWorksheet(name: "Sheet1", worksheet: worksheet)
-    
-    // Get the file URL.
-    let directory = FileManager.default.temporaryDirectory
-    let fileURL = directory.appendingPathComponent(fileName).appendingPathExtension("xlsx")
-    
-    // Save the workbook to the file.
-    do {
-      try workbook.save(as: fileURL)
-    } catch {
-      print("Failed to save workbook: \(error)")
+    // Get the Application Support directory path
+    guard let appSupportPath = applicationSupportDirectory()?.path else {
+      print("Error: Unable to get the Application Support directory.")
       return nil
     }
     
-    // Prompt the user to save the file.
-    let savePanel = NSSavePanel()
-    savePanel.directoryURL = fileURL
-    savePanel.nameFieldStringValue = fileName
-    savePanel.allowedFileTypes = ["xlsx"]
-    savePanel.begin { (result) in
-      if result == NSApplication.ModalResponse.OK {
-        do {
-          try FileManager.default.moveItem(at: fileURL, to: savePanel.url!)
-        } catch {
-          print("Failed to move file: \(error)")
+    print(appSupportPath)
+    
+    // Create the full path for the temporary XLSX file
+    let tempFilePath = (appSupportPath as NSString).appendingPathComponent(fileName).appending(FileExtensions.xlsx.stringWithPeriod)
+    
+    // Create a new workbook
+    let wb = Workbook(name: tempFilePath)
+    defer { wb.close() }
+    
+    // Add a worksheet
+    let ws = wb.addWorksheet()
+    
+    // Add a format
+    let format = wb.addFormat()
+    
+    // Set the bold property for the format
+    format.bold()
+    
+    // Write the data from the table to the XLSX file
+    for (rowIndex, rowData) in tableData.enumerated() {
+      for (colIndex, cellData) in rowData.enumerated() {
+        // If header row
+        if rowIndex == 0 {
+          // Bold header row
+          ws.write(.string(cellData), [rowIndex, colIndex], format: format)
+        } else {
+          ws.write(.string(cellData), [rowIndex, colIndex])
         }
       }
     }
     
-    return savePanel.url
+    // Create the NSSavePanel to prompt the user for the file save location
+    let savePanel = NSSavePanel()
+    savePanel.nameFieldStringValue = fileName
+    savePanel.allowedFileTypes = ["xlsx"]
+    
+    // Display the NSSavePanel and wait for the user's action
+    guard savePanel.runModal() == .OK, let url = savePanel.url else {
+      // User canceled the save operation or an error occurred
+      print("Error: Failed to get the URL for saving the XLSX file.")
+      return nil
+    }
+    
+    // Move the XLSX file from the temporary directory to the user-selected location
+    do {
+      let fileManager = FileManager.default
+      try fileManager.moveItem(atPath: tempFilePath, toPath: url.path)
+      return url
+    } catch let error as NSError {
+      print("Error: Unable to save the XLSX file at the specified location.")
+      print("Description: \(error.localizedDescription)")
+      
+      // Show an error alert to the user
+      let alert = NSAlert()
+      alert.messageText = "Error: Unable to save the XLSX file."
+      alert.informativeText = error.localizedDescription
+      alert.addButton(withTitle: "OK")
+      alert.alertStyle = .critical
+      alert.runModal()
+      
+      return nil
+    }
+  }
+  
+  func applicationSupportDirectory() -> URL? {
+    let fileManager = FileManager.default
+    guard let appSupportURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+      return nil
+    }
+    let appSupportFolderPath = appSupportURL.appendingPathComponent(Bundle.main.bundleIdentifier ?? "")
+    do {
+      try fileManager.createDirectory(atPath: appSupportFolderPath.path, withIntermediateDirectories: true, attributes: nil)
+      return appSupportFolderPath
+    } catch {
+      print("Error creating Application Support directory: \(error)")
+      return nil
+    }
   }
   
 }
+
+
+
