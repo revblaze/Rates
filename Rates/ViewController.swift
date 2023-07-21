@@ -150,7 +150,7 @@ class ViewController: NSViewController {
     // Create the overlay view
     overlayView = OverlayView()
     overlayView?.wantsLayer = true
-    overlayView?.layer?.backgroundColor = NSColor.black.withAlphaComponent(0.6).cgColor//NSColor.darkGray.withAlphaComponent(0.5).cgColor
+    overlayView?.layer?.backgroundColor = NSColor.darkGray.withAlphaComponent(0.6).cgColor
     
     // Add the overlay view to the main view
     view.addSubview(overlayView!, positioned: .below, relativeTo: statusBarViewContainer)
