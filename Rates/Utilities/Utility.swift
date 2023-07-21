@@ -47,4 +47,21 @@ struct Utility {
     }
   }
   
+  /// Removes the temporary file in the event of a failure.
+  ///
+  /// This function deletes a temporary file from the Application Support directory when
+  /// the file fails to be moved to the user-selected location.
+  ///
+  /// - Parameters:
+  ///   - tempFilePath: The path of the temporary file.
+  func removeTempFileOnFailure(tempFilePath: String) {
+    let fileManager = FileManager.default
+    do {
+      try fileManager.removeItem(atPath: tempFilePath)
+      print("Successfully removed temporary file at: \(tempFilePath)")
+    } catch let error as NSError {
+      print("Error: Unable to remove temporary file at \(tempFilePath).\nDescription: \(error.localizedDescription)")
+    }
+  }
+  
 }
