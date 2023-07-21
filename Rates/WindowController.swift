@@ -47,6 +47,18 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     disableToolbarItemsOnLaunch()
   }
   
+  func disableAllToolbarItems() {
+    if let toolbar = window?.toolbar {
+      for item in toolbar.items {
+        item.action = nil
+      }
+    }
+    // Update toolbar item appearance
+    validateToolbarItems()
+    // Update toolbar item appearance
+    validateToolbarItems()
+  }
+  
   /// Disables the necessary toolbar items on launch.
   func disableToolbarItemsOnLaunch() {
     toggleFilterControlViewToolbarButton.action = nil
@@ -55,12 +67,15 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     openFileToolbarButton.action = nil
     clearFiltersToolbarButton.action = nil
     toggleRoundToTwoDecimalPlacesToolbarButton.action = nil
+    // Update toolbar item appearance
+    validateToolbarItems()
   }
   /// Enables the necessary toolbar items once the user has loaded up a file.
   func enableToolbarItemsOnFileLoad() {
     enableToggleFilterControlViewToolbarButton()
     enableConvertToolbarButton()
     enableSaveFileToolbarButton()
+    enableOpenFileToolbarButton()
     enableClearFiltersToolbarButton()
     enableToggleRoundToTwoDecimalPlacesToolbarButton()
     // Update toolbar item appearance

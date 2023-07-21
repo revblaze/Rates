@@ -30,8 +30,6 @@ struct Constants {
   // MARK: - UI Properties
   /// The name of the main storyboard in the project.
   static let mainStoryboard = "Main"
-  /// The identifier for the ImportFileTemplateViewController.
-  static let importFileTemplateViewControllerIdentifier = "ImportFileTemplateViewController"
   /// Width of the FilterControlsView sheet presentation.
   static let filterControlsViewWidth: CGFloat = 260
   /// Height of the ViewController Status Bar.

@@ -10,8 +10,13 @@ import Foundation
 extension ViewController {
   
   /// Enables/validates the Toolbar items that were disabled on launch. Is called upon a user importing a file.
-  func enableToolbarButtonsOnFileLoad() {
+  func enableToolbarItemsOnFileLoad() {
     windowController?.enableToolbarItemsOnFileLoad()
+  }
+  
+  /// Disables all of the Toolbar items.
+  func disableToolbarButtonsOnFileLoad() {
+    windowController?.disableAllToolbarItems()
   }
   
   /// Updates the image of `roundToTwoDecimalPlacesToolbarButton` based on the provided state.

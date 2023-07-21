@@ -10,42 +10,37 @@ import Cocoa
 /// Extension of the `ViewController` class to add additional methods related to file importing.
 extension ViewController {
   
-  /// Presents an import file template sheet with a given URL and file template detection.
-  ///
-  /// - Parameters:
-  ///   - fileUrl: The URL of the file.
-  ///   - withDetection: The file template detection.
-  func presentImportFileTemplateSheet(_ fileUrl: URL, withDetection: FileTemplates) {
-    let storyboard = NSStoryboard(name: Constants.mainStoryboard, bundle: nil)
-    guard let importFileTemplateViewController = storyboard.instantiateController(withIdentifier: Constants.importFileTemplateViewControllerIdentifier) as? ImportFileTemplateViewController else {
-      Debug.log("Unable to instantiate ImportFileTemplateViewController from storyboard")
-      return
-    }
-    
-    importFileTemplateViewController.fileUrl = fileUrl
-    importFileTemplateViewController.withDetection = withDetection
-    
-    self.presentAsSheet(importFileTemplateViewController)
-  }
-  
   /// Passes data from a file with a given URL and file template to the table view.
   ///
   /// - Parameters:
   ///   - fileUrl: The URL of the file.
   ///   - withTemplate: The file template.
-  func passDataToTableView(fileUrl: URL, withTemplate: FileTemplates) {
-    Debug.log("[passDataToTableView] withTemplate: \(withTemplate.rawValue) ")
-    
-    guard
-      let csvFileUrl = ConvertFile.toCSV(fileUrl: fileUrl)
-    else {
-      // Add error handling here
-      Debug.log("[passDataToTableView] Error converting file to CSV or restructuring CSV for table view.")
-      return
-    }
-    
-    updateCSVTableViewWithCSV(at: csvFileUrl, withTemplate: withTemplate)
-    updateStatusBar(withState: .upToDate)
+  func passDataToTableView(fileUrl: URL) {
+    Debug.log("[passDataToTableView] url: \(fileUrl)")
+      
+      // Perform UI updates on main queue
+      DispatchQueue.main.async {
+        self.updateStatusBar(withState: .loadingUserData)
+        self.disableMainViewInteraction()
+      }
+      
+      // Perform file conversion in a background queue
+      DispatchQueue.global(qos: .userInitiated).async {
+        guard
+          let csvFileUrl = ConvertFile.toCSV(fileUrl: fileUrl)
+        else {
+          // Add error handling here
+          Debug.log("[passDataToTableView] Error converting file to CSV or restructuring CSV for table view.")
+          return
+        }
+        
+        // Once file conversion is done, update UI on main queue
+        DispatchQueue.main.async {
+          self.updateCSVTableViewWithCSV(at: csvFileUrl)
+          self.updateStatusBar(withState: .upToDate)
+          self.enableMainViewInteraction()
+        }
+      }
   }
   
   /// Updates the CSV table view with data from a CSV file with a given URL and file template.
@@ -53,16 +48,16 @@ extension ViewController {
   /// - Parameters:
   ///   - url: The URL of the CSV file.
   ///   - withTemplate: The file template. The default value is `.generic`.
-  func updateCSVTableViewWithCSV(at url: URL, withTemplate: FileTemplates = .generic) {
-    Debug.log("[updateCSVTableViewWithCSV] withTemplate: \(withTemplate.rawValue)")
+  func updateCSVTableViewWithCSV(at url: URL) {
+    Debug.log("[updateCSVTableViewWithCSV] CSV: \(url)")
     // Excel requires largest number of entries for header
     if url.hasFileExtension() == .xlsx {
       csvTableView.updateCSVData(with: url, withHeaderRowDetection: .largestNumberOfEntries)
     } else {
       csvTableView.updateCSVData(with: url)
     }
-    // Enable FilterControl Sidebar
-    enableToolbarButtonsOnFileLoad()
+    // Enable Toolbar items
+    enableToolbarItemsOnFileLoad()
   }
   
   /// Opens a file selected by the user and calls the completion handler with the URL of the file.
@@ -94,9 +89,10 @@ extension ViewController {
           //self.sharedData.outputUserFileFormat = fileExtension
         }
         
-        // TODO: Remove ImportFileTemplateSheet and FileTemplate
-        let fileTemplate = FileTemplateParsing.detectFileTemplateType(fileUrl: url)
-        self.presentImportFileTemplateSheet(url, withDetection: fileTemplate)
+//        self.updateStatusBar(withState: .loadingUserData)
+//        self.disableMainViewInteraction()
+        
+        self.passDataToTableView(fileUrl: url)
       }
     }
   }

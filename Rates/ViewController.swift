@@ -146,10 +146,11 @@ class ViewController: NSViewController {
    Disables interaction with the main view by adding a transparent gray overlay over all views except the status bar.
    */
   func disableMainViewInteraction() {
+    windowController?.disableAllToolbarItems()
     // Create the overlay view
     overlayView = OverlayView()
     overlayView?.wantsLayer = true
-    overlayView?.layer?.backgroundColor = NSColor.darkGray.withAlphaComponent(0.5).cgColor//NSColor.gray.withAlphaComponent(0.5).cgColor
+    overlayView?.layer?.backgroundColor = NSColor.black.withAlphaComponent(0.6).cgColor//NSColor.darkGray.withAlphaComponent(0.5).cgColor
     
     // Add the overlay view to the main view
     view.addSubview(overlayView!, positioned: .below, relativeTo: statusBarViewContainer)
@@ -168,6 +169,7 @@ class ViewController: NSViewController {
    Enables interaction with the main view by removing the transparent gray overlay.
    */
   func enableMainViewInteraction() {
+    enableToolbarItemsOnFileLoad()
     // Remove the overlay view
     overlayView?.removeFromSuperview()
     overlayView = nil

@@ -80,7 +80,7 @@ class ImportFileTemplateViewController: NSViewController {
   ///   - withTemplate: The file template.
   private func passDataToTableView(fileUrl: URL, withTemplate: FileTemplates) {
     if let presentingViewController = presentingViewController as? ViewController {
-      presentingViewController.passDataToTableView(fileUrl: fileUrl, withTemplate: withTemplate)
+      presentingViewController.passDataToTableView(fileUrl: fileUrl)
     }
   }
   
