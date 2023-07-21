@@ -65,18 +65,18 @@ extension Utility {
   }
   
   /**
-     Extracts the currency code from a given string.
-
-     - Parameters:
-        - cell: The string to extract the currency code from. The currency code will be removed from this string.
-
-     - Returns: The extracted currency code, or an empty string if no currency code was found.
-
-     - Important:
-     - The function assumes that the currency codes are three letters long and may be located anywhere within the string.
-     - The function modifies the input string, removing the currency code if one was found.
-     - The function capitalizes the currency code before returning it.
-     */
+   Extracts the currency code from a given string.
+   
+   - Parameters:
+   - cell: The string to extract the currency code from. The currency code will be removed from this string.
+   
+   - Returns: The extracted currency code, or an empty string if no currency code was found.
+   
+   - Important:
+   - The function assumes that the currency codes are three letters long and may be located anywhere within the string.
+   - The function modifies the input string, removing the currency code if one was found.
+   - The function capitalizes the currency code before returning it.
+   */
   static func extractCurrencyCode(_ cell: inout String, usingCurrencyCodes codes: [String]) -> String {
     // Define all possible currency codes
     let currencyCodes = codes
@@ -97,28 +97,35 @@ extension Utility {
   }
   
   /// Checks if the column should be skipped based on the header, identifier, and headers array.
-    ///
-    /// - Parameters:
-    ///   - headerText: The text of the header cell.
-    ///   - identifier: The raw value of the NSUserInterfaceItemIdentifier for the column.
-    ///   - headers: An array of headers that should not be hidden.
-    /// - Returns: A Boolean value indicating whether the column should be skipped.
-    static func shouldSkipColumn(headerText: String, identifier: String, headers: [String]) -> Bool {
-      return headers.contains(headerText) || ["CurrencyCodeColumn", "ToUsdColumn"].contains(identifier) || identifier.hasPrefix("ToNewCurrency-")
-    }
-
-    /// Checks if all the cells in the column are empty.
-    ///
-    /// - Parameters:
-    ///   - data: The table data.
-    ///   - columnIndex: The index of the column.
-    /// - Returns: A Boolean value indicating whether all the cells in the column are empty.
-    static func isColumnEmpty(data: [[String]], columnIndex: Int) -> Bool {
-      return data.dropFirst().allSatisfy { row in
-        let cell = row[columnIndex]
-        return cell.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+  ///
+  /// - Parameters:
+  ///   - headerText: The text of the header cell.
+  ///   - identifier: The raw value of the NSUserInterfaceItemIdentifier for the column.
+  ///   - headers: An array of headers that should not be hidden.
+  /// - Returns: A Boolean value indicating whether the column should be skipped.
+  static func shouldSkipColumn(headerText: String, identifier: String, headers: [String]) -> Bool {
+    return headers.contains(headerText) || ["CurrencyCodeColumn", "ToUsdColumn"].contains(identifier) || identifier.hasPrefix("ToNewCurrency-")
+  }
+  
+  /// Checks if all the cells in the column are empty.
+  ///
+  /// - Parameters:
+  ///   - data: The table data.
+  ///   - columnIndex: The index of the column.
+  /// - Returns: A Boolean value indicating whether all the cells in the column are empty.
+  static func isColumnEmpty(data: [[String]], columnIndex: Int) -> Bool {
+    for row in data {
+      // If the columnIndex is out of bounds, skip this row
+      if row.count <= columnIndex {
+        continue
+      }
+      let cell = row[columnIndex]
+      if !cell.isEmpty {
+        return false
       }
     }
-
+    return true
+  }
+  
   
 }

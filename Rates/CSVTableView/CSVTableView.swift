@@ -25,6 +25,8 @@ class CSVTableView: NSView {
   var newCurrencyColumnCount = 0
   /// Determines whether to round cell values to two decimal places for display.
   var roundToTwoDecimalPlaces = false
+  /// The index of the currently selected header row.
+  var selectedHeaderRowIndex: Int = 0
   
   /// Initializes the view with a given frame rectangle.
   ///
@@ -98,6 +100,9 @@ class CSVTableView: NSView {
     guard let foundHeaderRow = headerRow else {
       return
     }
+    
+    // Update selectedHeaderRowIndex with the index of the header row
+    selectedHeaderRowIndex = tableData.firstIndex(where: { $0 == foundHeaderRow }) ?? 0
     
     for (index, header) in foundHeaderRow.enumerated() {
       let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
@@ -189,7 +194,7 @@ class CSVTableView: NSView {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
-      for cell in columnData.dropFirst() {
+      for cell in columnData.dropFirst(selectedHeaderRowIndex + 1) {
         if Utility.isDateString(cell) {
           return column.title
         }
@@ -208,7 +213,7 @@ class CSVTableView: NSView {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
-      for cell in columnData.dropFirst() {
+      for cell in columnData.dropFirst(selectedHeaderRowIndex + 1) {
         // Remove any characters that are not a number, period, or minus ("-") from the cell string
         let cleanedCell = Utility.removeAlphaAndParseAmount(cell) ?? cell
         if Utility.isNumberWithTwoDecimalsString(cleanedCell) {
@@ -226,7 +231,7 @@ class CSVTableView: NSView {
     for column in tableView.tableColumns where !column.isHidden {
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
-      for cell in columnData.dropFirst() {
+      for cell in columnData.dropFirst(selectedHeaderRowIndex + 1) {
         if Utility.isCurrencyCode(cell) {
           return column.title
         }
@@ -315,18 +320,10 @@ class CSVTableView: NSView {
     return currencyCodeColumn.title
   }
   
-  /**
-   Creates a new column in the table with converted amounts in USD.
-   
-   - Parameters:
-   - usingHeaders: An array of headers used to locate the necessary data.
-   
-   - Important:
-   - The function assumes the table data is stored in `tableData`.
-   - The function adds a new column to the table.
-   - The function relies on `Query` class for currency conversion and `Debug` class for logging.
-   - Make sure to reload the table data after calling this function.
-   */
+  /// Creates a new column in the table with amounts converted to USD from their original currency.
+  /// It uses the headers provided to find the date, amount and currency code in each row.
+  /// If a cell is empty or the conversion to USD fails, a default value of 0.0 is used.
+  /// After the conversion, the new column is added to the table and the table data is updated.
   func createUsdColumnWithConvertedAmounts(usingHeaders headers: [String]) {
     let datesHeader = headers[0]
     let amountsHeader = headers[1]
@@ -340,8 +337,15 @@ class CSVTableView: NSView {
     }
     
     var usdValues: [Double] = []
-    for i in 1..<tableData.count {  // Skip the header row
+    for i in (selectedHeaderRowIndex + 1)..<tableData.count {  // Start from the row after the header
       let row = tableData[i]
+      
+      // If any of the indices are out of bounds, skip this row
+      if row.count <= max(datesIndex, amountsIndex, currenciesIndex) {
+        Debug.log("[createUsdColumnWithConvertedAmounts] Row \(i) does not contain all required columns")
+        continue
+      }
+      
       let date = row[datesIndex]
       var amountString = row[amountsIndex]
       
@@ -373,19 +377,10 @@ class CSVTableView: NSView {
     tableView.reloadData()
   }
   
-  /**
-   Creates a new column in the table with converted amounts from USD to the specified currency.
-   
-   - Parameters:
-   - code: The currency code to convert to.
-   - datesHeader: The header containing the dates for the conversions.
-   
-   - Important:
-   - The function assumes the table data is stored in `tableData`.
-   - The function adds a new column to the table.
-   - The function relies on `Query` class for currency conversion and `Debug` class for logging.
-   - Make sure to reload the table data after calling this function.
-   */
+  /// Creates a new column in the table with amounts converted from USD to the specified currency.
+  /// It uses the datesHeader to find the date in each row and assumes the amount in USD is in a column with identifier "ToUsdColumn".
+  /// If a cell is empty or the conversion fails, a default value of 0.0 is used.
+  /// After the conversion, the new column is added to the table and the table data is updated.
   func createSecondColumnWithConvertedAmounts(toCurrency code: String, usingDatesHeader datesHeader: String) {
     
     guard let datesIndex = tableView.tableColumns.firstIndex(where: { $0.title == datesHeader }),
@@ -395,8 +390,12 @@ class CSVTableView: NSView {
     }
     
     var newCurrencyValues: [Double] = []
-    for i in 1..<tableData.count {  // Skip the header row
+    for i in (selectedHeaderRowIndex + 1)..<tableData.count {  // Start from the row after the header
       let row = tableData[i]
+      // Check if indices are within bounds
+      guard row.count > datesIndex, row.count > usdColumnIndex else {
+        continue
+      }
       let date = row[datesIndex]
       let usdAmountString = row[usdColumnIndex]
       
