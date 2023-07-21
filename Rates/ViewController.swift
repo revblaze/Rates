@@ -223,6 +223,11 @@ class ViewController: NSViewController {
   // A view that will act as an overlay to disable interaction
   private var overlayView: NSView?
   
+  
+  /// A flag determing if the user has previously loaded a file this session, or if the CSVTableView is such populated with launch data.
+  var userHasPreviouslyLoadedInputFileThisSession = false
+  
+  
   // MARK: - Represented Objects
   override var representedObject: Any? {
     didSet {

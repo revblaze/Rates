@@ -10,44 +10,54 @@ import Cocoa
 /// Extension of the `ViewController` class to add additional methods related to file importing.
 extension ViewController {
   
-  /// Passes data from a file with a given URL and file template to the table view.
+  /// Passes data from a file with a given URL
   ///
   /// - Parameters:
   ///   - fileUrl: The URL of the file.
-  ///   - withTemplate: The file template.
   func passDataToTableView(fileUrl: URL) {
     Debug.log("[passDataToTableView] url: \(fileUrl)")
-      
-      // Perform UI updates on main queue
-      DispatchQueue.main.async {
-        self.updateStatusBar(withState: .loadingUserData)
-        self.disableMainViewInteraction()
-      }
-      
-      // Perform file conversion in a background queue
-      DispatchQueue.global(qos: .userInitiated).async {
-        guard
-          let csvFileUrl = ConvertFile.toCSV(fileUrl: fileUrl)
-        else {
-          // Add error handling here
-          Debug.log("[passDataToTableView] Error converting file to CSV or restructuring CSV for table view.")
-          return
-        }
-        
+    
+    // Perform UI updates on main queue
+    DispatchQueue.main.async {
+      self.updateStatusBar(withState: .loadingUserData)
+      self.disableMainViewInteraction()
+    }
+    
+    // Perform file conversion in a background queue
+    DispatchQueue.global(qos: .userInitiated).async {
+      guard
+        let csvFileUrl = ConvertFile.toCSV(fileUrl: fileUrl)
+      else {
+        // Add error handling here
+        Debug.log("[passDataToTableView] Error converting file to CSV or restructuring CSV for table view.")
         // Once file conversion is done, update UI on main queue
         DispatchQueue.main.async {
-          self.updateCSVTableViewWithCSV(at: csvFileUrl)
-          self.updateStatusBar(withState: .upToDate)
+          self.updateStatusBar(withState: .failedToLoadUserData)
           self.enableMainViewInteraction()
+          
+          if self.userHasPreviouslyLoadedInputFileThisSession {
+            self.enableToolbarItemsOnFileLoad()
+          } else {
+            self.enableToolbarItemsForPostLaunchState()
+          }
         }
+        return
       }
+      
+      // Once file conversion is done, update UI on main queue
+      DispatchQueue.main.async {
+        self.updateCSVTableViewWithCSV(at: csvFileUrl)
+        self.updateStatusBar(withState: .upToDate)
+        self.enableMainViewInteraction()
+        self.enableToolbarItemsOnFileLoad()
+      }
+    }
   }
   
-  /// Updates the CSV table view with data from a CSV file with a given URL and file template.
+  /// Updates the CSV table view with data from a CSV file with a given URL.
   ///
   /// - Parameters:
   ///   - url: The URL of the CSV file.
-  ///   - withTemplate: The file template. The default value is `.generic`.
   func updateCSVTableViewWithCSV(at url: URL) {
     Debug.log("[updateCSVTableViewWithCSV] CSV: \(url)")
     // Excel requires largest number of entries for header
@@ -58,6 +68,7 @@ extension ViewController {
     }
     // Enable Toolbar items
     enableToolbarItemsOnFileLoad()
+    userHasPreviouslyLoadedInputFileThisSession = true
   }
   
   /// Opens a file selected by the user and calls the completion handler with the URL of the file.
@@ -88,10 +99,7 @@ extension ViewController {
           self.sharedData.outputUserFileExtension = fileExtension
           //self.sharedData.outputUserFileFormat = fileExtension
         }
-        
-//        self.updateStatusBar(withState: .loadingUserData)
-//        self.disableMainViewInteraction()
-        
+        // Pass to
         self.passDataToTableView(fileUrl: url)
       }
     }

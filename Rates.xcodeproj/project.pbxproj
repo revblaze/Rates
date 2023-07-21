@@ -229,9 +229,9 @@
 		C255F2FE2A5B7EE1004B7F95 /* ImportFile */ = {
 			isa = PBXGroup;
 			children = (
+				C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */,
 				C255F3062A5B8A03004B7F95 /* FileTemplates */,
 				C255F3032A5B820D004B7F95 /* FileConversion */,
-				C2B83CAB2A5C54B1009763B6 /* ViewController+ImportFile.swift */,
 			);
 			path = ImportFile;
 			sourceTree = "<group>";
