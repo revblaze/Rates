@@ -31,6 +31,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationWillTerminate(_ aNotification: Notification) {
     // Insert code here to tear down your application
     Settings.onAppClose()
+    // Clear
+    let clearStatus = Utility.clearApplicationSupportDirectory()
+    Debug.log("Attempt at clear application support directory was successful: \(clearStatus)")
     
   }
   
