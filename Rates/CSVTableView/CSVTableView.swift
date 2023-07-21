@@ -434,8 +434,7 @@ class CSVTableView: NSView {
     tableView.addTableColumn(newCurrencyColumn)
     
     // Add the new currency values to the table data
-    tableData[0].append(usdColumn.title)  // Add column header to the first row of tableData
-    //tableData[0].append(newCurrencyColumn.title)  // Add column header to the first row of tableData
+    tableData[0].append(newCurrencyColumn.title)  // Add column header to the first row of tableData
     for (i, newCurrencyValue) in newCurrencyValues.enumerated() {
       tableData[i].append(newCurrencyValue)
     }
