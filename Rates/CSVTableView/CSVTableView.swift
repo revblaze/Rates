@@ -303,35 +303,26 @@ class CSVTableView: NSView {
       return ""
     }
     
-    // Initialize the new column with empty cells
-    var currencyCodes = Array(repeating: "", count: tableData.count)
-    
-    for i in (selectedHeaderRowIndex + 1)..<tableData.count {
-      var cell = tableData[i][columnIndex]
-      
-      let currencyCode = Utility.extractCurrencyCode(&cell, usingCurrencyCodes: sharedHeaders.availableCurrencyCodeHeaders)
-      currencyCodes[i] = currencyCode
-      
-      tableData[i][columnIndex] = cell  // Update the cell value
-    }
-    
     // Add a new column to the table
     let currencyCodeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "CurrencyCodeColumn"))
     currencyCodeColumn.title = "From Currency"
-    
     tableView.addTableColumn(currencyCodeColumn)
     
-    // Build the full column data
-    var fullColumn = currencyCodes
-    fullColumn[selectedHeaderRowIndex] = currencyCodeColumn.title  // Insert column header at the selected header row
-    
-    // Add the currency codes to the table data
+    // Iterate over the table data and append currency codes alongside their data
     for i in 0..<tableData.count {
-      tableData[i].append(fullColumn[i])
+      if i == selectedHeaderRowIndex {
+        tableData[i].append(currencyCodeColumn.title)
+      } else if i > selectedHeaderRowIndex {
+        var cell = tableData[i][columnIndex]
+        let currencyCode = Utility.extractCurrencyCode(&cell, usingCurrencyCodes: sharedHeaders.availableCurrencyCodeHeaders)
+        tableData[i][columnIndex] = cell
+        tableData[i].append(currencyCode)
+      } else {
+        tableData[i].append("")
+      }
     }
     
     tableView.reloadData()
-    
     return currencyCodeColumn.title
   }
   
@@ -351,51 +342,34 @@ class CSVTableView: NSView {
       return
     }
     
-    // Initialize the new column with empty cells
-    var usdValues = Array(repeating: "", count: tableData.count)
-    
-    for i in (selectedHeaderRowIndex + 1)..<tableData.count {
-      let row = tableData[i]
-      
-      // If any of the indices are out of bounds, skip this row
-      if row.count <= max(datesIndex, amountsIndex, currenciesIndex) {
-        Debug.log("[createUsdColumnWithConvertedAmounts] Row \(i) does not contain all required columns")
-        continue
-      }
-      
-      let date = row[datesIndex]
-      var amountString = row[amountsIndex]
-      
-      // Remove any characters that are not a number, period, or minus ("-")
-      amountString = Utility.removeAlphaAndParseAmount(amountString) ?? amountString
-      
-      let currencyCode = row[currenciesIndex]
-      
-      if let usdValue = Query.valueInUsd(currencyCode: currencyCode, amountOfCurrency: amountString, onDate: date) {
-        // Replace the cell at the processed row index with the calculated value
-        usdValues[i] = String(usdValue)
-      } else {
-        Debug.log("[createUsdColumnWithConvertedAmounts] Unable to convert value for row \(i)")
-        usdValues[i] = "0.0"  // Or some other default value
-      }
-    }
-    
     // Add a new column to the table
     let usdColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "ToUsdColumn"))
     usdColumn.title = "To USD"
-    
     tableView.addTableColumn(usdColumn)
     
-    // Ensure the header row has the correct number of cells
-    while tableData[selectedHeaderRowIndex].count < tableView.tableColumns.count {
-      tableData[selectedHeaderRowIndex].append("")
-    }
-    
-    // Add the USD values to the table data
-    tableData[selectedHeaderRowIndex].append(usdColumn.title)  // Add column header to the selected header row
-    
-    for (i, usdValue) in usdValues.enumerated() {
-      tableData[i].append(usdValue)
+    for i in 0..<tableData.count {
+      if i == selectedHeaderRowIndex {
+        tableData[i].append(usdColumn.title)
+      } else if i > selectedHeaderRowIndex {
+        let row = tableData[i]
+        if row.count <= max(datesIndex, amountsIndex, currenciesIndex) {
+          tableData[i].append("0.0")
+          continue
+        }
+        let date = row[datesIndex]
+        var amountString = row[amountsIndex]
+        amountString = Utility.removeAlphaAndParseAmount(amountString) ?? amountString
+        let currencyCode = row[currenciesIndex]
+        
+        if let usdValue = Query.valueInUsd(currencyCode: currencyCode, amountOfCurrency: amountString, onDate: date) {
+          tableData[i].append(String(usdValue))
+        } else {
+          Debug.log("[createUsdColumnWithConvertedAmounts] Unable to convert value for row \(i)")
+          tableData[i].append("0.0")
+        }
+      } else {
+        tableData[i].append("")
+      }
     }
     
     tableView.reloadData()
@@ -412,44 +386,33 @@ class CSVTableView: NSView {
       return
     }
     
-    // Initialize the new column with empty cells
-    var newCurrencyValues = Array(repeating: "", count: tableData.count)
-    
-    for i in (selectedHeaderRowIndex + 1)..<tableData.count {
-      let row = tableData[i]
-      // Check if indices are within bounds
-      guard row.count > datesIndex, row.count > usdColumnIndex else {
-        continue
-      }
-      let date = row[datesIndex]
-      let usdAmountString = row[usdColumnIndex]
-      
-      if let newCurrencyValue = Query.valueInNewCurrency(fromUsdAmount: usdAmountString, toCurrencyCode: code, onDate: date) {
-        // Replace the cell at the processed row index with the calculated value
-        newCurrencyValues[i] = String(newCurrencyValue)
-      } else {
-        Debug.log("[createSecondColumnWithConvertedAmounts] Unable to convert value for row \(i)")
-        newCurrencyValues[i] = "0.0"  // Or some other default value
-      }
-    }
-    
     // Add a new column to the table
     newCurrencyColumnCount += 1
     let newCurrencyColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "ToNewCurrency-\(newCurrencyColumnCount)"))
     newCurrencyColumn.title = "To \(code)"
-    
     tableView.addTableColumn(newCurrencyColumn)
     
-    // Ensure the header row has the correct number of cells
-    while tableData[selectedHeaderRowIndex].count < tableView.tableColumns.count {
-      tableData[selectedHeaderRowIndex].append("")
-    }
-    
-    // Add the new currency values to the table data
-    tableData[selectedHeaderRowIndex].append(newCurrencyColumn.title) // Add column header to the selected header row
-    
-    for (i, newCurrencyValue) in newCurrencyValues.enumerated() {
-      tableData[i].append(newCurrencyValue)
+    for i in 0..<tableData.count {
+      if i == selectedHeaderRowIndex {
+        tableData[i].append(newCurrencyColumn.title)
+      } else if i > selectedHeaderRowIndex {
+        let row = tableData[i]
+        if row.count <= max(datesIndex, usdColumnIndex) {
+          tableData[i].append("0.0")
+          continue
+        }
+        let date = row[datesIndex]
+        let usdAmountString = row[usdColumnIndex]
+        
+        if let newCurrencyValue = Query.valueInNewCurrency(fromUsdAmount: usdAmountString, toCurrencyCode: code, onDate: date) {
+          tableData[i].append(String(newCurrencyValue))
+        } else {
+          Debug.log("[createSecondColumnWithConvertedAmounts] Unable to convert value for row \(i)")
+          tableData[i].append("0.0")
+        }
+      } else {
+        tableData[i].append("")
+      }
     }
     
     tableView.reloadData()
