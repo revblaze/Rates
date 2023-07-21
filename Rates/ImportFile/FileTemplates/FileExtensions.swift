@@ -53,6 +53,15 @@ enum FileExtensions: String, CaseIterable {
     }
   }
   
+  var headerDetectionMethod: DetectHeaderRow {
+    switch self {
+    case .csv: return .modeNumberOfEntries
+    case .tsv: return .modeNumberOfEntries
+    case .txt: return .modeNumberOfEntries
+    case .xlsx: return .modeNumberOfEntries //.largestNumberOfEntries
+    }
+  }
+  
 }
 
 /// An extension to the `URL` structure that adds a `hasFileExtension()` method for checking the file extension of a URL.

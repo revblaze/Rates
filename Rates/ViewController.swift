@@ -38,7 +38,7 @@ class ViewController: NSViewController {
     
     initCsvTableScrollView()
     initFilterControlsView()
-    
+    disableToolbarButtonsOnFileLoad()
   }
   
   override func viewDidAppear() {
