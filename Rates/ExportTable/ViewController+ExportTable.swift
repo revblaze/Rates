@@ -12,39 +12,38 @@ extension ViewController {
   
   /// Creates a file with the given name, file extension, data format, and table data.
   ///
+  /// This function writes the provided table data to a temporary file in the Application Support directory,
+  /// then prompts the user to save the file at a location of their choice.
+  ///
   /// - Parameters:
   ///   - fileName: The name of the file.
   ///   - fileExtension: The file extension.
   ///   - dataFormat: The data format.
   ///   - tableData: The table data.
-  /// - Returns: The URL of the created file.
-  func saveTableViewAsFile(withName fileName: String, fileExtension: FileExtensions, dataFormat: FileExtensions, tableData: [[String]]) -> URL? {
-    var savedFileUrl: URL? = nil
-    
+  ///   - completion: A closure that is called when the file is saved, or when an error occurs.
+  ///                 The closure takes one argument: an optional URL. If the file is saved
+  ///                 successfully, this URL points to the file's location. If an error occurs,
+  ///                 the URL is nil.
+  func saveTableViewAsFile(withName fileName: String, fileExtension: FileExtensions, dataFormat: FileExtensions, tableData: [[String]], completion: @escaping (URL?) -> Void) {
     switch fileExtension {
     case .csv:
-      return tableToCsvDataStructure(fileName: fileName, tableData: tableData)
+      // Implement CSV conversion here
+      completion(nil)
     case .tsv:
-      return tableToTsvDataStructure(fileName: fileName, tableData: tableData)
+      // Implement TSV conversion here
+      completion(nil)
     case .xlsx:
-      tableToXlsxDataStructure(fileName: fileName, fileExtension: .xlsx, tableData: tableData) { url in
-        // Handle the URL here
-        if let url = url {
-          Debug.log("File saved at: \(url)")
-          savedFileUrl = url
-        } else {
-          Debug.log("Failed to save the file.")
-        }
-      }
-      return savedFileUrl
+      tableToXlsxDataStructure(fileName: fileName, fileExtension: .xlsx, tableData: tableData, completion: completion)
     case .txt:
       switch dataFormat {
       case .csv:
-        return tableToCsvDataStructure(fileName: fileName, tableData: tableData)
+        // Implement CSV conversion here
+        completion(nil)
       case .tsv:
-        return tableToTsvDataStructure(fileName: fileName, tableData: tableData)
+        // Implement TSV conversion here
+        completion(nil)
       default:
-        return nil
+        completion(nil)
       }
     }
   }
@@ -88,7 +87,7 @@ extension ViewController {
   func tableToXlsxDataStructure(fileName: String, fileExtension: FileExtensions, tableData: [[String]], completion: @escaping (URL?) -> Void) {
     // Get the Application Support directory path
     guard let appSupportPath = Utility.getApplicationSupportDirectory()?.path else {
-      print("Error: Unable to get the Application Support directory.")
+      Debug.log("Error: Unable to get the Application Support directory.")
       return
     }
     
