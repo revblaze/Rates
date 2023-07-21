@@ -119,4 +119,32 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
     determineSuggestedHeadersForConversion()
   }
   
+  
+  // MARK: App Store Connect
+  /// Filters the table view for App Store Connect sales.
+  func filterAppStoreConnectSales() {
+    filterAppStoreConnectSalesColumns(tableView: tableView)
+  }
+  
+  /// Filters the columns in the table view for App Store Connect sales with given column headers.
+  ///
+  /// - Parameters:
+  ///   - tableView: The table view to filter.
+  ///   - withColumns: The column headers for App Store Connect sales. See `AppStoreConnectSalesColumnHeaders.simplified` or `.expanded`.
+  func filterAppStoreConnectSalesColumns(tableView: NSTableView, withColumns: [String] = AppStoreConnectSalesColumnHeaders.simplified) {
+    let filterStrings = withColumns
+    
+    let columnsToKeep = tableView.tableColumns.filter { column in
+      filterStrings.contains(column.title)
+    }
+    
+    for column in tableView.tableColumns {
+      if columnsToKeep.contains(column) {
+        column.isHidden = false
+      } else {
+        column.isHidden = true
+      }
+    }
+  }
+  
 }

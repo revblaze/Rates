@@ -1,4 +1,3 @@
-
 //
 //  FileExtensions.swift
 //  Rates

@@ -148,33 +148,10 @@ class CSVTableView: NSView {
     resizeTableViewColumnsToFit()  // Resize columns after unhiding them
   }
   
-  // MARK: App Store Connect
-  /// Filters the table view for App Store Connect sales.
-  func filterAppStoreConnectSales() {
-    filterAppStoreConnectSalesColumns(tableView: tableView)
-  }
   
-  /// Filters the columns in the table view for App Store Connect sales with given column headers.
-  ///
-  /// - Parameters:
-  ///   - tableView: The table view to filter.
-  ///   - withColumns: The column headers for App Store Connect sales. See `AppStoreConnectSalesColumnHeaders.simplified` or `.expanded`.
-  func filterAppStoreConnectSalesColumns(tableView: NSTableView, withColumns: [String] = AppStoreConnectSalesColumnHeaders.simplified) {
-    let filterStrings = withColumns
-    
-    let columnsToKeep = tableView.tableColumns.filter { column in
-      filterStrings.contains(column.title)
-    }
-    
-    for column in tableView.tableColumns {
-      if columnsToKeep.contains(column) {
-        column.isHidden = false
-      } else {
-        column.isHidden = true
-      }
-    }
-  }
   
+  // MARK: - Guess Suggested Headers
+  //
   /// Replaces suggestedHeaders with column headers for detected data types, if applicable.
   func determineSuggestedHeadersForConversion() {
     sharedHeaders.suggestedHeaders.removeAll()
@@ -246,6 +223,11 @@ class CSVTableView: NSView {
     return nil
   }
   
+  
+  
+  // MARK: - Currency Conversion
+  //
+  //
   /// Performs a currency conversion to the specified currency using the given headers.
   ///
   /// - Parameters:
@@ -430,9 +412,11 @@ class CSVTableView: NSView {
   }
   
   
+  
+  
   // MARK: - Shared Formatting Options
-  
-  
+  //
+  //
   /// Checks to see if the user has applied any SharedFormattingOptions and triggers the code if applicable.
   func checkAndApplyFormattingOptions(withHeaders headers: [String]) {
     if sharedFormattingOptions.roundToTwoDecimalPlaces {
@@ -524,13 +508,4 @@ class CSVTableView: NSView {
   }
   
   
-}
-
-
-
-/// A custom text field cell view with a custom intrinsic content size.
-class NSTextFieldCellView: NSTextField {
-  override var intrinsicContentSize: NSSize {
-    return NSSize(width: CGFloat.greatestFiniteMagnitude, height: super.intrinsicContentSize.height)
-  }
 }
