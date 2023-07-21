@@ -191,10 +191,12 @@ class CSVTableView: NSView {
   ///
   /// - Returns: The header of a column that contains dates, or `nil` if no such column is found.
   func guessDatesColumn() -> String? {
-    for column in tableView.tableColumns where !column.isHidden {
-      let columnIndex = tableView.column(withIdentifier: column.identifier)
-      let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
-      for cell in columnData.dropFirst(selectedHeaderRowIndex + 1) {
+    for rowIndex in (selectedHeaderRowIndex + 1)..<tableData.count {
+      let row = tableData[rowIndex]
+      for column in tableView.tableColumns where !column.isHidden {
+        let columnIndex = tableView.column(withIdentifier: column.identifier)
+        guard columnIndex < row.count else { continue }
+        let cell = row[columnIndex]
         if Utility.isDateString(cell) {
           return column.title
         }
@@ -210,10 +212,12 @@ class CSVTableView: NSView {
   ///
   /// - Returns: The header of a column that contains numbers with two decimal places, or `nil` if no such column is found.
   func guessAmountsColumn() -> String? {
-    for column in tableView.tableColumns where !column.isHidden {
-      let columnIndex = tableView.column(withIdentifier: column.identifier)
-      let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
-      for cell in columnData.dropFirst(selectedHeaderRowIndex + 1) {
+    for rowIndex in (selectedHeaderRowIndex + 1)..<tableData.count {
+      let row = tableData[rowIndex]
+      for column in tableView.tableColumns where !column.isHidden {
+        let columnIndex = tableView.column(withIdentifier: column.identifier)
+        guard columnIndex < row.count else { continue }
+        let cell = row[columnIndex]
         // Remove any characters that are not a number, period, or minus ("-") from the cell string
         let cleanedCell = Utility.removeAlphaAndParseAmount(cell) ?? cell
         if Utility.isNumberWithTwoDecimalsString(cleanedCell) {
@@ -228,10 +232,12 @@ class CSVTableView: NSView {
   ///
   /// - Returns: The header of a column that contains currency codes, or `nil` if no such column is found.
   func guessCurrenciesColumn() -> String? {
-    for column in tableView.tableColumns where !column.isHidden {
-      let columnIndex = tableView.column(withIdentifier: column.identifier)
-      let columnData = tableData.compactMap { $0.indices.contains(columnIndex) ? $0[columnIndex] : nil }
-      for cell in columnData.dropFirst(selectedHeaderRowIndex + 1) {
+    for rowIndex in (selectedHeaderRowIndex + 1)..<tableData.count {
+      let row = tableData[rowIndex]
+      for column in tableView.tableColumns where !column.isHidden {
+        let columnIndex = tableView.column(withIdentifier: column.identifier)
+        guard columnIndex < row.count else { continue }
+        let cell = row[columnIndex]
         if Utility.isCurrencyCode(cell) {
           return column.title
         }
