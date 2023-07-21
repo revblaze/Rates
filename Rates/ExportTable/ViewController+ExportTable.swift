@@ -27,21 +27,17 @@ extension ViewController {
   func saveTableViewAsFile(withName fileName: String, fileExtension: FileExtensions, dataFormat: FileExtensions, tableData: [[String]], completion: @escaping (URL?) -> Void) {
     switch fileExtension {
     case .csv:
-      // Implement CSV conversion here
-      completion(nil)
+      tableToCsvDataStructure(fileName: fileName, fileExtension: .csv, tableData: tableData, completion: completion)
     case .tsv:
-      // Implement TSV conversion here
-      completion(nil)
+      tableToTsvDataStructure(fileName: fileName, fileExtension: .tsv, tableData: tableData, completion: completion)
     case .xlsx:
       tableToXlsxDataStructure(fileName: fileName, fileExtension: .xlsx, tableData: tableData, completion: completion)
     case .txt:
       switch dataFormat {
       case .csv:
-        // Implement CSV conversion here
-        completion(nil)
+        tableToCsvDataStructure(fileName: fileName, fileExtension: .txt, tableData: tableData, completion: completion)
       case .tsv:
-        // Implement TSV conversion here
-        completion(nil)
+        tableToTsvDataStructure(fileName: fileName, fileExtension: .txt, tableData: tableData, completion: completion)
       default:
         completion(nil)
       }
@@ -50,24 +46,66 @@ extension ViewController {
   
   /// Converts the table data to CSV data structure and saves the file.
   ///
+  /// This function creates a temporary CSV file in the Application Support directory,
+  /// writes the provided table data to this file, then prompts the user to save the file
+  /// at a location of their choice.
+  ///
   /// - Parameters:
   ///   - fileName: The name of the file.
+  ///   - fileExtension: The extension of the file.
   ///   - tableData: The table data.
-  /// - Returns: The URL of the created CSV file.
-  func tableToCsvDataStructure(fileName: String, tableData: [[String]]) -> URL? {
-    // Implement CSV conversion here.
-    return nil
+  ///   - completion: A closure that is called when the file is saved, or when an error occurs.
+  ///                 The closure takes one argument: an optional URL. If the file is saved
+  ///                 successfully, this URL points to the file's location. If an error occurs,
+  ///                 the URL is nil.
+  func tableToCsvDataStructure(fileName: String, fileExtension: FileExtensions, tableData: [[String]], completion: @escaping (URL?) -> Void) {
+    // Get the Application Support directory path
+    guard let appSupportPath = Utility.getApplicationSupportDirectory()?.path else {
+      Debug.log("Error: Unable to get the Application Support directory.")
+      return
+    }
+    
+    // Create the full path for the temporary CSV file
+    let tempFilePath = (appSupportPath as NSString).appendingPathComponent(fileName).appending(fileExtension.stringWithPeriod)
+    
+    // Create a new CSV file and write the data from the table to it
+    let csvData = convertTableDataToCsv(tableData: tableData)
+    writeDataToCsvFile(filePath: tempFilePath, data: csvData)
+    
+    // Prompt the user to save the file at a location of their choice
+    promptUserToSaveFile(tempFilePath: tempFilePath, fileName: fileName, fileExtension: fileExtension, completion: completion)
   }
   
   /// Converts the table data to TSV data structure and saves the file.
   ///
+  /// This function creates a temporary TSV file in the Application Support directory,
+  /// writes the provided table data to this file, then prompts the user to save the file
+  /// at a location of their choice.
+  ///
   /// - Parameters:
   ///   - fileName: The name of the file.
+  ///   - fileExtension: The extension of the file.
   ///   - tableData: The table data.
-  /// - Returns: The URL of the created TSV file.
-  func tableToTsvDataStructure(fileName: String, tableData: [[String]]) -> URL? {
-    // Implement TSV conversion here.
-    return nil
+  ///   - completion: A closure that is called when the file is saved, or when an error occurs.
+  ///                 The closure takes one argument: an optional URL. If the file is saved
+  ///                 successfully, this URL points to the file's location. If an error occurs,
+  ///                 the URL is nil.
+  func tableToTsvDataStructure(fileName: String, fileExtension: FileExtensions, tableData: [[String]], completion: @escaping (URL?) -> Void) {
+    // Get the Application Support directory path
+    guard let appSupportPath = Utility.getApplicationSupportDirectory()?.path else {
+      Debug.log("Error: Unable to get the Application Support directory.")
+      return
+    }
+    
+    // Create the full path for the temporary TSV file
+    let tempFilePath = (appSupportPath as NSString).appendingPathComponent(fileName).appending(fileExtension.stringWithPeriod)
+    
+    // Create a new TSV file and write the data from the table to it
+    let tsvData = convertTableDataToTsv(tableData: tableData)
+    writeDataToTsvFile(filePath: tempFilePath, data: tsvData)
+    
+    // Prompt the user to save the file at a location of their choice
+    promptUserToSaveFile(tempFilePath: tempFilePath, fileName: fileName, fileExtension: fileExtension, completion: completion)
   }
   
   /// Converts the table data to XLSX data structure and saves the file.
@@ -193,6 +231,112 @@ extension ViewController {
     } catch let error as NSError {
       Debug.log("Error: Unable to remove temporary file at \(tempFilePath).\nDescription: \(error.localizedDescription)")
     }
+  }
+  
+}
+
+
+
+// MARK: - CSV Helpers
+//
+extension ViewController {
+  
+  /// Converts the given table data to CSV format.
+  ///
+  /// - Parameters:
+  ///   - tableData: The table data.
+  /// - Returns: The CSV data as a string.
+  func convertTableDataToCsv(tableData: [[String]]) -> String {
+      // Create a CSV string from the table data
+      // Each row is joined with commas to create a CSV line
+      // Each line is joined with newlines to create the full CSV
+      let csvData = tableData.map { row in
+          row.map { cell in
+              // If the cell contains a comma, quote, or newline, quote the cell
+              if cell.contains(",") || cell.contains("\"") || cell.contains("\n") {
+                  return "\"\(cell.replacingOccurrences(of: "\"", with: "\"\""))\""
+              } else {
+                  return cell
+              }
+          }.joined(separator: ",")
+      }.joined(separator: "\n")
+      
+      return csvData
+  }
+
+  /// Writes the given CSV data to a file at the specified path.
+  ///
+  /// - Parameters:
+  ///   - filePath: The path of the file to write.
+  ///   - data: The CSV data.
+  func writeDataToCsvFile(filePath: String, data: String) {
+      // Convert the CSV data to Data
+      if let csvData = data.data(using: .utf8) {
+          // Write the data to the file
+          if let fileHandle = FileHandle(forWritingAtPath: filePath) {
+              fileHandle.write(csvData)
+              fileHandle.closeFile()
+          } else if let _ = try? csvData.write(to: URL(fileURLWithPath: filePath), options: .atomic) {
+              // File didn't exist yet, but it does now!
+          } else {
+              Debug.log("Error: Could not write CSV data to file at \(filePath)")
+          }
+      } else {
+          Debug.log("Error: Could not convert CSV data to Data")
+      }
+  }
+  
+}
+
+
+
+// MARK: - TSV Helpers
+//
+extension ViewController {
+  
+  /// Converts the given table data to TSV format.
+  ///
+  /// - Parameters:
+  ///   - tableData: The table data.
+  /// - Returns: The TSV data as a string.
+  func convertTableDataToTsv(tableData: [[String]]) -> String {
+      // Create a TSV string from the table data
+      // Each row is joined with tabs to create a TSV line
+      // Each line is joined with newlines to create the full TSV
+      let tsvData = tableData.map { row in
+          row.map { cell in
+              // If the cell contains a tab or newline, quote the cell
+              if cell.contains("\t") || cell.contains("\n") {
+                  return "\"\(cell.replacingOccurrences(of: "\"", with: "\"\""))\""
+              } else {
+                  return cell
+              }
+          }.joined(separator: "\t")
+      }.joined(separator: "\n")
+      
+      return tsvData
+  }
+
+  /// Writes the given TSV data to a file at the specified path.
+  ///
+  /// - Parameters:
+  ///   - filePath: The path of the file to write.
+  ///   - data: The TSV data.
+  func writeDataToTsvFile(filePath: String, data: String) {
+      // Convert the TSV data to Data
+      if let tsvData = data.data(using: .utf8) {
+          // Write the data to the file
+          if let fileHandle = FileHandle(forWritingAtPath: filePath) {
+              fileHandle.write(tsvData)
+              fileHandle.closeFile()
+          } else if let _ = try? tsvData.write(to: URL(fileURLWithPath: filePath), options: .atomic) {
+              // File didn't exist yet, but it does now!
+          } else {
+              Debug.log("Error: Could not write TSV data to file at \(filePath)")
+          }
+      } else {
+          Debug.log("Error: Could not convert TSV data to Data")
+      }
   }
   
 }
