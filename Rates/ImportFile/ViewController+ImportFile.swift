@@ -63,7 +63,7 @@ extension ViewController {
     
     if let fileExtension = url.hasFileExtension() {
       // Set custom header detection method
-      csvTableView.updateCSVData(with: url, withHeaderRowDetection: fileExtension?.headerDetectionMethod)
+      csvTableView.updateCSVData(with: url, withHeaderRowDetection: fileExtension.headerDetectionMethod)
     } else {
       // Revert to default detection method (.mode
       csvTableView.updateCSVData(with: url)
