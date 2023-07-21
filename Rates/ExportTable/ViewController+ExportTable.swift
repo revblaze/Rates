@@ -68,24 +68,17 @@ extension ViewController {
   /// - Returns: The URL of the created XLSX file.
   func tableToXlsxDataStructure(fileName: String, tableData: [[String]]) -> URL? {
     // Get the Application Support directory path
-    guard let appSupportPath = applicationSupportDirectory()?.path else {
+    guard let appSupportPath = Utility.getApplicationSupportDirectory()?.path else {
       print("Error: Unable to get the Application Support directory.")
       return nil
     }
-    
-    print(appSupportPath)
     
     // Create the full path for the temporary XLSX file
     let tempFilePath = (appSupportPath as NSString).appendingPathComponent(fileName).appending(FileExtensions.xlsx.stringWithPeriod)
     
     // Create a new workbook
     let wb = Workbook(name: tempFilePath)
-    defer { wb.close() }
-    
-    // Add a worksheet
     let ws = wb.addWorksheet()
-    
-    // Add a format
     let format = wb.addFormat()
     
     // Set the bold property for the format
@@ -113,17 +106,20 @@ extension ViewController {
     guard savePanel.runModal() == .OK, let url = savePanel.url else {
       // User canceled the save operation or an error occurred
       print("Error: Failed to get the URL for saving the XLSX file.")
+      wb.close() // Ensure workbook is closed in case of an early return
       return nil
     }
     
     // Move the XLSX file from the temporary directory to the user-selected location
+    let fileManager = FileManager.default
     do {
-      let fileManager = FileManager.default
       try fileManager.moveItem(atPath: tempFilePath, toPath: url.path)
+      wb.close() // Close the workbook now that the file is saved
       return url
     } catch let error as NSError {
       print("Error: Unable to save the XLSX file at the specified location.")
       print("Description: \(error.localizedDescription)")
+      wb.close() // Close the workbook in case of an error
       
       // Show an error alert to the user
       let alert = NSAlert()
@@ -133,21 +129,6 @@ extension ViewController {
       alert.alertStyle = .critical
       alert.runModal()
       
-      return nil
-    }
-  }
-  
-  func applicationSupportDirectory() -> URL? {
-    let fileManager = FileManager.default
-    guard let appSupportURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
-      return nil
-    }
-    let appSupportFolderPath = appSupportURL.appendingPathComponent(Bundle.main.bundleIdentifier ?? "")
-    do {
-      try fileManager.createDirectory(atPath: appSupportFolderPath.path, withIntermediateDirectories: true, attributes: nil)
-      return appSupportFolderPath
-    } catch {
-      print("Error creating Application Support directory: \(error)")
       return nil
     }
   }
