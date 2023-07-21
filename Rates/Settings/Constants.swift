@@ -9,7 +9,10 @@ import Foundation
 
 struct Constants {
   
-  // MARK: SQLite Database Constants
+  // MARK: - Settings
+  static let takesEmptyEntriesIntoAccount = false
+  
+  // MARK: - SQLite Database Constants
   /// The URL string for the CSV file to be downloaded.
   static let csvUrlString = "https://www.bis.org/statistics/full_xru_d_csv_row.zip"
   /// The SQLite database `table_name` to query.
