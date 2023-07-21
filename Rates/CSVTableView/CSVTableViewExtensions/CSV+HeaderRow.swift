@@ -22,19 +22,23 @@ extension CSVTableView {
   static func findModeEntryHeaderRow(tableData: [[String]]) -> [String]? {
     var entryCountMap: [Int: Int] = [:] // [Entry count: Frequency]
     var maxFrequency = 0
-
+    var filteredTableData: [[String]] = []
+    
     for row in tableData {
-      let entryCount = row.count
+      // If Constants.takesEmptyEntriesIntoAccount is false, decrement entryCount for each empty entry
+      let filteredRow = Constants.takesEmptyEntriesIntoAccount ? row : row.filter { !$0.isEmpty }
+      let entryCount = filteredRow.count
       entryCountMap[entryCount, default: 0] += 1
       maxFrequency = max(maxFrequency, entryCountMap[entryCount] ?? 0)
+      filteredTableData.append(filteredRow)
     }
-
+    
     let modeEntryCounts = entryCountMap.filter { $0.value == maxFrequency }.map { $0.key }
-    let modeRows = tableData.filter { modeEntryCounts.contains($0.count) }
-
+    let modeRows = filteredTableData.filter { modeEntryCounts.contains($0.count) }
+    
     return modeRows.first
   }
-
+  
   /// Finds the header row with the largest number of entries in the CSV data.
   ///
   /// - Parameter tableData: The CSV data.
@@ -42,15 +46,19 @@ extension CSVTableView {
   static func findLargestNumberEntryHeaderRow(tableData: [[String]]) -> [String]? {
     var headerRow: [String]? = nil
     var maxEntryCount = 0
-
+    var filteredTableData: [[String]] = []
+    
     for row in tableData {
-      let entryCount = row.count
+      // If Constants.takesEmptyEntriesIntoAccount is false, decrement entryCount for each empty entry
+      let filteredRow = Constants.takesEmptyEntriesIntoAccount ? row : row.filter { !$0.isEmpty }
+      let entryCount = filteredRow.count
       if entryCount > maxEntryCount {
         maxEntryCount = entryCount
-        headerRow = row
+        headerRow = filteredRow
       }
+      filteredTableData.append(filteredRow)
     }
-
+    
     return headerRow
   }
   
