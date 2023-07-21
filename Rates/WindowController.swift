@@ -38,6 +38,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     return vc
   }()
   
+  /// Called when the window finishes loading. Disables toolbar items and sets the toolbar delegate.
   override func windowDidLoad() {
     super.windowDidLoad()
     
@@ -47,79 +48,48 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     disableToolbarItemsOnLaunch()
   }
   
+  /// Disables all toolbar items and updates their appearance.
   func disableAllToolbarItems() {
     if let toolbar = window?.toolbar {
       for item in toolbar.items {
         item.action = nil
       }
     }
-    // Update toolbar item appearance
-    validateToolbarItems()
-    // Update toolbar item appearance
     validateToolbarItems()
   }
   
-  /// Disables the necessary toolbar items on launch.
+  /// Disables toolbar items when the window launches.
   func disableToolbarItemsOnLaunch() {
-    toggleFilterControlViewToolbarButton.action = nil
-    convertToolbarButton.action = nil
-    saveFileToolbarButton.action = nil
-    openFileToolbarButton.action = nil
-    clearFiltersToolbarButton.action = nil
-    toggleRoundToTwoDecimalPlacesToolbarButton.action = nil
-    // Update toolbar item appearance
-    validateToolbarItems()
+    disableAllToolbarItems()
   }
-  /// Enables the necessary toolbar items once the user has loaded up a file.
+  
+  /// Enables a specific toolbar button.
+  ///
+  /// - Parameters:
+  ///   - toolbarButton: The toolbar button to enable.
+  ///   - action: The action to be performed when the toolbar button is pressed.
+  private func enableToolbarButton(_ toolbarButton: NSToolbarItem, action: Selector) {
+    toolbarButton.action = action
+    toolbarButton.target = self
+  }
+  
+  /// Enables toolbar items when a file is loaded.
   func enableToolbarItemsOnFileLoad() {
-    enableToggleFilterControlViewToolbarButton()
-    enableConvertToolbarButton()
-    enableSaveFileToolbarButton()
-    enableOpenFileToolbarButton()
-    enableClearFiltersToolbarButton()
-    enableToggleRoundToTwoDecimalPlacesToolbarButton()
-    // Update toolbar item appearance
+    enableToolbarButton(toggleFilterControlViewToolbarButton, action: #selector(toggleFilterControlViewToolbarButtonAction(_:)))
+    enableToolbarButton(convertToolbarButton, action: #selector(convertToolbarButtonAction(_:)))
+    enableToolbarButton(saveFileToolbarButton, action: #selector(saveFileToolbarButtonAction(_:)))
+    enableToolbarButton(openFileToolbarButton, action: #selector(openFileAction(_:)))
+    enableToolbarButton(clearFiltersToolbarButton, action: #selector(clearFiltersToolbarButtonAction(_:)))
+    enableToolbarButton(toggleRoundToTwoDecimalPlacesToolbarButton, action: #selector(toggleRoundToTwoDecimalPlacesToolbarButtonAction(_:)))
     validateToolbarItems()
   }
   
-  /// Enables the necessary toolbar items once the initial launch data has been loaded.
+  /// Enables toolbar items when data is loaded at launch.
   func enableToolbarItemsOnLaunchDataLoad() {
-    enableOpenFileToolbarButton()
-    // Update toolbar item appearance
+    enableToolbarButton(openFileToolbarButton, action: #selector(openFileAction(_:)))
     validateToolbarItems()
   }
   
-  /// Enables the openFileActiont oolbar button item. Called after the initial launch data has been loaded.
-  func enableOpenFileToolbarButton() {
-    openFileToolbarButton.action = #selector(openFileAction(_:))
-    openFileToolbarButton.target = self
-  }
-  
-  /// Enables the toggleFilterControlsView toolbar button item. Called after a file has been imported.
-  func enableToggleFilterControlViewToolbarButton() {
-    toggleFilterControlViewToolbarButton.action = #selector(toggleFilterControlViewToolbarButtonAction(_:))
-    toggleFilterControlViewToolbarButton.target = self
-  }
-  /// Enables the convert toolbar button item. Called after a file has been imported.
-  func enableConvertToolbarButton() {
-    convertToolbarButton.action = #selector(convertToolbarButtonAction(_:))
-    convertToolbarButton.target = self
-  }
-  
-  func enableClearFiltersToolbarButton() {
-    clearFiltersToolbarButton.action = #selector(clearFiltersToolbarButtonAction(_:))
-    clearFiltersToolbarButton.target = self
-  }
-  
-  func enableSaveFileToolbarButton() {
-    saveFileToolbarButton.action = #selector(saveFileToolbarButtonAction(_:))
-    saveFileToolbarButton.target = self
-  }
-  
-  func enableToggleRoundToTwoDecimalPlacesToolbarButton() {
-    toggleRoundToTwoDecimalPlacesToolbarButton.action = #selector(toggleRoundToTwoDecimalPlacesToolbarButtonAction(_:))
-    toggleRoundToTwoDecimalPlacesToolbarButton.target = self
-  }
   /// Updates the image of `roundToTwoDecimalPlacesToolbarButton` based on the provided state.
   ///
   /// - Parameter state: A boolean value indicating whether the button should be active or not.
@@ -130,37 +100,42 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     toggleRoundToTwoDecimalPlacesToolbarButton.image = symbolImage
   }
   
-  /// Performs an action on the view controller to open a file selection.
+  /// Opens a file selection when the open file toolbar button is pressed.
   @IBAction func openFileAction(_ sender: Any) {
     performActionOnViewController(action: viewController.openFileSelection)
   }
   
-  /// Performs an action on the view controller to revert changes to the table view.
+  /// Reverts changes to the table view when the clear filters toolbar button is pressed.
   @IBAction func clearFiltersToolbarButtonAction(_ sender: Any) {
     performActionOnViewController(action: viewController.revertTableViewChanges)
   }
   
-  /// Performs an action on the view controller to filter App Store Connect sales.
+  /// Filters App Store Connect sales when the filter App Store Connect sales toolbar button is pressed.
   @IBAction func filterAppStoreConnectSales(_ sender: Any) {
     performActionOnViewController(action: viewController.filterAppStoreConnectSales)
   }
   
-  /// Performs an action on the view controller to manually select the current table view row as the header row.
+  /// Selects a custom header row from the table when the select custom header row toolbar button is pressed.
   @IBAction func selectCustomHeaderRowFromTable(_ sender: Any) {
     performActionOnViewController(action: viewController.selectCustomHeaderForTableView)
   }
   
+  /// Toggles the filter control view when the toggle filter control view toolbar button is pressed.
   @IBAction func toggleFilterControlViewToolbarButtonAction(_ sender: Any) {
     performActionOnViewController(action: viewController.toggleFilterControlsView)
   }
+  
+  /// Converts toolbar button action when the convert toolbar button is pressed.
   @IBAction func convertToolbarButtonAction(_ sender: Any) {
     performActionOnViewController(action: viewController.presentDataSelectionViewAsSheet)
   }
   
+  /// Saves the table view as a file when the save file toolbar button is pressed.
   @IBAction func saveFileToolbarButtonAction(_ sender: Any) {
     performActionOnViewController(action: viewController.saveTableViewAsFile)
   }
   
+  /// Toggles rounding to two decimal places when the toggle round to two decimal places toolbar button is pressed.
   @IBAction func toggleRoundToTwoDecimalPlacesToolbarButtonAction(_ sender: Any) {
     performActionOnViewController(action: viewController.toggleRoundToTwoDecimalPlaces)
   }
@@ -176,8 +151,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   ///   - viewController: The view controller where the file was selected.
   ///   - fileUrl: The URL of the selected file.
   func fileSelected(_ viewController: ViewController, fileUrl: URL) {
-    Debug.log("[fileSelected] fileUrl: \(fileUrl)")
-    // Process the selected file URL
+    Debug.log("[WindowController.fileSelected] fileUrl: \(fileUrl)")
   }
   
   /// Performs an action on the view controller.
@@ -187,9 +161,11 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     action()
   }
   
+  /// Validates toolbar items to update their appearance.
   func validateToolbarItems() {
     if let toolbar = window?.toolbar { toolbar.validateVisibleItems() }
   }
   
 }
+
 
