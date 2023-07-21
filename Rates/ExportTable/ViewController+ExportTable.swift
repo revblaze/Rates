@@ -236,7 +236,9 @@ extension ViewController {
 }
 
 
-// MARK: CSV Helpers
+
+// MARK: - CSV Helpers
+//
 extension ViewController {
   
   /// Converts the given table data to CSV format.
@@ -286,7 +288,10 @@ extension ViewController {
   
 }
 
-// MARK: TSV Helpers
+
+
+// MARK: - TSV Helpers
+//
 extension ViewController {
   
   /// Converts the given table data to TSV format.
