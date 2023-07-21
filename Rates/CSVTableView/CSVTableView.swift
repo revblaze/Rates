@@ -321,10 +321,13 @@ class CSVTableView: NSView {
     
     tableView.addTableColumn(currencyCodeColumn)
     
-    tableData[selectedHeaderRowIndex].append(currencyCodeColumn.title)
+    // Build the full column data
+    var fullColumn = currencyCodes
+    fullColumn[selectedHeaderRowIndex] = currencyCodeColumn.title  // Insert column header at the selected header row
+    
     // Add the currency codes to the table data
-    for (i, currencyCode) in currencyCodes.enumerated() {
-      tableData[i].append(currencyCode)
+    for i in 0..<tableData.count {
+      tableData[i].append(fullColumn[i])
     }
     
     tableView.reloadData()
@@ -383,9 +386,13 @@ class CSVTableView: NSView {
     
     tableView.addTableColumn(usdColumn)
     
-
+    // Ensure the header row has the correct number of cells
+    while tableData[selectedHeaderRowIndex].count < tableView.tableColumns.count {
+      tableData[selectedHeaderRowIndex].append("")
+    }
+    
     // Add the USD values to the table data
-    tableData[0].append(usdColumn.title)  // Add column header to the first row of tableData
+    tableData[selectedHeaderRowIndex].append(usdColumn.title)  // Add column header to the selected header row
     
     for (i, usdValue) in usdValues.enumerated() {
       tableData[i].append(usdValue)
@@ -433,8 +440,14 @@ class CSVTableView: NSView {
     
     tableView.addTableColumn(newCurrencyColumn)
     
+    // Ensure the header row has the correct number of cells
+    while tableData[selectedHeaderRowIndex].count < tableView.tableColumns.count {
+      tableData[selectedHeaderRowIndex].append("")
+    }
+    
     // Add the new currency values to the table data
-    tableData[0].append(newCurrencyColumn.title)  // Add column header to the first row of tableData
+    tableData[selectedHeaderRowIndex].append(newCurrencyColumn.title) // Add column header to the selected header row
+    
     for (i, newCurrencyValue) in newCurrencyValues.enumerated() {
       tableData[i].append(newCurrencyValue)
     }
