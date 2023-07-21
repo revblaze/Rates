@@ -298,14 +298,19 @@ class CSVTableView: NSView {
    - Make sure to reload the table data after calling this function.
    */
   func splitCurrencyCodesIntoSeparateColumn(amountColumnHeader columnHeader: String) -> String {
-    let columnIndex = tableView.tableColumns.firstIndex(where: { $0.title == columnHeader })!
+    guard let columnIndex = tableView.tableColumns.firstIndex(where: { $0.title == columnHeader }) else {
+      Debug.log("[splitCurrencyCodesIntoSeparateColumn] Unable to find column")
+      return ""
+    }
     
-    var currencyCodes: [String] = []
-    for i in 1..<tableData.count {  // Skip the header row
+    // Initialize the new column with empty cells
+    var currencyCodes = Array(repeating: "", count: tableData.count)
+    
+    for i in (selectedHeaderRowIndex + 1)..<tableData.count {
       var cell = tableData[i][columnIndex]
       
       let currencyCode = Utility.extractCurrencyCode(&cell, usingCurrencyCodes: sharedHeaders.availableCurrencyCodeHeaders)
-      currencyCodes.append(currencyCode)
+      currencyCodes[i] = currencyCode
       
       tableData[i][columnIndex] = cell  // Update the cell value
     }
@@ -316,9 +321,10 @@ class CSVTableView: NSView {
     
     tableView.addTableColumn(currencyCodeColumn)
     
+    tableData[selectedHeaderRowIndex].append(currencyCodeColumn.title)
     // Add the currency codes to the table data
     for (i, currencyCode) in currencyCodes.enumerated() {
-      tableData[i+1].append(currencyCode)
+      tableData[i].append(currencyCode)
     }
     
     tableView.reloadData()
@@ -342,8 +348,10 @@ class CSVTableView: NSView {
       return
     }
     
-    var usdValues: [Double] = []
-    for i in (selectedHeaderRowIndex + 1)..<tableData.count {  // Start from the row after the header
+    // Initialize the new column with empty cells
+    var usdValues = Array(repeating: "", count: tableData.count)
+    
+    for i in (selectedHeaderRowIndex + 1)..<tableData.count {
       let row = tableData[i]
       
       // If any of the indices are out of bounds, skip this row
@@ -361,10 +369,11 @@ class CSVTableView: NSView {
       let currencyCode = row[currenciesIndex]
       
       if let usdValue = Query.valueInUsd(currencyCode: currencyCode, amountOfCurrency: amountString, onDate: date) {
-        usdValues.append(usdValue)
+        // Replace the cell at the processed row index with the calculated value
+        usdValues[i] = String(usdValue)
       } else {
         Debug.log("[createUsdColumnWithConvertedAmounts] Unable to convert value for row \(i)")
-        usdValues.append(0.0)  // Or some other default value
+        usdValues[i] = "0.0"  // Or some other default value
       }
     }
     
@@ -374,10 +383,12 @@ class CSVTableView: NSView {
     
     tableView.addTableColumn(usdColumn)
     
+
     // Add the USD values to the table data
     tableData[0].append(usdColumn.title)  // Add column header to the first row of tableData
+    
     for (i, usdValue) in usdValues.enumerated() {
-      tableData[i+1].append(String(usdValue))
+      tableData[i].append(usdValue)
     }
     
     tableView.reloadData()
@@ -388,15 +399,16 @@ class CSVTableView: NSView {
   /// If a cell is empty or the conversion fails, a default value of 0.0 is used.
   /// After the conversion, the new column is added to the table and the table data is updated.
   func createSecondColumnWithConvertedAmounts(toCurrency code: String, usingDatesHeader datesHeader: String) {
-    
     guard let datesIndex = tableView.tableColumns.firstIndex(where: { $0.title == datesHeader }),
           let usdColumnIndex = tableView.tableColumns.firstIndex(where: { $0.identifier.rawValue == "ToUsdColumn" }) else {
       Debug.log("[createSecondColumnWithConvertedAmounts] Unable to find one or more columns")
       return
     }
     
-    var newCurrencyValues: [Double] = []
-    for i in (selectedHeaderRowIndex + 1)..<tableData.count {  // Start from the row after the header
+    // Initialize the new column with empty cells
+    var newCurrencyValues = Array(repeating: "", count: tableData.count)
+    
+    for i in (selectedHeaderRowIndex + 1)..<tableData.count {
       let row = tableData[i]
       // Check if indices are within bounds
       guard row.count > datesIndex, row.count > usdColumnIndex else {
@@ -406,10 +418,11 @@ class CSVTableView: NSView {
       let usdAmountString = row[usdColumnIndex]
       
       if let newCurrencyValue = Query.valueInNewCurrency(fromUsdAmount: usdAmountString, toCurrencyCode: code, onDate: date) {
-        newCurrencyValues.append(newCurrencyValue)
+        // Replace the cell at the processed row index with the calculated value
+        newCurrencyValues[i] = String(newCurrencyValue)
       } else {
         Debug.log("[createSecondColumnWithConvertedAmounts] Unable to convert value for row \(i)")
-        newCurrencyValues.append(0.0)  // Or some other default value
+        newCurrencyValues[i] = "0.0"  // Or some other default value
       }
     }
     
@@ -421,9 +434,10 @@ class CSVTableView: NSView {
     tableView.addTableColumn(newCurrencyColumn)
     
     // Add the new currency values to the table data
-    tableData[0].append(newCurrencyColumn.title)  // Add column header to the first row of tableData
+    tableData[0].append(usdColumn.title)  // Add column header to the first row of tableData
+    //tableData[0].append(newCurrencyColumn.title)  // Add column header to the first row of tableData
     for (i, newCurrencyValue) in newCurrencyValues.enumerated() {
-      tableData[i+1].append(String(newCurrencyValue))
+      tableData[i].append(newCurrencyValue)
     }
     
     tableView.reloadData()
@@ -458,7 +472,7 @@ class CSVTableView: NSView {
     guard sharedFormattingOptions.hideEmptyColumns else {
       return
     }
-
+    
     // Loop through all the columns in the table.
     for column in tableView.tableColumns {
       let identifier = column.identifier.rawValue
@@ -468,7 +482,7 @@ class CSVTableView: NSView {
       guard !Utility.shouldSkipColumn(headerText: headerText, identifier: identifier, headers: headers) else {
         continue
       }
-
+      
       let columnIndex = tableView.column(withIdentifier: column.identifier)
       
       // If all the cells in the column (excluding the header) are empty, hide the column.
