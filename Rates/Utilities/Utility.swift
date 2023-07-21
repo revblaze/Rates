@@ -18,9 +18,9 @@ struct Utility {
   /// - Returns: The URL of the created file in the user's document directory.
   static func writeDataToFile(data: String, fileName: String) throws -> URL {
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    let csvFileURL = documentsDirectory.appendingPathComponent(fileName)
-    try data.write(to: csvFileURL, atomically: true, encoding: .utf8)
-    return csvFileURL
+    let fileURL = documentsDirectory.appendingPathComponent(fileName)
+    try data.write(to: fileURL, atomically: true, encoding: .utf8)
+    return fileURL
   }
   
   /// Generates a random string of the specified length using alphanumeric characters.
@@ -32,6 +32,13 @@ struct Utility {
     return String((0..<length).map { _ in letters.randomElement()! })
   }
   
+  /// Returns the URL of the Application Support directory for the current application.
+  ///
+  /// This function retrieves the URL of the Application Support directory specific to the current application.
+  /// It first gets the general Application Support directory URL, then appends the bundle identifier of the current application to it.
+  /// If the directory does not exist, it is created.
+  ///
+  /// - Returns: The URL of the Application Support directory for the current application, or `nil` if an error occurs during the retrieval or creation of the directory.
   static func getApplicationSupportDirectory() -> URL? {
     let fileManager = FileManager.default
     guard let appSupportURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {

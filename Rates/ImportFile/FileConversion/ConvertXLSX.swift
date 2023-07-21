@@ -56,10 +56,13 @@ struct ConvertXLSX {
         }
       }
       
-      let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+      guard let appSupportDirectory = Utility.getApplicationSupportDirectory() else {
+        return nil
+      }
+      
       let randomString = Utility.randomString(length: 5)
       let csvFileName = "spreadsheet_\(randomString).csv"
-      let csvFileURL = documentsDirectory.appendingPathComponent(csvFileName)
+      let csvFileURL = appSupportDirectory.appendingPathComponent(csvFileName)
       
       try csvData.write(to: csvFileURL, atomically: true, encoding: .utf8)
       

@@ -18,13 +18,13 @@ struct ConvertTSV {
     let fileManager = FileManager.default
     
     // Create a destination URL for the CSV file
-    guard let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+    guard let appSupportDirectory = Utility.getApplicationSupportDirectory() else {
       return nil
     }
     
     let randomString = Utility.randomString(length: 5)
     let csvFileName = "tabs_\(randomString).csv"
-    let csvURL = documentsDirectory.appendingPathComponent(csvFileName)
+    let csvURL = appSupportDirectory.appendingPathComponent(csvFileName)
     
     do {
       // Read the contents of the TSV file
