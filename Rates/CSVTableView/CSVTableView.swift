@@ -102,7 +102,13 @@ class CSVTableView: NSView {
     }
     
     // Update selectedHeaderRowIndex with the index of the header row
-    selectedHeaderRowIndex = tableData.firstIndex(where: { $0 == foundHeaderRow }) ?? 0
+    selectedHeaderRowIndex = tableData.firstIndex(where: { row in
+      let commonItems = Set(row).intersection(Set(foundHeaderRow))
+      return commonItems.count >= 2
+    }) ?? 0
+    
+    Debug.log("[updateTableColumns] foundHeaderRow: \(foundHeaderRow)\nselectedHeaderRowIndex: \(selectedHeaderRowIndex)")
+    Debug.log("tableData[selectedHeaderRowIndex]: \(tableData[selectedHeaderRowIndex])")
     
     for (index, header) in foundHeaderRow.enumerated() {
       let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
@@ -115,6 +121,27 @@ class CSVTableView: NSView {
     // Update shared headers
     sharedHeaders.availableHeaders = foundHeaderRow
     determineSuggestedHeadersForConversion()
+  }
+  
+  /// Finds the index of the header row in the table data.
+  ///
+  /// This function compares each row in the table data with the provided header row.
+  /// It removes all empty entries from the rows before comparing them.
+  /// If a row in the table data has at least `minimumMatchingHeaderItems` items in common with the header row, that row is considered to be the header row.
+  ///
+  /// - Parameters:
+  ///   - tableData: The table data as a two-dimensional array of strings.
+  ///   - foundHeaderRow: The detected header row as an array of strings.
+  ///   - minimumMatchingHeaderItems: The minimum number of items a row must have in common with the header row to be considered the header row. Defaults to 2.
+  ///
+  /// - Returns: The index of the header row in the table data. If no suitable header row is found, it returns 0.
+  func getSelectedHeaderRowIndex(in tableData: [[String]], using foundHeaderRow: [String], minimumMatchingHeaderItems: Int = 2) -> Int {
+    return tableData.firstIndex(where: { row in
+      let cleanedRow = row.filter { !$0.isEmpty }
+      let cleanedHeaderRow = foundHeaderRow.filter { !$0.isEmpty }
+      let commonItems = Set(cleanedRow).intersection(Set(cleanedHeaderRow))
+      return commonItems.count >= minimumMatchingHeaderItems
+    }) ?? 0
   }
   
   /// Resizes all columns in the table view to fit the widest content of their cells.
@@ -286,6 +313,8 @@ class CSVTableView: NSView {
     currencyCodeColumn.title = "From Currency"
     tableView.addTableColumn(currencyCodeColumn)
     let currencyCodeColumnIndex = tableView.tableColumns.count - 1
+    
+    Debug.log("selectedHeaderRowIndex: \(selectedHeaderRowIndex), currencyCodeColumnIndex: \(currencyCodeColumnIndex)")
     
     // Iterate over the table data and append currency codes alongside their data
     for i in 0..<tableData.count {
