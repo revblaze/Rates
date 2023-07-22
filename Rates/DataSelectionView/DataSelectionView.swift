@@ -134,40 +134,50 @@ struct FormattingOptionsView: View {
   @State private var isExpanded: Bool = false
   
   var body: some View {
-    Button(action: {
-      isExpanded.toggle()
-    }) {
-      DisclosureGroup(isExpanded: $isExpanded, content: {
-        HStack {
-          Toggle(isOn: $sharedFormattingOptions.roundToTwoDecimalPlaces) {
-            Text("Round to two decimal places")
-              .fixedSize(horizontal: false, vertical: true)
-          }
-          Spacer()  // Push the Toggle and Text to the left
+    VStack {
+      Button(action: {
+        withAnimation {
+          isExpanded.toggle()
         }
-        .padding(.top, 10)
-        HStack {
-          Toggle(isOn: $sharedFormattingOptions.hideEmptyColumns) {
-            Text("Remove empty columns")
-              .fixedSize(horizontal: false, vertical: true)
-          }
-          Spacer()  // Push the Toggle and Text to the left
-        }
-        HStack {
-          Toggle(isOn: $sharedFormattingOptions.hideIrrelevantColumns) {
-            Text("Remove irrelevant columns")
-              .fixedSize(horizontal: false, vertical: true)
-          }
-          Spacer()  // Push the Toggle and Text to the left
-        }
-        //.padding(.bottom, 10)
       }) {
-        Text("Formatting Options")
-          .bold()
+        HStack {
+          Text("Formatting Options")
+            .bold()
+          Spacer()
+          Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+        }
+      }
+      .buttonStyle(PlainButtonStyle())
+      .frame(maxWidth: .infinity)
+      
+      if isExpanded {
+        VStack {
+          HStack {
+            Toggle(isOn: $sharedFormattingOptions.roundToTwoDecimalPlaces) {
+              Text("Round to two decimal places")
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer()  // Push the Toggle and Text to the left
+          }
+          .padding(.top, 10)
+          HStack {
+            Toggle(isOn: $sharedFormattingOptions.hideEmptyColumns) {
+              Text("Remove empty columns")
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer()  // Push the Toggle and Text to the left
+          }
+          HStack {
+            Toggle(isOn: $sharedFormattingOptions.hideIrrelevantColumns) {
+              Text("Remove irrelevant columns")
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer()  // Push the Toggle and Text to the left
+          }
+        }
+        .transition(.opacity)
       }
     }
-    .buttonStyle(PlainButtonStyle())
-    .frame(maxWidth: .infinity)
   }
 }
 
