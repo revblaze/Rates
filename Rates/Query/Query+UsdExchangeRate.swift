@@ -20,7 +20,7 @@ extension Query {
   static func valueInUsd(currencyCode code: String, amountOfCurrency amountString: String, onDate date: String) -> Double? {
     let usdExchangeRate = usdExchangeRate(forCurrency: code, onDate: date)
     
-    Debug.log("[Query.valueInUsd]: usdExchangeRate: \(usdExchangeRate)")
+    //Debug.log("[Query.valueInUsd]: usdExchangeRate: \(usdExchangeRate)")
     
     if let amount = Double(amountString) {
       return amount/usdExchangeRate
