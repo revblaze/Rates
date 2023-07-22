@@ -48,9 +48,6 @@ class ViewController: NSViewController {
   }
   
   func saveTableViewAsFile() {
-    Debug.log("[saveTableViewAsFile] Needs implementation.")
-    // TODO: Export as CSV and prompt user to save file
-    
     presentSaveFileViewAsSheet()
   }
   
