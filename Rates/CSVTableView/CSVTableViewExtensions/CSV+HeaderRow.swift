@@ -51,10 +51,7 @@ extension CSVTableView {
     // Step 2: Find the rows with the highest count of non-empty strings
     let maxCount = filteredTableData.max { $0.count < $1.count }?.count ?? 0
     let largestRows = filteredTableData.filter { $0.count == maxCount }
-    
-    Debug.log("largestRows: \(largestRows)")
-    
-    
+
     // Step 3: Return the first of those rows
     return largestRows.first
   }
