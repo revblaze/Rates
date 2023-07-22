@@ -20,11 +20,13 @@ extension Query {
   static func valueInUsd(currencyCode code: String, amountOfCurrency amountString: String, onDate date: String) -> Double? {
     let usdExchangeRate = usdExchangeRate(forCurrency: code, onDate: date)
     
+    Debug.log("[Query.valueInUsd]: usdExchangeRate: \(usdExchangeRate)")
+    
     if let amount = Double(amountString) {
       return amount/usdExchangeRate
     }
     
-    Debug.log("[Query.valueInUsd] Unable to convert amount to double.")
+    Debug.log("[Query.valueInUsd] Unable to convert amount to double: \(amountString)")
     return nil
     
   }

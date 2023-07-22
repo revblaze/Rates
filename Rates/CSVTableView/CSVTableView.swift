@@ -361,9 +361,11 @@ class CSVTableView: NSView {
     usdColumn.title = "To USD"
     tableView.addTableColumn(usdColumn)
     
+    let usdColumnIndex = tableView.tableColumns.count - 1
+    
     for i in 0..<tableData.count {
       if i == selectedHeaderRowIndex {
-        tableData[i].append(usdColumn.title)
+        tableData[i].insert(usdColumn.title, at: usdColumnIndex)
       } else if i > selectedHeaderRowIndex {
         let row = tableData[i]
         if row.count <= max(datesIndex, amountsIndex, currenciesIndex) {
@@ -382,7 +384,7 @@ class CSVTableView: NSView {
           tableData[i].append("0.0")
         }
       } else {
-        tableData[i].append("")
+        tableData[i].insert("", at: usdColumnIndex)
       }
     }
     
@@ -414,9 +416,11 @@ class CSVTableView: NSView {
     newCurrencyColumn.title = "To \(code)"
     tableView.addTableColumn(newCurrencyColumn)
     
+    let newCurrencyColumnIndex = tableView.tableColumns.count - 1
+    
     for i in 0..<tableData.count {
       if i == selectedHeaderRowIndex {
-        tableData[i].append(newCurrencyColumn.title)
+        tableData[i].insert(newCurrencyColumn.title, at: newCurrencyColumnIndex)
       } else if i > selectedHeaderRowIndex {
         let row = tableData[i]
         if row.count <= max(datesIndex, usdColumnIndex) {
@@ -433,7 +437,7 @@ class CSVTableView: NSView {
           tableData[i].append("0.0")
         }
       } else {
-        tableData[i].append("")
+        tableData[i].insert("", at: newCurrencyColumnIndex)
       }
     }
     
