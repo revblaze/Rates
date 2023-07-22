@@ -117,8 +117,47 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
       }
     }
     determineSuggestedHeadersForConversion()
+    updateAppForHiddenColumns()
   }
   
+  /// Hides the columns that were previously hidden by the filterTableColumns method.
+  func rehideColumns() {
+    for column in tableView.tableColumns {
+      if hiddenColumnHeaders.contains(column.headerCell.stringValue) {
+        column.isHidden = true
+      }
+    }
+    updateAppForHiddenColumns()
+  }
+  
+  // TODO: Potentially keep empty columns hidden based on sharedFormattingOptions.hideEmpty
+  /// Unhides all columns in the table view.
+  func unhideColumns() {
+    tableView.tableColumns.forEach { column in
+      column.isHidden = false
+      column.width = CGFloat(100) // Set a default width if header cell size isn't sufficient
+    }
+    
+    resizeTableViewColumnsToFit()  // Resize columns after unhiding them
+    updateAppForUnhiddenColumns()
+  }
+  
+  func updateAppForHiddenColumns() {
+    sharedFormattingOptions.hideIrrelevantColumns = true
+    viewController?.updateHiddenTableViewColumnsToolbarButton(toBeActive: true)
+    
+    hiddenColumnHeaders.removeAll()
+    for column in tableView.tableColumns {
+      if column.isHidden {
+        hiddenColumnHeaders.append(column.headerCell.stringValue)
+      }
+    }
+  }
+  
+  func updateAppForUnhiddenColumns() {
+    sharedFormattingOptions.hideIrrelevantColumns = false
+    viewController?.updateHiddenTableViewColumnsToolbarButton(toBeActive: false)
+  }
   
   // MARK: App Store Connect
   /// Filters the table view for App Store Connect sales.

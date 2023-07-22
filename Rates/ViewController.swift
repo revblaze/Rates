@@ -23,6 +23,8 @@ class SharedData: ObservableObject {
   @Published var outputUserFileName: String = ""
   @Published var outputUserFileExtension: FileExtensions = .csv
   @Published var outputUserFileFormat: FileExtensions = .csv
+  @Published var saveAllInputDataToOutputFile: Bool = false
+  @Published var saveRoundedConversionValuesToOutputFile: Bool = false
 }
 
 class SharedFormattingOptions: ObservableObject {

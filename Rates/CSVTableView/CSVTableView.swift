@@ -27,6 +27,8 @@ class CSVTableView: NSView {
   var roundToTwoDecimalPlaces = false
   /// The index of the currently selected header row.
   var selectedHeaderRowIndex: Int = 0
+  /// The headers of the columns that are currently hidden.
+  var hiddenColumnHeaders: [String] = []
   
   /// Initializes the view with a given frame rectangle.
   ///
@@ -162,15 +164,7 @@ class CSVTableView: NSView {
     }
   }
   
-  /// Unhides all columns in the table view.
-  func unhideColumns() {
-    tableView.tableColumns.forEach { column in
-      column.isHidden = false
-      column.width = CGFloat(100) // Set a default width if header cell size isn't sufficient
-    }
-    
-    resizeTableViewColumnsToFit()  // Resize columns after unhiding them
-  }
+  
   
   
   
@@ -527,6 +521,8 @@ class CSVTableView: NSView {
         column.isHidden = true
       }
     }
+    
+    updateAppForHiddenColumns()
   }
   
   // MARK: - Rounding 2 Decimal Places
