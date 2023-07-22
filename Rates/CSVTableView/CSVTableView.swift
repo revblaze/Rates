@@ -290,7 +290,7 @@ class CSVTableView: NSView {
     for i in 0..<tableData.count {
       if i == selectedHeaderRowIndex {
         tableData[i].append(currencyCodeColumn.title)
-      } else if i > selectedHeaderRowIndex {
+      } else if i > selectedHeaderRowIndex && columnIndex < tableData[i].count {
         var cell = tableData[i][columnIndex]
         let currencyCode = Utility.extractCurrencyCode(&cell, usingCurrencyCodes: sharedHeaders.availableCurrencyCodeHeaders)
         tableData[i][columnIndex] = cell
