@@ -120,6 +120,8 @@ class CSVTableView: NSView {
     // Update shared headers
     sharedHeaders.availableHeaders = foundHeaderRow
     determineSuggestedHeadersForConversion()
+    
+    Debug.log("=== TableData ===\n\(tableData)")
   }
   
   /// Finds the index of the header row in the table data.
