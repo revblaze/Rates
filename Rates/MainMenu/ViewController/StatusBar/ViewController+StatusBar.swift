@@ -55,7 +55,20 @@ extension ViewController {
   ///
   /// - Parameter sender: The button that initiated the action.
   @IBAction func statusBarRefreshButtonAction(_ sender: NSButton) {
-    checkInternetAndUpdateData()
+    performAppropriateStatusBarRefreshButtonAction()
+  }
+  
+  /// Trigger the appropriate action for the refresh/reload button based on the current `StatusBarState`.
+  func performAppropriateStatusBarRefreshButtonAction() {
+    
+    if statusBarState == .failedToLoadUserData {
+      // If failed to load user file, supply them with a new input file prompt.
+      openFileSelection()
+    } else if statusBarState == .failedToUpdate || statusBarState == .noConnectionAndNoDb || statusBarState == .noConnectionAndPrefersUpdate {
+      // Check internet connection again and try to download exchange rate data.
+      checkInternetAndUpdateData()
+    }
+    // Else, refresh button should have no action.
   }
   
 }
