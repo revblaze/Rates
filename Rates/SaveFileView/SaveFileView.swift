@@ -44,20 +44,24 @@ struct SaveFileView: View {
       .padding()
       
       if sharedData.outputUserFileExtension.canBeExportedWithFormat.count > 1 {
-        HStack {
-          Text("Select Data Format:")
-          Menu {
-            ForEach(sharedData.outputUserFileExtension.canBeExportedWithFormat, id: \.self) { format in
-              Button(format.fullFormatName) {
-                sharedData.outputUserFileFormat = format
+        withAnimation {
+          HStack {
+            Text("Select Data Format:")
+            Menu {
+              ForEach(sharedData.outputUserFileExtension.canBeExportedWithFormat, id: \.self) { format in
+                Button(format.fullFormatName) {
+                  sharedData.outputUserFileFormat = format
+                }
               }
+            } label: {
+              Text("\(sharedData.outputUserFileFormat.fullFormatName)")
             }
-          } label: {
-            Text("\(sharedData.outputUserFileFormat.fullFormatName)")
           }
+          .padding()
+          .transition(.opacity)
         }
-        .padding()
       }
+      
       
       Divider()
         .padding(.horizontal, 12)
@@ -97,34 +101,46 @@ struct SaveFileOptionsView: View {
   @State private var isExpanded: Bool = false
   
   var body: some View {
-    Button(action: {
-      isExpanded.toggle()
-    }) {
-      DisclosureGroup(isExpanded: $isExpanded, content: {
-        HStack {
-          Toggle(isOn: $sharedData.saveAllInputDataToOutputFile) {
-            Text("Include all hidden data in save file")
-              .fixedSize(horizontal: false, vertical: true)
-          }
-          Spacer()  // Push the Toggle and Text to the left
-        }
-        .padding(.top, 10)
-        HStack {
-          Toggle(isOn: $sharedData.saveRoundedConversionValuesToOutputFile) {
-            Text("Round the values for me in the save file (caution)")
-              .fixedSize(horizontal: false, vertical: true)
-          }
-          Spacer()  // Push the Toggle and Text to the left
+    VStack {
+      Button(action: {
+        withAnimation {
+          isExpanded.toggle()
         }
       }) {
-        Text("Save File Options")
-          .bold()
+        HStack {
+          Text("Save File Options")
+            .bold()
+          Spacer()
+          Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+        }
+      }
+      .buttonStyle(PlainButtonStyle())
+      .frame(maxWidth: .infinity)
+      
+      if isExpanded {
+        VStack {
+          HStack {
+            Toggle(isOn: $sharedData.saveAllInputDataToOutputFile) {
+              Text("Include all hidden data in save file")
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer()  // Push the Toggle and Text to the left
+          }
+          .padding(.top, 10)
+          HStack {
+            Toggle(isOn: $sharedData.saveRoundedConversionValuesToOutputFile) {
+              Text("Round the values for me in the save file (caution)")
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer()  // Push the Toggle and Text to the left
+          }
+        }
+        .transition(.opacity)
       }
     }
-    .buttonStyle(PlainButtonStyle())
-    .frame(maxWidth: .infinity)
   }
 }
+
 
 //struct SaveFileView_Previews: PreviewProvider {
 //  static var previews: some View {
