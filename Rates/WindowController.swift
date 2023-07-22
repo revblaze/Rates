@@ -50,6 +50,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   
   /// Disables all toolbar items and updates their appearance.
   func disableAllToolbarItems() {
+    Debug.log("[WindowController] disableAllToolbarItems()")
     if let toolbar = window?.toolbar {
       for item in toolbar.items {
         item.action = nil

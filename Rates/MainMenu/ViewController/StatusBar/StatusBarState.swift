@@ -9,14 +9,21 @@ import Foundation
 
 /// Enumeration representing the various states of the status bar.
 enum StatusBarState {
-  
+  /// Loading the exchange rate SQLite file (data.db)
   case loading
+  /// The exchange rate database is up to date. Default state of the app, post-launch.
   case upToDate
+  /// The latest exchange rate data is currently being downloaded.
   case isCurrentlyUpdating
+  /// Failed to update with the latest exhange rate data; likely due to being unable to reach the database provider.
   case failedToUpdate
+  /// The user is not connected to the internet and there could be new exchange rate data available, but unable to check.
   case noConnectionAndPrefersUpdate
+  /// The user is not connected to the internet and there is no db present. App should be disabled.
   case noConnectionAndNoDb
+  /// Parsing the user's file data and populating the tableView with said data.
   case loadingUserData
+  /// Unable to parse user's file data. Potentially a corrupt file or unknown format.
   case failedToLoadUserData
   
   /// The text description associated with the state.

@@ -30,14 +30,16 @@ extension ViewController {
       else {
         // Add error handling here
         Debug.log("[passDataToTableView] Error converting file to CSV or restructuring CSV for table view.")
-        // Once file conversion is done, update UI on main queue
+        // Failed to pass file data to CSVTableView
         DispatchQueue.main.async {
-          self.updateStatusBar(withState: .failedToLoadUserData)
-          self.enableMainViewInteraction()
+          self.updateStatusBar(withState: .failedToLoadUserData)  // Update status bar to be failedToLoadUserData
+          self.enableMainViewInteraction()                        // Re-enable main view interaction
           
-          if self.userHasPreviouslyLoadedInputFileThisSession {
-            self.enableToolbarItemsOnFileLoad()
+          // If user has previously loaded a file this session and table is not populated with launch screen data:
+          if self.userHasPreviouslyLoadedInputFileThisSession && !self.tableIsPopulatedWithLaunchScreenData {
+            self.enableToolbarItemsOnFileLoad()   // Re-enable toolbar items for file editing
           } else {
+            // Else, only enable openFile button.
             self.enableToolbarItemsForPostLaunchState()
           }
         }
@@ -46,10 +48,11 @@ extension ViewController {
       
       // Once file conversion is done, update UI on main queue
       DispatchQueue.main.async {
-        self.updateCSVTableViewWithCSV(at: csvFileUrl)
-        self.updateStatusBar(withState: .upToDate)
-        self.enableMainViewInteraction()
-        self.enableToolbarItemsOnFileLoad()
+        self.updateCSVTableViewWithCSV(at: csvFileUrl)      // Update the CSVTableView with user data
+        self.tableIsPopulatedWithLaunchScreenData = false   // Set launch screen data flag to flase
+        self.updateStatusBar(withState: .upToDate)          // Update status bar to be upToDate
+        self.enableMainViewInteraction()                    // Enable main view interaction
+        self.enableToolbarItemsOnFileLoad()                 // Enable all toolbar items for editing
       }
     }
   }

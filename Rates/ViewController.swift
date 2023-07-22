@@ -224,8 +224,10 @@ class ViewController: NSViewController {
   private var overlayView: NSView?
   
   
-  /// A flag determing if the user has previously loaded a file this session, or if the CSVTableView is such populated with launch data.
+  /// A flag determining if the user has previously loaded a file this session, or if the CSVTableView is such populated with launch data.
   var userHasPreviouslyLoadedInputFileThisSession = false
+  /// A flag determining if CSVTableView is populated with launch screen data.
+  var tableIsPopulatedWithLaunchScreenData = false
   
   
   // MARK: - Represented Objects

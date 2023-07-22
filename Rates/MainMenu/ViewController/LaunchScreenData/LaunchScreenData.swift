@@ -14,6 +14,9 @@ extension ViewController {
     updateAvailableCurrencyCodeHeaders()
     sharedData.sqliteUrl = Query.sqliteUrl()
     windowController?.enableToolbarItemsOnLaunchDataLoad()
+    
+    Debug.log("[launchScreenDataDidFinishLoading] Done.")
+    tableIsPopulatedWithLaunchScreenData = true
   }
   
   /// Updates the CSV table view with launch data from a given URL.
