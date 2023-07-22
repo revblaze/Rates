@@ -88,6 +88,8 @@ class CSVTableView: NSView {
   func updateTableColumns(withHeaderRowDetection: DetectHeaderRow = .modeNumberOfEntries, customHeaderRow: [String] = [""]) {
     tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
     
+    Debug.log("[updateTableColumns] withHeadeRowDetection: \(withHeaderRowDetection)")
+    
     var headerRow: [String]? = nil
     
     switch withHeaderRowDetection {
@@ -128,7 +130,7 @@ class CSVTableView: NSView {
     sharedHeaders.availableHeaders = foundHeaderRow
     determineSuggestedHeadersForConversion()
     
-    Debug.log("=== TableData ===\n\(tableData)")
+    //Debug.log("=== TableData ===\n\(tableData)")
   }
   
   /// Finds the index of the header row in the table data.

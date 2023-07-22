@@ -45,23 +45,20 @@ extension CSVTableView {
   /// - Parameter tableData: The CSV data.
   /// - Returns: The header row.
   func findLargestNumberEntryHeaderRow(tableData: [[String]]) -> [String]? {
-    var headerRow: [String]? = nil
-    var maxEntryCount = 0
-    var filteredTableData: [[String]] = []
+    // Step 1: Filter out the empty strings from each row
+    let filteredTableData = tableData.map { $0.filter { !$0.isEmpty } }
     
-    for row in tableData {
-      // If Constants.takesEmptyEntriesIntoAccount is false, decrement entryCount for each empty entry
-      let filteredRow = Constants.takesEmptyEntriesIntoAccount ? row : row.filter { !$0.isEmpty }
-      let entryCount = filteredRow.count
-      if entryCount > maxEntryCount {
-        maxEntryCount = entryCount
-        headerRow = filteredRow
-      }
-      filteredTableData.append(filteredRow)
-    }
+    // Step 2: Find the rows with the highest count of non-empty strings
+    let maxCount = filteredTableData.max { $0.count < $1.count }?.count ?? 0
+    let largestRows = filteredTableData.filter { $0.count == maxCount }
     
-    return headerRow
+    Debug.log("largestRows: \(largestRows)")
+    
+    
+    // Step 3: Return the first of those rows
+    return largestRows.first
   }
+
   
   /// Retrieves the cell text of the very first row from the provided table data.
   ///

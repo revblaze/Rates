@@ -64,11 +64,9 @@ extension ViewController {
   func updateCSVTableViewWithCSV(at url: URL) {
     Debug.log("[updateCSVTableViewWithCSV] CSV: \(url)")
     
-    if let fileExtension = url.hasFileExtension() {
-      // Set custom header detection method
-      csvTableView.updateCSVData(with: url, withHeaderRowDetection: fileExtension.headerDetectionMethod)
+    if let detectionType = sharedData.inputUserFileExtension?.headerDetectionMethod {
+      csvTableView.updateCSVData(with: url, withHeaderRowDetection: detectionType)
     } else {
-      // Revert to default detection method (.mode
       csvTableView.updateCSVData(with: url)
     }
     
@@ -77,6 +75,8 @@ extension ViewController {
     // Set user session flag
     userHasPreviouslyLoadedInputFileThisSession = true
   }
+  
+  
   
   /// Opens a file selected by the user and calls the completion handler with the URL of the file.
   ///
