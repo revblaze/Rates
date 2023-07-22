@@ -102,10 +102,7 @@ class CSVTableView: NSView {
     }
     
     // Update selectedHeaderRowIndex with the index of the header row
-    selectedHeaderRowIndex = tableData.firstIndex(where: { row in
-      let commonItems = Set(row).intersection(Set(foundHeaderRow))
-      return commonItems.count >= 2
-    }) ?? 0
+    selectedHeaderRowIndex = getSelectedHeaderRowIndex(in: tableData, using: foundHeaderRow, minimumMatchingHeaderItems: 2)
     
     Debug.log("[updateTableColumns] foundHeaderRow: \(foundHeaderRow)\nselectedHeaderRowIndex: \(selectedHeaderRowIndex)")
     Debug.log("tableData[selectedHeaderRowIndex]: \(tableData[selectedHeaderRowIndex])")
