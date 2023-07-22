@@ -369,7 +369,7 @@ class CSVTableView: NSView {
       } else if i > selectedHeaderRowIndex {
         let row = tableData[i]
         if row.count <= max(datesIndex, amountsIndex, currenciesIndex) {
-          tableData[i].append("0.0")
+          tableData[i].insert("0.0", at: usdColumnIndex) //tableData[i].append("0.0")
           continue
         }
         let date = row[datesIndex]
@@ -378,10 +378,10 @@ class CSVTableView: NSView {
         let currencyCode = row[currenciesIndex]
         
         if let usdValue = Query.valueInUsd(currencyCode: currencyCode, amountOfCurrency: amountString, onDate: date) {
-          tableData[i].append(String(usdValue))
+          tableData[i].insert(String(usdValue), at: usdColumnIndex) //tableData[i].append(String(usdValue))
         } else {
           Debug.log("[createUsdColumnWithConvertedAmounts] Unable to convert value for row \(i)")
-          tableData[i].append("0.0")
+          tableData[i].insert("0.0", at: usdColumnIndex) //tableData[i].append("0.0")
         }
       } else {
         tableData[i].insert("", at: usdColumnIndex)
@@ -424,17 +424,17 @@ class CSVTableView: NSView {
       } else if i > selectedHeaderRowIndex {
         let row = tableData[i]
         if row.count <= max(datesIndex, usdColumnIndex) {
-          tableData[i].append("0.0")
+          tableData[i].insert("0.0", at: newCurrencyColumnIndex) //tableData[i].append("0.0")
           continue
         }
         let date = row[datesIndex]
         let usdAmountString = row[usdColumnIndex]
         
         if let newCurrencyValue = Query.valueInNewCurrency(fromUsdAmount: usdAmountString, toCurrencyCode: code, onDate: date) {
-          tableData[i].append(String(newCurrencyValue))
+          tableData[i].insert(String(newCurrencyValue), at: newCurrencyColumnIndex) //tableData[i].append(String(newCurrencyValue))
         } else {
           Debug.log("[createSecondColumnWithConvertedAmounts] Unable to convert value for row \(i)")
-          tableData[i].append("0.0")
+          tableData[i].insert("0.0", at: newCurrencyColumnIndex) //tableData[i].append("0.0")
         }
       } else {
         tableData[i].insert("", at: newCurrencyColumnIndex)
