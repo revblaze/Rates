@@ -285,24 +285,27 @@ class CSVTableView: NSView {
     let currencyCodeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "CurrencyCodeColumn"))
     currencyCodeColumn.title = "From Currency"
     tableView.addTableColumn(currencyCodeColumn)
+    let currencyCodeColumnIndex = tableView.tableColumns.count - 1
     
     // Iterate over the table data and append currency codes alongside their data
     for i in 0..<tableData.count {
       if i == selectedHeaderRowIndex {
-        tableData[i].append(currencyCodeColumn.title)
+        // Create space in the header row for the new column
+        tableData[i].insert(currencyCodeColumn.title, at: currencyCodeColumnIndex)
       } else if i > selectedHeaderRowIndex && columnIndex < tableData[i].count {
         var cell = tableData[i][columnIndex]
         let currencyCode = Utility.extractCurrencyCode(&cell, usingCurrencyCodes: sharedHeaders.availableCurrencyCodeHeaders)
         tableData[i][columnIndex] = cell
-        tableData[i].append(currencyCode)
+        tableData[i].insert(currencyCode, at: currencyCodeColumnIndex)
       } else {
-        tableData[i].append("")
+        tableData[i].insert("", at: currencyCodeColumnIndex)
       }
     }
     
     tableView.reloadData()
     return currencyCodeColumn.title
   }
+
   
   /// Creates a new column in the table with converted amounts to USD using the given header information.
   ///
