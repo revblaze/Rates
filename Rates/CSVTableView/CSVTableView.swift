@@ -532,6 +532,7 @@ class CSVTableView: NSView {
   func enableRoundToTwoDecimalPlaces() {
     roundToTwoDecimalPlaces = true
     tableView.reloadData()
+    resizeTableViewColumnsToFit()
     sharedFormattingOptions.roundToTwoDecimalPlaces = true
     viewController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: true)
     
@@ -541,6 +542,7 @@ class CSVTableView: NSView {
   func disableRoundToTwoDecimalPlaces() {
     roundToTwoDecimalPlaces = false
     tableView.reloadData()
+    resizeTableViewColumnsToFit()
     sharedFormattingOptions.roundToTwoDecimalPlaces = false
     viewController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: false)
   }

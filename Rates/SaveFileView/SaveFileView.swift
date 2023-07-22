@@ -44,7 +44,6 @@ struct SaveFileView: View {
       .padding()
       
       if sharedData.outputUserFileExtension.canBeExportedWithFormat.count > 1 {
-        withAnimation {
           HStack {
             Text("Select Data Format:")
             Menu {
@@ -57,9 +56,8 @@ struct SaveFileView: View {
               Text("\(sharedData.outputUserFileFormat.fullFormatName)")
             }
           }
-          .padding()
-          .transition(.opacity)
-        }
+          .padding(.bottom)
+          .padding(.horizontal)
       }
       
       
@@ -121,7 +119,7 @@ struct SaveFileOptionsView: View {
         VStack {
           HStack {
             Toggle(isOn: $sharedData.saveAllInputDataToOutputFile) {
-              Text("Include all hidden data in save file")
+              Text("Include all hidden column data in save file")
                 .fixedSize(horizontal: false, vertical: true)
             }
             Spacer()  // Push the Toggle and Text to the left
@@ -129,7 +127,7 @@ struct SaveFileOptionsView: View {
           .padding(.top, 10)
           HStack {
             Toggle(isOn: $sharedData.saveRoundedConversionValuesToOutputFile) {
-              Text("Round the values for me in the save file (caution)")
+              Text("Round the values in the save file (not recommended)")
                 .fixedSize(horizontal: false, vertical: true)
             }
             Spacer()  // Push the Toggle and Text to the left

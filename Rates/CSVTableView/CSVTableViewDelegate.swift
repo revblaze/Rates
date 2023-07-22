@@ -120,6 +120,8 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
     updateAppForHiddenColumns()
   }
   
+  
+  // MARK: - Hide/Unhide Columns
   /// Hides the columns that were previously hidden by the filterTableColumns method.
   func rehideColumns() {
     for column in tableView.tableColumns {
@@ -159,31 +161,23 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
     viewController?.updateHiddenTableViewColumnsToolbarButton(toBeActive: false)
   }
   
-  // MARK: App Store Connect
-  /// Filters the table view for App Store Connect sales.
-  func filterAppStoreConnectSales() {
-    filterAppStoreConnectSalesColumns(tableView: tableView)
-  }
-  
-  /// Filters the columns in the table view for App Store Connect sales with given column headers.
+  /// Returns the table data for the visible columns.
   ///
-  /// - Parameters:
-  ///   - tableView: The table view to filter.
-  ///   - withColumns: The column headers for App Store Connect sales. See `AppStoreConnectSalesColumnHeaders.simplified` or `.expanded`.
-  func filterAppStoreConnectSalesColumns(tableView: NSTableView, withColumns: [String] = AppStoreConnectSalesColumnHeaders.simplified) {
-    let filterStrings = withColumns
+  /// - Returns: The table data for the visible columns.
+  func getTableDataForVisibleColumns() -> [[String]] {
+    // Get the indices of the visible columns
+    let visibleColumnIndices = tableView.tableColumns.enumerated()
+      .filter { !$1.isHidden }
+      .map { $0.offset }
     
-    let columnsToKeep = tableView.tableColumns.filter { column in
-      filterStrings.contains(column.title)
-    }
-    
-    for column in tableView.tableColumns {
-      if columnsToKeep.contains(column) {
-        column.isHidden = false
-      } else {
-        column.isHidden = true
+    // Filter the table data based on the visible column indices
+    let visibleTableData = tableData.map { rowData in
+      visibleColumnIndices.compactMap { index in
+        index < rowData.count ? rowData[index] : nil
       }
     }
+    
+    return visibleTableData
   }
   
 }

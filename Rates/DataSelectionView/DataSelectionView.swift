@@ -33,7 +33,8 @@ struct DataSelectionView: View {
   
   var body: some View {
     VStack {
-      Text("Select the transaction data to be used for the currency conversion")
+      Text("Select the transaction data to be used for currency conversion")
+        .bold()
         .fixedSize(horizontal: false, vertical: true)
         .padding(.vertical, 6)
         .padding(.bottom, 10)
@@ -85,6 +86,8 @@ struct DataSelectionView: View {
         .keyboardShortcut(.defaultAction)
         .largeButton(foregroundColor: .white, backgroundColor: .accentColor, pressedColor: .accentColor.opacity(0.6))
       }
+      .padding(.vertical)
+      
       if showError && isConvertButtonPressed {
         Text("Please select the columns of data to be used for the conversion.")
           .foregroundColor(.red)

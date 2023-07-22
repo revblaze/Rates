@@ -29,7 +29,6 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   
   // MARK: Hidden Items
   @IBOutlet weak var settingsToolbarButton: NSToolbarItem!
-  @IBOutlet weak var filterToolbarButton: NSToolbarItem!
   @IBOutlet weak var selectCustomHeaderRowButton: NSToolbarItem!
   
   /// The main view controller of the window.
@@ -42,6 +41,9 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   /// Called when the window finishes loading. Disables toolbar items and sets the toolbar delegate.
   override func windowDidLoad() {
     super.windowDidLoad()
+    
+    // Set the minimum window size.
+    self.window?.minSize = NSSize(width: 735, height: 500)
     
     if let toolbar = window?.toolbar { toolbar.delegate = self }
     viewController.windowController = self
@@ -120,11 +122,6 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   /// Reverts changes to the table view when the clear filters toolbar button is pressed.
   @IBAction func clearFiltersToolbarButtonAction(_ sender: Any) {
     performActionOnViewController(action: viewController.revertTableViewChanges)
-  }
-  
-  /// Filters App Store Connect sales when the filter App Store Connect sales toolbar button is pressed.
-  @IBAction func filterAppStoreConnectSales(_ sender: Any) {
-    performActionOnViewController(action: viewController.filterAppStoreConnectSales)
   }
   
   /// Selects a custom header row from the table when the select custom header row toolbar button is pressed.

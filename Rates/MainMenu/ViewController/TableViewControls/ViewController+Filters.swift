@@ -20,9 +20,4 @@ extension ViewController {
     csvTableView.unhideColumns()
   }
   
-  /// Filters the CSV table view for App Store Connect sales.
-  func filterAppStoreConnectSales() {
-    csvTableView.filterAppStoreConnectSales()
-  }
-  
 }
