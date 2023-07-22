@@ -74,20 +74,30 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     toolbarButton.target = self
   }
   
+  private func disableToolbarButton(_ toolbarButton: NSToolbarItem) {
+    toolbarButton.action = nil
+  }
+  
   /// Enables toolbar items when a file is loaded.
   func enableToolbarItemsOnFileLoad() {
+    disableAllToolbarItems()
+    Debug.log("[WindowController] enableToolbarItemsOnFileLoad()")
     enableToolbarButton(toggleFilterControlViewToolbarButton, action: #selector(toggleFilterControlViewToolbarButtonAction(_:)))
     enableToolbarButton(convertToolbarButton, action: #selector(convertToolbarButtonAction(_:)))
     enableToolbarButton(saveFileToolbarButton, action: #selector(saveFileToolbarButtonAction(_:)))
     enableToolbarButton(openFileToolbarButton, action: #selector(openFileAction(_:)))
     enableToolbarButton(clearFiltersToolbarButton, action: #selector(clearFiltersToolbarButtonAction(_:)))
     enableToolbarButton(toggleRoundToTwoDecimalPlacesToolbarButton, action: #selector(toggleRoundToTwoDecimalPlacesToolbarButtonAction(_:)))
+    
     validateToolbarItems()
   }
   
   /// Enables toolbar items when data is loaded at launch.
   func enableToolbarItemsOnLaunchDataLoad() {
+    disableAllToolbarItems()
+    Debug.log("[WindowController] enableToolbarItemsOnLaunchDataLoad()")
     enableToolbarButton(openFileToolbarButton, action: #selector(openFileAction(_:)))
+    
     validateToolbarItems()
   }
   
@@ -164,6 +174,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   
   /// Validates toolbar items to update their appearance.
   func validateToolbarItems() {
+    Debug.log("[WindowController] validateToolbarItems()")
     if let toolbar = window?.toolbar { toolbar.validateVisibleItems() }
   }
   
