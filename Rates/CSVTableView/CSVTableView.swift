@@ -91,12 +91,19 @@ class CSVTableView: NSView {
     var headerRow: [String]? = nil
     
     switch withHeaderRowDetection {
+    case .firstRow:
+      headerRow = getFirstRowHeaders(from: tableData)
     case .modeNumberOfEntries:
-      headerRow = CSVTableView.findModeEntryHeaderRow(tableData: tableData)
+      headerRow = findModeEntryHeaderRow(tableData: tableData)
     case .largestNumberOfEntries:
-      headerRow = CSVTableView.findLargestNumberEntryHeaderRow(tableData: tableData)
+      headerRow = findLargestNumberEntryHeaderRow(tableData: tableData)
     case .custom:
       headerRow = customHeaderRow
+    }
+    
+    // Make the first row visible by adding an empty row in its place.
+    if withHeaderRowDetection != .firstRow {
+      tableData.insert([String](repeating: "", count: headerRow?.count ?? 0), at: 0)
     }
     
     guard let foundHeaderRow = headerRow else {
@@ -548,6 +555,5 @@ class CSVTableView: NSView {
     sharedFormattingOptions.roundToTwoDecimalPlaces = false
     viewController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: false)
   }
-  
   
 }
