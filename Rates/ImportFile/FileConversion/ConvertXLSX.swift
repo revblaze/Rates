@@ -40,8 +40,14 @@ struct ConvertXLSX {
                     return "\(date)"
                   } else if let formula = cell.formula {
                     return "\(formula)"
+                  } else if let inlineString = cell.inlineString {
+                    return "\(inlineString)"
+                  } else if let richStringValue = cell.richStringValue(sharedStrings) {
+                    return richStringValue.compactMap { $0.text }.joined(separator: " ")
+                  } else if let cellValue = cell.value {
+                    return "\(cellValue)"
                   } else {
-                    return nil
+                    return "––" // ""
                   }
                 }
               } catch {
