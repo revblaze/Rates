@@ -15,8 +15,6 @@ struct ConvertTSV {
   /// - Parameter fileUrl: The URL of the TSV file.
   /// - Returns: The URL of the CSV file, or `nil` if an error occurs during the conversion.
   static func toCSV(fileUrl: URL) -> URL? {
-    let fileManager = FileManager.default
-    
     // Create a destination URL for the CSV file
     guard let appSupportDirectory = Utility.getApplicationSupportDirectory() else {
       return nil
