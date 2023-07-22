@@ -44,8 +44,6 @@ struct SaveFileView: View {
       .padding()
       
       if sharedData.outputUserFileExtension.canBeExportedWithFormat.count > 1 {
-        Divider()
-          .padding(.horizontal, 12)
         HStack {
           Text("Select Data Format:")
           Menu {
@@ -59,9 +57,6 @@ struct SaveFileView: View {
           }
         }
         .padding()
-        Divider()
-          .padding(.horizontal, 12)
-          .padding(.bottom, 6)
       }
       
       Divider()
@@ -108,7 +103,7 @@ struct SaveFileOptionsView: View {
       DisclosureGroup(isExpanded: $isExpanded, content: {
         HStack {
           Toggle(isOn: $sharedData.saveAllInputDataToOutputFile) {
-            Text("Round to two decimal places")
+            Text("Include all hidden data in save file")
               .fixedSize(horizontal: false, vertical: true)
           }
           Spacer()  // Push the Toggle and Text to the left
@@ -116,7 +111,7 @@ struct SaveFileOptionsView: View {
         .padding(.top, 10)
         HStack {
           Toggle(isOn: $sharedData.saveRoundedConversionValuesToOutputFile) {
-            Text("Remove empty columns")
+            Text("Round the values for me in the save file (caution)")
               .fixedSize(horizontal: false, vertical: true)
           }
           Spacer()  // Push the Toggle and Text to the left
