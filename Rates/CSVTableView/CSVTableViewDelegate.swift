@@ -161,9 +161,9 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
     viewController?.updateHiddenTableViewColumnsToolbarButton(toBeActive: false)
   }
   
-  /// Returns the table data for the visible columns.
+  /// Returns the table data for the visible columns, excluding leading and trailing empty rows.
   ///
-  /// - Returns: The table data for the visible columns.
+  /// - Returns: The table data for the visible columns, excluding leading and trailing empty rows.
   func getTableDataForVisibleColumns() -> [[String]] {
     // Get the indices of the visible columns
     let visibleColumnIndices = tableView.tableColumns.enumerated()
@@ -171,10 +171,20 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
       .map { $0.offset }
     
     // Filter the table data based on the visible column indices
-    let visibleTableData = tableData.map { rowData in
+    var visibleTableData = tableData.map { rowData in
       visibleColumnIndices.compactMap { index in
         index < rowData.count ? rowData[index] : nil
       }
+    }
+    
+    // Remove leading empty rows
+    while let firstRow = visibleTableData.first, firstRow.allSatisfy({ $0.isEmpty }) {
+      visibleTableData.removeFirst()
+    }
+    
+    // Remove trailing empty rows
+    while let lastRow = visibleTableData.last, lastRow.allSatisfy({ $0.isEmpty }) {
+      visibleTableData.removeLast()
     }
     
     return visibleTableData
