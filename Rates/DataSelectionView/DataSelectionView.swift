@@ -33,7 +33,8 @@ struct DataSelectionView: View {
   
   var body: some View {
     VStack {
-      Text("Select the transaction data to be used for the currency conversion")
+      Text("Select the transaction data to be used for currency conversion")
+        .bold()
         .fixedSize(horizontal: false, vertical: true)
         .padding(.vertical, 6)
         .padding(.bottom, 10)
@@ -85,6 +86,8 @@ struct DataSelectionView: View {
         .keyboardShortcut(.defaultAction)
         .largeButton(foregroundColor: .white, backgroundColor: .accentColor, pressedColor: .accentColor.opacity(0.6))
       }
+      .padding(.vertical)
+      
       if showError && isConvertButtonPressed {
         Text("Please select the columns of data to be used for the conversion.")
           .foregroundColor(.red)
@@ -134,40 +137,50 @@ struct FormattingOptionsView: View {
   @State private var isExpanded: Bool = false
   
   var body: some View {
-    Button(action: {
-      isExpanded.toggle()
-    }) {
-      DisclosureGroup(isExpanded: $isExpanded, content: {
-        HStack {
-          Toggle(isOn: $sharedFormattingOptions.roundToTwoDecimalPlaces) {
-            Text("Round to two decimal places")
-              .fixedSize(horizontal: false, vertical: true)
-          }
-          Spacer()  // Push the Toggle and Text to the left
+    VStack {
+      Button(action: {
+        withAnimation {
+          isExpanded.toggle()
         }
-        .padding(.top, 10)
-        HStack {
-          Toggle(isOn: $sharedFormattingOptions.hideEmptyColumns) {
-            Text("Remove empty columns")
-              .fixedSize(horizontal: false, vertical: true)
-          }
-          Spacer()  // Push the Toggle and Text to the left
-        }
-        HStack {
-          Toggle(isOn: $sharedFormattingOptions.hideIrrelevantColumns) {
-            Text("Remove irrelevant columns")
-              .fixedSize(horizontal: false, vertical: true)
-          }
-          Spacer()  // Push the Toggle and Text to the left
-        }
-        //.padding(.bottom, 10)
       }) {
-        Text("Formatting Options")
-          .bold()
+        HStack {
+          Text("Formatting Options")
+            .bold()
+          Spacer()
+          Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+        }
+      }
+      .buttonStyle(PlainButtonStyle())
+      .frame(maxWidth: .infinity)
+      
+      if isExpanded {
+        VStack {
+          HStack {
+            Toggle(isOn: $sharedFormattingOptions.roundToTwoDecimalPlaces) {
+              Text("Round to two decimal places")
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer()  // Push the Toggle and Text to the left
+          }
+          .padding(.top, 10)
+          HStack {
+            Toggle(isOn: $sharedFormattingOptions.hideEmptyColumns) {
+              Text("Remove empty columns")
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer()  // Push the Toggle and Text to the left
+          }
+          HStack {
+            Toggle(isOn: $sharedFormattingOptions.hideIrrelevantColumns) {
+              Text("Remove irrelevant columns")
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer()  // Push the Toggle and Text to the left
+          }
+        }
+        .transition(.opacity)
       }
     }
-    .buttonStyle(PlainButtonStyle())
-    .frame(maxWidth: .infinity)
   }
 }
 

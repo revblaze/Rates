@@ -858,11 +858,6 @@
                                         <action selector="clearFiltersToolbarButtonAction:" target="B8D-0N-5wS" id="zbr-lS-gbh"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="2A25FDAE-932F-48D1-BF80-C13A1444100F" label="Filter" paletteLabel="Filter" tag="-1" image="list.bullet.rectangle" catalog="system" bordered="YES" sizingBehavior="auto" id="zxs-eo-89M">
-                                    <connections>
-                                        <action selector="filterAppStoreConnectSales:" target="B8D-0N-5wS" id="hWU-eO-YhG"/>
-                                    </connections>
-                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="67C97AED-FC6C-4963-AA0F-E769BB773232" label="Select Header" paletteLabel="Select Header Row" tag="-1" image="textformat" catalog="system" bordered="YES" sizingBehavior="auto" id="FsO-Zc-JPA">
                                     <connections>
                                         <action selector="selectCustomHeaderRowFromTable:" target="B8D-0N-5wS" id="tzk-I6-8t3"/>
@@ -907,7 +902,6 @@
                     <connections>
                         <outlet property="clearFiltersToolbarButton" destination="fqb-rO-691" id="oOy-IN-sgq"/>
                         <outlet property="convertToolbarButton" destination="uEg-WK-vIe" id="sw3-Qi-KTw"/>
-                        <outlet property="filterToolbarButton" destination="zxs-eo-89M" id="Jxh-iC-JW3"/>
                         <outlet property="openFileToolbarButton" destination="0Ad-i3-c1T" id="T4k-7v-5ji"/>
                         <outlet property="saveFileToolbarButton" destination="b0T-PK-dtD" id="gYp-8E-qQV"/>
                         <outlet property="selectCustomHeaderRowButton" destination="FsO-Zc-JPA" id="gJ5-Gu-PxU"/>
@@ -1022,7 +1016,6 @@
         <image name="dollarsign.circle" catalog="system" width="15" height="15"/>
         <image name="eye" catalog="system" width="21" height="13"/>
         <image name="gear" catalog="system" width="17" height="17"/>
-        <image name="list.bullet.rectangle" catalog="system" width="18" height="14"/>
         <image name="square.and.arrow.down" catalog="system" width="15" height="16"/>
         <image name="tablecells.badge.ellipsis" catalog="system" width="20" height="15"/>
         <image name="textformat" catalog="system" width="18" height="12"/>
