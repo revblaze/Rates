@@ -27,6 +27,8 @@ class CSVTableView: NSView {
   var roundToTwoDecimalPlaces = false
   /// The index of the currently selected header row.
   var selectedHeaderRowIndex: Int = 0
+  /// The headers of the columns that are currently hidden.
+  var hiddenColumnHeaders: [String] = []
   
   /// Initializes the view with a given frame rectangle.
   ///
@@ -102,7 +104,10 @@ class CSVTableView: NSView {
     }
     
     // Update selectedHeaderRowIndex with the index of the header row
-    selectedHeaderRowIndex = tableData.firstIndex(where: { $0 == foundHeaderRow }) ?? 0
+    selectedHeaderRowIndex = getSelectedHeaderRowIndex(in: tableData, using: foundHeaderRow, minimumMatchingHeaderItems: 2)
+    
+    Debug.log("[updateTableColumns] foundHeaderRow: \(foundHeaderRow)\nselectedHeaderRowIndex: \(selectedHeaderRowIndex)")
+    Debug.log("tableData[selectedHeaderRowIndex]: \(tableData[selectedHeaderRowIndex])")
     
     for (index, header) in foundHeaderRow.enumerated() {
       let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
@@ -115,6 +120,27 @@ class CSVTableView: NSView {
     // Update shared headers
     sharedHeaders.availableHeaders = foundHeaderRow
     determineSuggestedHeadersForConversion()
+  }
+  
+  /// Finds the index of the header row in the table data.
+  ///
+  /// This function compares each row in the table data with the provided header row.
+  /// It removes all empty entries from the rows before comparing them.
+  /// If a row in the table data has at least `minimumMatchingHeaderItems` items in common with the header row, that row is considered to be the header row.
+  ///
+  /// - Parameters:
+  ///   - tableData: The table data as a two-dimensional array of strings.
+  ///   - foundHeaderRow: The detected header row as an array of strings.
+  ///   - minimumMatchingHeaderItems: The minimum number of items a row must have in common with the header row to be considered the header row. Defaults to 2.
+  ///
+  /// - Returns: The index of the header row in the table data. If no suitable header row is found, it returns 0.
+  func getSelectedHeaderRowIndex(in tableData: [[String]], using foundHeaderRow: [String], minimumMatchingHeaderItems: Int = 2) -> Int {
+    return tableData.firstIndex(where: { row in
+      let cleanedRow = row.filter { !$0.isEmpty }
+      let cleanedHeaderRow = foundHeaderRow.filter { !$0.isEmpty }
+      let commonItems = Set(cleanedRow).intersection(Set(cleanedHeaderRow))
+      return commonItems.count >= minimumMatchingHeaderItems
+    }) ?? 0
   }
   
   /// Resizes all columns in the table view to fit the widest content of their cells.
@@ -138,15 +164,7 @@ class CSVTableView: NSView {
     }
   }
   
-  /// Unhides all columns in the table view.
-  func unhideColumns() {
-    tableView.tableColumns.forEach { column in
-      column.isHidden = false
-      column.width = CGFloat(100) // Set a default width if header cell size isn't sufficient
-    }
-    
-    resizeTableViewColumnsToFit()  // Resize columns after unhiding them
-  }
+  
   
   
   
@@ -285,24 +303,29 @@ class CSVTableView: NSView {
     let currencyCodeColumn = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "CurrencyCodeColumn"))
     currencyCodeColumn.title = "From Currency"
     tableView.addTableColumn(currencyCodeColumn)
+    let currencyCodeColumnIndex = tableView.tableColumns.count - 1
+    
+    Debug.log("selectedHeaderRowIndex: \(selectedHeaderRowIndex), currencyCodeColumnIndex: \(currencyCodeColumnIndex)")
     
     // Iterate over the table data and append currency codes alongside their data
     for i in 0..<tableData.count {
       if i == selectedHeaderRowIndex {
-        tableData[i].append(currencyCodeColumn.title)
-      } else if i > selectedHeaderRowIndex {
+        // Create space in the header row for the new column
+        tableData[i].insert(currencyCodeColumn.title, at: currencyCodeColumnIndex)
+      } else if i > selectedHeaderRowIndex && columnIndex < tableData[i].count {
         var cell = tableData[i][columnIndex]
         let currencyCode = Utility.extractCurrencyCode(&cell, usingCurrencyCodes: sharedHeaders.availableCurrencyCodeHeaders)
         tableData[i][columnIndex] = cell
-        tableData[i].append(currencyCode)
+        tableData[i].insert(currencyCode, at: currencyCodeColumnIndex)
       } else {
-        tableData[i].append("")
+        tableData[i].insert("", at: currencyCodeColumnIndex)
       }
     }
     
     tableView.reloadData()
     return currencyCodeColumn.title
   }
+
   
   /// Creates a new column in the table with converted amounts to USD using the given header information.
   ///
@@ -332,13 +355,19 @@ class CSVTableView: NSView {
     usdColumn.title = "To USD"
     tableView.addTableColumn(usdColumn)
     
+    let usdColumnIndex = tableView.tableColumns.count - 1
+    
     for i in 0..<tableData.count {
+      while tableData[i].count < tableView.tableColumns.count - 1 {
+        tableData[i].append(Constants.outsideOfTableDataRangePlaceholder)
+      }
+      
       if i == selectedHeaderRowIndex {
-        tableData[i].append(usdColumn.title)
+        tableData[i].insert(usdColumn.title, at: usdColumnIndex)
       } else if i > selectedHeaderRowIndex {
         let row = tableData[i]
         if row.count <= max(datesIndex, amountsIndex, currenciesIndex) {
-          tableData[i].append("0.0")
+          tableData[i].insert(Constants.outsideOfTableDataRangePlaceholder, at: usdColumnIndex)
           continue
         }
         let date = row[datesIndex]
@@ -347,13 +376,13 @@ class CSVTableView: NSView {
         let currencyCode = row[currenciesIndex]
         
         if let usdValue = Query.valueInUsd(currencyCode: currencyCode, amountOfCurrency: amountString, onDate: date) {
-          tableData[i].append(String(usdValue))
+          tableData[i].insert(String(usdValue), at: usdColumnIndex)
         } else {
           Debug.log("[createUsdColumnWithConvertedAmounts] Unable to convert value for row \(i)")
-          tableData[i].append("0.0")
+          tableData[i].insert(Constants.unableToConvertValuePlaceholder, at: usdColumnIndex)
         }
       } else {
-        tableData[i].append("")
+        tableData[i].insert(Constants.outsideOfTableDataRangePlaceholder, at: usdColumnIndex)
       }
     }
     
@@ -385,31 +414,38 @@ class CSVTableView: NSView {
     newCurrencyColumn.title = "To \(code)"
     tableView.addTableColumn(newCurrencyColumn)
     
+    let newCurrencyColumnIndex = tableView.tableColumns.count - 1
+    
     for i in 0..<tableData.count {
+      while tableData[i].count < tableView.tableColumns.count - 1 {
+        tableData[i].append(Constants.outsideOfTableDataRangePlaceholder)
+      }
+      
       if i == selectedHeaderRowIndex {
-        tableData[i].append(newCurrencyColumn.title)
+        tableData[i].insert(newCurrencyColumn.title, at: newCurrencyColumnIndex)
       } else if i > selectedHeaderRowIndex {
         let row = tableData[i]
         if row.count <= max(datesIndex, usdColumnIndex) {
-          tableData[i].append("0.0")
+          tableData[i].insert(Constants.outsideOfTableDataRangePlaceholder, at: newCurrencyColumnIndex)
           continue
         }
         let date = row[datesIndex]
         let usdAmountString = row[usdColumnIndex]
         
         if let newCurrencyValue = Query.valueInNewCurrency(fromUsdAmount: usdAmountString, toCurrencyCode: code, onDate: date) {
-          tableData[i].append(String(newCurrencyValue))
+          tableData[i].insert(String(newCurrencyValue), at: newCurrencyColumnIndex)
         } else {
           Debug.log("[createSecondColumnWithConvertedAmounts] Unable to convert value for row \(i)")
-          tableData[i].append("0.0")
+          tableData[i].insert(Constants.unableToConvertValuePlaceholder, at: newCurrencyColumnIndex)
         }
       } else {
-        tableData[i].append("")
+        tableData[i].insert(Constants.outsideOfTableDataRangePlaceholder, at: newCurrencyColumnIndex)
       }
     }
     
     tableView.reloadData()
   }
+
   
   
   
@@ -485,6 +521,8 @@ class CSVTableView: NSView {
         column.isHidden = true
       }
     }
+    
+    updateAppForHiddenColumns()
   }
   
   // MARK: - Rounding 2 Decimal Places

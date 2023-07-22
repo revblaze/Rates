@@ -25,6 +25,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   @IBOutlet weak var clearFiltersToolbarButton: NSToolbarItem!
   
   @IBOutlet weak var toggleRoundToTwoDecimalPlacesToolbarButton: NSToolbarItem!
+  @IBOutlet weak var toggleHiddenTableViewColumnsToolbarButton: NSToolbarItem!
   
   // MARK: Hidden Items
   @IBOutlet weak var settingsToolbarButton: NSToolbarItem!
@@ -74,20 +75,30 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     toolbarButton.target = self
   }
   
+  private func disableToolbarButton(_ toolbarButton: NSToolbarItem) {
+    toolbarButton.action = nil
+  }
+  
   /// Enables toolbar items when a file is loaded.
   func enableToolbarItemsOnFileLoad() {
+    disableAllToolbarItems()
+    Debug.log("[WindowController] enableToolbarItemsOnFileLoad()")
     enableToolbarButton(toggleFilterControlViewToolbarButton, action: #selector(toggleFilterControlViewToolbarButtonAction(_:)))
     enableToolbarButton(convertToolbarButton, action: #selector(convertToolbarButtonAction(_:)))
     enableToolbarButton(saveFileToolbarButton, action: #selector(saveFileToolbarButtonAction(_:)))
     enableToolbarButton(openFileToolbarButton, action: #selector(openFileAction(_:)))
     enableToolbarButton(clearFiltersToolbarButton, action: #selector(clearFiltersToolbarButtonAction(_:)))
     enableToolbarButton(toggleRoundToTwoDecimalPlacesToolbarButton, action: #selector(toggleRoundToTwoDecimalPlacesToolbarButtonAction(_:)))
+    //enableToolbarButton(toggleHiddenTableViewColumnsToolbarButton, action: #selector(toggleHiddenTableViewColumnsToolbarButtonAction(_:)))
     validateToolbarItems()
   }
   
   /// Enables toolbar items when data is loaded at launch.
   func enableToolbarItemsOnLaunchDataLoad() {
+    disableAllToolbarItems()
+    Debug.log("[WindowController] enableToolbarItemsOnLaunchDataLoad()")
     enableToolbarButton(openFileToolbarButton, action: #selector(openFileAction(_:)))
+    
     validateToolbarItems()
   }
   
@@ -141,6 +152,27 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     performActionOnViewController(action: viewController.toggleRoundToTwoDecimalPlaces)
   }
   
+  @IBAction func toggleHiddenTableViewColumnsToolbarButtonAction(_ sender: Any) {
+    performActionOnViewController(action: viewController.toggleHiddenTableViewColumns)
+  }
+  
+  func updateHiddenTableViewColumnsToolbarButton(toBeActive state: Bool) {
+    Debug.log("updateHiddenTableViewColumnsToolbarButton(toBeActive state: \(state)")
+    let symbolName = state ? "eye.slash" : "eye"
+    let symbolImage = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
+    
+    toggleHiddenTableViewColumnsToolbarButton.image = symbolImage
+    
+    let toolbarItemLabel = state ? "Unhide" : "Hide"
+    toggleHiddenTableViewColumnsToolbarButton.label = toolbarItemLabel
+  }
+  
+  func enableHiddenTableViewColumnsToolbarButton() {
+    Debug.log("enableHiddenTableViewColumnsToolbarButton()")
+    enableToolbarButton(toggleHiddenTableViewColumnsToolbarButton, action: #selector(toggleHiddenTableViewColumnsToolbarButtonAction(_:)))
+    validateToolbarItems()
+  }
+  
   /// Calls the file selection in the view controller.
   func callOpenFileSelection() {
     performActionOnViewController(action: viewController.openFileSelection)
@@ -164,6 +196,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   
   /// Validates toolbar items to update their appearance.
   func validateToolbarItems() {
+    Debug.log("[WindowController] validateToolbarItems()")
     if let toolbar = window?.toolbar { toolbar.validateVisibleItems() }
   }
   
