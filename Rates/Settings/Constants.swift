@@ -11,9 +11,9 @@ struct Constants {
   
   // MARK: TableView Values
   /// The value for cells which were unable to be converted for whatever reason.
-  static let unableToConvertValuePlaceholder = "0.0"
+  static let unableToConvertValuePlaceholder = "" //"––" //"0.0"
   /// The value for inserted table view cells that are not within the range of cells needing conversion.
-  static let outOfTableDataRangePlaceholder = ""
+  static let outsideOfTableDataRangePlaceholder = ""
   
   // MARK: - Settings
   static let takesEmptyEntriesIntoAccount = false

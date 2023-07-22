@@ -365,7 +365,7 @@ class CSVTableView: NSView {
     
     for i in 0..<tableData.count {
       while tableData[i].count < tableView.tableColumns.count - 1 {
-        tableData[i].append("")
+        tableData[i].append(Constants.outsideOfTableDataRangePlaceholder)
       }
       
       if i == selectedHeaderRowIndex {
@@ -373,7 +373,7 @@ class CSVTableView: NSView {
       } else if i > selectedHeaderRowIndex {
         let row = tableData[i]
         if row.count <= max(datesIndex, amountsIndex, currenciesIndex) {
-          tableData[i].insert("0.0", at: usdColumnIndex)
+          tableData[i].insert(Constants.outsideOfTableDataRangePlaceholder, at: usdColumnIndex)
           continue
         }
         let date = row[datesIndex]
@@ -385,10 +385,10 @@ class CSVTableView: NSView {
           tableData[i].insert(String(usdValue), at: usdColumnIndex)
         } else {
           Debug.log("[createUsdColumnWithConvertedAmounts] Unable to convert value for row \(i)")
-          tableData[i].insert("0.0", at: usdColumnIndex)
+          tableData[i].insert(Constants.unableToConvertValuePlaceholder, at: usdColumnIndex)
         }
       } else {
-        tableData[i].insert("", at: usdColumnIndex)
+        tableData[i].insert(Constants.outsideOfTableDataRangePlaceholder, at: usdColumnIndex)
       }
     }
     
@@ -424,7 +424,7 @@ class CSVTableView: NSView {
     
     for i in 0..<tableData.count {
       while tableData[i].count < tableView.tableColumns.count - 1 {
-        tableData[i].append("")
+        tableData[i].append(Constants.outsideOfTableDataRangePlaceholder)
       }
       
       if i == selectedHeaderRowIndex {
@@ -432,7 +432,7 @@ class CSVTableView: NSView {
       } else if i > selectedHeaderRowIndex {
         let row = tableData[i]
         if row.count <= max(datesIndex, usdColumnIndex) {
-          tableData[i].insert("0.0", at: newCurrencyColumnIndex)
+          tableData[i].insert(Constants.outsideOfTableDataRangePlaceholder, at: newCurrencyColumnIndex)
           continue
         }
         let date = row[datesIndex]
@@ -442,10 +442,10 @@ class CSVTableView: NSView {
           tableData[i].insert(String(newCurrencyValue), at: newCurrencyColumnIndex)
         } else {
           Debug.log("[createSecondColumnWithConvertedAmounts] Unable to convert value for row \(i)")
-          tableData[i].insert("0.0", at: newCurrencyColumnIndex)
+          tableData[i].insert(Constants.unableToConvertValuePlaceholder, at: newCurrencyColumnIndex)
         }
       } else {
-        tableData[i].insert("", at: newCurrencyColumnIndex)
+        tableData[i].insert(Constants.outsideOfTableDataRangePlaceholder, at: newCurrencyColumnIndex)
       }
     }
     
