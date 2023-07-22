@@ -64,6 +64,17 @@ struct SaveFileView: View {
           .padding(.bottom, 6)
       }
       
+      Divider()
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+      
+      SaveFileOptionsView(sharedData: sharedData)
+        .padding(.horizontal, 12)
+      
+      Divider()
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+      
       HStack {
         Button("Cancel") {
           onDismiss()
@@ -83,6 +94,40 @@ struct SaveFileView: View {
     }
     .padding()
     .frame(minWidth: 400)
+  }
+}
+
+struct SaveFileOptionsView: View {
+  @ObservedObject var sharedData: SharedData
+  @State private var isExpanded: Bool = false
+  
+  var body: some View {
+    Button(action: {
+      isExpanded.toggle()
+    }) {
+      DisclosureGroup(isExpanded: $isExpanded, content: {
+        HStack {
+          Toggle(isOn: $sharedData.saveAllInputDataToOutputFile) {
+            Text("Round to two decimal places")
+              .fixedSize(horizontal: false, vertical: true)
+          }
+          Spacer()  // Push the Toggle and Text to the left
+        }
+        .padding(.top, 10)
+        HStack {
+          Toggle(isOn: $sharedData.saveRoundedConversionValuesToOutputFile) {
+            Text("Remove empty columns")
+              .fixedSize(horizontal: false, vertical: true)
+          }
+          Spacer()  // Push the Toggle and Text to the left
+        }
+      }) {
+        Text("Save File Options")
+          .bold()
+      }
+    }
+    .buttonStyle(PlainButtonStyle())
+    .frame(maxWidth: .infinity)
   }
 }
 

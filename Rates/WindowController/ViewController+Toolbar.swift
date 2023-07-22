@@ -30,6 +30,20 @@ extension ViewController {
     windowController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: state)
   }
   
+  func updateHiddenTableViewColumnsToolbarButton(toBeActive state: Bool) {
+    windowController?.enableHiddenTableViewColumnsToolbarButton()
+    windowController?.updateHiddenTableViewColumnsToolbarButton(toBeActive: state)
+  }
+  
+  func toggleHiddenTableViewColumns() {
+    if sharedFormattingOptions.hideIrrelevantColumns {
+      csvTableView.unhideColumns()
+    } else {
+      csvTableView.rehideColumns()
+    }
+  }
+  
+  
   func toggleRoundToTwoDecimalPlaces() {
     if sharedFormattingOptions.roundToTwoDecimalPlaces {
       disableRoundToTwoDecimalPlaces()

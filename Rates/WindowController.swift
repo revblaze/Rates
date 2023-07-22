@@ -25,6 +25,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   @IBOutlet weak var clearFiltersToolbarButton: NSToolbarItem!
   
   @IBOutlet weak var toggleRoundToTwoDecimalPlacesToolbarButton: NSToolbarItem!
+  @IBOutlet weak var toggleHiddenTableViewColumnsToolbarButton: NSToolbarItem!
   
   // MARK: Hidden Items
   @IBOutlet weak var settingsToolbarButton: NSToolbarItem!
@@ -88,7 +89,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     enableToolbarButton(openFileToolbarButton, action: #selector(openFileAction(_:)))
     enableToolbarButton(clearFiltersToolbarButton, action: #selector(clearFiltersToolbarButtonAction(_:)))
     enableToolbarButton(toggleRoundToTwoDecimalPlacesToolbarButton, action: #selector(toggleRoundToTwoDecimalPlacesToolbarButtonAction(_:)))
-    
+    //enableToolbarButton(toggleHiddenTableViewColumnsToolbarButton, action: #selector(toggleHiddenTableViewColumnsToolbarButtonAction(_:)))
     validateToolbarItems()
   }
   
@@ -149,6 +150,27 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   /// Toggles rounding to two decimal places when the toggle round to two decimal places toolbar button is pressed.
   @IBAction func toggleRoundToTwoDecimalPlacesToolbarButtonAction(_ sender: Any) {
     performActionOnViewController(action: viewController.toggleRoundToTwoDecimalPlaces)
+  }
+  
+  @IBAction func toggleHiddenTableViewColumnsToolbarButtonAction(_ sender: Any) {
+    performActionOnViewController(action: viewController.toggleHiddenTableViewColumns)
+  }
+  
+  func updateHiddenTableViewColumnsToolbarButton(toBeActive state: Bool) {
+    Debug.log("updateHiddenTableViewColumnsToolbarButton(toBeActive state: \(state)")
+    let symbolName = state ? "eye.slash" : "eye"
+    let symbolImage = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
+    
+    toggleHiddenTableViewColumnsToolbarButton.image = symbolImage
+    
+    let toolbarItemLabel = state ? "Unhide" : "Hide"
+    toggleHiddenTableViewColumnsToolbarButton.label = toolbarItemLabel
+  }
+  
+  func enableHiddenTableViewColumnsToolbarButton() {
+    Debug.log("enableHiddenTableViewColumnsToolbarButton()")
+    enableToolbarButton(toggleHiddenTableViewColumnsToolbarButton, action: #selector(toggleHiddenTableViewColumnsToolbarButtonAction(_:)))
+    validateToolbarItems()
   }
   
   /// Calls the file selection in the view controller.
