@@ -77,6 +77,10 @@ extension ViewController {
     return false
   }
   
+  func getUserSettingsCutOffDateString() -> String {
+    return "\(sharedSettings.cutOffYear)-01-01"
+  }
+  
   /// Starts the downloading of the CSV file and its conversion to the database.
   ///
   /// If the database file is obtained successfully, it fills a table view with exchange rate data.
@@ -84,7 +88,7 @@ extension ViewController {
   func startCsvDownloadAndConvertToDb() {
     Task.detached {
       let exchangeRateData = ExchangeRateData()
-      if let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString) {
+      if let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString, withCutOffDate: self.getUserSettingsCutOffDateString()) {
         Debug.log("[startCsvDownloadAndConvertToDb] Db file obtained: \(dbFileUrl)")
         await self.fillLaunchTableViewWithExchangeRateData()
         

@@ -36,17 +36,30 @@ extension ViewController {
   }
   
   func applyNewSettings(newCutOffYear: String) {
+    var clientNeedsNewExchangeRateData = false
+    
+    let newCutOffYearInt = Int(newCutOffYear) ?? 2016
+    let currentCutOffYearInt = Int(sharedSettings.cutOffYear) ?? 2016
+    
     Debug.log("[applyNewSettings] newCutOffYear: \(newCutOffYear)")
+    Debug.log("[applyNewSettings] compare: \(newCutOffYearInt) < \(currentCutOffYearInt)")
+    
+    // If new cutOffYear is less than current year, get new
+    if newCutOffYearInt < currentCutOffYearInt {
+      clientNeedsNewExchangeRateData = true
+    }
     
     // If there is a newly selected cutOffYear, clear client data and fetch new data.
     if newCutOffYear != sharedSettings.cutOffYear {
       sharedSettings.cutOffYear = newCutOffYear
-    }
-    
-    // If new cutOffYear is less than current year, get new
-    if Int(newCutOffYear) ?? 0 < Int(sharedSettings.cutOffYear) ?? 0 {
-      // Clear documents directory
-      //beginLaunchSession()
+      // Client needs to download data for new year range.
+      if clientNeedsNewExchangeRateData {
+        // If the documents directory was successfully cleared.
+        if Utility.clearApplicationDocumentsDirectory() {
+          csvTableView.removeAllData()
+          beginLaunchSession()
+        }
+      }
     }
     
     
