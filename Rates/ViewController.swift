@@ -38,9 +38,17 @@ class ViewController: NSViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    // Set the initial frame size for the main view.
+    let initialWidth: CGFloat = Constants.minimumViewControllerContentWidth
+    let initialHeight: CGFloat = Constants.minimumViewControllerContentHeight
+    let initialFrame = NSRect(x: 0, y: 0, width: initialWidth, height: initialHeight)
+    self.view.frame = initialFrame
+    
     initCsvTableScrollView()
     initFilterControlsView()
     disableToolbarButtonsOnFileLoad()
+    
+    
   }
   
   override func viewDidAppear() {
@@ -51,33 +59,27 @@ class ViewController: NSViewController {
     presentSaveFileViewAsSheet()
   }
   
-  /**
-   This function performs currency conversion on a column of data.
-   
-   The function expects the headers for dates, amounts, and currencies. It also needs to know if the amounts and currencies are combined in the same column, as well as the target currency for conversion.
-   
-   - Parameters:
-   - dates: The header for the dates column.
-   - amounts: The header for the amounts column.
-   - currencies: The header for the currencies column.
-   - amountsCurrenciesCombined: A boolean flag indicating whether the amounts and currencies are combined in the same column.
-   - toCurrency: The target currency code for conversion.
-   
-   - Returns: Void
-   */
+  /// This function performs currency conversion on a column of data.
+  ///
+  /// - Parameters:
+  ///   - dates: The header for the dates column.
+  ///   - amounts: The header for the amounts column.
+  ///   - currencies: The header for the currencies column.
+  ///   - amountsCurrenciesCombined: A boolean flag indicating whether the amounts and currencies are combined in the same column.
+  ///   - toCurrency: The target currency code for conversion.
+  ///
+  /// - Returns: Void
   func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool, toCurrency: String) {
     Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined), toCurrency: \(toCurrency)")
     
     csvTableView.performConversion(toCurrency: toCurrency, usingHeaders: [dates, amounts, currencies])
   }
   
-  /**
-   This function initializes the CSV table scroll view.
-   
-   The function creates an instance of `NSScrollView`, enables the vertical and horizontal scrollers, and adds it to the main view of the view controller. The CSV table view is also initialized and added to the scroll view as its document view.
-   
-   - Returns: Void
-   */
+  /// This function initializes the CSV table scroll view.
+  ///
+  /// The function creates an instance of `NSScrollView`, enables the vertical and horizontal scrollers, and adds it to the main view of the view controller. The CSV table view is also initialized and added to the scroll view as its document view.
+  ///
+  /// - Returns: Void
   func initCsvTableScrollView() {
     scrollView = NSScrollView()
     scrollView.hasVerticalScroller = true
@@ -91,14 +93,11 @@ class ViewController: NSViewController {
     view.addSubview(scrollView, positioned: .below, relativeTo: filterControlsView)
   }
   
-  
-  /**
-   This function initializes the filter controls view.
-   
-   The function creates an instance of `NSHostingView` with a `FilterControlsView` as its root view, and adds it to the main view of the view controller. The filter controls view is set up with constraints to position it correctly within the main view.
-   
-   - Returns: Void
-   */
+  /// This function initializes the filter controls view.
+  ///
+  /// The function creates an instance of `NSHostingView` with a `FilterControlsView` as its root view, and adds it to the main view of the view controller. The filter controls view is set up with constraints to position it correctly within the main view.
+  ///
+  /// - Returns: Void
   func initFilterControlsView() {
     filterControlsView = NSHostingView(
       rootView: FilterControlsView(
@@ -122,9 +121,7 @@ class ViewController: NSViewController {
     ])
   }
   
-  /**
-   Updates the layout of the scroll view and the CSV table view based on the current view bounds.
-   */
+  /// Updates the layout of the scroll view and the CSV table view based on the current view bounds.
   func updateScrollViewLayout() {
     let bottomOffset: CGFloat = Constants.statusBarHeight
     let scrollViewHeight = view.bounds.height - bottomOffset
@@ -140,10 +137,7 @@ class ViewController: NSViewController {
     updateScrollViewLayout()
   }
   
-  
-  /**
-   Disables interaction with the main view by adding a transparent gray overlay over all views except the status bar.
-   */
+  /// Disables interaction with the main view by adding a transparent gray overlay over all views except the status bar.
   func disableMainViewInteraction() {
     windowController?.disableAllToolbarItems()
     // Create the overlay view
@@ -164,9 +158,7 @@ class ViewController: NSViewController {
     ])
   }
   
-  /**
-   Enables interaction with the main view by removing the transparent gray overlay.
-   */
+  /// Enables interaction with the main view by removing the transparent gray overlay.
   func enableMainViewInteraction() {
     enableToolbarItemsOnFileLoad()
     // Remove the overlay view
