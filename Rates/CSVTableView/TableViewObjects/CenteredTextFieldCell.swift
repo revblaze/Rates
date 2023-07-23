@@ -19,4 +19,26 @@ class CenteredTextFieldCell: NSTextFieldCell {
       return newRect
     }
   }
+
+  override func cellSize(forBounds rect: NSRect) -> NSSize {
+    var size = super.cellSize(forBounds: rect)
+    let titleSize = self.attributedStringValue.size()
+    if size.width > rect.width {
+      size.width = rect.width
+    }
+    if titleSize.height > size.height {
+      size.height = titleSize.height
+    }
+    return size
+  }
+
+  override init(textCell string: String) {
+    super.init(textCell: string)
+    self.lineBreakMode = .byTruncatingTail
+  }
+  
+  required init(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    self.lineBreakMode = .byTruncatingTail
+  }
 }
