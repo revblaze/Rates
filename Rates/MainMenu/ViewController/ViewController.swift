@@ -175,6 +175,8 @@ class ViewController: NSViewController {
   
   
   // MARK: - Variables
+  /// The shared settings used across the app.
+  let sharedSettings = SharedSettings()
   /// The shared headers used by the view controller.
   let sharedHeaders = SharedHeaders()
   /// The shared data used by the view controller.

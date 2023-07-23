@@ -23,6 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     NSApp.activate(ignoringOtherApps: true)
     /// Initialize Debug menu
     initDebugMenu()
+    
+    enableAllLaunchMenuItems()
   }
   
   /// Called when the application is about to terminate.
@@ -53,9 +55,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     return true
   }
   
+  func performActionOnViewController(action: @escaping (ViewController) -> Void) {
+    guard let viewController = mainWindow.contentViewController as? ViewController else {
+      return
+    }
+    
+    DispatchQueue.main.async {
+      action(viewController)
+    }
+  }
+  
+  /// Enables a specific main menu item.
+  ///
+  /// - Parameters:
+  ///   - menuItem: The menu item to enable.
+  ///   - action: The action to be performed when the menu item is pressed.
+  func enableMenuItem(_ menuItem: NSMenuItem, action: Selector) {
+    menuItem.action = action
+    menuItem.target = self
+  }
+  
   
   /// An outlet for the Debug menu in the application.
   @IBOutlet weak var debugMenu: NSMenuItem!
+  // MARK: App Menu
+  @IBOutlet weak var settingsMenuItem: NSMenuItem!
+  // MARK: File Menu
+  @IBOutlet weak var openFileMenuItem: NSMenuItem!
+  @IBOutlet weak var saveFileMenuItem: NSMenuItem!
+  @IBOutlet weak var printFileMenuItem: NSMenuItem!
   
 }
 

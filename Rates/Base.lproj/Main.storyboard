@@ -94,18 +94,18 @@
                                                 <action selector="saveDocument:" target="Ady-hI-5gd" id="teZ-XB-qJY"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
+                                        <menuItem title="Save As…" hidden="YES" keyEquivalent="S" id="Bw7-FT-i3A">
                                             <connections>
                                                 <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Revert to Saved" keyEquivalent="r" id="KaW-ft-85H">
+                                        <menuItem title="Revert to Saved" hidden="YES" keyEquivalent="r" id="KaW-ft-85H">
                                             <connections>
                                                 <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                                        <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
+                                        <menuItem title="Page Setup…" hidden="YES" keyEquivalent="P" id="qIS-W8-SiK">
                                             <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                             <connections>
                                                 <action selector="runPageLayout:" target="Ady-hI-5gd" id="Din-rz-gC5"/>
@@ -334,6 +334,25 @@
                                                     </menuItem>
                                                 </items>
                                             </menu>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Table" id="I46-zL-x6G">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Table" id="6RO-iY-pAO">
+                                    <items>
+                                        <menuItem title="Toggle Hidden Columns" id="s8u-u4-7AJ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Toggle Round Data" id="2wT-g0-SOb">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Filters" id="mdc-Pa-k5b">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Filters Sidebar" id="Epe-5Q-kNF">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -819,6 +838,10 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Rates" customModuleProvider="target">
                     <connections>
                         <outlet property="debugMenu" destination="gnQ-Bb-Zc3" id="LdV-oN-Bgq"/>
+                        <outlet property="openFileMenuItem" destination="IAo-SY-fd9" id="CMj-ld-XlT"/>
+                        <outlet property="printFileMenuItem" destination="aTl-1u-JFS" id="h9w-aa-5ky"/>
+                        <outlet property="saveFileMenuItem" destination="pxx-59-PXV" id="UZ3-kZ-lSk"/>
+                        <outlet property="settingsMenuItem" destination="BOF-NM-1cW" id="f8e-sT-OSJ"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -882,10 +905,10 @@
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="LGC-fq-k0P"/>
+                                <toolbarItem reference="CvE-Zg-jBd"/>
+                                <toolbarItem reference="ZNq-Tc-vUD"/>
                                 <toolbarItem reference="8rx-iC-N0v"/>
                                 <toolbarItem reference="te1-ox-y1L"/>
-                                <toolbarItem reference="ZNq-Tc-vUD"/>
-                                <toolbarItem reference="fqb-rO-691"/>
                                 <toolbarItem reference="ZNq-Tc-vUD"/>
                                 <toolbarItem reference="0Ad-i3-c1T"/>
                                 <toolbarItem reference="b0T-PK-dtD"/>
@@ -945,7 +968,7 @@
                                             </button>
                                             <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e8u-Sv-OpI">
                                                 <rect key="frame" x="38" y="8" width="404" height="14"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Loading exchange rate database." id="kEB-N8-LiO">
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Loading exchange rate database." id="kEB-N8-LiO">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

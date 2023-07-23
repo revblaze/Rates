@@ -18,6 +18,7 @@ class ExchangeRateData {
   ///   - withCutOffDate: The cut-off date for the data to be retrieved. The default value is "2016-01-01".
   /// - Returns: The URL of the SQLite file containing the database, or `nil` if an error occurs during the process.
   func getDb(fromUrl: String, withCutOffDate: String = "2016-01-01") async -> URL? {
+    Debug.log("[ExchangeRateData] new request withCutOffDate: \(withCutOffDate)")
     return await withTaskGroup(of: URL?.self) { group in
       group.addTask {
         do {

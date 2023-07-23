@@ -13,6 +13,8 @@ protocol FileSelectionDelegate: AnyObject {
 
 /// The main window controller for the application.
 class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDelegate {
+  /// AppDelegate
+  let appDelegate = NSApplication.shared.delegate as! AppDelegate
   /// Toggles the FilterControlsView to animate in and out.
   @IBOutlet weak var toggleFilterControlViewToolbarButton: NSToolbarItem!
   /// Presents the DataSelectionView as a sheet to determine relevant columns of data to convert.
@@ -27,8 +29,9 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   @IBOutlet weak var toggleRoundToTwoDecimalPlacesToolbarButton: NSToolbarItem!
   @IBOutlet weak var toggleHiddenTableViewColumnsToolbarButton: NSToolbarItem!
   
-  // MARK: Hidden Items
   @IBOutlet weak var settingsToolbarButton: NSToolbarItem!
+  
+  // MARK: Hidden Items
   @IBOutlet weak var selectCustomHeaderRowButton: NSToolbarItem!
   
   /// The main view controller of the window.
@@ -93,8 +96,11 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     enableToolbarButton(openFileToolbarButton, action: #selector(openFileAction(_:)))
     enableToolbarButton(clearFiltersToolbarButton, action: #selector(clearFiltersToolbarButtonAction(_:)))
     enableToolbarButton(toggleRoundToTwoDecimalPlacesToolbarButton, action: #selector(toggleRoundToTwoDecimalPlacesToolbarButtonAction(_:)))
-    //enableToolbarButton(toggleHiddenTableViewColumnsToolbarButton, action: #selector(toggleHiddenTableViewColumnsToolbarButtonAction(_:)))
+    enableToolbarButton(settingsToolbarButton, action: #selector(settingsToolbarButtonAction(_:)))
+    
     validateToolbarItems()
+    
+    appDelegate.enableSaveFileMenuItem()
   }
   
   /// Enables toolbar items when data is loaded at launch.
@@ -102,6 +108,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     disableAllToolbarItems()
     //Debug.log("[WindowController] enableToolbarItemsOnLaunchDataLoad()")
     enableToolbarButton(openFileToolbarButton, action: #selector(openFileAction(_:)))
+    enableToolbarButton(settingsToolbarButton, action: #selector(settingsToolbarButtonAction(_:)))
     
     validateToolbarItems()
   }
@@ -153,6 +160,10 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   
   @IBAction func toggleHiddenTableViewColumnsToolbarButtonAction(_ sender: Any) {
     performActionOnViewController(action: viewController.toggleHiddenTableViewColumns)
+  }
+  
+  @IBAction func settingsToolbarButtonAction(_ sender: Any) {
+    performActionOnViewController(action: viewController.presentSettingsViewAsSheet)
   }
   
   func updateHiddenTableViewColumnsToolbarButton(toBeActive state: Bool) {

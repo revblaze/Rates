@@ -87,7 +87,8 @@ struct SaveFileView: View {
         .keyboardShortcut(.defaultAction)
         .largeButton(foregroundColor: .white, backgroundColor: .accentColor, pressedColor: .accentColor.opacity(0.6))
       }
-      .padding()
+      .padding(.horizontal, 12)
+      .padding(.vertical, 6)
     }
     .padding()
     .frame(minWidth: 400)
@@ -119,7 +120,7 @@ struct SaveFileOptionsView: View {
         VStack {
           HStack {
             Toggle(isOn: $sharedData.saveAllInputDataToOutputFile) {
-              Text("Include all hidden column data in save file")
+              Text("Include all hidden column data")
                 .fixedSize(horizontal: false, vertical: true)
             }
             Spacer()  // Push the Toggle and Text to the left
@@ -127,7 +128,7 @@ struct SaveFileOptionsView: View {
           .padding(.top, 10)
           HStack {
             Toggle(isOn: $sharedData.saveRoundedConversionValuesToOutputFile) {
-              Text("Round the values in the save file (not recommended)")
+              Text("Round values for me (not recommended)")
                 .fixedSize(horizontal: false, vertical: true)
             }
             Spacer()  // Push the Toggle and Text to the left

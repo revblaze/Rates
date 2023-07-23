@@ -76,6 +76,13 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
     return cellView
   }
   
+  /// Removes all data from the table view.
+  func removeAllData() {
+    // Clear the data source
+    tableData.removeAll()
+    // Reload the table view
+    tableView.reloadData()
+  }
   
   // MARK: - Custom Header Row
   /// Returns the header row of the currently selected row of the table view.
@@ -200,6 +207,11 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
     }
     
     return visibleTableData
+  }
+  
+  func printTableView() {
+    let printOperation = NSPrintOperation(view: tableView)
+    printOperation.run()
   }
   
 }

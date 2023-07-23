@@ -49,7 +49,7 @@ struct Utility {
       try fileManager.createDirectory(atPath: appSupportFolderPath.path, withIntermediateDirectories: true, attributes: nil)
       return appSupportFolderPath
     } catch {
-      print("Error creating Application Support directory: \(error)")
+      Debug.log("[Utility] Error creating Application Support directory: \(error)")
       return nil
     }
   }
@@ -65,9 +65,9 @@ struct Utility {
     let fileManager = FileManager.default
     do {
       try fileManager.removeItem(atPath: tempFilePath)
-      print("Successfully removed temporary file at: \(tempFilePath)")
+      Debug.log("[Utility] Successfully removed temporary file at: \(tempFilePath)")
     } catch let error as NSError {
-      print("Error: Unable to remove temporary file at \(tempFilePath).\nDescription: \(error.localizedDescription)")
+      Debug.log("[Utility] Error: Unable to remove temporary file at \(tempFilePath).\nDescription: \(error.localizedDescription)")
     }
   }
   
@@ -79,7 +79,7 @@ struct Utility {
   /// - Returns: A boolean value that indicates whether the operation was successful. If the operation was successful, it returns `true`; otherwise, it returns `false`.
   static func clearApplicationSupportDirectory() -> Bool {
     guard let appSupportURL = getApplicationSupportDirectory() else {
-      print("Error: Unable to retrieve Application Support directory URL")
+      Debug.log("[Utility] Error: Unable to retrieve Application Support directory URL")
       return false
     }
     
@@ -90,7 +90,35 @@ struct Utility {
         try fileManager.removeItem(at: filePath)
       }
     } catch {
-      print("Error: Unable to clear Application Support directory: \(error)")
+      Debug.log("[Utility] Error: Unable to clear Application Support directory: \(error)")
+      return false
+    }
+    
+    return true
+  }
+  
+  /// Clears the Documents directory by removing all of its contents.
+  ///
+  /// This function retrieves the URL of the Documents directory and removes all of its contents.
+  /// If the directory does not exist, or if there is an error during the deletion, an error message is printed.
+  ///
+  /// - Returns: A boolean value that indicates whether the operation was successful. If the operation was successful, it returns `true`; otherwise, it returns `false`.
+  static func clearApplicationDocumentsDirectory() -> Bool {
+    let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+    guard let documentsDirectory = paths.first else {
+      Debug.log("[Utility] Error: Unable to retrieve Documents directory path")
+      return false
+    }
+    
+    let fileManager = FileManager.default
+    do {
+      let filePaths = try fileManager.contentsOfDirectory(atPath: documentsDirectory)
+      for filePath in filePaths {
+        let fileURL = URL(fileURLWithPath: documentsDirectory).appendingPathComponent(filePath)
+        try fileManager.removeItem(at: fileURL)
+      }
+    } catch {
+      Debug.log("[Utility] Error: Unable to clear Documents directory: \(error)")
       return false
     }
     
