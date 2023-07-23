@@ -17,9 +17,9 @@ extension ViewController {
       onDismiss: { [weak self] in
         self?.dismissSettingsView()
       },
-      onSave: { [weak self] (clientNeedsNewExchangeRateData) in
+      onSave: { [weak self] (newCutOffYear) in
         self?.dismissSettingsView()
-        self?.applyNewSettings(clientNeedsNewExchangeRateData: clientNeedsNewExchangeRateData)
+        self?.applyNewSettings(newCutOffYear: newCutOffYear)
       }
     )
     
@@ -35,13 +35,21 @@ extension ViewController {
     }
   }
   
-  func applyNewSettings(clientNeedsNewExchangeRateData: Bool) {
-    Debug.log("[applyNewSettings] clientNeedsNewExchangeRateData: \(clientNeedsNewExchangeRateData)")
+  func applyNewSettings(newCutOffYear: String) {
+    Debug.log("[applyNewSettings] newCutOffYear: \(newCutOffYear)")
     
-    if clientNeedsNewExchangeRateData {
+    // If there is a newly selected cutOffYear, clear client data and fetch new data.
+    if newCutOffYear != sharedSettings.cutOffYear {
+      sharedSettings.cutOffYear = newCutOffYear
+    }
+    
+    // If new cutOffYear is less than current year, get new
+    if Int(newCutOffYear) ?? 0 < Int(sharedSettings.cutOffYear) ?? 0 {
       // Clear documents directory
       //beginLaunchSession()
     }
+    
+    
   }
   
 }

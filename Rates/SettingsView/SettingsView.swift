@@ -10,18 +10,26 @@ import SwiftUI
 class SharedSettings: ObservableObject {
   @Published var clientNeedsNewExchangeRateData = false
   
-  @Published var cutOffYear: String = "2016"
+  @Published var cutOffYear: String {
+      didSet {
+        UserDefaults.standard.set(cutOffYear, forKey: "cutOffYear")
+      }
+    }
+    
+    init() {
+      self.cutOffYear = UserDefaults.standard.string(forKey: "cutOffYear") ?? "2016"
+    }
 }
 
 struct SettingsView: View {
   @ObservedObject var sharedSettings: SharedSettings
   var onDismiss: () -> Void
-  var onSave: (Bool) -> Void
+  var onSave: (String) -> Void
   
   @State private var selectedYear: String
   @State private var initialYear: String
   
-  init(sharedSettings: SharedSettings, onDismiss: @escaping () -> Void, onSave: @escaping (Bool) -> Void) {
+  init(sharedSettings: SharedSettings, onDismiss: @escaping () -> Void, onSave: @escaping (String) -> Void) {
     self.sharedSettings = sharedSettings
     self.onDismiss = onDismiss
     self.onSave = onSave
@@ -60,12 +68,7 @@ struct SettingsView: View {
         Spacer()
         
         Button("Save...") {
-          sharedSettings.cutOffYear = selectedYear
-          if Int(selectedYear) ?? 0 < Int(initialYear) ?? 0 {
-            onSave(true)
-          } else {
-            onSave(false)
-          }
+          onSave(selectedYear)
         }
         .keyboardShortcut(.defaultAction)
         .largeButton(foregroundColor: .white, backgroundColor: .accentColor, pressedColor: .accentColor.opacity(0.6))
