@@ -60,9 +60,21 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
       cellView?.stringValue = ""
     }
     
+    // Check if the current row is the header row
+    if row == selectedHeaderRowIndex - 1 {
+      // If it is, make the text bold and white, and set the background color to blue
+      cellView?.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
+      cellView?.textColor = NSColor.white
+      cellView?.backgroundColor = NSColor.blue
+    } else {
+      // If it's not, use the default system font and colors
+      cellView?.font = NSFont.systemFont(ofSize: NSFont.systemFontSize)
+      cellView?.textColor = NSColor.textColor
+      cellView?.backgroundColor = NSColor.clear
+    }
+    
     return cellView
   }
-  
   
   
   // MARK: - Custom Header Row

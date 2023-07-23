@@ -130,6 +130,7 @@ class CSVTableView: NSView {
     sharedHeaders.availableHeaders = foundHeaderRow
     determineSuggestedHeadersForConversion()
     
+    tableView.selectRowIndexes(IndexSet(integer: selectedHeaderRowIndex), byExtendingSelection: false)
     //Debug.log("=== TableData ===\n\(tableData)")
   }
   
@@ -171,7 +172,7 @@ class CSVTableView: NSView {
           maxWidth = max(maxWidth, cellSize.width)
         }
       }
-      column.width = maxWidth
+      column.width = maxWidth + Constants.tableViewCellWidthPadding
     }
   }
   

@@ -15,6 +15,8 @@ struct Constants {
   /// The value for inserted table view cells that are not within the range of cells needing conversion.
   static let outsideOfTableDataRangePlaceholder = ""
   
+  static let tableViewCellWidthPadding = CGFloat(8)
+  
   // MARK: - Settings
   // Setting to false breaks the header selection for some reason.
   static let takesEmptyEntriesIntoAccount = true
