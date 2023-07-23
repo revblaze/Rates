@@ -18,7 +18,7 @@ extension ViewController {
         self?.dismissSettingsView()
       },
       onSave: { [weak self] (clientNeedsNewExchangeRateData) in
-        self?.dismissSaveFileView()
+        self?.dismissSettingsView()
         self?.applyNewSettings(clientNeedsNewExchangeRateData: clientNeedsNewExchangeRateData)
       }
     )
