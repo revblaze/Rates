@@ -968,7 +968,7 @@
                                             </button>
                                             <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="e8u-Sv-OpI">
                                                 <rect key="frame" x="38" y="8" width="404" height="14"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Loading exchange rate database." id="kEB-N8-LiO">
+                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" title="Loading exchange rate database." id="kEB-N8-LiO">
                                                     <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
