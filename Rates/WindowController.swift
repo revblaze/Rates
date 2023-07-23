@@ -43,7 +43,9 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     super.windowDidLoad()
     
     // Set the minimum window size.
-    self.window?.minSize = NSSize(width: 735, height: 500)
+    self.window?.minSize = NSSize(width: Constants.minimumWindowWidth, height: Constants.minimumWindowHeight)
+    // Set the window to remember the window frame size.
+    self.window?.setFrameAutosaveName(NSWindow.FrameAutosaveName("MainWindow"))
     
     if let toolbar = window?.toolbar { toolbar.delegate = self }
     viewController.windowController = self

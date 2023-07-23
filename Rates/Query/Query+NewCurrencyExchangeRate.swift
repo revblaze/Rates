@@ -10,19 +10,18 @@ import SQLite
 
 extension Query {
   
-  /**
-   Converts the specified amount from USD to the specified currency on the given date.
-   
-   - Parameters:
-   - amountString: The amount in USD as a string.
-   - code: The currency code to convert to.
-   - date: The date for the conversion.
-   
-   - Returns: The converted amount in the new currency as a double, or nil if the conversion fails.
-   
-   - Important:
-   - The function relies on `Query` class for currency conversion and `Debug` class for logging.
-   */
+  /// Converts the specified amount from USD to the specified currency on the given date.
+  ///
+  /// - Parameters:
+  ///   - amountString: The amount in USD as a string.
+  ///   - code: The currency code to convert to.
+  ///   - date: The date for the conversion.
+  ///
+  /// - Returns: The converted amount in the new currency as a double, or nil if the conversion fails.
+  ///
+  /// - Important:
+  ///   - The function relies on `Query` class for currency conversion and `Debug` class for logging.
+  ///
   static func valueInNewCurrency(fromUsdAmount amountString: String, toCurrencyCode code: String, onDate date: String) -> Double? {
     let newCurrencyExchangeRate = newCurrencyExchangeRate(toCurrency: code, onDate: date)
     
@@ -36,19 +35,18 @@ extension Query {
     return nil
   }
   
-  /**
-   Retrieves the exchange rate for the specified currency on the given date.
-   
-   - Parameters:
-   - code: The currency code to get the exchange rate for.
-   - date: The date for the exchange rate.
-   
-   - Returns: The exchange rate as a double.
-   
-   - Important:
-   - The function relies on `Query` class for database access and `Debug` class for logging.
-   - Make sure to handle the case where the exchange rate is not found.
-   */
+  /// Retrieves the exchange rate for the specified currency on the given date.
+  ///
+  /// - Parameters:
+  ///   - code: The currency code to get the exchange rate for.
+  ///   - date: The date for the exchange rate.
+  ///
+  /// - Returns: The exchange rate as a double.
+  ///
+  /// - Important:
+  ///   - The function relies on `Query` class for database access and `Debug` class for logging.
+  ///   - Make sure to handle the case where the exchange rate is not found.
+  ///
   static func newCurrencyExchangeRate(toCurrency code: String, onDate date: String) -> Double {
     // Define the list of date formats
     let dateFormats = Utility.dateFormats
