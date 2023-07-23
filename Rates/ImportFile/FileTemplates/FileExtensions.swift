@@ -57,7 +57,7 @@ enum FileExtensions: String, CaseIterable {
     case .csv: return .modeNumberOfEntries
     case .tsv: return .modeNumberOfEntries
     case .txt: return .modeNumberOfEntries
-    case .xlsx: return .modeNumberOfEntries //.largestNumberOfEntries
+    case .xlsx: return .largestNumberOfEntries //.modeNumberOfEntries
     }
   }
   

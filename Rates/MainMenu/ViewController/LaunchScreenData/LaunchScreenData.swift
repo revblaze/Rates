@@ -23,7 +23,7 @@ extension ViewController {
   ///
   /// - Parameter url: The URL of the launch data.
   func updateCSVTableViewWithLaunchData(at url: URL) {
-    csvTableView.updateCSVData(with: url)
+    csvTableView.updateCSVData(with: url, withHeaderRowDetection: .firstRow)
     updateStatusBar(withState: .upToDate)
     launchScreenDataDidFinishLoading()
   }

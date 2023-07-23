@@ -15,8 +15,11 @@ struct Constants {
   /// The value for inserted table view cells that are not within the range of cells needing conversion.
   static let outsideOfTableDataRangePlaceholder = ""
   
+  static let tableViewCellWidthPadding = CGFloat(8)
+  
   // MARK: - Settings
-  static let takesEmptyEntriesIntoAccount = false
+  // Setting to false breaks the header selection for some reason.
+  static let takesEmptyEntriesIntoAccount = true
   
   // MARK: - SQLite Database Constants
   /// The URL string for the CSV file to be downloaded.

@@ -88,15 +88,24 @@ class CSVTableView: NSView {
   func updateTableColumns(withHeaderRowDetection: DetectHeaderRow = .modeNumberOfEntries, customHeaderRow: [String] = [""]) {
     tableView.tableColumns.forEach { tableView.removeTableColumn($0) }
     
+    Debug.log("[updateTableColumns] withHeadeRowDetection: \(withHeaderRowDetection)")
+    
     var headerRow: [String]? = nil
     
     switch withHeaderRowDetection {
+    case .firstRow:
+      headerRow = getFirstRowHeaders(from: tableData)
     case .modeNumberOfEntries:
-      headerRow = CSVTableView.findModeEntryHeaderRow(tableData: tableData)
+      headerRow = findModeEntryHeaderRow(tableData: tableData)
     case .largestNumberOfEntries:
-      headerRow = CSVTableView.findLargestNumberEntryHeaderRow(tableData: tableData)
+      headerRow = findLargestNumberEntryHeaderRow(tableData: tableData)
     case .custom:
       headerRow = customHeaderRow
+    }
+    
+    // Make the first row visible by adding an empty row in its place.
+    if withHeaderRowDetection != .firstRow {
+      tableData.insert([String](repeating: "", count: headerRow?.count ?? 0), at: 0)
     }
     
     guard let foundHeaderRow = headerRow else {
@@ -120,6 +129,9 @@ class CSVTableView: NSView {
     // Update shared headers
     sharedHeaders.availableHeaders = foundHeaderRow
     determineSuggestedHeadersForConversion()
+    
+    tableView.selectRowIndexes(IndexSet(integer: selectedHeaderRowIndex), byExtendingSelection: false)
+    //Debug.log("=== TableData ===\n\(tableData)")
   }
   
   /// Finds the index of the header row in the table data.
@@ -160,7 +172,7 @@ class CSVTableView: NSView {
           maxWidth = max(maxWidth, cellSize.width)
         }
       }
-      column.width = maxWidth
+      column.width = maxWidth + Constants.tableViewCellWidthPadding
     }
   }
   
@@ -546,6 +558,5 @@ class CSVTableView: NSView {
     sharedFormattingOptions.roundToTwoDecimalPlaces = false
     viewController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: false)
   }
-  
   
 }
