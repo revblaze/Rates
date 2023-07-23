@@ -150,11 +150,11 @@
 		C20749432A5B9F9E00240A66 /* CSVTableView */ = {
 			isa = PBXGroup;
 			children = (
-				C2ED16B92A632AC80037A558 /* TableViewObjects */,
 				C20749442A5B9FAB00240A66 /* CSVTableView.swift */,
 				C2ED16B72A6312FB0037A558 /* CSVTableViewDelegate.swift */,
 				C2B83CDD2A5DF036009763B6 /* CSVTableViewExtensions */,
 				C20749462A5BA01700240A66 /* HeaderFilters */,
+				C2ED16B92A632AC80037A558 /* TableViewObjects */,
 			);
 			path = CSVTableView;
 			sourceTree = "<group>";

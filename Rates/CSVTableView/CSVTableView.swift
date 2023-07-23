@@ -115,8 +115,8 @@ class CSVTableView: NSView {
     // Update selectedHeaderRowIndex with the index of the header row
     selectedHeaderRowIndex = getSelectedHeaderRowIndex(in: tableData, using: foundHeaderRow, minimumMatchingHeaderItems: 2)
     
-    Debug.log("[updateTableColumns] foundHeaderRow: \(foundHeaderRow)\nselectedHeaderRowIndex: \(selectedHeaderRowIndex)")
-    Debug.log("tableData[selectedHeaderRowIndex]: \(tableData[selectedHeaderRowIndex])")
+    //Debug.log("[updateTableColumns] foundHeaderRow: \(foundHeaderRow)\nselectedHeaderRowIndex: \(selectedHeaderRowIndex)")
+    //Debug.log("tableData[selectedHeaderRowIndex]: \(tableData[selectedHeaderRowIndex])")
     
     for (index, header) in foundHeaderRow.enumerated() {
       let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier(rawValue: "column\(index)"))
