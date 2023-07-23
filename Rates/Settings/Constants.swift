@@ -9,6 +9,12 @@ import Foundation
 
 struct Constants {
   
+  // MARK: Window & View Controller
+  static let minimumWindowWidth = CGFloat(735)
+  static let minimumWindowHeight = CGFloat(500)
+  static let minimumViewControllerContentWidth = CGFloat(735)
+  static let minimumViewControllerContentHeight = CGFloat(500)
+  
   // MARK: TableView Values
   /// The value for cells which were unable to be converted for whatever reason.
   static let unableToConvertValuePlaceholder = "" //"––" //"0.0"
