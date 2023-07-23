@@ -64,19 +64,19 @@ extension Utility {
     return cleanedString.isEmpty ? nil : cleanedString
   }
   
-  /**
-   Extracts the currency code from a given string.
-   
-   - Parameters:
-   - cell: The string to extract the currency code from. The currency code will be removed from this string.
-   
-   - Returns: The extracted currency code, or an empty string if no currency code was found.
-   
-   - Important:
-   - The function assumes that the currency codes are three letters long and may be located anywhere within the string.
-   - The function modifies the input string, removing the currency code if one was found.
-   - The function capitalizes the currency code before returning it.
-   */
+  /// Extracts the currency code from a given string.
+  ///
+  /// - Parameters:
+  ///   - cell: The string to extract the currency code from. The currency code will be removed from this string.
+  ///   - codes: An array of currency codes to check for in the input string.
+  ///
+  /// - Returns: The extracted currency code, or an empty string if no currency code was found.
+  ///
+  /// - Important:
+  ///   - The function assumes that the currency codes are three letters long and may be located anywhere within the string.
+  ///   - The function modifies the input string (`cell`), removing the currency code if one was found.
+  ///   - The function capitalizes the currency code before returning it.
+  ///
   static func extractCurrencyCode(_ cell: inout String, usingCurrencyCodes codes: [String]) -> String {
     // Define all possible currency codes
     let currencyCodes = codes

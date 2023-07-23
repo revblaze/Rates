@@ -38,17 +38,10 @@ class ViewController: NSViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // Set the initial frame size for the main view.
-    let initialWidth: CGFloat = Constants.minimumViewControllerContentWidth
-    let initialHeight: CGFloat = Constants.minimumViewControllerContentHeight
-    let initialFrame = NSRect(x: 0, y: 0, width: initialWidth, height: initialHeight)
-    self.view.frame = initialFrame
-    
+    initMainView()
     initCsvTableScrollView()
     initFilterControlsView()
     disableToolbarButtonsOnFileLoad()
-    
-    
   }
   
   override func viewDidAppear() {
@@ -73,6 +66,19 @@ class ViewController: NSViewController {
     Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined), toCurrency: \(toCurrency)")
     
     csvTableView.performConversion(toCurrency: toCurrency, usingHeaders: [dates, amounts, currencies])
+  }
+  
+  /// This function initializes the ViewController's main view. Mostly used for first launch.
+  ///
+  /// The function sets the initial content size of the view's content container, if not overridden by WindowController.
+  ///
+  /// - Returns: Void
+  func initMainView() {
+    // Set the initial frame size for the main view.
+    let initialWidth: CGFloat = Constants.minimumViewControllerContentWidth
+    let initialHeight: CGFloat = Constants.minimumViewControllerContentHeight
+    let initialFrame = NSRect(x: 0, y: 0, width: initialWidth, height: initialHeight)
+    self.view.frame = initialFrame
   }
   
   /// This function initializes the CSV table scroll view.

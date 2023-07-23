@@ -18,9 +18,7 @@ extension ViewController {
     }
   }
   
-  /**
-   Animates the position of the FilterControlsView’s trailing anchor by Constants.filterControlsViewWidth such that is visible on the screen.
-   */
+  /// Animates the position of the FilterControlsView’s trailing anchor by Constants.filterControlsViewWidth such that is visible on the screen.
   func slideInFilterControlsView() {
     filterControlsConstraint.constant = 0
     NSAnimationContext.runAnimationGroup({ context in
@@ -32,9 +30,7 @@ extension ViewController {
     })
   }
   
-  /**
-   Animates the position of the FilterControlsView’s trailing anchor by Constants.filterControlsViewWidth such that it is once again out of view entirely.
-   */
+  /// Animates the position of the FilterControlsView’s trailing anchor by Constants.filterControlsViewWidth such that it is once again out of view entirely.
   func slideOutFilterControlsView() {
     filterControlsConstraint.constant = Constants.filterControlsViewWidth
     NSAnimationContext.runAnimationGroup({ context in
