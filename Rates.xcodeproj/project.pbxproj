@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C20749452A5B9FAB00240A66 /* CSVTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749442A5B9FAB00240A66 /* CSVTableView.swift */; };
 		C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */; };
+		C232E2A52A6D8BFB0087C257 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C232E2A42A6D8BFB0087C257 /* SettingsView.swift */; };
 		C253B1B12A644C9A00218532 /* FilterControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C253B1B02A644C9A00218532 /* FilterControlsView.swift */; };
 		C253B1B62A64747900218532 /* BackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C253B1B52A64747900218532 /* BackgroundBlurView.swift */; };
 		C2546ADF2A58877B00C83FEC /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546ADE2A58877B00C83FEC /* AppDefaults.swift */; };
@@ -73,6 +74,7 @@
 /* Begin PBXFileReference section */
 		C20749442A5B9FAB00240A66 /* CSVTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableView.swift; sourceTree = "<group>"; };
 		C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreConnectSalesColumnHeaders.swift; sourceTree = "<group>"; };
+		C232E2A42A6D8BFB0087C257 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C253B1B02A644C9A00218532 /* FilterControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterControlsView.swift; sourceTree = "<group>"; };
 		C253B1B52A64747900218532 /* BackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlurView.swift; sourceTree = "<group>"; };
 		C2546ADE2A58877B00C83FEC /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		C218CC552A61BE900046B90B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C2636F8E2A585D4E0091BE7D /* ViewController.swift */,
 				C2C8FB1D2A66CE8800DBD083 /* MainView */,
 				C2B83CB82A5C774D009763B6 /* StatusBar */,
 				C2B83CC62A5C9D0C009763B6 /* LaunchScreenData */,
@@ -186,6 +189,14 @@
 				C2C8FB212A66D1FE00DBD083 /* ViewController+HeaderColumnFilters.swift */,
 			);
 			path = TableViewControls;
+			sourceTree = "<group>";
+		};
+		C232E2A32A6D8BD70087C257 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				C232E2A42A6D8BFB0087C257 /* SettingsView.swift */,
+			);
+			path = SettingsView;
 			sourceTree = "<group>";
 		};
 		C253B1AF2A644C8900218532 /* FilterControlsView */ = {
@@ -275,15 +286,14 @@
 		C2636F8B2A585D4E0091BE7D /* Rates */ = {
 			isa = PBXGroup;
 			children = (
+				C232E2A32A6D8BD70087C257 /* SettingsView */,
 				C2BC70712A68590100FB627F /* SaveFileView */,
 				C2B11C9A2A6628F50034FA1D /* Query */,
 				C2B11C912A6598730034FA1D /* DataSelectionView */,
 				C253B1AF2A644C8900218532 /* FilterControlsView */,
 				C2B83CBF2A5C831B009763B6 /* MainMenu */,
 				C2636F8C2A585D4E0091BE7D /* AppDelegate.swift */,
-				C255F2D82A5B556B004B7F95 /* WindowController.swift */,
 				C2C8FB1E2A66CF2600DBD083 /* WindowController */,
-				C2636F8E2A585D4E0091BE7D /* ViewController.swift */,
 				C218CC552A61BE900046B90B /* ViewController */,
 				C20749432A5B9F9E00240A66 /* CSVTableView */,
 				C255F2FE2A5B7EE1004B7F95 /* ImportFile */,
@@ -414,6 +424,7 @@
 		C2C8FB1E2A66CF2600DBD083 /* WindowController */ = {
 			isa = PBXGroup;
 			children = (
+				C255F2D82A5B556B004B7F95 /* WindowController.swift */,
 				C2C8FB1F2A66CF3600DBD083 /* ViewController+Toolbar.swift */,
 			);
 			path = WindowController;
@@ -522,6 +533,7 @@
 				C255F3022A5B7F11004B7F95 /* FileTemplates.swift in Sources */,
 				C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */,
 				C2BC70792A686FF600FB627F /* LargeButton.swift in Sources */,
+				C232E2A52A6D8BFB0087C257 /* SettingsView.swift in Sources */,
 				C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */,
 				C2636F9D2A5861350091BE7D /* Settings.swift in Sources */,
 				C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */,
