@@ -209,4 +209,9 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
     return visibleTableData
   }
   
+  func printTableView() {
+    let printOperation = NSPrintOperation(view: tableView)
+    printOperation.run()
+  }
+  
 }

@@ -67,12 +67,13 @@ struct SettingsView: View {
         
         Spacer()
         
-        Button("Save...") {
+        Button("Save") {
           onSave(selectedYear)
         }
         .keyboardShortcut(.defaultAction)
         .largeButton(foregroundColor: .white, backgroundColor: .accentColor, pressedColor: .accentColor.opacity(0.6))
       }
+      .padding(.vertical, 6)
     }
     .padding()
     .padding(.horizontal, 12)

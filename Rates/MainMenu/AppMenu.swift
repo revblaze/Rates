@@ -11,6 +11,7 @@ extension AppDelegate {
   
   func enableAllLaunchMenuItems() {
     enableAppMenuItems()
+    enableFileMenuItems()
   }
   
   func enableAppMenuItems() {

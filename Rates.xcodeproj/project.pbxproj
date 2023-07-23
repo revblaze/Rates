@@ -34,6 +34,7 @@
 		C2636F942A585D4F0091BE7D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2636F922A585D4F0091BE7D /* Main.storyboard */; };
 		C2636F9D2A5861350091BE7D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636F9C2A5861350091BE7D /* Settings.swift */; };
 		C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636FA72A5882480091BE7D /* KeysExtensions.swift */; };
+		C264E5832A6DC5030097CD87 /* FileMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264E5822A6DC5020097CD87 /* FileMenu.swift */; };
 		C273B9262A5B2FB600212717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9252A5B2FB600212717 /* Constants.swift */; };
 		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
 		C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C922A6598A10034FA1D /* DataSelectionView.swift */; };
@@ -100,6 +101,7 @@
 		C2636F952A585D4F0091BE7D /* Rates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rates.entitlements; sourceTree = "<group>"; };
 		C2636F9C2A5861350091BE7D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C2636FA72A5882480091BE7D /* KeysExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysExtensions.swift; sourceTree = "<group>"; };
+		C264E5822A6DC5020097CD87 /* FileMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMenu.swift; sourceTree = "<group>"; };
 		C273B9252A5B2FB600212717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
 		C2B11C922A6598A10034FA1D /* DataSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSelectionView.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				C232E2A92A6D95A00087C257 /* AppMenu.swift */,
+				C264E5822A6DC5020097CD87 /* FileMenu.swift */,
 				C2B83CC02A5C8339009763B6 /* Debug */,
 			);
 			path = MainMenu;
@@ -543,6 +546,7 @@
 				C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */,
 				C2636F9D2A5861350091BE7D /* Settings.swift in Sources */,
 				C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */,
+				C264E5832A6DC5030097CD87 /* FileMenu.swift in Sources */,
 				C232E2A72A6D8DFC0087C257 /* ViewController+SettingsView.swift in Sources */,
 				C2B11C972A661E490034FA1D /* Utility+TableView.swift in Sources */,
 				C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */,

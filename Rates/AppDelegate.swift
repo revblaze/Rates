@@ -78,8 +78,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
   /// An outlet for the Debug menu in the application.
   @IBOutlet weak var debugMenu: NSMenuItem!
-  
+  // MARK: App Menu
   @IBOutlet weak var settingsMenuItem: NSMenuItem!
+  // MARK: File Menu
+  @IBOutlet weak var openFileMenuItem: NSMenuItem!
+  @IBOutlet weak var saveFileMenuItem: NSMenuItem!
+  @IBOutlet weak var printFileMenuItem: NSMenuItem!
   
 }
 
