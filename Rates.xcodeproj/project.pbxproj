@@ -10,6 +10,8 @@
 		C20749452A5B9FAB00240A66 /* CSVTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749442A5B9FAB00240A66 /* CSVTableView.swift */; };
 		C20749482A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */; };
 		C232E2A52A6D8BFB0087C257 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C232E2A42A6D8BFB0087C257 /* SettingsView.swift */; };
+		C232E2A72A6D8DFC0087C257 /* ViewController+SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C232E2A62A6D8DFC0087C257 /* ViewController+SettingsView.swift */; };
+		C232E2AA2A6D95A00087C257 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C232E2A92A6D95A00087C257 /* AppMenu.swift */; };
 		C253B1B12A644C9A00218532 /* FilterControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C253B1B02A644C9A00218532 /* FilterControlsView.swift */; };
 		C253B1B62A64747900218532 /* BackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C253B1B52A64747900218532 /* BackgroundBlurView.swift */; };
 		C2546ADF2A58877B00C83FEC /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2546ADE2A58877B00C83FEC /* AppDefaults.swift */; };
@@ -75,6 +77,8 @@
 		C20749442A5B9FAB00240A66 /* CSVTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableView.swift; sourceTree = "<group>"; };
 		C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreConnectSalesColumnHeaders.swift; sourceTree = "<group>"; };
 		C232E2A42A6D8BFB0087C257 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C232E2A62A6D8DFC0087C257 /* ViewController+SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+SettingsView.swift"; sourceTree = "<group>"; };
+		C232E2A92A6D95A00087C257 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
 		C253B1B02A644C9A00218532 /* FilterControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterControlsView.swift; sourceTree = "<group>"; };
 		C253B1B52A64747900218532 /* BackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBlurView.swift; sourceTree = "<group>"; };
 		C2546ADE2A58877B00C83FEC /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
@@ -195,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				C232E2A42A6D8BFB0087C257 /* SettingsView.swift */,
+				C232E2A62A6D8DFC0087C257 /* ViewController+SettingsView.swift */,
 			);
 			path = SettingsView;
 			sourceTree = "<group>";
@@ -361,6 +366,7 @@
 		C2B83CBF2A5C831B009763B6 /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
+				C232E2A92A6D95A00087C257 /* AppMenu.swift */,
 				C2B83CC02A5C8339009763B6 /* Debug */,
 			);
 			path = MainMenu;
@@ -537,6 +543,7 @@
 				C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */,
 				C2636F9D2A5861350091BE7D /* Settings.swift in Sources */,
 				C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */,
+				C232E2A72A6D8DFC0087C257 /* ViewController+SettingsView.swift in Sources */,
 				C2B11C972A661E490034FA1D /* Utility+TableView.swift in Sources */,
 				C2ED16B62A6310A00037A558 /* CSV+FilterControls.swift in Sources */,
 				C2B83CBE2A5C7E96009763B6 /* ViewController+Reachability.swift in Sources */,
@@ -555,6 +562,7 @@
 				C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */,
 				C2DC12762A6AE786000D99AB /* ViewController+RevealSavedFilePrompt.swift in Sources */,
 				C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */,
+				C232E2AA2A6D95A00087C257 /* AppMenu.swift in Sources */,
 				C2DC12782A6B4619000D99AB /* NSTextFieldCellView.swift in Sources */,
 				C2546AF22A58A76A00C83FEC /* URLExtensions.swift in Sources */,
 				C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */,

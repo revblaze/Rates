@@ -819,6 +819,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Rates" customModuleProvider="target">
                     <connections>
                         <outlet property="debugMenu" destination="gnQ-Bb-Zc3" id="LdV-oN-Bgq"/>
+                        <outlet property="settingsMenuItem" destination="BOF-NM-1cW" id="f8e-sT-OSJ"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>

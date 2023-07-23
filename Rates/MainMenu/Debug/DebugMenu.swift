@@ -85,15 +85,15 @@ extension AppDelegate {
   }
   
   
-  private func performActionOnViewController(action: @escaping (ViewController) -> Void) {
-    guard let viewController = mainWindow.contentViewController as? ViewController else {
-      return
-    }
-    
-    DispatchQueue.main.async {
-      action(viewController)
-    }
-  }
+//  private func performActionOnViewController(action: @escaping (ViewController) -> Void) {
+//    guard let viewController = mainWindow.contentViewController as? ViewController else {
+//      return
+//    }
+//    
+//    DispatchQueue.main.async {
+//      action(viewController)
+//    }
+//  }
   
   
 }

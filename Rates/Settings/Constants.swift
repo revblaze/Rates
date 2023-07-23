@@ -52,6 +52,7 @@ struct Constants {
   static let filterControlsViewWidth: CGFloat = 260
   /// Height of the ViewController Status Bar.
   static let statusBarHeight: CGFloat = 30
+  static let settingsViewHostingControllerIdentifier = "SettingsViewHostingController"
   /// Identifier of the DataSelectionView's Hosting Controller.
   static let dataSelectionViewHostingControllerIdentifier = "DataSelectionViewHostingController"
   /// Identifier of the SaveFileView's Hosting Controller.
