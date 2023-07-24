@@ -12,7 +12,7 @@ protocol FileSelectionDelegate: AnyObject {
 }
 
 /// The main window controller for the application.
-class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDelegate {
+class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDelegate, NSWindowDelegate {
   /// AppDelegate reference.
   let appDelegate = NSApplication.shared.delegate as! AppDelegate
   /// Toggles the FilterControlsView to animate in and out.
@@ -44,16 +44,32 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   /// Called when the window finishes loading. Disables toolbar items and sets the toolbar delegate.
   override func windowDidLoad() {
     super.windowDidLoad()
-    
+    window?.delegate = self
+    // Set the window controller as the window's delegate.
+    self.window?.delegate = self
     // Set the minimum window size.
     self.window?.minSize = NSSize(width: Constants.minimumWindowWidth, height: Constants.minimumWindowHeight)
     // Set the window to remember the window frame size.
     self.window?.setFrameAutosaveName(NSWindow.FrameAutosaveName("MainWindow"))
     
+    appDelegate.mainWindowController = self
+    // Set window toolbar delegate.
     if let toolbar = window?.toolbar { toolbar.delegate = self }
     viewController.windowController = self
-    
+    // Disable all toolbar items on launch.
     disableToolbarItemsOnLaunch()
+
+  }
+  
+  func windowWillClose(_ notification: Notification) {
+    // The window is closing, but we want to keep the WindowController around, so we'll add a strong reference to self
+    appDelegate.mainWindowController = self
+  }
+  
+  /// Is called when the window is about to close. Will hide the existing window without exiting it.
+  func windowShouldClose(_ sender: NSWindow) -> Bool {
+    window?.orderOut(sender)
+    return false
   }
   
   /// Disables all toolbar items and updates their appearance.

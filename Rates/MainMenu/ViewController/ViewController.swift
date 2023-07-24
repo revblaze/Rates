@@ -35,6 +35,8 @@ class SharedFormattingOptions: ObservableObject {
 
 class ViewController: NSViewController {
   
+  var appDidLaunch = false
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -45,7 +47,10 @@ class ViewController: NSViewController {
   }
   
   override func viewDidAppear() {
-    beginLaunchSession()
+    if !appDidLaunch {
+      beginLaunchSession()
+      appDidLaunch = true
+    }
   }
   
   func saveTableViewAsFile() {
