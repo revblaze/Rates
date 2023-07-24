@@ -342,16 +342,18 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Table" id="6RO-iY-pAO">
                                     <items>
-                                        <menuItem title="Toggle Hidden Columns" id="s8u-u4-7AJ">
+                                        <menuItem title="Show Filters Sidebar" id="Epe-5Q-kNF">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                        <menuItem title="Toggle Round Data" id="2wT-g0-SOb">
+                                        <menuItem isSeparatorItem="YES" id="KpZ-hL-roH"/>
+                                        <menuItem title="Show Hidden Columns" id="s8u-u4-7AJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                        <menuItem title="Filters" id="mdc-Pa-k5b">
+                                        <menuItem title="Round to Two Decimal Places" id="2wT-g0-SOb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                        <menuItem title="Filters Sidebar" id="Epe-5Q-kNF">
+                                        <menuItem isSeparatorItem="YES" id="4lc-wX-Nbv"/>
+                                        <menuItem title="Convert to Currency..." id="Sp7-W0-z9U">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                     </items>
@@ -685,6 +687,10 @@
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="OkO-N2-TCc"/>
+                                        <menuItem title="Quick Start Guide" id="fxA-Bj-cT8">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -837,11 +843,16 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Rates" customModuleProvider="target">
                     <connections>
+                        <outlet property="convertToCurrencyMenuItem" destination="Sp7-W0-z9U" id="5XS-Q3-Igb"/>
                         <outlet property="debugMenu" destination="gnQ-Bb-Zc3" id="LdV-oN-Bgq"/>
                         <outlet property="openFileMenuItem" destination="IAo-SY-fd9" id="CMj-ld-XlT"/>
                         <outlet property="printFileMenuItem" destination="aTl-1u-JFS" id="h9w-aa-5ky"/>
+                        <outlet property="quickStartGuideMenuItem" destination="fxA-Bj-cT8" id="uOh-Sx-45b"/>
                         <outlet property="saveFileMenuItem" destination="pxx-59-PXV" id="UZ3-kZ-lSk"/>
                         <outlet property="settingsMenuItem" destination="BOF-NM-1cW" id="f8e-sT-OSJ"/>
+                        <outlet property="toggleFiltersSidebarMenuItem" destination="Epe-5Q-kNF" id="vxb-My-8zS"/>
+                        <outlet property="toggleHiddenColumnsMenuItem" destination="s8u-u4-7AJ" id="5OA-Vs-ZIU"/>
+                        <outlet property="toggleRoundToTwoDecimalPlacesMenuItem" destination="2wT-g0-SOb" id="755-0s-5Er"/>
                     </connections>
                 </customObject>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
