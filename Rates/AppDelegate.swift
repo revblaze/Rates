@@ -92,5 +92,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   // MARK: Help Menu
   @IBOutlet weak var quickStartGuideMenuItem: NSMenuItem!
   
+  func enableAllLaunchMenuItems() {
+    enableAppMenuItems()
+    enableFileMenuItems()
+  }
+  
+  func enableFileLoadMenuItems() {
+//    enableAppMenuItems()
+//    enableFileMenuItems()
+    enableSaveFileMenuItem()
+    enableTableMenuItems()
+  }
+  
 }
 
