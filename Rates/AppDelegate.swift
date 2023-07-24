@@ -12,14 +12,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
   /// The main window of the application.
   var mainWindow: NSWindow!
+  /// The main window controller of the application.
+  var mainWindowController: WindowController? // Add reference to WindowController
   
   /// Called when the application has finished launching.
   ///
   /// This function initializes the `mainWindow` and activates the application.
   /// It also initializes the Debug menu.
   func applicationDidFinishLaunching(_ aNotification: Notification) {
-    /// Set mainWindow as initial window presented
-    mainWindow = NSApplication.shared.windows[0]
+    // Check if the mainWindowController is already created
+    if mainWindowController == nil {
+      // If it's not, create it
+      mainWindowController = WindowController()
+    }
+    // Set mainWindow as initial window presented
+    mainWindow = mainWindowController?.window
+    //mainWindow = NSApplication.shared.windows[0]
     NSApp.activate(ignoringOtherApps: true)
     /// Initialize Debug menu
     initDebugMenu()
