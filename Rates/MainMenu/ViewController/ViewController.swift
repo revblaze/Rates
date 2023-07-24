@@ -175,6 +175,8 @@ class ViewController: NSViewController {
   
   
   // MARK: - Variables
+  /// AppDelegate reference.
+  let appDelegate = NSApplication.shared.delegate as! AppDelegate
   /// The shared settings used across the app.
   let sharedSettings = SharedSettings()
   /// The shared headers used by the view controller.

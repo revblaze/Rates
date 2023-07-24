@@ -84,6 +84,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   @IBOutlet weak var openFileMenuItem: NSMenuItem!
   @IBOutlet weak var saveFileMenuItem: NSMenuItem!
   @IBOutlet weak var printFileMenuItem: NSMenuItem!
+  // MARK: Table Menu
+  @IBOutlet weak var toggleFiltersSidebarMenuItem: NSMenuItem!
+  @IBOutlet weak var toggleHiddenColumnsMenuItem: NSMenuItem!
+  @IBOutlet weak var toggleRoundToTwoDecimalPlacesMenuItem: NSMenuItem!
+  @IBOutlet weak var convertToCurrencyMenuItem: NSMenuItem!
+  // MARK: Help Menu
+  @IBOutlet weak var quickStartGuideMenuItem: NSMenuItem!
+  
+  func enableAllLaunchMenuItems() {
+    enableAppMenuItems()
+    enableFileMenuItems()
+  }
+  
+  func enableFileLoadMenuItems() {
+//    enableAppMenuItems()
+//    enableFileMenuItems()
+    enableSaveFileMenuItem()
+    enableTableMenuItems()
+  }
   
 }
 

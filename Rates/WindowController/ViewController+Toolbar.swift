@@ -54,10 +54,12 @@ extension ViewController {
   
   func enableRoundToTwoDecimalPlaces() {
     csvTableView.enableRoundToTwoDecimalPlaces()
+    appDelegate.toggleRoundToTwoDecimalPlacesMenuItemText(withDefaultState: true)
   }
   
   func disableRoundToTwoDecimalPlaces() {
     csvTableView.disableRoundToTwoDecimalPlaces()
+    appDelegate.toggleRoundToTwoDecimalPlacesMenuItemText(withDefaultState: false)
   }
   
 }

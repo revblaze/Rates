@@ -13,7 +13,7 @@ protocol FileSelectionDelegate: AnyObject {
 
 /// The main window controller for the application.
 class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDelegate {
-  /// AppDelegate
+  /// AppDelegate reference.
   let appDelegate = NSApplication.shared.delegate as! AppDelegate
   /// Toggles the FilterControlsView to animate in and out.
   @IBOutlet weak var toggleFilterControlViewToolbarButton: NSToolbarItem!
@@ -100,7 +100,8 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     
     validateToolbarItems()
     
-    appDelegate.enableSaveFileMenuItem()
+    //appDelegate.enableSaveFileMenuItem()
+    appDelegate.enableFileLoadMenuItems()
   }
   
   /// Enables toolbar items when data is loaded at launch.

@@ -13,8 +13,10 @@ extension ViewController {
   func toggleFilterControlsView() {
     if filterControlsViewIsHidden {
       slideInFilterControlsView()
+      appDelegate.toggleFiltersSidebarMenuItemText(withShowState: false)
     } else {
       slideOutFilterControlsView()
+      appDelegate.toggleFiltersSidebarMenuItemText(withShowState: true)
     }
   }
   

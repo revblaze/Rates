@@ -9,11 +9,6 @@ import Cocoa
 
 extension AppDelegate {
   
-  func enableAllLaunchMenuItems() {
-    enableAppMenuItems()
-    enableFileMenuItems()
-  }
-  
   func enableAppMenuItems() {
     enableMenuItem(settingsMenuItem, action: #selector(settingsMenuItemAction(_:)))
   }
