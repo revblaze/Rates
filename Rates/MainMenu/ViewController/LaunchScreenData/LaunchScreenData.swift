@@ -23,6 +23,7 @@ extension ViewController {
   ///
   /// - Parameter url: The URL of the launch data.
   func updateCSVTableViewWithLaunchData(at url: URL) {
+    Debug.log("[updateCSVTableViewWithLaunchData]")
     csvTableView.updateCSVData(with: url, withHeaderRowDetection: .firstRow)
     updateStatusBar(withState: .upToDate)
     launchScreenDataDidFinishLoading()
@@ -37,7 +38,9 @@ extension ViewController {
       return
     }
     
-    updateCSVTableViewWithLaunchData(at: launchScreenCsvFileUrl)
+    DispatchQueue.main.async { [weak self] in
+      self?.updateCSVTableViewWithLaunchData(at: launchScreenCsvFileUrl)
+    }
   }
   
   /// Generates launch screen data from a CSV file at a given URL.
