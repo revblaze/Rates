@@ -28,18 +28,24 @@ extension ViewController {
     updateStatusBar(withState: .upToDate)
     launchScreenDataDidFinishLoading()
   }
-  
-  
-  
+
   /// Fills the launch table view with exchange rate data.
   func fillLaunchTableViewWithExchangeRateData() {
-    guard let searchExchangeRateDataUrl = searchExchangeRateDataInDocumentsDirectory(),
-          let launchScreenCsvFileUrl = generateLaunchScreenData(fromCsvFileUrl: searchExchangeRateDataUrl) else {
-      return
-    }
     
-    DispatchQueue.main.async { [weak self] in
-      self?.updateCSVTableViewWithLaunchData(at: launchScreenCsvFileUrl)
+    // Check if the launch screen data already exists
+    if let existingLaunchDataUrl = Utility.searchDocumentsDirectory(forFileName: "launchScreenData.csv") {
+      DispatchQueue.main.async { [weak self] in
+        self?.updateCSVTableViewWithLaunchData(at: existingLaunchDataUrl)
+      }
+    } else if let searchExchangeRateDataUrl = Utility.searchDocumentsDirectory(forFileName: Constants.csvExchangeRateDataFileName),
+              let launchScreenCsvFileUrl = generateLaunchScreenData(fromCsvFileUrl: searchExchangeRateDataUrl) {
+      // If the launch screen data does not exist, generate new data from the exchange rate data
+      DispatchQueue.main.async { [weak self] in
+        self?.updateCSVTableViewWithLaunchData(at: launchScreenCsvFileUrl)
+      }
+    } else {
+      // If neither the existing nor the new data can be found or generated, print an error message and return
+      Debug.log("[fillLaunchTableViewWithExchangeRateData] Could not find or generate launch screen data")
     }
   }
   

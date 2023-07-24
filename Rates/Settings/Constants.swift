@@ -28,6 +28,7 @@ struct Constants {
   static let takesEmptyEntriesIntoAccount = true
   
   // MARK: - SQLite Database Constants
+  static let csvExchangeRateDataFileName = "WS_XRU_D_csv_row.csv"
   /// The URL string for the CSV file to be downloaded.
   static let csvUrlString = "https://www.bis.org/statistics/full_xru_d_csv_row.zip"
   /// The SQLite database `table_name` to query.
