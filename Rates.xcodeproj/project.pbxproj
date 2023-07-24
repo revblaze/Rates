@@ -36,6 +36,7 @@
 		C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2636FA72A5882480091BE7D /* KeysExtensions.swift */; };
 		C264E5832A6DC5030097CD87 /* FileMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264E5822A6DC5020097CD87 /* FileMenu.swift */; };
 		C264E5852A6EDACB0097CD87 /* TableMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264E5842A6EDACB0097CD87 /* TableMenu.swift */; };
+		C264E5872A6EED950097CD87 /* ViewController+InteractionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264E5862A6EED950097CD87 /* ViewController+InteractionOverlay.swift */; };
 		C273B9262A5B2FB600212717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9252A5B2FB600212717 /* Constants.swift */; };
 		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
 		C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C922A6598A10034FA1D /* DataSelectionView.swift */; };
@@ -104,6 +105,7 @@
 		C2636FA72A5882480091BE7D /* KeysExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeysExtensions.swift; sourceTree = "<group>"; };
 		C264E5822A6DC5020097CD87 /* FileMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMenu.swift; sourceTree = "<group>"; };
 		C264E5842A6EDACB0097CD87 /* TableMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableMenu.swift; sourceTree = "<group>"; };
+		C264E5862A6EED950097CD87 /* ViewController+InteractionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+InteractionOverlay.swift"; sourceTree = "<group>"; };
 		C273B9252A5B2FB600212717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
 		C2B11C922A6598A10034FA1D /* DataSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSelectionView.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 			children = (
 				C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */,
 				C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */,
+				C264E5862A6EED950097CD87 /* ViewController+InteractionOverlay.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				C2C8FB1C2A66CE4E00DBD083 /* ViewController+Animations.swift in Sources */,
 				C253B1B62A64747900218532 /* BackgroundBlurView.swift in Sources */,
 				C2B83CCC2A5C9E5C009763B6 /* ViewController+Filters.swift in Sources */,
+				C264E5872A6EED950097CD87 /* ViewController+InteractionOverlay.swift in Sources */,
 				C255F2D92A5B556B004B7F95 /* WindowController.swift in Sources */,
 				C2B83CCE2A5C9ED4009763B6 /* ViewController+Launch.swift in Sources */,
 				C253B1B12A644C9A00218532 /* FilterControlsView.swift in Sources */,

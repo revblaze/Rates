@@ -148,35 +148,6 @@ class ViewController: NSViewController {
     updateScrollViewLayout()
   }
   
-  /// Disables interaction with the main view by adding a transparent gray overlay over all views except the status bar.
-  func disableMainViewInteraction() {
-    windowController?.disableAllToolbarItems()
-    // Create the overlay view
-    overlayView = OverlayView()
-    overlayView?.wantsLayer = true
-    overlayView?.layer?.backgroundColor = NSColor.darkGray.withAlphaComponent(0.6).cgColor
-    
-    // Add the overlay view to the main view
-    view.addSubview(overlayView!, positioned: .below, relativeTo: statusBarViewContainer)
-    
-    // Set up constraints for the overlay view
-    overlayView?.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      overlayView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      overlayView!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      overlayView!.topAnchor.constraint(equalTo: view.topAnchor),
-      overlayView!.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-    ])
-  }
-  
-  /// Enables interaction with the main view by removing the transparent gray overlay.
-  func enableMainViewInteraction() {
-    enableToolbarItemsOnFileLoad()
-    // Remove the overlay view
-    overlayView?.removeFromSuperview()
-    overlayView = nil
-  }
-  
   
   
   // MARK: - Variables
@@ -227,7 +198,7 @@ class ViewController: NSViewController {
   /// A flag indicating if the status bar button is pulsing.
   var statusBarButtonIsPulsing = false
   // A view that will act as an overlay to disable interaction
-  private var overlayView: NSView?
+  var overlayView: NSView?
   
   
   /// A flag determining if the user has previously loaded a file this session, or if the CSVTableView is such populated with launch data.
@@ -248,8 +219,3 @@ class ViewController: NSViewController {
 }
 
 
-class OverlayView: NSView {
-  override func mouseDown(with event: NSEvent) {
-    // Do nothing, just consume the event
-  }
-}
