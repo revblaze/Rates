@@ -115,11 +115,17 @@ class DragDropOverlayView: NSView {
 }
 
 
+/// `DragPassThroughImageView` is a subclass of `NSImageView` that passes drag and drop operations
+/// through to its superview.
 class DragPassThroughImageView: NSImageView {
+  /// This method is called when a drag operation enters the image view.
+  /// It passes the operation to the superview and returns the result.
   override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
     return superview?.draggingEntered(sender) ?? .generic
   }
   
+  /// This method is called when a drag operation is performed on the image view.
+  /// It passes the operation to the superview and returns the result.
   override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
     return superview?.performDragOperation(sender) ?? false
   }
