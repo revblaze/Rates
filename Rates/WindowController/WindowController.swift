@@ -187,7 +187,7 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   
   func updateHiddenTableViewColumnsToolbarButton(toBeActive state: Bool) {
     Debug.log("updateHiddenTableViewColumnsToolbarButton(toBeActive state: \(state)")
-    let symbolName = state ? "eye.slash.fill" : "eye"
+    let symbolName = state ? "eye.slash.fill" : "eye.slash"
     let symbolImage = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
     
     toggleHiddenTableViewColumnsToolbarButton.image = symbolImage

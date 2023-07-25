@@ -107,8 +107,11 @@ extension ViewController {
       sharedData.outputUserFileExtension = fileExtension
       //sharedData.outputUserFileFormat = fileExtension
     }
-    // Hide FileDropBox if visible
-    hideFileDropBox()
+    
+    DispatchQueue.main.async {
+      // Hide FileDropBox if visible
+      self.hideFileDropBox()
+    }
     // Pass input file data to table view
     passDataToTableView(fileUrl: url)
   }
