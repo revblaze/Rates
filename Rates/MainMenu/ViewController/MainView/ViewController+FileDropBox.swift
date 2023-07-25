@@ -61,16 +61,26 @@ extension ViewController: NSDraggingDestination {
     }
   }
   
-  /// Hides the file drop box by removing the overlay view.
+  /// Hides the file drop box by fading out the overlay view and then removing it.
   func hideFileDropBox() {
     DispatchQueue.main.async { [weak self] in
       guard let self = self else { return }
       
-      // Remove the overlay view
-      self.dragDropOverlayView?.removeFromSuperview()
-      self.dragDropOverlayView = nil
+      // Fade out the overlay view
+      NSAnimationContext.runAnimationGroup({ context in
+        // Set the duration of the animation
+        context.duration = 0.4
+        
+        // Animate the alpha value of the overlay view to 0 (completely transparent)
+        self.dragDropOverlayView?.animator().alphaValue = 0
+      }, completionHandler: {
+        // Remove the overlay view after the animation is completed
+        self.dragDropOverlayView?.removeFromSuperview()
+        self.dragDropOverlayView = nil
+      })
     }
   }
+  
 }
 
 
