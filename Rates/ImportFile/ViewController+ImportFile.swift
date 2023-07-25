@@ -99,19 +99,25 @@ extension ViewController {
     }
   }
   
+  func passFileUrlToTableAndUpdateSharedData(_ url: URL) {
+    // Update SharedData
+    sharedData.inputUserFile = url
+    if let fileExtension = url.hasFileExtension() {
+      sharedData.inputUserFileExtension = fileExtension
+      sharedData.outputUserFileExtension = fileExtension
+      //sharedData.outputUserFileFormat = fileExtension
+    }
+    // Hide FileDropBox if visible
+    hideFileDropBox()
+    // Pass input file data to table view
+    passDataToTableView(fileUrl: url)
+  }
+  
   /// Opens the file selection interface.
   func openFileSelection() {
     openUserFile { fileUrl in
       if let url = fileUrl {
-        self.sharedData.inputUserFile = url
-        
-        if let fileExtension = url.hasFileExtension() {
-          self.sharedData.inputUserFileExtension = fileExtension
-          self.sharedData.outputUserFileExtension = fileExtension
-          //self.sharedData.outputUserFileFormat = fileExtension
-        }
-        // Pass to
-        self.passDataToTableView(fileUrl: url)
+        self.passFileUrlToTableAndUpdateSharedData(url)
       }
     }
   }

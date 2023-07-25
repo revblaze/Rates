@@ -24,6 +24,7 @@ extension ViewController: NSDraggingDestination {
       // Add a callback function to print the dropped file URL
       self.dragDropOverlayView?.onFileDropped = { fileURL in
         Debug.log("[FileDropBox] Dropped file URL: \(fileURL)")
+        self.passFileUrlToTableAndUpdateSharedData(fileURL)
       }
       
       // Add a callback function to print an error message for invalid file types
@@ -88,13 +89,31 @@ class DragDropOverlayView: NSView {
   
   /// This method is called when a drag operation enters the view.
   /// It returns a `NSDragOperation` that specifies which drag operations are supported.
+  /// It also changes the background color to a dark overlay when a valid file type is being dragged.
   override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+    guard let board = sender.draggingPasteboard.pasteboardItems?.first,
+          let fileURLString = board.string(forType: .fileURL),
+          let fileURL = URL(string: fileURLString),
+          fileURL.hasFileExtension() != nil
+    else {
+      return []
+    }
+    
+    self.layer?.backgroundColor = NSColor.black.withAlphaComponent(0.3).cgColor
     return .copy
   }
   
-  /// This method is called when a drag operation is performed on the view.
+  /// This method is called when the drag operation leaves the view.
+  /// It changes the background color back to its original color.
+  override func draggingExited(_ sender: NSDraggingInfo?) {
+    self.layer?.backgroundColor = NSColor.clear.cgColor
+  }
+  
+  //// This method is called when a drag operation is performed on the view.
   /// It checks if the dropped file has a valid extension and then calls the appropriate callback.
+  /// It also changes the background color back to its original color.
   override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+    self.layer?.backgroundColor = NSColor.clear.cgColor
     guard let board = sender.draggingPasteboard.pasteboardItems?.first,
           let fileURLString = board.string(forType: .fileURL),
           let fileURL = URL(string: fileURLString)
@@ -112,6 +131,8 @@ class DragDropOverlayView: NSView {
       return false
     }
   }
+  
+  
 }
 
 
