@@ -9,10 +9,16 @@ import Cocoa
 
 extension ViewController: NSDraggingDestination {
   
+  /// The duration of the fade-in animation when the file drop box is shown.
+  ///
+  /// This is the time it takes for the `NSImageView` to transition from completely transparent (alpha value of 0) to completely opaque (alpha value of 1).
   private var fadeInDuration: TimeInterval {
     return 0.4
   }
   
+  /// The duration of the fade-out animation when the file drop box is hidden.
+  ///
+  /// This is the time it takes for the `NSImageView` to transition from completely opaque (alpha value of 1) to completely transparent (alpha value of 0), before it is removed from the superview.
   private var fadeOutDuration: TimeInterval {
     return 0.2
   }
