@@ -138,6 +138,8 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
     let symbolImage = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
     
     toggleRoundToTwoDecimalPlacesToolbarButton.image = symbolImage
+    
+    appDelegate.toggleRoundToTwoDecimalPlacesMenuItemText(withDefaultState: state)
   }
   
   /// Opens a file selection when the open file toolbar button is pressed.
@@ -185,13 +187,15 @@ class WindowController: NSWindowController, FileSelectionDelegate, NSToolbarDele
   
   func updateHiddenTableViewColumnsToolbarButton(toBeActive state: Bool) {
     Debug.log("updateHiddenTableViewColumnsToolbarButton(toBeActive state: \(state)")
-    let symbolName = state ? "eye.slash" : "eye"
+    let symbolName = state ? "eye.slash.fill" : "eye"
     let symbolImage = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
     
     toggleHiddenTableViewColumnsToolbarButton.image = symbolImage
     
-    let toolbarItemLabel = state ? "Unhide" : "Hide"
+    let toolbarItemLabel = state ? "Show" : "Hide"
     toggleHiddenTableViewColumnsToolbarButton.label = toolbarItemLabel
+    
+    appDelegate.toggleHiddenColumnsMenuItemText(withDefaultState: state)
   }
   
   func enableHiddenTableViewColumnsToolbarButton() {

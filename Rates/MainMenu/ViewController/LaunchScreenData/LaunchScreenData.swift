@@ -31,7 +31,6 @@ extension ViewController {
 
   /// Fills the launch table view with exchange rate data.
   func fillLaunchTableViewWithExchangeRateData() {
-    
     // Check if the launch screen data already exists
     if let existingLaunchDataUrl = Utility.searchDocumentsDirectory(forFileName: "launchScreenData.csv") {
       DispatchQueue.main.async { [weak self] in

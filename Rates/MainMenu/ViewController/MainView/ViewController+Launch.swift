@@ -52,7 +52,8 @@ extension ViewController {
   /// If a local version of the database does not exist, it checks the internet connection and updates data if necessary.
   func checkLocalDataAndUpdateIfNecessary() {
     if localVersionOfDatabaseExists() {
-      updateStatusBar(withState: .upToDate)
+      //updateStatusBar(withState: .upToDate)
+      Debug.log("[checkLocalDataAndUpdateIfNecessary] localVersionOfDatabaseExists")
     } else {
       checkInternetAndUpdateData()
     }
