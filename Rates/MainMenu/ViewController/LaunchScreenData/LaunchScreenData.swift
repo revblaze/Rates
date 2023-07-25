@@ -25,8 +25,9 @@ extension ViewController {
   func updateCSVTableViewWithLaunchData(at url: URL) {
     Debug.log("[updateCSVTableViewWithLaunchData]")
     
-    // TODO: [Settings] Hide/Show exchange rates on launch
-    if sharedSettings.showExchangeRateDataOnLaunch {
+    if userDidOpenFileWithFinderAndWillPassToTableView() {
+      Debug.log("[updateCSVTableViewWithLaunchData] User opened file with Finder. Skipping launch setup.")
+    } else if sharedSettings.showExchangeRateDataOnLaunch {
       // If showExchangeRateData on launch, update tableData with launchScreenData.csv
       csvTableView.updateCSVData(with: url, withHeaderRowDetection: .firstRow)
     } else {
@@ -36,7 +37,6 @@ extension ViewController {
     
     updateStatusBar(withState: .upToDate)
     launchScreenDataDidFinishLoading()
-    
   }
 
   /// Fills the launch table view with exchange rate data.
