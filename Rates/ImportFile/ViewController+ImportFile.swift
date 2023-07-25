@@ -49,8 +49,6 @@ extension ViewController {
         return
       }
       
-      Debug.log("csvFileUrl = ConvertFile.toCSV : \(csvFileUrl)")
-      
       // Once file conversion is done, update UI on main queue
       DispatchQueue.main.async {
         self.updateCSVTableViewWithCSV(at: csvFileUrl)      // Update the CSVTableView with user data
