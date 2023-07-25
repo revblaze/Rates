@@ -24,9 +24,16 @@ extension ViewController {
   /// - Parameter url: The URL of the launch data.
   func updateCSVTableViewWithLaunchData(at url: URL) {
     Debug.log("[updateCSVTableViewWithLaunchData]")
-    csvTableView.updateCSVData(with: url, withHeaderRowDetection: .firstRow)
+    // TODO: [Settings] Hide/Show exchange rates on launch
+    if sharedSettings.showExchangeRateDataOnLaunch {
+      csvTableView.updateCSVData(with: url, withHeaderRowDetection: .firstRow)
+    }
+    
     updateStatusBar(withState: .upToDate)
     launchScreenDataDidFinishLoading()
+    
+    // TODO: Present drop file image
+    
   }
 
   /// Fills the launch table view with exchange rate data.

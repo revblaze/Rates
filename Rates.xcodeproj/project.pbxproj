@@ -37,6 +37,7 @@
 		C264E5832A6DC5030097CD87 /* FileMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264E5822A6DC5020097CD87 /* FileMenu.swift */; };
 		C264E5852A6EDACB0097CD87 /* TableMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264E5842A6EDACB0097CD87 /* TableMenu.swift */; };
 		C264E5872A6EED950097CD87 /* ViewController+InteractionOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264E5862A6EED950097CD87 /* ViewController+InteractionOverlay.swift */; };
+		C264E58B2A6F71090097CD87 /* ViewController+FileDropBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C264E58A2A6F71090097CD87 /* ViewController+FileDropBox.swift */; };
 		C273B9262A5B2FB600212717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9252A5B2FB600212717 /* Constants.swift */; };
 		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
 		C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C922A6598A10034FA1D /* DataSelectionView.swift */; };
@@ -106,6 +107,7 @@
 		C264E5822A6DC5020097CD87 /* FileMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMenu.swift; sourceTree = "<group>"; };
 		C264E5842A6EDACB0097CD87 /* TableMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableMenu.swift; sourceTree = "<group>"; };
 		C264E5862A6EED950097CD87 /* ViewController+InteractionOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+InteractionOverlay.swift"; sourceTree = "<group>"; };
+		C264E58A2A6F71090097CD87 /* ViewController+FileDropBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+FileDropBox.swift"; sourceTree = "<group>"; };
 		C273B9252A5B2FB600212717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
 		C2B11C922A6598A10034FA1D /* DataSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSelectionView.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 				C2B83CCD2A5C9ED4009763B6 /* ViewController+Launch.swift */,
 				C2C8FB1B2A66CE4E00DBD083 /* ViewController+Animations.swift */,
 				C264E5862A6EED950097CD87 /* ViewController+InteractionOverlay.swift */,
+				C264E58A2A6F71090097CD87 /* ViewController+FileDropBox.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				C2B83CB72A5C6907009763B6 /* FileExtensions.swift in Sources */,
 				C2BC70792A686FF600FB627F /* LargeButton.swift in Sources */,
 				C232E2A52A6D8BFB0087C257 /* SettingsView.swift in Sources */,
+				C264E58B2A6F71090097CD87 /* ViewController+FileDropBox.swift in Sources */,
 				C2C8FB1A2A66CD6300DBD083 /* ViewController+DataSelectionViewHostingController.swift in Sources */,
 				C2636F9D2A5861350091BE7D /* Settings.swift in Sources */,
 				C2B83CDF2A5DF062009763B6 /* CSV+HeaderRow.swift in Sources */,

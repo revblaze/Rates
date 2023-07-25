@@ -20,7 +20,11 @@ extension ViewController {
     // Perform UI updates on main queue
     DispatchQueue.main.async {
       self.updateStatusBar(withState: .loadingUserData)
-      self.disableMainViewInteraction()
+      // If there is no tableData, don't gray out screen
+      if self.csvTableView.tableData.isEmpty == false {
+        self.disableMainViewInteraction()
+      }
+      
     }
     
     // Perform file conversion in a background queue
