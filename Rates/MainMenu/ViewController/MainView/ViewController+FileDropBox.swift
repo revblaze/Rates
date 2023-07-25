@@ -9,6 +9,14 @@ import Cocoa
 
 extension ViewController: NSDraggingDestination {
   
+  private var fadeInDuration: TimeInterval {
+    return 0.4
+  }
+  
+  private var fadeOutDuration: TimeInterval {
+    return 0.2
+  }
+  
   /// Shows a file drop box by creating an overlay view with an `NSImageView` in the center.
   func showFileDropBox() {
     DispatchQueue.main.async { [weak self] in
@@ -39,6 +47,7 @@ extension ViewController: NSDraggingDestination {
       imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
       imageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
       imageView.isEditable = false
+      imageView.alphaValue = 0 // Set the initial alpha value to 0 (completely transparent)
       self.dragDropOverlayView?.addSubview(imageView)
       
       // Add the overlay view to the main view
@@ -58,6 +67,15 @@ extension ViewController: NSDraggingDestination {
         imageView.widthAnchor.constraint(equalToConstant: 348),
         imageView.heightAnchor.constraint(equalToConstant: 223)
       ])
+      
+      // Fade in the image view
+      NSAnimationContext.runAnimationGroup({ context in
+        // Set the duration of the animation
+        context.duration = self.fadeInDuration
+        
+        // Animate the alpha value of the image view to 1 (completely opaque)
+        imageView.animator().alphaValue = 1
+      })
     }
   }
   
@@ -69,7 +87,7 @@ extension ViewController: NSDraggingDestination {
       // Fade out the overlay view
       NSAnimationContext.runAnimationGroup({ context in
         // Set the duration of the animation
-        context.duration = 0.4
+        context.duration = self.fadeOutDuration
         
         // Animate the alpha value of the overlay view to 0 (completely transparent)
         self.dragDropOverlayView?.animator().alphaValue = 0
