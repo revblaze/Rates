@@ -80,6 +80,7 @@
 /* Begin PBXFileReference section */
 		C20749442A5B9FAB00240A66 /* CSVTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVTableView.swift; sourceTree = "<group>"; };
 		C20749472A5BA02700240A66 /* AppStoreConnectSalesColumnHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreConnectSalesColumnHeaders.swift; sourceTree = "<group>"; };
+		C22495B12A700FD200757C5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C232E2A42A6D8BFB0087C257 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C232E2A62A6D8DFC0087C257 /* ViewController+SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+SettingsView.swift"; sourceTree = "<group>"; };
 		C232E2A92A6D95A00087C257 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
@@ -299,6 +300,7 @@
 		C2636F8B2A585D4E0091BE7D /* Rates */ = {
 			isa = PBXGroup;
 			children = (
+				C22495B12A700FD200757C5D /* Info.plist */,
 				C232E2A32A6D8BD70087C257 /* SettingsView */,
 				C2BC70712A68590100FB627F /* SaveFileView */,
 				C2B11C9A2A6628F50034FA1D /* Query */,
@@ -744,8 +746,9 @@
 				DEVELOPMENT_TEAM = 85N3S3DG8M;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Rates/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "2023 Justin Bush";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -773,8 +776,9 @@
 				DEVELOPMENT_TEAM = 85N3S3DG8M;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Rates/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "2023 Justin Bush";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (

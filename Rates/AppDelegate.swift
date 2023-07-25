@@ -33,6 +33,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     initDebugMenu()
     
     enableAllLaunchMenuItems()
+    
+    let arguments = ProcessInfo.processInfo.arguments
+    if arguments.count > 1 {
+      _ = application(NSApp, openFile: arguments[1])
+    }
   }
   
   /// Called when the application is about to terminate.
@@ -63,6 +68,46 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     return true
   }
   
+  /// Opens a file with the application and prints the file's URL.
+  ///
+  /// This function is called by macOS when a file is opened with the application.
+  /// The `filename` parameter will contain the full path of the file, which is then converted to a `URL` for easier handling.
+  /// The function returns `true` if the file was opened successfully, or `false` if there was an error.
+  ///
+  /// - Parameters:
+  ///   - sender: The application that is requesting to open the file.
+  ///   - filename: The full path of the file to open.
+  ///
+  /// - Returns: `true` if the file was opened successfully, or `false` if there was an error.
+  func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+    let fileURL = URL(fileURLWithPath: filename)
+
+    userOpenedFileFromFinderWithUrl = fileURL
+    Debug.log("[AppDelegate] Opened file URL: \(fileURL)")
+    
+    // If main view is ready for function calls, trigger function directly.
+    // Otherwise, ViewController will handle file queue.
+    if mainViewDidAppearAndIsReadyForInteraction {
+      performActionOnViewController { viewController in
+        _ = viewController.userDidOpenFileWithFinderAndWillPassToTableView()
+      }
+    }
+    
+    return true
+  }
+  /// The URL of the file if the user opened with Finder or dragged onto dock.
+  var userOpenedFileFromFinderWithUrl: URL?
+  /// A flag for indicating if the view is ready for direct interaction with AppDelegate, or if it needs to queue data until ready.
+  var mainViewDidAppearAndIsReadyForInteraction = false
+  
+  func finderFileIsReadyToBeQueued() {
+    performActionOnViewController { viewController in
+      _ = viewController.userDidOpenFileWithFinderAndWillPassToTableView()
+    }
+  }
+  
+  
+  // MARK: - MainMenu
   func performActionOnViewController(action: @escaping (ViewController) -> Void) {
     guard let viewController = mainWindow.contentViewController as? ViewController else {
       return

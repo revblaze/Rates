@@ -37,6 +37,8 @@ class ViewController: NSViewController {
   
   var appDidLaunch = false
   
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -51,6 +53,19 @@ class ViewController: NSViewController {
       beginLaunchSession()
       appDidLaunch = true
     }
+  }
+  
+  
+  ///
+  func userDidOpenFileWithFinderAndWillPassToTableView() -> Bool {
+    Debug.log("[userDidOpenFileWithFinderAndWillPassToTableView]")
+    if let finderFileUrl = appDelegate.userOpenedFileFromFinderWithUrl {
+      Debug.log("finderFileUrl: \(String(describing: appDelegate.userOpenedFileFromFinderWithUrl))")
+      
+      passFileUrlToTableAndUpdateSharedData(finderFileUrl)
+      return true
+    }
+    return false
   }
   
   func saveTableViewAsFile() {
@@ -197,9 +212,9 @@ class ViewController: NSViewController {
   @IBOutlet weak var statusBarRefreshButton: NSButton!
   /// A flag indicating if the status bar button is pulsing.
   var statusBarButtonIsPulsing = false
-  // A view that will act as an overlay to disable interaction
+  /// A view that will act as an overlay to disable interaction
   var overlayView: NSView?
-  // A view that will act as a drag drope overlay for file input
+  /// A view that will act as a drag drope overlay for file input
   var dragDropOverlayView: DragDropOverlayView?
   
   
