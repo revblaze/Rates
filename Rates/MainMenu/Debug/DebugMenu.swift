@@ -84,5 +84,15 @@ extension AppDelegate {
     }
   }
   
+  @IBAction func debugShowFileDropBoxView(_ sender: NSMenuItem) {
+    performActionOnViewController { viewController in
+      viewController.showFileDropBox()
+    }
+  }
+  @IBAction func debugHideFileDropBoxView(_ sender: NSMenuItem) {
+    performActionOnViewController { viewController in
+      viewController.hideFileDropBox()
+    }
+  }
   
 }

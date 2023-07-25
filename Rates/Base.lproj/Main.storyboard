@@ -770,6 +770,19 @@
                                                             <action selector="debugDisableMainViewInteraction:" target="Voe-Tx-rLC" id="wkm-07-Ldk"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="Jnp-b7-Nha"/>
+                                                    <menuItem title="Show FileDropBox View" id="AvX-VD-AQT">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugShowFileDropBoxView:" target="Voe-Tx-rLC" id="gHf-c1-5eD"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Hide FileDropBox View" id="g9Q-Yb-ahn">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="debugHideFileDropBoxView:" target="Voe-Tx-rLC" id="Klt-Yx-wrc"/>
+                                                        </connections>
+                                                    </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>
@@ -961,7 +974,7 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="2a1-wK-yrL">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="30"/>
                                 <subviews>
-                                    <visualEffectView blendingMode="behindWindow" material="menu" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="tRO-Iw-Egv">
+                                    <visualEffectView blendingMode="behindWindow" material="menu" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="tRO-Iw-Egv">
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="30"/>
                                         <subviews>
                                             <progressIndicator maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Dx8-bp-BmS">

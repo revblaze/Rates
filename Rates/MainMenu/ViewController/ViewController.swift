@@ -199,6 +199,8 @@ class ViewController: NSViewController {
   var statusBarButtonIsPulsing = false
   // A view that will act as an overlay to disable interaction
   var overlayView: NSView?
+  // A view that will act as a drag drope overlay for file input
+  var dragDropOverlayView: DragDropOverlayView?
   
   
   /// A flag determining if the user has previously loaded a file this session, or if the CSVTableView is such populated with launch data.

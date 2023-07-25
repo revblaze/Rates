@@ -80,6 +80,9 @@ class CSVTableView: NSView {
       tableView.reloadData()
       resizeTableViewColumnsToFit()
     }
+    
+    // Insurance: If tableView is filling with data, make sure FileDropBox is hidden.
+    viewController?.hideFileDropBox()
   }
   
   /// Updates the table columns based on the header row of the `tableData`.
