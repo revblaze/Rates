@@ -53,14 +53,15 @@ class ViewController: NSViewController {
       beginLaunchSession()
       appDidLaunch = true
     }
-    
-    appDelegate.mainViewDidAppearAndIsReadyForInteraction = true
   }
   
   
   ///
   func userDidOpenFileWithFinderAndWillPassToTableView() -> Bool {
+    Debug.log("[userDidOpenFileWithFinderAndWillPassToTableView]")
     if let finderFileUrl = appDelegate.userOpenedFileFromFinderWithUrl {
+      Debug.log("finderFileUrl: \(String(describing: appDelegate.userOpenedFileFromFinderWithUrl))")
+      
       passFileUrlToTableAndUpdateSharedData(finderFileUrl)
       return true
     }

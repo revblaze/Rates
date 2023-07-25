@@ -17,6 +17,8 @@ extension ViewController {
     
     Debug.log("[launchScreenDataDidFinishLoading] Done.")
     tableIsPopulatedWithLaunchScreenData = true
+    
+    appDelegate.mainViewDidAppearAndIsReadyForInteraction = true
   }
   
   /// Updates the CSV table view with launch data from a given URL.

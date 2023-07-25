@@ -33,6 +33,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     initDebugMenu()
     
     enableAllLaunchMenuItems()
+    
+    let arguments = ProcessInfo.processInfo.arguments
+    if arguments.count > 1 {
+      _ = application(NSApp, openFile: arguments[1])
+    }
   }
   
   /// Called when the application is about to terminate.
@@ -76,6 +81,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   /// - Returns: `true` if the file was opened successfully, or `false` if there was an error.
   func application(_ sender: NSApplication, openFile filename: String) -> Bool {
     let fileURL = URL(fileURLWithPath: filename)
+
     userOpenedFileFromFinderWithUrl = fileURL
     Debug.log("[AppDelegate] Opened file URL: \(fileURL)")
     
@@ -94,6 +100,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   /// A flag for indicating if the view is ready for direct interaction with AppDelegate, or if it needs to queue data until ready.
   var mainViewDidAppearAndIsReadyForInteraction = false
   
+  func finderFileIsReadyToBeQueued() {
+    performActionOnViewController { viewController in
+      _ = viewController.userDidOpenFileWithFinderAndWillPassToTableView()
+    }
+  }
   
   
   // MARK: - MainMenu

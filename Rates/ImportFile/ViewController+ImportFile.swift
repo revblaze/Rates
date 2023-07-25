@@ -24,7 +24,6 @@ extension ViewController {
       if self.csvTableView.tableData.isEmpty == false {
         self.disableMainViewInteraction()
       }
-      
     }
     
     // Perform file conversion in a background queue
@@ -49,6 +48,8 @@ extension ViewController {
         }
         return
       }
+      
+      Debug.log("csvFileUrl = ConvertFile.toCSV : \(csvFileUrl)")
       
       // Once file conversion is done, update UI on main queue
       DispatchQueue.main.async {
