@@ -125,4 +125,51 @@ struct Utility {
     return true
   }
   
+  /// Searches for a specified file in the documents directory.
+  ///
+  /// - Parameter fileName: The name of the file to search for.
+  /// - Returns: The URL of the found file, or `nil` if the search failed.
+  static func searchDocumentsDirectory(forFileName fileName: String) -> URL? {
+    // Get the document directory URL
+    guard let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+      Debug.log("Failed to get document directory URL")
+      return nil
+    }
+    
+    // Perform recursive search in the documents directory
+    if let fileUrl = searchFile(named: fileName, in: documentDirectoryURL) {
+      return fileUrl
+    } else {
+      Debug.log("[searchDocumentsDirectory] File not found")
+      return nil
+    }
+  }
+  
+  /// Searches for a file with a specified name in a given directory.
+  ///
+  /// - Parameters:
+  ///   - fileName: The name of the file to search for.
+  ///   - directoryURL: The URL of the directory to search in.
+  /// - Returns: The URL of the found file, or `nil` if the file was not found.
+  static func searchFile(named fileName: String, in directoryURL: URL) -> URL? {
+    // Get the contents of the directory
+    let fileManager = FileManager.default
+    let contents = try? fileManager.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil)
+    
+    for url in contents ?? [] {
+      if url.hasDirectoryPath {
+        // Recursive call for subdirectories
+        if let foundURL = searchFile(named: fileName, in: url) {
+          return foundURL
+        }
+      } else if url.lastPathComponent == fileName {
+        // File found
+        return url
+      }
+    }
+    
+    // File not found
+    return nil
+  }
+  
 }

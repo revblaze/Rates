@@ -15,13 +15,16 @@ extension ViewController {
   /// Fills a table view with exchange rate data and updates the status bar. Checks if data needs updating
   /// and either fetches new data from the internet or uses local data if it's up-to-date.
   func beginLaunchSession() {
-    fillLaunchTableViewWithExchangeRateData()
-    
     updateStatusBar(withState: .loading)
-    if dataNeedsUpdating() {
-      checkInternetAndUpdateData()
-    } else {
-      checkLocalDataAndUpdateIfNecessary()
+    
+    DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+      self?.fillLaunchTableViewWithExchangeRateData()
+      
+      if self?.dataNeedsUpdating() ?? false {
+        self?.checkInternetAndUpdateData()
+      } else {
+        self?.checkLocalDataAndUpdateIfNecessary()
+      }
     }
   }
   
@@ -49,7 +52,8 @@ extension ViewController {
   /// If a local version of the database does not exist, it checks the internet connection and updates data if necessary.
   func checkLocalDataAndUpdateIfNecessary() {
     if localVersionOfDatabaseExists() {
-      updateStatusBar(withState: .upToDate)
+      //updateStatusBar(withState: .upToDate)
+      Debug.log("[checkLocalDataAndUpdateIfNecessary] localVersionOfDatabaseExists")
     } else {
       checkInternetAndUpdateData()
     }

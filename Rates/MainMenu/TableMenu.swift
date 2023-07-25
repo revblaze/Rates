@@ -52,6 +52,14 @@ extension AppDelegate {
     }
   }
   
+  func toggleHiddenColumnsMenuItemText(withDefaultState state: Bool) {
+    Debug.log("[toggleShowHiddenColumnsItemText] withDefaultState: \(state)")
+    let menuItemLabel = state ? "Show Hidden Columns" : "Hide Irrelevant Columns"
+    DispatchQueue.main.async {
+      self.toggleHiddenColumnsMenuItem.title = menuItemLabel
+    }
+  }
+  
   func toggleRoundToTwoDecimalPlacesMenuItemText(withDefaultState state: Bool) {
     Debug.log("[toggleRoundToTwoDecimalPlacesMenuItemText] withDefaultState: \(state)")
     let menuItemLabel = state ? "Undo Round to Two Decimal Places" : "Round to Two Decimal Places"

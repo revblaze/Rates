@@ -14,6 +14,7 @@ extension ViewController {
   ///
   /// - Parameter withState: The state to update the status bar with.
   func updateStatusBar(withState state: StatusBarState) {
+    Debug.log("[updateStatusBar] withState: \(state)")
     DispatchQueue.main.async { [weak self] in
       guard let self = self else { return }
       self.statusBarState = state

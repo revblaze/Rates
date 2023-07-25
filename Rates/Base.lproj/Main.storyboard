@@ -965,7 +965,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="480" height="30"/>
                                         <subviews>
                                             <progressIndicator maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Dx8-bp-BmS">
-                                                <rect key="frame" x="-6" y="22" width="492" height="20"/>
+                                                <rect key="frame" x="-6" y="21" width="492" height="20"/>
                                             </progressIndicator>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X7s-YA-3Xe">
                                                 <rect key="frame" x="6" y="7" width="34" height="17"/>
@@ -1003,7 +1003,7 @@
                                             <constraint firstAttribute="trailing" secondItem="Dx8-bp-BmS" secondAttribute="trailing" constant="-6" id="62o-LP-XEV"/>
                                             <constraint firstItem="X7s-YA-3Xe" firstAttribute="leading" secondItem="tRO-Iw-Egv" secondAttribute="leading" constant="6" id="JSx-fK-NwM"/>
                                             <constraint firstItem="Dx8-bp-BmS" firstAttribute="leading" secondItem="tRO-Iw-Egv" secondAttribute="leading" constant="-6" id="Nlq-8C-nWP"/>
-                                            <constraint firstItem="Dx8-bp-BmS" firstAttribute="top" secondItem="tRO-Iw-Egv" secondAttribute="top" constant="-11" id="OHe-m4-gvX"/>
+                                            <constraint firstItem="Dx8-bp-BmS" firstAttribute="top" secondItem="tRO-Iw-Egv" secondAttribute="top" constant="-10" id="OHe-m4-gvX"/>
                                             <constraint firstItem="GFI-4z-YH6" firstAttribute="leading" secondItem="e8u-Sv-OpI" secondAttribute="trailing" id="PzQ-2N-OIJ"/>
                                             <constraint firstItem="GFI-4z-YH6" firstAttribute="centerY" secondItem="tRO-Iw-Egv" secondAttribute="centerY" id="nB2-6V-Rfm"/>
                                             <constraint firstItem="e8u-Sv-OpI" firstAttribute="leading" secondItem="X7s-YA-3Xe" secondAttribute="trailing" id="nIX-6Y-K8W"/>
