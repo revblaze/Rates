@@ -617,10 +617,12 @@ class CSVTableView: NSView {
     
     DispatchQueue.main.async {
       let alert = NSAlert()
-      alert.messageText = "Download Rates for \(yearString)+"
-      alert.informativeText = "The exchange rate data you currently have downloaded starts from \(cutOffYearString).\n\nHowever, we've found at least one entry in your file that has the year \(yearString).\n\nWould you like to update your exchange rate data to include the years \(yearString) and beyond?"
+      alert.messageText = "Download Missing Rates"
+      alert.informativeText = "The exchange rate data you currently have downloaded includes the years:\n\(cutOffYearString) – Present Day\n\nHowever, we've found at least one entry in your file that has the year \(yearString).\n\nWould you like to update your exchange rate data to include the following years:\n\(yearString) – Present Day"
+//      alert.messageText = "Download Rates for \(yearString)+"
+//      alert.informativeText = "The exchange rate data you currently have downloaded starts from \(cutOffYearString).\n\nHowever, we've found at least one entry in your file that has the year \(yearString).\n\nWould you like to update your exchange rate data to include the years \(yearString) and beyond?"
       alert.alertStyle = .informational
-      alert.addButton(withTitle: "Download Update")
+      alert.addButton(withTitle: "Download")
       alert.addButton(withTitle: "Not Now")
       
       let modalResult = alert.runModal()
@@ -645,7 +647,7 @@ class CSVTableView: NSView {
     DispatchQueue.main.async {
       let alert = NSAlert()
       alert.messageText = "Available in Settings"
-      alert.informativeText = "You can always download additional years of exchange rate data later in the Settings."
+      alert.informativeText = "You can always download additional years of exchange rate data in Settings."
       alert.alertStyle = .informational
       alert.addButton(withTitle: "OK")
       
