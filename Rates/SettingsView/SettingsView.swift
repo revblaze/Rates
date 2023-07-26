@@ -17,7 +17,7 @@ class SharedSettings: ObservableObject {
     }
     
     init() {
-      self.cutOffYear = UserDefaults.standard.string(forKey: "cutOffYear") ?? "2016"
+      self.cutOffYear = UserDefaults.standard.string(forKey: "cutOffYear") ?? Constants.defaultCutOffYearString
     }
 }
 
