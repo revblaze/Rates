@@ -102,7 +102,7 @@ struct MenuSettingRow: View {
       VStack {
         HStack {
           Text(header)
-            .font(.headline)//.bold()
+            .font(.headline)
           Spacer()
         }
         
@@ -140,9 +140,12 @@ struct CustomYearRangeMenuSettingRow: View {
       VStack {
         HStack {
           Text(header)
-            .bold()
+            .font(.headline).underline()
           Spacer()
         }
+        .padding(.vertical, 6)
+        .padding(.bottom, 6)
+        
         
         HStack {
           Text("From")
@@ -159,10 +162,12 @@ struct CustomYearRangeMenuSettingRow: View {
           Text("Present Day")
             .bold()
         }
+        .padding(.bottom, 6)
       }
       
       if let popoverButton = popoverButton {
         popoverButton
+          .padding(.vertical, 6)
       }
     }
   }
