@@ -20,4 +20,11 @@ extension AppDelegate {
     }
   }
   
+  @IBAction func clearApplicationDataMenuItemAction(_ sender: Any) {
+    Debug.log("[clearApplicationData]")
+    performActionOnViewController { viewController in
+      viewController.clearApplicationCacheAndTableData()
+    }
+  }
+  
 }

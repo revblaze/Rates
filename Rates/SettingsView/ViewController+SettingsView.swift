@@ -72,5 +72,36 @@ extension ViewController {
     }
   }
   
+  
+  func clearApplicationCacheAndTableData() {
+    DispatchQueue.main.async {
+      let alert = NSAlert()
+      alert.messageText = "Clear Application Data"
+      alert.informativeText = "Are you sure you want to clear Rates application cache and data?\n\nAny unsaved table data will be lost."
+      alert.alertStyle = .informational
+      alert.addButton(withTitle: "Cancel")
+      alert.addButton(withTitle: "Delete")
+      
+      alert.buttons.last?.hasDestructiveAction = true
+      
+      let modalResult = alert.runModal()
+      
+      switch modalResult {
+      case .alertFirstButtonReturn:
+        Debug.log("User clicked 'Cancel'")
+        // Add code to download update
+      case .alertSecondButtonReturn:
+        Debug.log("User clicked 'Delete'")
+        self.csvTableView.removeAllData()
+        _ = Utility.clearApplicationSupportDirectory()
+        _ = Utility.clearApplicationDocumentsDirectory()
+        self.beginLaunchSession()
+        
+      default:
+        break
+      }
+    }
+  }
+  
 }
 

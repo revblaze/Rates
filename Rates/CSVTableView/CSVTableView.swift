@@ -603,9 +603,12 @@ class CSVTableView: NSView {
   /// If such a date is found, it shows an alert to the user.
   func checkTableForDateOutsideOfExchangeRateDataRange() {
     didDetectDateOutsideOfExchangeRateDataRange(tableData: tableData) { yearString in
-      Debug.log("[checkTableForDateOutsideOfExchangeRateDataRange] Found date outside of exchange rate data range: \(yearString)")
+      guard let cutOffYearString = self.viewController?.sharedSettings.cutOffYear, let cutOffYearInt = Int(cutOffYearString), let newCutOffYearInt = Int(yearString) else { return }
       
-      self.presentUserWithDateOutOfRangeAlert(forYear: yearString)
+      if newCutOffYearInt < cutOffYearInt {
+        Debug.log("[checkTableForDateOutsideOfExchangeRateDataRange] Found date outside of exchange rate data range: \(yearString)")
+        self.presentUserWithDateOutOfRangeAlert(forYear: yearString)
+      }
     }
   }
   
@@ -642,7 +645,7 @@ class CSVTableView: NSView {
     DispatchQueue.main.async {
       let alert = NSAlert()
       alert.messageText = "Available in Settings"
-      alert.informativeText = "You can always download additional years of exchange rate data later in the Settings. "
+      alert.informativeText = "You can always download additional years of exchange rate data later in the Settings."
       alert.alertStyle = .informational
       alert.addButton(withTitle: "OK")
       
