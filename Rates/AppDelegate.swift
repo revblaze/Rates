@@ -34,10 +34,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     enableAllLaunchMenuItems()
     
-    let arguments = ProcessInfo.processInfo.arguments
-    if arguments.count > 1 {
-      _ = application(NSApp, openFile: arguments[1])
-    }
+    // [Debug] Open File With:
+//    let arguments = ProcessInfo.processInfo.arguments
+//    if arguments.count > 1 {
+//      _ = application(NSApp, openFile: arguments[1])
+//    }
   }
   
   /// Called when the application is about to terminate.

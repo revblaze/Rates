@@ -9,6 +9,8 @@ import Foundation
 
 extension Utility {
   
+  // MARK: - Dates
+  
   static let dateFormats = ["yyyy-MM-dd", "yyyy-dd-MM", "dd-MM-yyyy", "MM-dd-yyyy",
                             "yyyy/MM/dd", "yyyy/dd/MM", "dd/MM/yyyy", "MM/dd/yyyy",
                             "MMMM dd, yyyy", "dd MMMM, yyyy"]
@@ -31,6 +33,38 @@ extension Utility {
     
     return false
   }
+
+  /// This function tries to convert a given string to a `Date` object.
+  ///
+  /// - Parameter cellString: The string that may represent a date.
+  /// - Returns: A `Date` object if the string can be converted to a date, otherwise `nil`.
+  static func returnDateFromDateString(_ cellString: String) -> Date? {
+    let dateFormats = Utility.dateFormats
+    let formatter = DateFormatter()
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    
+    for format in dateFormats {
+      formatter.dateFormat = format
+      if let date = formatter.date(from: cellString) {
+        return date
+      }
+    }
+    
+    return nil
+  }
+  
+  /// This function extracts the year from a given `Date` object and returns it as a string.
+  ///
+  /// - Parameter cellDate: The date from which to extract the year.
+  /// - Returns: The year extracted from the date, in "yyyy" format.
+  static func returnYearStringFromDate(_ cellDate: Date) -> String? {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy"
+    return formatter.string(from: cellDate)
+  }
+
+  
+  // MARK: - Amounts & Currencies
   
   /// Checks if the given string can be converted to a number with two decimal places.
   ///
