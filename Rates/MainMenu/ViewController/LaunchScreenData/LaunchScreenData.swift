@@ -15,7 +15,9 @@ extension ViewController {
     sharedData.sqliteUrl = Query.sqliteUrl()
     windowController?.enableToolbarItemsOnLaunchDataLoad()
     // Enable just in case
-    enableMainViewInteraction()
+    if overlayView != nil {
+      enableMainViewInteraction()
+    }
     
     Debug.log("[launchScreenDataDidFinishLoading] Done.")
     tableIsPopulatedWithLaunchScreenData = true

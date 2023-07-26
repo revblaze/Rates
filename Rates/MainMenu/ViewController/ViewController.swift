@@ -56,10 +56,10 @@ class ViewController: NSViewController {
   }
   
   
-  ///
+  /// 
   func userDidOpenFileWithFinderAndWillPassToTableView() -> Bool {
     Debug.log("[userDidOpenFileWithFinderAndWillPassToTableView]")
-    if let finderFileUrl = appDelegate.userOpenedFileFromFinderWithUrl {
+    if let finderFileUrl = appDelegate.userOpenedFileFromFinderWithUrl, finderFileUrl.isValid {
       Debug.log("finderFileUrl: \(String(describing: appDelegate.userOpenedFileFromFinderWithUrl))")
       
       passFileUrlToTableAndUpdateSharedData(finderFileUrl)

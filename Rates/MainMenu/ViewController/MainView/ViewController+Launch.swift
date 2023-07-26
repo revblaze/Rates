@@ -21,6 +21,9 @@ extension ViewController {
     // Disable main view interaction if user has loaded data.
     if userHasPreviouslyLoadedInputFileThisSession {
       disableMainViewInteraction()
+      //enableToolbarItemsOnFileLoad()
+    } else {
+      //enableToolbarItemsForPostLaunchState()
     }
     
     DispatchQueue.global(qos: .userInitiated).async { [weak self] in

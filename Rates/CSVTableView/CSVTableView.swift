@@ -590,6 +590,7 @@ class CSVTableView: NSView {
              let yearInt = Int(yearString),
              yearInt < smallestYearInt {
             smallestYearInt = yearInt
+            Debug.log("New smallest year found: \(yearString). Original cell value: \(cell)")
           }
         }
       }
