@@ -15,4 +15,11 @@ extension URL {
   func readAsString() throws -> String {
     return try String(contentsOf: self, encoding: .utf8)
   }
+  /// A Boolean value indicating whether the URL is valid.
+  ///
+  /// This property checks if the URL has a scheme and a host, which are basic components of a well-formed URL.
+  /// Depending on specific needs, this check might need to be made more or less rigorous.
+  var isValid: Bool {
+    return self.scheme != nil && self.host != nil
+  }
 }
