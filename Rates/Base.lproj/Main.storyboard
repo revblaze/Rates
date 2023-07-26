@@ -30,6 +30,20 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
+                                        <menuItem title="Clear Data" id="dCx-Sp-Eav">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Clear Data" id="4hN-75-New">
+                                                <items>
+                                                    <menuItem title="Clear Application Data" id="81Z-WD-7Kn">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="clearApplicationDataMenuItemAction:" target="Voe-Tx-rLC" id="xLo-5m-gS4"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="vAF-kt-sAg"/>
                                         <menuItem title="Hide Rates" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>

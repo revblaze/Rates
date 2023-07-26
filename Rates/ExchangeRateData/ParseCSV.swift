@@ -16,9 +16,9 @@ class ParseCSV {
   ///
   /// - Parameters:
   ///   - fileUrl: The URL of the CSV file.
-  ///   - cutOffDate: The cut-off date for the data to be cleaned. The default value is "2016-01-01".
+  ///   - cutOffDate: The cut-off date for the data to be cleaned. The default value is `Constants.defaultCutOffYearFullDateString`.
   /// - Throws: An error if there is any problem reading or writing the file.
-  func clean(at fileUrl: URL, cutOffDate: String = "2016-01-01") throws {
+  func clean(at fileUrl: URL, cutOffDate: String = Constants.defaultCutOffYearFullDateString) throws {
     // Read the file contents
     let fileContents = try String(contentsOf: fileUrl)
     

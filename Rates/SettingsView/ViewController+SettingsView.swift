@@ -38,8 +38,8 @@ extension ViewController {
   func applyNewSettings(newCutOffYear: String) {
     var clientNeedsNewExchangeRateData = false
     
-    let newCutOffYearInt = Int(newCutOffYear) ?? 2016
-    let currentCutOffYearInt = Int(sharedSettings.cutOffYear) ?? 2016
+    let newCutOffYearInt = Int(newCutOffYear) ?? Constants.defaultCutOffYearInt
+    let currentCutOffYearInt = Int(sharedSettings.cutOffYear) ?? Constants.defaultCutOffYearInt
     
     Debug.log("[applyNewSettings] newCutOffYear: \(newCutOffYear)")
     Debug.log("[applyNewSettings] compare: \(newCutOffYearInt) < \(currentCutOffYearInt)")
@@ -72,5 +72,85 @@ extension ViewController {
     }
   }
   
+  
+  func promptClearApplicationCacheAndTableDataAlert() {
+    DispatchQueue.main.async {
+      let alert = NSAlert()
+      alert.messageText = "Clear Application Data"
+      alert.informativeText = "Are you sure you want to clear Rates application cache and data?\n\nAny unsaved table data will be lost."
+      alert.alertStyle = .informational
+      alert.addButton(withTitle: "Cancel")
+      alert.addButton(withTitle: "Delete")
+      
+      alert.buttons.last?.hasDestructiveAction = true
+      
+      let modalResult = alert.runModal()
+      
+      switch modalResult {
+      case .alertFirstButtonReturn:
+        Debug.log("User clicked 'Cancel'")
+        // Add code to download update
+      case .alertSecondButtonReturn:
+        Debug.log("User clicked 'Delete'")
+        self.clearApplicationCacheAndTableData()
+        
+      default:
+        break
+      }
+    }
+  }
+  
+  func clearApplicationCacheAndTableData() {
+    csvTableView.removeAllData()
+    _ = Utility.clearApplicationSupportDirectory()
+    _ = Utility.clearApplicationDocumentsDirectory()
+    sharedHeaders.reset()
+    sharedData.reset()
+    sharedFormattingOptions.reset()
+    // Start launch session
+    beginLaunchSession()
+  }
+  
 }
 
+
+extension SharedHeaders {
+  func reset() {
+    self.availableCurrencyCodeHeaders = []
+    self.availableHeaders = []
+    self.suggestedHeaders = [nil]
+  }
+}
+
+extension SharedData {
+  func reset() {
+    self.sqliteUrl = nil
+    self.inputUserFile = nil
+    self.inputUserFileExtension = nil
+    self.outputUserFile = nil
+    self.outputUserFileName = ""
+    self.outputUserFileExtension = .csv
+    self.outputUserFileFormat = .csv
+    self.saveAllInputDataToOutputFile = false
+    self.saveRoundedConversionValuesToOutputFile = false
+  }
+}
+
+extension SharedFormattingOptions {
+  func reset() {
+    self.roundToTwoDecimalPlaces = false
+    self.hideEmptyColumns = true
+    self.hideIrrelevantColumns = true
+  }
+}
+
+extension SharedSettings {
+  func reset() {
+    self.showExchangeRateDataOnLaunch = false
+    
+    // Reset the cutOffYear both in the class and in UserDefaults
+    let defaultCutOffYear = Constants.defaultCutOffYearString
+    self.cutOffYear = defaultCutOffYear
+    UserDefaults.standard.set(defaultCutOffYear, forKey: "cutOffYear")
+  }
+}
