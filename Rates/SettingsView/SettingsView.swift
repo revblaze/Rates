@@ -47,12 +47,12 @@ struct SettingsView: View {
       }
       .padding()
       
-      MenuSettingRow(
+      CustomYearRangeMenuSettingRow(
         header: "Historical Exchange Rate Data",
-        label: "From Present Day, to:",
+        label: "",
         menuItems: years,
         selectedItem: $selectedYear,
-        popoverButton: PopoverButton(header: "Exchange Rate Data in Years", label: "The range of exchange rate data to use.\nFrom the selected year, to present day.\n\nie. Present Day – Jan 1, \(selectedYear)", width: 320, height: 160)
+        popoverButton: PopoverButton(header: "Exchange Rate Data in Years", label: "The range of exchange rate data to use.\nFrom the selected year, to present day.\n\nie. January 1, \(selectedYear) – Present Day", width: 320, height: 160)
       )
       
       Divider()
@@ -102,7 +102,7 @@ struct MenuSettingRow: View {
       VStack {
         HStack {
           Text(header)
-            .bold()
+            .font(.headline)//.bold()
           Spacer()
         }
         
@@ -115,6 +115,49 @@ struct MenuSettingRow: View {
               }.tag(item)
             }
           }
+        }
+      }
+      
+      if let popoverButton = popoverButton {
+        popoverButton
+      }
+    }
+  }
+}
+
+struct CustomYearRangeMenuSettingRow: View {
+  var header: String
+  var label: String
+  var menuItems: [String]
+  @Binding var selectedItem: String
+  var popoverButton: PopoverButton?
+  
+  var body: some View {
+    Divider()
+      .padding(.vertical, 6)
+    
+    HStack {
+      VStack {
+        HStack {
+          Text(header)
+            .bold()
+          Spacer()
+        }
+        
+        HStack {
+          Text("From")
+          Text("January 1,")
+            .bold()
+          Menu(selectedItem) {
+            ForEach(menuItems, id: \.self) { item in
+              Button(item) {
+                selectedItem = item
+              }.tag(item)
+            }
+          }
+          Text(" to")
+          Text("Present Day")
+            .bold()
         }
       }
       
