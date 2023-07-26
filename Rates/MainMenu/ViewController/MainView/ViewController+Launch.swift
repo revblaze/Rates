@@ -16,6 +16,12 @@ extension ViewController {
   /// and either fetches new data from the internet or uses local data if it's up-to-date.
   func beginLaunchSession() {
     updateStatusBar(withState: .loading)
+    // Disable until new data has loaded.
+    windowController?.disableToolbarItemsOnLaunch()
+    // Disable main view interaction if user has loaded data.
+    if userHasPreviouslyLoadedInputFileThisSession {
+      disableMainViewInteraction()
+    }
     
     DispatchQueue.global(qos: .userInitiated).async { [weak self] in
       self?.fillLaunchTableViewWithExchangeRateData()

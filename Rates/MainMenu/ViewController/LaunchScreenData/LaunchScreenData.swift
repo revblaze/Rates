@@ -14,6 +14,8 @@ extension ViewController {
     updateAvailableCurrencyCodeHeaders()
     sharedData.sqliteUrl = Query.sqliteUrl()
     windowController?.enableToolbarItemsOnLaunchDataLoad()
+    // Enable just in case
+    enableMainViewInteraction()
     
     Debug.log("[launchScreenDataDidFinishLoading] Done.")
     tableIsPopulatedWithLaunchScreenData = true
@@ -29,6 +31,14 @@ extension ViewController {
     
     if userDidOpenFileWithFinderAndWillPassToTableView() {
       Debug.log("[updateCSVTableViewWithLaunchData] User opened file with Finder. Skipping launch setup.")
+      userHasPreviouslyLoadedInputFileThisSession = true
+      
+    } else if !csvTableView.tableData.isEmpty {
+      // If table view already contains data, skip any extra setup.
+      Debug.log("[updateCSVTableViewWithLaunchData] Table already contains data. Skipping launch setup.")
+      userHasPreviouslyLoadedInputFileThisSession = true
+      
+      
     } else if sharedSettings.showExchangeRateDataOnLaunch {
       // If showExchangeRateData on launch, update tableData with launchScreenData.csv
       csvTableView.updateCSVData(with: url, withHeaderRowDetection: .firstRow)
@@ -37,6 +47,7 @@ extension ViewController {
       showFileDropBox()
     }
     
+    // TODO: Double check/test disableMainViewInteraction()
     updateStatusBar(withState: .upToDate)
     launchScreenDataDidFinishLoading()
   }
