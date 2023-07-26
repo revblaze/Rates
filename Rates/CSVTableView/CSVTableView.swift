@@ -625,6 +625,8 @@ class CSVTableView: NSView {
       case .alertFirstButtonReturn:
         Debug.log("[CSVTableView] User clicked 'Download Update'")
         // Add code to download update
+        self.viewController?.downloadDataForNewCutOffYearSettings(newCutOffYear: yearString)
+        
       case .alertSecondButtonReturn:
         Debug.log("[CSVTableView] User clicked 'Not Now' for downloading exchange rate data.")
         // Add code to handle 'Not Now' action

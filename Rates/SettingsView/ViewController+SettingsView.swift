@@ -56,13 +56,20 @@ extension ViewController {
       if clientNeedsNewExchangeRateData {
         // If the documents directory was successfully cleared.
         if Utility.clearApplicationDocumentsDirectory() {
-          csvTableView.removeAllData()
-          beginLaunchSession()
+          downloadDataForNewCutOffYearSettings(newCutOffYear: newCutOffYear)
         }
       }
     }
-    
-    
+  }
+  
+  /// Clear Application Documents Directory and download new exchange rate data.
+  func downloadDataForNewCutOffYearSettings(newCutOffYear: String) {
+    sharedSettings.cutOffYear = newCutOffYear
+    // If the documents directory was successfully cleared.
+    if Utility.clearApplicationDocumentsDirectory() {
+      //csvTableView.removeAllData()
+      beginLaunchSession()
+    }
   }
   
 }
