@@ -99,15 +99,25 @@ extension ViewController {
   /// If the database file is obtained successfully, it fills a table view with exchange rate data.
   /// If an error occurs, it updates the status bar to show a "Failed to update" message.
   func startCsvDownloadAndConvertToDb() {
+    // Notify that Exhange Rate Data did start downloading
+    isCurrentlyDownloadingExchangeRateData(true)
+    
     Task.detached {
       let exchangeRateData = ExchangeRateData()
       if let dbFileUrl = await exchangeRateData.getDb(fromUrl: Settings.defaultExchangeRatesUrlString, withCutOffDate: self.getUserSettingsCutOffDateString()) {
         Debug.log("[startCsvDownloadAndConvertToDb] Db file obtained: \(dbFileUrl)")
+        await self.errorOccuredWhileAttemptingToDownloadExchangeRateData(false)
+        await self.isCurrentlyDownloadingExchangeRateData(false)
+        
         await self.fillLaunchTableViewWithExchangeRateData()
         
       } else {
         Debug.log("[startCsvDownloadAndConvertToDb] Error occurred while awaiting getDb()")
-        await self.updateStatusBar(withState: .failedToUpdate)
+        //await self.updateStatusBar(withState: .failedToUpdate)
+        await self.errorOccuredWhileAttemptingToDownloadExchangeRateData(true)
+        await self.isCurrentlyDownloadingExchangeRateData(false)
+        
+        await self.fillLaunchTableViewWithExchangeRateData()
         
       }
     }

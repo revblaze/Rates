@@ -35,7 +35,7 @@ extension ViewController {
         let csvFileUrl = ConvertFile.toCSV(fileUrl: fileUrl)
       else {
         // Add error handling here
-        Debug.log("[passDataToTableView] Error converting file to CSV or restructuring CSV for table view.")
+        Debug.log("[passDataToTableView] Error converting file to CSV for table view.")
         // Failed to pass file data to CSVTableView
         DispatchQueue.main.async {
           self.updateStatusBar(withState: .failedToLoadUserData)  // Update status bar to be failedToLoadUserData
@@ -56,9 +56,14 @@ extension ViewController {
       DispatchQueue.main.async {
         self.updateCSVTableViewWithCSV(at: csvFileUrl)      // Update the CSVTableView with user data
         self.tableIsPopulatedWithLaunchScreenData = false   // Set launch screen data flag to flase
-        self.updateStatusBar(withState: .upToDate)          // Update status bar to be upToDate
         self.enableMainViewInteraction()                    // Enable main view interaction
         self.enableToolbarItemsOnFileLoad()                 // Enable all toolbar items for editing
+        // Update Status Bar with error handling
+        if self.errorOccuredWhileAttemptingToDownloadExchangeRateDataFlag {
+          self.updateStatusBar(withState: .failedToUpdate)
+        } else {
+          self.updateStatusBar(withState: .upToDate)          // Update status bar to be upToDate
+        }
       }
     }
   }
