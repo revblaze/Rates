@@ -49,7 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     Settings.onAppClose()
     // Clear
     let clearStatus = Utility.clearApplicationSupportDirectory()
-    Debug.log("Attempt at clear application support directory was successful: \(clearStatus)")
+    Debug.log("[AppDelegate] Attempt at clear application support directory was successful: \(clearStatus)")
     
   }
   

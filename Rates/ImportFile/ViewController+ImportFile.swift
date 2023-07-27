@@ -17,6 +17,9 @@ extension ViewController {
   func passDataToTableView(fileUrl: URL) {
     Debug.log("[passDataToTableView] url: \(fileUrl)")
     
+    // Reset input file finder URL
+    appDelegate.userOpenedFileFromFinderWithUrl = nil
+    
     // Perform UI updates on main queue
     DispatchQueue.main.async {
       self.updateStatusBar(withState: .loadingUserData)
