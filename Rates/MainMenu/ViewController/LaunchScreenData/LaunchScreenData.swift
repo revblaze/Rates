@@ -14,7 +14,8 @@ extension ViewController {
     updateAvailableCurrencyCodeHeaders()
     sharedData.sqliteUrl = Query.sqliteUrl()
     windowController?.enableToolbarItemsOnLaunchDataLoad()
-    // Enable just in case
+    
+    // If mainViewInteraction is currently disabled, remove from superview.
     if overlayView != nil {
       enableMainViewInteraction()
     }
@@ -49,8 +50,17 @@ extension ViewController {
       showFileDropBox()
     }
     
-    // TODO: Double check/test disableMainViewInteraction()
-    updateStatusBar(withState: .upToDate)
+    // If database is still downloading
+    if isCurrentlyDownloadingExchangeRateDataFlag {
+      // Don't update Status Bar
+    } else
+    // If error occured while downloading database
+    if errorOccuredWhileAttemptingToDownloadExchangeRateDataFlag {
+      // Don't update Status Bar
+    } else {
+      updateStatusBar(withState: .upToDate)
+    }
+    
     launchScreenDataDidFinishLoading()
   }
 

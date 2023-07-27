@@ -85,7 +85,32 @@ class ViewController: NSViewController {
   func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool, toCurrency: String) {
     Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined), toCurrency: \(toCurrency)")
     
+    if searchExchangeRateDataInDocumentsDirectory() == nil {
+      Debug.log("[performConversionUsingColumnWithHeaders] ERROR: Database could not be found.")
+      displayAlertRegardingMissingDatabaseFiles()
+    }
+    
     csvTableView.performConversion(toCurrency: toCurrency, usingHeaders: [dates, amounts, currencies])
+  }
+  
+  /// This function displays an alert to the user regarding a missing database file.
+  ///
+  /// The alert includes the title "Database Error" and provides guidance on how the user can attempt to resolve the issue.
+  /// The user is advised to try again by either clicking the reload icon in the status bar or by reloading the application entirely through the menu bar.
+  ///
+  /// The alert includes a single dismiss button labeled "OK".
+  ///
+  /// - Important: This function should be called on the main thread due to its interaction with the user interface.
+  func displayAlertRegardingMissingDatabaseFiles() {
+    DispatchQueue.main.async {
+      let alert = NSAlert()
+      alert.messageText = "Database Error"
+      alert.informativeText = "Could not find the database file. Please try again by clicking the reload button, to the bottom right, in the status bar.\n\nAlternatively, you can reload the application entirely by going Rates > Clear Data > Clear Application Data in the menu bar."
+      alert.alertStyle = .warning
+      alert.addButton(withTitle: "OK")
+      
+      let _ = alert.runModal()
+    }
   }
   
   /// This function initializes the ViewController's main view. Mostly used for first launch.
@@ -222,7 +247,35 @@ class ViewController: NSViewController {
   var userHasPreviouslyLoadedInputFileThisSession = false
   /// A flag determining if CSVTableView is populated with launch screen data.
   var tableIsPopulatedWithLaunchScreenData = false
+  /// Sets to true when downloading begins, and back to false once complete.
+  var isCurrentlyDownloadingExchangeRateDataFlag = false
+  /// Updates isCurrentlyDownloadingExchangeRateDataFlag with log. Set to true when downloading begins, and back to false once complete.
+  func isCurrentlyDownloadingExchangeRateData(_ status: Bool) {
+    Debug.log("isCurrentlyDownloadingExchangeRateData: \(status)")
+    isCurrentlyDownloadingExchangeRateDataFlag = status
+    // If database is downloading, but status bar does not represent that, update status bar.
+    if status == true && statusBarState != .isCurrentlyUpdating {
+      updateStatusBar(withState: .isCurrentlyUpdating)
+    }
+    // If database did finish downloading, but status bar does not represent that, update status bar.
+    if status == false && statusBarState != .upToDate {
+      updateStatusBar(withState: .upToDate)
+    }
+    
+    if status == false && errorOccuredWhileAttemptingToDownloadExchangeRateDataFlag == true {
+      updateStatusBar(withState: .failedToUpdate)
+    }
+  }
   
+  /// Set to true if an error occured attempting to fetch exchange rate data.
+  var errorOccuredWhileAttemptingToDownloadExchangeRateDataFlag = false
+  
+  func errorOccuredWhileAttemptingToDownloadExchangeRateData(_ status: Bool) {
+    if status == true {
+      Debug.log("errorOccuredWhileAttemptingToDownloadExchangeRateData")
+    }
+    errorOccuredWhileAttemptingToDownloadExchangeRateDataFlag = status
+  }
   
   // MARK: - Represented Objects
   override var representedObject: Any? {
