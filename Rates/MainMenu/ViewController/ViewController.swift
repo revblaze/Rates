@@ -85,12 +85,14 @@ class ViewController: NSViewController {
   func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool, toCurrency: String) {
     Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined), toCurrency: \(toCurrency)")
     
-    if searchExchangeRateDataInDocumentsDirectory() == nil {
+    if let db = sharedData.sqliteUrl {
+      Debug.log("[performConversionUsingColumnWithHeaders] with db: \(db)")
+      csvTableView.performConversion(toCurrency: toCurrency, usingHeaders: [dates, amounts, currencies])
+    } else {
       Debug.log("[performConversionUsingColumnWithHeaders] ERROR: Database could not be found.")
       displayAlertRegardingMissingDatabaseFiles()
     }
     
-    csvTableView.performConversion(toCurrency: toCurrency, usingHeaders: [dates, amounts, currencies])
   }
   
   /// This function displays an alert to the user regarding a missing database file.
@@ -98,18 +100,33 @@ class ViewController: NSViewController {
   /// The alert includes the title "Database Error" and provides guidance on how the user can attempt to resolve the issue.
   /// The user is advised to try again by either clicking the reload icon in the status bar or by reloading the application entirely through the menu bar.
   ///
-  /// The alert includes a single dismiss button labeled "OK".
+  /// The alert includes a two buttons: "OK" and "Try Again Now".
   ///
   /// - Important: This function should be called on the main thread due to its interaction with the user interface.
   func displayAlertRegardingMissingDatabaseFiles() {
     DispatchQueue.main.async {
       let alert = NSAlert()
       alert.messageText = "Database Error"
-      alert.informativeText = "Could not find the database file. Please try again by clicking the reload button, to the bottom right, in the status bar.\n\nAlternatively, you can reload the application entirely by going Rates > Clear Data > Clear Application Data in the menu bar."
+      alert.informativeText = "Could not find local exchange rate data. Please try again by either selecting the 'Try Again' button, or by clicking the reload icon in the status bar.\n\nAlternatively, you can reset the application data entirely by going to the menu item (after closing this alert):\n\nRates 􀯻 Clear Data 􀯻 Clear Application Data"
       alert.alertStyle = .warning
-      alert.addButton(withTitle: "OK")
+      alert.addButton(withTitle: "Try Again")
+      alert.addButton(withTitle: "Cancel")
       
-      let _ = alert.runModal()
+      let modalResult = alert.runModal()
+      
+      switch modalResult {
+      case .alertFirstButtonReturn:
+        // Handle 'Try Again Now' action
+        Debug.log("User clicked 'Try Again'")
+        self.checkInternetAndUpdateData()
+        
+      case .alertSecondButtonReturn:
+        // Handle 'OK' action
+        Debug.log("User clicked 'OK'")
+        
+      default:
+        break
+      }
     }
   }
   
