@@ -49,7 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     Settings.onAppClose()
     // Clear
     let clearStatus = Utility.clearApplicationSupportDirectory()
-    Debug.log("Attempt at clear application support directory was successful: \(clearStatus)")
+    Debug.log("[AppDelegate] Attempt at clear application support directory was successful: \(clearStatus)")
     
   }
   
@@ -100,12 +100,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var userOpenedFileFromFinderWithUrl: URL?
   /// A flag for indicating if the view is ready for direct interaction with AppDelegate, or if it needs to queue data until ready.
   var mainViewDidAppearAndIsReadyForInteraction = false
-  
-  func finderFileIsReadyToBeQueued() {
-    performActionOnViewController { viewController in
-      _ = viewController.userDidOpenFileWithFinderAndWillPassToTableView()
-    }
-  }
   
   
   // MARK: - MainMenu

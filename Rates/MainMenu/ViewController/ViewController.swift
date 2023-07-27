@@ -59,7 +59,7 @@ class ViewController: NSViewController {
   /// 
   func userDidOpenFileWithFinderAndWillPassToTableView() -> Bool {
     Debug.log("[userDidOpenFileWithFinderAndWillPassToTableView]")
-    if let finderFileUrl = appDelegate.userOpenedFileFromFinderWithUrl, finderFileUrl.isValid {
+    if let finderFileUrl = appDelegate.userOpenedFileFromFinderWithUrl {
       Debug.log("finderFileUrl: \(String(describing: appDelegate.userOpenedFileFromFinderWithUrl))")
       
       passFileUrlToTableAndUpdateSharedData(finderFileUrl)
@@ -85,7 +85,49 @@ class ViewController: NSViewController {
   func performConversionUsingColumnWithHeaders(dates: String, amounts: String, currencies: String, amountsCurrenciesCombined: Bool, toCurrency: String) {
     Debug.log("[performConversionUsingColumnWithHeaders] dates: \(dates), amounts: \(amounts), currencies: \(currencies), amountsCurrenciesCombined: \(amountsCurrenciesCombined), toCurrency: \(toCurrency)")
     
-    csvTableView.performConversion(toCurrency: toCurrency, usingHeaders: [dates, amounts, currencies])
+    if let db = sharedData.sqliteUrl {
+      Debug.log("[performConversionUsingColumnWithHeaders] with db: \(db)")
+      csvTableView.performConversion(toCurrency: toCurrency, usingHeaders: [dates, amounts, currencies])
+    } else {
+      Debug.log("[performConversionUsingColumnWithHeaders] ERROR: Database could not be found.")
+      displayAlertRegardingMissingDatabaseFiles()
+    }
+    
+  }
+  
+  /// This function displays an alert to the user regarding a missing database file.
+  ///
+  /// The alert includes the title "Database Error" and provides guidance on how the user can attempt to resolve the issue.
+  /// The user is advised to try again by either clicking the reload icon in the status bar or by reloading the application entirely through the menu bar.
+  ///
+  /// The alert includes a two buttons: "OK" and "Try Again Now".
+  ///
+  /// - Important: This function should be called on the main thread due to its interaction with the user interface.
+  func displayAlertRegardingMissingDatabaseFiles() {
+    DispatchQueue.main.async {
+      let alert = NSAlert()
+      alert.messageText = "Database Error"
+      alert.informativeText = "Could not find local exchange rate data. Please try again by either selecting the 'Try Again' button, or by clicking the reload icon in the status bar.\n\nAlternatively, you can reset the application data entirely by going to the menu item (after closing this alert):\n\nRates 􀯻 Clear Data 􀯻 Clear Application Data"
+      alert.alertStyle = .warning
+      alert.addButton(withTitle: "Try Again")
+      alert.addButton(withTitle: "Cancel")
+      
+      let modalResult = alert.runModal()
+      
+      switch modalResult {
+      case .alertFirstButtonReturn:
+        // Handle 'Try Again Now' action
+        Debug.log("User clicked 'Try Again'")
+        self.checkInternetAndUpdateData()
+        
+      case .alertSecondButtonReturn:
+        // Handle 'OK' action
+        Debug.log("User clicked 'OK'")
+        
+      default:
+        break
+      }
+    }
   }
   
   /// This function initializes the ViewController's main view. Mostly used for first launch.
@@ -222,7 +264,35 @@ class ViewController: NSViewController {
   var userHasPreviouslyLoadedInputFileThisSession = false
   /// A flag determining if CSVTableView is populated with launch screen data.
   var tableIsPopulatedWithLaunchScreenData = false
+  /// Sets to true when downloading begins, and back to false once complete.
+  var isCurrentlyDownloadingExchangeRateDataFlag = false
+  /// Updates isCurrentlyDownloadingExchangeRateDataFlag with log. Set to true when downloading begins, and back to false once complete.
+  func isCurrentlyDownloadingExchangeRateData(_ status: Bool) {
+    Debug.log("isCurrentlyDownloadingExchangeRateData: \(status)")
+    isCurrentlyDownloadingExchangeRateDataFlag = status
+    // If database is downloading, but status bar does not represent that, update status bar.
+    if status == true && statusBarState != .isCurrentlyUpdating {
+      updateStatusBar(withState: .isCurrentlyUpdating)
+    }
+    // If database did finish downloading, but status bar does not represent that, update status bar.
+    if status == false && statusBarState != .upToDate {
+      updateStatusBar(withState: .upToDate)
+    }
+    
+    if status == false && errorOccuredWhileAttemptingToDownloadExchangeRateDataFlag == true {
+      updateStatusBar(withState: .failedToUpdate)
+    }
+  }
   
+  /// Set to true if an error occured attempting to fetch exchange rate data.
+  var errorOccuredWhileAttemptingToDownloadExchangeRateDataFlag = false
+  
+  func errorOccuredWhileAttemptingToDownloadExchangeRateData(_ status: Bool) {
+    if status == true {
+      Debug.log("errorOccuredWhileAttemptingToDownloadExchangeRateData")
+    }
+    errorOccuredWhileAttemptingToDownloadExchangeRateDataFlag = status
+  }
   
   // MARK: - Represented Objects
   override var representedObject: Any? {
