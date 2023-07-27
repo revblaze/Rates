@@ -24,6 +24,10 @@ struct Constants {
   static let tableViewCellWidthPadding = CGFloat(8)
   
   // MARK: - Settings
+  static let defaultCutOffYearInt = 2016
+  static let defaultCutOffYearString = String(defaultCutOffYearInt) // "2016"
+  static let defaultCutOffYearFullDateString = "\(defaultCutOffYearString)-01-01" // "2016-01-01"
+  
   // Setting to false breaks the header selection for some reason.
   static let takesEmptyEntriesIntoAccount = true
   

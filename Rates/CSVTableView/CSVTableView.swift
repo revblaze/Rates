@@ -135,6 +135,9 @@ class CSVTableView: NSView {
     
     tableView.selectRowIndexes(IndexSet(integer: selectedHeaderRowIndex), byExtendingSelection: false)
     //Debug.log("=== TableData ===\n\(tableData)")
+    
+    // Check to see if data contains a date outside of currently archived Exchange Rate Data.
+    checkTableForDateOutsideOfExchangeRateDataRange()
   }
   
   /// Finds the index of the header row in the table data.
@@ -561,5 +564,104 @@ class CSVTableView: NSView {
     sharedFormattingOptions.roundToTwoDecimalPlaces = false
     viewController?.updateRoundToTwoDecimalPlacesToolbarButton(toBeActive: false)
   }
+  
+  
+  /// This function checks each cell of the table data to see if it contains a date that is outside of the exchange rate data range.
+  ///
+  /// - Parameter tableData: The table data to be checked.
+  ///
+  /// - Important:
+  ///   - This function runs asynchronously.
+  ///   - It first defines an Int variable, `cutOffYearInt`, which is equal to `Int(viewController?.sharedSettings.cutOffYear)`.
+  ///   - It then asynchronously iterates through each cell of the table data.
+  ///   - If the cell contains a number, it attempts to convert that cell string to a `Date` object using `returnDateFromDateString(cellString)`.
+  ///   - If `returnDateFromDateString` returns a valid `Date`, it then converts that `Date` to a year string and then to an `Int`.
+  ///   - If the year as an `Int` is less than `cutOffYearInt`, it keeps track of the smallest year found.
+  ///   - Once all cells have been checked, it returns the smallest year found to the closure.
+  func didDetectDateOutsideOfExchangeRateDataRange(tableData: [[String]], completion: @escaping (String) -> Void) {
+    guard let cutOffYearString = viewController?.sharedSettings.cutOffYear, let cutOffYearInt = Int(cutOffYearString) else { return }
+    
+    DispatchQueue.global().async {
+      var smallestYearInt = cutOffYearInt
+      for row in tableData {
+        for cell in row {
+          if let date = Utility.returnDateFromDateString(cell),
+             let yearString = Utility.returnYearStringFromDate(date),
+             let yearInt = Int(yearString),
+             yearInt < smallestYearInt {
+            smallestYearInt = yearInt
+            Debug.log("New smallest year found: \(yearString). Original cell value: \(cell)")
+          }
+        }
+      }
+      completion(String(smallestYearInt))
+    }
+  }
+  
+  /// This function checks if there is a date that is outside of the exchange rate data range in the table data.
+  ///
+  /// If such a date is found, it shows an alert to the user.
+  func checkTableForDateOutsideOfExchangeRateDataRange() {
+    didDetectDateOutsideOfExchangeRateDataRange(tableData: tableData) { yearString in
+      guard let cutOffYearString = self.viewController?.sharedSettings.cutOffYear, let cutOffYearInt = Int(cutOffYearString), let newCutOffYearInt = Int(yearString) else { return }
+      
+      if newCutOffYearInt < cutOffYearInt {
+        Debug.log("[checkTableForDateOutsideOfExchangeRateDataRange] Found date outside of exchange rate data range: \(yearString)")
+        self.presentUserWithDateOutOfRangeAlert(forYear: yearString)
+      }
+    }
+  }
+  
+  func presentUserWithDateOutOfRangeAlert(forYear yearString: String) {
+    guard let cutOffYearString = self.viewController?.sharedSettings.cutOffYear else { return }
+    
+    DispatchQueue.main.async {
+      let alert = NSAlert()
+      alert.messageText = "Download Missing Rates"
+      alert.informativeText = "The exchange rate data you currently have downloaded includes the years:\n\(cutOffYearString) – Present Day\n\nHowever, we've found at least one entry in your file that has the year \(yearString).\n\nWould you like to update your exchange rate data to include the following years:\n\(yearString) – Present Day"
+//      alert.messageText = "Download Rates for \(yearString)+"
+//      alert.informativeText = "The exchange rate data you currently have downloaded starts from \(cutOffYearString).\n\nHowever, we've found at least one entry in your file that has the year \(yearString).\n\nWould you like to update your exchange rate data to include the years \(yearString) and beyond?"
+      alert.alertStyle = .informational
+      alert.addButton(withTitle: "Download")
+      alert.addButton(withTitle: "Not Now")
+      
+      let modalResult = alert.runModal()
+
+      switch modalResult {
+      case .alertFirstButtonReturn:
+        Debug.log("[CSVTableView] User clicked 'Download Update'")
+        // Add code to download update
+        self.viewController?.downloadDataForNewCutOffYearSettings(newCutOffYear: yearString)
+        
+      case .alertSecondButtonReturn:
+        Debug.log("[CSVTableView] User clicked 'Not Now' for downloading exchange rate data.")
+        // Add code to handle 'Not Now' action
+        self.presentUserWithSettingsNoticeAlert()
+      default:
+        break
+      }
+    }
+  }
+  
+  func presentUserWithSettingsNoticeAlert() {
+    DispatchQueue.main.async {
+      let alert = NSAlert()
+      alert.messageText = "Available in Settings"
+      alert.informativeText = "You can always download additional years of exchange rate data in Settings."
+      alert.alertStyle = .informational
+      alert.addButton(withTitle: "OK")
+      
+      let modalResult = alert.runModal()
+      
+      switch modalResult {
+      case .alertFirstButtonReturn:
+        Debug.log("User clicked 'OK'")
+        // Add code to download update
+      default:
+        break
+      }
+    }
+  }
+  
   
 }

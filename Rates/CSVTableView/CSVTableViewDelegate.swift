@@ -78,10 +78,18 @@ extension CSVTableView: NSTableViewDelegate, NSTableViewDataSource {
   
   /// Removes all data from the table view.
   func removeAllData() {
+    viewController?.userHasPreviouslyLoadedInputFileThisSession = false
     // Clear the data source
     tableData.removeAll()
     // Reload the table view
     tableView.reloadData()
+    // Remove all columns from the table view
+    let allColumns = tableView.tableColumns
+    for column in allColumns {
+      tableView.removeTableColumn(column)
+    }
+    // Show FileDropBox
+    viewController?.showFileDropBox()
   }
   
   // MARK: - Custom Header Row

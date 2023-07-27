@@ -10,16 +10,19 @@ import Foundation
 extension ViewController {
   /// Enables/validates the appropriate Toolbar items for after the initial launch data has been loaded in the CSVTableView.
   func enableToolbarItemsForPostLaunchState() {
+    Debug.log("[ViewController] enableToolbarItemsForPostLaunchState()")
     windowController?.enableToolbarItemsOnLaunchDataLoad()
   }
   
   /// Enables/validates the Toolbar items that were disabled on launch. Is called upon a user importing a file.
   func enableToolbarItemsOnFileLoad() {
+    Debug.log("[ViewController] enableToolbarItemsOnFileLoad()")
     windowController?.enableToolbarItemsOnFileLoad()
   }
   
   /// Disables all of the Toolbar items.
   func disableToolbarButtonsOnFileLoad() {
+    Debug.log("[ViewController] disableToolbarButtonsOnFileLoad()")
     windowController?.disableAllToolbarItems()
   }
   

@@ -11,6 +11,7 @@ extension ViewController {
   
   /// Disables interaction with the main view by adding a transparent gray overlay over all views except the status bar.
   func disableMainViewInteraction() {
+    Debug.log("debugMainViewInteraction()")
     DispatchQueue.main.async { [weak self] in
       guard let self = self else { return }
       self.windowController?.disableAllToolbarItems()
@@ -35,9 +36,19 @@ extension ViewController {
   
   /// Enables interaction with the main view by removing the transparent gray overlay.
   func enableMainViewInteraction() {
+    Debug.log("enableMainViewInteraction()")
     DispatchQueue.main.async { [weak self] in
       guard let self = self else { return }
-      self.enableToolbarItemsOnFileLoad()
+      
+      //self.enableToolbarItemsOnFileLoad()
+      
+      if userHasPreviouslyLoadedInputFileThisSession {
+        self.enableToolbarItemsOnFileLoad()
+      } else {
+        self.enableToolbarItemsForPostLaunchState()
+      }
+      
+      
       // Remove the overlay view
       self.overlayView?.removeFromSuperview()
       self.overlayView = nil

@@ -15,6 +15,11 @@ extension ViewController {
     sharedData.sqliteUrl = Query.sqliteUrl()
     windowController?.enableToolbarItemsOnLaunchDataLoad()
     
+    // If mainViewInteraction is currently disabled, remove from superview.
+    if overlayView != nil {
+      enableMainViewInteraction()
+    }
+    
     Debug.log("[launchScreenDataDidFinishLoading] Done.")
     tableIsPopulatedWithLaunchScreenData = true
     
@@ -29,6 +34,14 @@ extension ViewController {
     
     if userDidOpenFileWithFinderAndWillPassToTableView() {
       Debug.log("[updateCSVTableViewWithLaunchData] User opened file with Finder. Skipping launch setup.")
+      userHasPreviouslyLoadedInputFileThisSession = true
+      
+    } else if !csvTableView.tableData.isEmpty {
+      // If table view already contains data, skip any extra setup.
+      Debug.log("[updateCSVTableViewWithLaunchData] Table already contains data. Skipping launch setup.")
+      userHasPreviouslyLoadedInputFileThisSession = true
+      
+      
     } else if sharedSettings.showExchangeRateDataOnLaunch {
       // If showExchangeRateData on launch, update tableData with launchScreenData.csv
       csvTableView.updateCSVData(with: url, withHeaderRowDetection: .firstRow)
@@ -37,7 +50,17 @@ extension ViewController {
       showFileDropBox()
     }
     
-    updateStatusBar(withState: .upToDate)
+    // If database is still downloading
+    if isCurrentlyDownloadingExchangeRateDataFlag {
+      // Don't update Status Bar
+    } else
+    // If error occured while downloading database
+    if errorOccuredWhileAttemptingToDownloadExchangeRateDataFlag {
+      // Don't update Status Bar
+    } else {
+      updateStatusBar(withState: .upToDate)
+    }
+    
     launchScreenDataDidFinishLoading()
   }
 
