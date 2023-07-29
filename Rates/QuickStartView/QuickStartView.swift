@@ -27,56 +27,8 @@ struct QuickStartView: View {
   }
 }
 
-struct StepImageCaptionRow: View {
-  var header: String
-  var imageString: String?
-  var caption: String?
-  
-  @State private var showImagePopover: Bool = false
-  
-  var body: some View {
-    VStack {
-      
-      HStack {
-        Text(header)
-          .bold()
-          .fixedSize(horizontal: false, vertical: true)
-        Spacer()
-      }
-      
-      if let imageString = imageString {
-        Image(imageString)
-          .resizable()
-          .aspectRatio(contentMode: .fit)
-          .padding(.vertical, Constants.quickStartViewGenericPadding)
-          .onTapGesture {
-            showImagePopover = true
-          }
-          .popover(isPresented: $showImagePopover) {
-            Image(imageString)
-              .resizable()
-              .aspectRatio(contentMode: .fit)
-          }
-      }
-      
-      if let caption = caption {
-        HStack {
-          Text(caption)
-            .font(.caption)
-            .fixedSize(horizontal: false, vertical: true)
-          Spacer()
-        }
-        .padding(.top, Constants.quickStartViewGenericPadding)
-      }
-      
-    }
-    .padding(Constants.quickStartViewGenericPadding)
-    
-  }
-}
 
-
-
+// MARK: Expandable Section
 struct ExpandableSectionView: View {
   var title: String
   var contentView: StepImageCaptionRow
@@ -119,8 +71,54 @@ struct ExpandableSectionView: View {
   }
 }
 
-//struct QuickStartView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    QuickStartView()
-//  }
-//}
+
+
+// MARK: Step Image Caption Row
+struct StepImageCaptionRow: View {
+  var header: String
+  var imageString: String?
+  var caption: String?
+  
+  @State private var showImagePopover: Bool = false
+  
+  var body: some View {
+    VStack {
+      
+      HStack {
+        Text(header)
+          .bold()
+          .fixedSize(horizontal: false, vertical: true)
+        Spacer()
+      }
+      
+      if let imageString = imageString {
+        Image(imageString)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .padding(.vertical, Constants.quickStartViewGenericPadding)
+          .onTapGesture {
+            showImagePopover = true
+          }
+          .popover(isPresented: $showImagePopover) {
+            Image(imageString)
+              .resizable()
+              .aspectRatio(contentMode: .fit)
+              .frame(maxWidth: 600, maxHeight: 600)  // Set your maximum width and height here
+          }
+      }
+      
+      if let caption = caption {
+        HStack {
+          Text(caption)
+            .font(.caption)
+            .fixedSize(horizontal: false, vertical: true)
+          Spacer()
+        }
+        .padding(.top, Constants.quickStartViewGenericPadding)
+      }
+      
+    }
+    .padding(Constants.quickStartViewGenericPadding)
+    
+  }
+}
