@@ -14,6 +14,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var mainWindow: NSWindow!
   /// The main window controller of the application.
   var mainWindowController: WindowController? // Add reference to WindowController
+  /// The container window for QuickStartView.
+  var quickStartWindow: NSWindow!
   
   /// Called when the application has finished launching.
   ///

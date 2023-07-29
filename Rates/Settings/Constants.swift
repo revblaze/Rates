@@ -63,6 +63,8 @@ struct Constants {
   /// Identifier of the SaveFileView's Hosting Controller.
   static let saveFileViewHostingControllerIdentifier = "SaveFileViewHostingController"
   
+  static let quickStartViewHostingControllerIdentifier = "QuickStartViewHostingController"
+  
   
   // MARK: - Utility Constants
   /// A string containing alphanumeric characters used for generating random strings.
