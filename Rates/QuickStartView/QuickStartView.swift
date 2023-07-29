@@ -10,17 +10,20 @@ import SwiftUI
 extension Constants {
   
   static let quickStartViewGenericPadding = CGFloat(8)
+  static let maxImagePopoverWidthAndHeight = CGFloat(800)
   
 }
 
 struct QuickStartView: View {
+  
   var body: some View {
     VStack {
       ScrollView {
         
-        ExpandableSectionView(title: "Section 1 Title", contentView: StepImageCaptionRow(header: "Section 1, Header 1", imageString: "sample", caption: "This is caption text."), expanded: true)
-        ExpandableSectionView(title: "Section 2 Title", contentView: StepImageCaptionRow(header: "Section 2, Header 1", imageString: "sample", caption: "This is caption text."))
-        ExpandableSectionView(title: "Section 3 Title", contentView: StepImageCaptionRow(header: "Section 3, Header 1", imageString: "sample", caption: "This is caption text."))
+        ExpandableSectionView(title: "Section 1 Title", contentViews: [StepImageCaptionRow(header: "Section 1, Header 1", imageString: "sample", caption: "This is caption text for section 1 header 1.", imgWidth: 1956, imgHeight: 888), StepImageCaptionRow(header: "Section 1, Header 2", imageString: "some_sample_img", caption: "This is caption text for section 1 header 2.", imgWidth: 1000, imgHeight: 1000)], expanded: true)
+        ExpandableSectionView(title: "Section 2 Title", contentViews: [StepImageCaptionRow(header: "Section 2, Header 1", imageString: "new_sample", caption: "This is caption text for section 2 header 1.", imgWidth: 900, imgHeight: 888)])
+        ExpandableSectionView(title: "Section 3 Title", contentViews: [StepImageCaptionRow(header: "Section 3, Header 1", imageString: "img_random2", caption: "This is caption text for section 3 header 1.", imgWidth: 500, imgHeight: 400)])
+        
       }
     }
     .frame(minWidth: 300, minHeight: 400)
@@ -31,20 +34,21 @@ struct QuickStartView: View {
 // MARK: Expandable Section
 struct ExpandableSectionView: View {
   var title: String
-  var contentView: StepImageCaptionRow
+  var contentViews: [StepImageCaptionRow]
   var expanded: Bool?
   
   @State private var isExpanded: Bool
   
-  init(title: String, contentView: StepImageCaptionRow, expanded: Bool? = nil) {
+  init(title: String, contentViews: [StepImageCaptionRow], expanded: Bool? = nil) {
     self.title = title
-    self.contentView = contentView
+    self.contentViews = contentViews
     self.expanded = expanded
     self._isExpanded = State(initialValue: expanded ?? false)
   }
   
   var body: some View {
     VStack {
+      
       Button(action: {
         withAnimation {
           isExpanded.toggle()
@@ -61,15 +65,18 @@ struct ExpandableSectionView: View {
       .frame(maxWidth: .infinity)
       
       if isExpanded {
-        VStack {
+        ForEach(contentViews, id: \.header) { contentView in
           contentView
         }
         .transition(.opacity)
       }
+      
+      Divider()
     }
     .padding()
   }
 }
+
 
 
 
@@ -78,6 +85,8 @@ struct StepImageCaptionRow: View {
   var header: String
   var imageString: String?
   var caption: String?
+  var imgWidth: CGFloat?
+  var imgHeight: CGFloat?
   
   @State private var showImagePopover: Bool = false
   
@@ -86,7 +95,6 @@ struct StepImageCaptionRow: View {
       
       HStack {
         Text(header)
-          .bold()
           .fixedSize(horizontal: false, vertical: true)
         Spacer()
       }
@@ -103,7 +111,7 @@ struct StepImageCaptionRow: View {
             Image(imageString)
               .resizable()
               .aspectRatio(contentMode: .fit)
-              .frame(maxWidth: 600, maxHeight: 600)  // Set your maximum width and height here
+              .frame(maxWidth: calculatePopoverWidth(), maxHeight: calculatePopoverHeight())
           }
       }
       
@@ -120,5 +128,27 @@ struct StepImageCaptionRow: View {
     }
     .padding(Constants.quickStartViewGenericPadding)
     
+  }
+  
+  func calculatePopoverWidth() -> CGFloat {
+    guard let imgWidth = imgWidth, let imgHeight = imgHeight else {
+      return Constants.maxImagePopoverWidthAndHeight
+    }
+    if imgWidth > imgHeight {
+      return Constants.maxImagePopoverWidthAndHeight
+    } else {
+      return (imgWidth / imgHeight) * Constants.maxImagePopoverWidthAndHeight
+    }
+  }
+  
+  func calculatePopoverHeight() -> CGFloat {
+    guard let imgWidth = imgWidth, let imgHeight = imgHeight else {
+      return Constants.maxImagePopoverWidthAndHeight
+    }
+    if imgHeight > imgWidth {
+      return Constants.maxImagePopoverWidthAndHeight
+    } else {
+      return (imgHeight / imgWidth) * Constants.maxImagePopoverWidthAndHeight
+    }
   }
 }
