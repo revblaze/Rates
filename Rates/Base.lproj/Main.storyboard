@@ -702,8 +702,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="OkO-N2-TCc"/>
-                                        <menuItem title="Quick Start Guide" id="fxA-Bj-cT8">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Quick Start Guide" keyEquivalent="g" allowsKeyEquivalentWhenHidden="YES" id="fxA-Bj-cT8">
                                             <connections>
                                                 <action selector="quickStartGuideMenuItemAction:" target="Voe-Tx-rLC" id="vpS-Oq-bWw"/>
                                             </connections>

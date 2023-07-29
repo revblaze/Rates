@@ -25,6 +25,9 @@ extension AppDelegate {
     window.contentView = NSHostingView(rootView: contentView)
     window.makeKeyAndOrderFront(nil)
     
+    // Set the title of the window
+    window.title = "Quick Start"
+    
     // Set minimum window size
     window.minSize = NSSize(width: 300, height: 400)
     
