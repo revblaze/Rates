@@ -13,7 +13,7 @@ extension AppDelegate {
   /// Presents the QuickStartView as a new window.
   func presentQuickStartViewAsWindow() {
     // Create an instance of your SwiftUI view
-    let contentView = QuickStartView()
+    let contentView = QuickStartView(dataModel: DataModel(filename: "QuickStartData"))
     
     // Create a new window
     let window = NSWindow(

@@ -15,20 +15,25 @@ extension Constants {
 }
 
 struct QuickStartView: View {
+  @ObservedObject var dataModel: DataModel
   
   var body: some View {
     VStack {
       ScrollView {
-        
-        ExpandableSectionView(title: "Section 1 Title", contentViews: [StepImageCaptionRow(header: "Section 1, Header 1", imageString: "sample", caption: "This is caption text for section 1 header 1.", imgWidth: 1956, imgHeight: 888), StepImageCaptionRow(header: "Section 1, Header 2", imageString: "some_sample_img", caption: "This is caption text for section 1 header 2.", imgWidth: 1000, imgHeight: 1000)], expanded: true)
-        ExpandableSectionView(title: "Section 2 Title", contentViews: [StepImageCaptionRow(header: "Section 2, Header 1", imageString: "new_sample", caption: "This is caption text for section 2 header 1.", imgWidth: 900, imgHeight: 888)])
-        ExpandableSectionView(title: "Section 3 Title", contentViews: [StepImageCaptionRow(header: "Section 3, Header 1", imageString: "img_random2", caption: "This is caption text for section 3 header 1.", imgWidth: 500, imgHeight: 400)])
-        
+        ForEach(dataModel.sections, id: \.title) { section in
+          ExpandableSectionView(
+            title: section.title,
+            contentViews: section.content.map { StepImageCaptionRow(header: $0.header, imageString: $0.imageString, caption: $0.caption, imgWidth: $0.imgWidth, imgHeight: $0.imgHeight) },
+            expanded: section.expanded
+          )
+        }
+        .padding(.vertical)
       }
     }
     .frame(minWidth: 300, minHeight: 400)
   }
 }
+
 
 
 // MARK: Expandable Section
@@ -72,8 +77,10 @@ struct ExpandableSectionView: View {
       }
       
       Divider()
+        .padding(.top, Constants.quickStartViewGenericPadding)
     }
-    .padding()
+    .padding(Constants.quickStartViewGenericPadding)
+    .padding(.horizontal, Constants.quickStartViewGenericPadding)
   }
 }
 
@@ -99,11 +106,11 @@ struct StepImageCaptionRow: View {
         Spacer()
       }
       
-      if let imageString = imageString {
+      if let imageString = imageString, NSImage(named: imageString) != nil {
         Image(imageString)
           .resizable()
           .aspectRatio(contentMode: .fit)
-          .padding(.vertical, Constants.quickStartViewGenericPadding)
+          .padding(.top, Constants.quickStartViewGenericPadding)
           .onTapGesture {
             showImagePopover = true
           }
@@ -122,11 +129,11 @@ struct StepImageCaptionRow: View {
             .fixedSize(horizontal: false, vertical: true)
           Spacer()
         }
-        .padding(.top, Constants.quickStartViewGenericPadding)
+        .padding(.vertical, Constants.quickStartViewGenericPadding)
       }
       
     }
-    .padding(Constants.quickStartViewGenericPadding)
+    .padding(.vertical, Constants.quickStartViewGenericPadding)
     
   }
   
