@@ -41,6 +41,9 @@
 		C26599382A7566F2004B119D /* QuickStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26599372A7566F2004B119D /* QuickStartView.swift */; };
 		C265993A2A756AAE004B119D /* AppDelegate+QuckStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26599392A756AAE004B119D /* AppDelegate+QuckStartView.swift */; };
 		C265993C2A756D10004B119D /* HelpMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C265993B2A756D10004B119D /* HelpMenu.swift */; };
+		C265993E2A7589B4004B119D /* Codable+QuickStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C265993D2A7589B4004B119D /* Codable+QuickStartView.swift */; };
+		C26599402A758A12004B119D /* QuickStartData.json in Resources */ = {isa = PBXBuildFile; fileRef = C265993F2A758A12004B119D /* QuickStartData.json */; };
+		C26599422A758B6C004B119D /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26599412A758B6C004B119D /* DataModel.swift */; };
 		C273B9262A5B2FB600212717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9252A5B2FB600212717 /* Constants.swift */; };
 		C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273B9272A5B32B900212717 /* DailyCheck.swift */; };
 		C2B11C932A6598A10034FA1D /* DataSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B11C922A6598A10034FA1D /* DataSelectionView.swift */; };
@@ -115,6 +118,9 @@
 		C26599372A7566F2004B119D /* QuickStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartView.swift; sourceTree = "<group>"; };
 		C26599392A756AAE004B119D /* AppDelegate+QuckStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+QuckStartView.swift"; sourceTree = "<group>"; };
 		C265993B2A756D10004B119D /* HelpMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpMenu.swift; sourceTree = "<group>"; };
+		C265993D2A7589B4004B119D /* Codable+QuickStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+QuickStartView.swift"; sourceTree = "<group>"; };
+		C265993F2A758A12004B119D /* QuickStartData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = QuickStartData.json; sourceTree = "<group>"; };
+		C26599412A758B6C004B119D /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		C273B9252A5B2FB600212717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C273B9272A5B32B900212717 /* DailyCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheck.swift; sourceTree = "<group>"; };
 		C2B11C922A6598A10034FA1D /* DataSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSelectionView.swift; sourceTree = "<group>"; };
@@ -290,6 +296,7 @@
 		C2636F802A585D4D0091BE7D = {
 			isa = PBXGroup;
 			children = (
+				C265993F2A758A12004B119D /* QuickStartData.json */,
 				C2636F8B2A585D4E0091BE7D /* Rates */,
 				C2636F8A2A585D4E0091BE7D /* Products */,
 			);
@@ -355,6 +362,8 @@
 			children = (
 				C26599372A7566F2004B119D /* QuickStartView.swift */,
 				C26599392A756AAE004B119D /* AppDelegate+QuckStartView.swift */,
+				C265993D2A7589B4004B119D /* Codable+QuickStartView.swift */,
+				C26599412A758B6C004B119D /* DataModel.swift */,
 			);
 			path = QuickStartView;
 			sourceTree = "<group>";
@@ -550,6 +559,7 @@
 			files = (
 				C2636F912A585D4F0091BE7D /* Assets.xcassets in Resources */,
 				C2636F942A585D4F0091BE7D /* Main.storyboard in Resources */,
+				C26599402A758A12004B119D /* QuickStartData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +605,7 @@
 				C2C8FB222A66D1FE00DBD083 /* ViewController+HeaderColumnFilters.swift in Sources */,
 				C273B9282A5B32B900212717 /* DailyCheck.swift in Sources */,
 				C2B11C952A66048F0034FA1D /* QueryCurrencyCodeHeaders.swift in Sources */,
+				C26599422A758B6C004B119D /* DataModel.swift in Sources */,
 				C255F3052A5B8225004B7F95 /* ConvertTSV.swift in Sources */,
 				C2DC12762A6AE786000D99AB /* ViewController+RevealSavedFilePrompt.swift in Sources */,
 				C2636FA82A5882480091BE7D /* KeysExtensions.swift in Sources */,
@@ -606,6 +617,7 @@
 				C253B1B62A64747900218532 /* BackgroundBlurView.swift in Sources */,
 				C2B83CCC2A5C9E5C009763B6 /* ViewController+Filters.swift in Sources */,
 				C265993A2A756AAE004B119D /* AppDelegate+QuckStartView.swift in Sources */,
+				C265993E2A7589B4004B119D /* Codable+QuickStartView.swift in Sources */,
 				C264E5872A6EED950097CD87 /* ViewController+InteractionOverlay.swift in Sources */,
 				C255F2D92A5B556B004B7F95 /* WindowController.swift in Sources */,
 				C2B83CCE2A5C9ED4009763B6 /* ViewController+Launch.swift in Sources */,
