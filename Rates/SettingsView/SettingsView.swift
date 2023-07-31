@@ -11,11 +11,11 @@ class SharedSettings: ObservableObject {
   
   @Published var showExchangeRateDataOnLaunch = false
   
-  @Published var dontShowIntroViewOnLaunch: Bool {
-    didSet { UserDefaults.standard.set(cutOffYear, forKey: "dontShowIntroViewOnLaunchDefaultsKey") }
-  }
   @Published var cutOffYear: String {
     didSet { UserDefaults.standard.set(cutOffYear, forKey: "cutOffYearDefaultsKey") }
+  }
+  @Published var dontShowIntroViewOnLaunch: Bool {
+    didSet { UserDefaults.standard.set(dontShowIntroViewOnLaunch, forKey: "dontShowIntroViewOnLaunchDefaultsKey") }
   }
   
   init() {
