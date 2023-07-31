@@ -39,12 +39,13 @@ struct FirstLaunchIntroView: View {
       HStack {
         
         Button(action: {
-          // Back one slide if available, do nothing if not
-          // Set color to .foregroundColor(.accentColor) if back one slide is available, set to .foregroundColor(.secondary) if not
+          // slidesData[currentSlide-1] : back one slide slide if available, do nothing if not
         }) {
           Image(systemName: "chevron.left.square.fill")
-            .font(.system(size: 18))
-            .foregroundColor(.secondary)
+            .font(.system(size: 24))
+            // if one slide back is not available (currentSlide == slidesData.first) set foregroundColor .secondary.opacity(0.4)
+            // otherwise, set foregroundColor .secondary
+            .foregroundColor(.secondary.opacity(0.4))
         }
         .buttonStyle(.plain)
         
@@ -56,17 +57,19 @@ struct FirstLaunchIntroView: View {
         Spacer()
         
         Button(action: {
-          // Forward one slide if available, do nothing if not
-          // Set color to .foregroundColor(.accentColor) if forward one slide is available, set to .foregroundColor(.secondary) if not
+          // slidesData[currentSlide+1] : forward one slide slide if available, do nothing if not
         }) {
           Image(systemName: "chevron.right.square.fill")
-            .font(.system(size: 18))
+            .font(.system(size: 24))
+          // if one slide forward is not available (currentSlide == slidesData.last) set foregroundColor .secondary.opacity(0.4)
+          // otherwise, set foregroundColor .secondary
             .foregroundColor(.secondary)
         }
         .buttonStyle(.plain)
         
       }
-      .padding(6)
+      .padding(.vertical, 6)
+      .padding(.horizontal, 12)
       
       Divider()
       
