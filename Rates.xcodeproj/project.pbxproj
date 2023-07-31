@@ -309,7 +309,6 @@
 		C2636F802A585D4D0091BE7D = {
 			isa = PBXGroup;
 			children = (
-				C265993F2A758A12004B119D /* QuickStartData.json */,
 				C2636F8B2A585D4E0091BE7D /* Rates */,
 				C2636F8A2A585D4E0091BE7D /* Products */,
 			);
@@ -374,6 +373,7 @@
 		C26599362A7564B3004B119D /* QuickStartView */ = {
 			isa = PBXGroup;
 			children = (
+				C265993F2A758A12004B119D /* QuickStartData.json */,
 				C26599372A7566F2004B119D /* QuickStartView.swift */,
 				C26599392A756AAE004B119D /* AppDelegate+QuckStartView.swift */,
 				C265993D2A7589B4004B119D /* Codable+QuickStartView.swift */,
