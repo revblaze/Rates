@@ -13,7 +13,7 @@ struct FirstLaunchIntroViewData {
   static let slide1 = ["IntroSlide1", "Import a spreadsheet or data file with transaction dates, amounts and currencies."]
   static let slide2 = ["IntroSlide2", "Rates will automatically attempt to identify the correct columns. Click Convert!"]
   static let slide3 = ["IntroSlide3", "Select the currency you wish to convert to. You can do this multiple times!"]
-  static let slide4 = ["IntroSlide4", "Tidy up your new sheet with filters – totally optional!"]
+  static let slide4 = ["IntroSlide4", "Tidy up your new sheet with table filters. Totally optional!"]
   static let slide5 = ["IntroSlide5", "Save your file in whatever format works best for you."]
 }
 
