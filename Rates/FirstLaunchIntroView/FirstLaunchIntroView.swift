@@ -90,7 +90,8 @@ struct FirstLaunchIntroView: View {
         
         Spacer()
         
-        Button("Dismiss") {
+        Button("Close Until Next Launch") {
+          //sharedSettings.dontShowIntroViewOnLaunch = false
           onDismiss()
         }
         .keyboardShortcut(.defaultAction)

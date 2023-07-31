@@ -49,9 +49,17 @@ class ViewController: NSViewController {
   }
   
   override func viewDidAppear() {
+    showIntroSheetViewOnFirstLaunchIfApplicable()
+    
     if !appDidLaunch {
       beginLaunchSession()
       appDidLaunch = true
+    }
+  }
+  
+  func showIntroSheetViewOnFirstLaunchIfApplicable() {
+    if sharedSettings.dontShowIntroViewOnLaunch != true {
+      presentFirstLaunchIntroViewAsSheet()
     }
   }
   
