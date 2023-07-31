@@ -13,7 +13,7 @@ struct Constants {
   static let minimumWindowWidth = CGFloat(735)
   static let minimumWindowHeight = CGFloat(500)
   static let minimumViewControllerContentWidth = CGFloat(735)
-  static let minimumViewControllerContentHeight = CGFloat(500)
+  static let minimumViewControllerContentHeight = CGFloat(600)
   
   // MARK: TableView Values
   /// The value for cells which were unable to be converted for whatever reason.
@@ -64,6 +64,8 @@ struct Constants {
   static let saveFileViewHostingControllerIdentifier = "SaveFileViewHostingController"
   
   static let quickStartViewHostingControllerIdentifier = "QuickStartViewHostingController"
+  
+  static let firstLaunchIntroViewHostingControllerIdentifier = "FirstLaunchIntroViewHostingController"
   
   
   // MARK: - Utility Constants

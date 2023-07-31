@@ -8,17 +8,20 @@
 import SwiftUI
 
 class SharedSettings: ObservableObject {
+  
   @Published var showExchangeRateDataOnLaunch = false
   
   @Published var cutOffYear: String {
-      didSet {
-        UserDefaults.standard.set(cutOffYear, forKey: "cutOffYear")
-      }
-    }
-    
-    init() {
-      self.cutOffYear = UserDefaults.standard.string(forKey: "cutOffYear") ?? Constants.defaultCutOffYearString
-    }
+    didSet { UserDefaults.standard.set(cutOffYear, forKey: "cutOffYearDefaultsKey") }
+  }
+  @Published var dontShowIntroViewOnLaunch: Bool {
+    didSet { UserDefaults.standard.set(dontShowIntroViewOnLaunch, forKey: "dontShowIntroViewOnLaunchDefaultsKey") }
+  }
+  
+  init() {
+    self.cutOffYear = UserDefaults.standard.string(forKey: "cutOffYearDefaultsKey") ?? Constants.defaultCutOffYearString
+    self.dontShowIntroViewOnLaunch = UserDefaults.standard.bool(forKey: "dontShowIntroViewOnLaunchDefaultsKey")
+  }
 }
 
 struct SettingsView: View {

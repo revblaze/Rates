@@ -702,6 +702,13 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="OkO-N2-TCc"/>
+                                        <menuItem title="Introduction to Rates" id="Tnx-Kt-8L6">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="introductionMenuItemAction:" target="Voe-Tx-rLC" id="4oa-We-tfU"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="mef-48-TcB"/>
                                         <menuItem title="Quick Start Guide" keyEquivalent="g" allowsKeyEquivalentWhenHidden="YES" id="fxA-Bj-cT8">
                                             <connections>
                                                 <action selector="quickStartGuideMenuItemAction:" target="Voe-Tx-rLC" id="vpS-Oq-bWw"/>
