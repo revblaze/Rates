@@ -9,12 +9,13 @@ import SwiftUI
 
 struct FirstLaunchIntroViewData {
   
-  static let slidesData = [slide1, slide2, slide3, slide4]
+  static let slides = [slide1, slide2, slide3, slide4, slide5]
   
-  static let slide1 = ["slide1ImageFileName", "slide1 description text"]
-  static let slide2 = ["slide2ImageFileName", "slide2 description text"]
-  static let slide3 = ["slide3ImageFileName", "slide3 description text"]
-  static let slide4 = ["slide4ImageFileName", "slide4 description text"]
+  static let slide1 = ["IntroSlide1", "Import a spreadsheet or data file with transaction dates, amounts and currencies."]
+  static let slide2 = ["IntroSlide2", "Rates will automatically attempt to identify the correct columns. Click Convert!"]
+  static let slide3 = ["IntroSlide3", "Select the currency you wish to convert to. You can do this multiple times!"]
+  static let slide4 = ["IntroSlide4", "Tidy up your new sheet with filters – totally optional!"]
+  static let slide5 = ["IntroSlide5", "Save your file in whatever format works best for you."]
   
 }
 
@@ -22,15 +23,12 @@ struct FirstLaunchIntroView: View {
   @ObservedObject var sharedSettings: SharedSettings
   var onDismiss: () -> Void
   
-  init(sharedSettings: SharedSettings, onDismiss: @escaping () -> Void) {
-    self.sharedSettings = sharedSettings
-    self.onDismiss = onDismiss
-  }
+  @State private var currentSlideIndex = 0
   
   var body: some View {
     VStack {
       HStack {
-        Image("IntroScreen1")
+        Image(FirstLaunchIntroViewData.slides[currentSlideIndex][0])
           .resizable()
           .aspectRatio(contentMode: .fit)
       }
@@ -39,31 +37,31 @@ struct FirstLaunchIntroView: View {
       HStack {
         
         Button(action: {
-          // slidesData[currentSlide-1] : back one slide slide if available, do nothing if not
+          if currentSlideIndex > 0 {
+            currentSlideIndex -= 1
+          }
         }) {
           Image(systemName: "chevron.left.square.fill")
             .font(.system(size: 24))
-            // if one slide back is not available (currentSlide == slidesData.first) set foregroundColor .secondary.opacity(0.4)
-            // otherwise, set foregroundColor .secondary
-            .foregroundColor(.secondary.opacity(0.4))
+            .foregroundColor(currentSlideIndex > 0 ? .secondary : .secondary.opacity(0.4))
         }
         .buttonStyle(.plain)
         
         Spacer()
         
-        Text("Describing text here")
+        Text(FirstLaunchIntroViewData.slides[currentSlideIndex][1])
           .fixedSize(horizontal: false, vertical: true)
         
         Spacer()
         
         Button(action: {
-          // slidesData[currentSlide+1] : forward one slide slide if available, do nothing if not
+          if currentSlideIndex < FirstLaunchIntroViewData.slides.count - 1 {
+            currentSlideIndex += 1
+          }
         }) {
           Image(systemName: "chevron.right.square.fill")
             .font(.system(size: 24))
-          // if one slide forward is not available (currentSlide == slidesData.last) set foregroundColor .secondary.opacity(0.4)
-          // otherwise, set foregroundColor .secondary
-            .foregroundColor(.secondary)
+            .foregroundColor(currentSlideIndex < FirstLaunchIntroViewData.slides.count - 1 ? .secondary : .secondary.opacity(0.4))
         }
         .buttonStyle(.plain)
         
@@ -95,9 +93,3 @@ struct FirstLaunchIntroView: View {
     .frame(minWidth: 600)
   }
 }
-
-//struct FirstLaunchIntroView_Previews: PreviewProvider {
-//  static var previews: some View {
-//    FirstLaunchIntroView()
-//  }
-//}
