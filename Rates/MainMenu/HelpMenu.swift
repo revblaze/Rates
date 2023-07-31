@@ -13,4 +13,10 @@ extension AppDelegate {
     presentQuickStartViewAsWindow()
   }
   
+  @IBAction func introductionMenuItemAction(_ sender: NSMenuItem) {
+    performActionOnViewController { viewController in
+      viewController.presentFirstLaunchIntroViewAsSheet()
+    }
+  }
+  
 }

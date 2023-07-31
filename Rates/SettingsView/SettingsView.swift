@@ -8,6 +8,8 @@
 import SwiftUI
 
 class SharedSettings: ObservableObject {
+  @Published var dontShowIntroViewOnLaunch = false
+  
   @Published var showExchangeRateDataOnLaunch = false
   
   @Published var cutOffYear: String {
