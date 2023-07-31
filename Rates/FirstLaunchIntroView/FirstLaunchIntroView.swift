@@ -24,6 +24,7 @@ struct FirstLaunchIntroView: View {
   var onDismiss: () -> Void
   
   @State private var currentSlideIndex = 0
+  @State private var showAlert = false
   
   var body: some View {
     VStack {
@@ -73,10 +74,19 @@ struct FirstLaunchIntroView: View {
       
       HStack {
         Button("Don't Show This Again") {
-          onDismiss()
+          //sharedSettings.dontShowIntroViewOnLaunch = true
+          showAlert = true
         }
         .keyboardShortcut(.cancelAction)
         .largeButton()
+        .alert(isPresented: $showAlert) {
+          Alert(
+            title: Text("You can always access this intro from the Help menu."),
+            dismissButton: .default(Text("OK"), action: {
+              onDismiss()
+            })
+          )
+        }
         
         Spacer()
         
